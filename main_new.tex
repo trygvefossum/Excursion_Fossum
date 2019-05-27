@@ -321,8 +321,8 @@ spatial variability and temporal elements in a similar manner.
 AUVs operate underwater used to gather spatio-temporal data from a
 targeted domain, carrying a scientific payload to survey the water
 column or the seafloor. They run at $\sim 1-3$ m/s, can reach depths
-from 100--6000m. In water staying capacity depends on survey speed,
-payload sensors and mission design. By deploying AUVs one can in
+from 100--6000m with in-water staying capacity depending on survey
+speed, payload sensors and mission design. By deploying AUVs one can in
 principle fill gaps and augment data obtained from either ocean models,
 earth observing satellite data, or fixed-location sensors on buoys due
 to their speed and mobility. Traditional operations and surveys with
@@ -333,7 +333,7 @@ algorithms to continuously evaluate, update, and refine future sampling
 locations, making information gathering adaptive \citep{das11b} is
 feasible. For instance, an AUV could reconstruct or modify a survey line
 based on what temperatures it is measuring by using embedded methods in
-decision-theoretic planning \citep{ryan10}.
+decision-theoretic planning \citep{Rajan12b}.
 
 %To improve the state of sampling, modern tools and methods, including the use of autonomous platforms, oceanographic models and satellite remote sensing, needs to be combined with traditional data acquired by surface vessels or buoys (See Fig. \ref{fig:envir}). However, without adequate understanding of the theoretical underpinnings of how, when, and where to gather data, these tools and methods are insufficient in the vast and harsh oceans.
 
@@ -360,15 +360,27 @@ decision-theoretic planning \citep{ryan10}.
 %processes acting across a wide range of spatio-temporal scales makes prioritizing sampling efforts necessary. %Autonomous robotic platforms, can address these issues by providing the ability to focus sampling efforts to %high-interest regions (``hotspots").
 
 
-Determining paths for mobile robotic sensors in order to maximize the
-information gained about an environment is formally known as informative
-path planning. This, and related problems such as the orienteering
-problem \citep{Golden87}, has been studied in the context of graphs,
-where the potential measurement are assigned to nodes on which
-evaluation of different routes can be conducted.
+% Determining paths for mobile robotic sensors in order to maximize the
+% information gained about an environment is formally known as informative
+% path planning. This, and related problems such as the orienteering
+% problem \citep{Golden87}, has been studied in the context of graphs,
+% where the potential measurement are assigned to nodes on which
+% evaluation of different routes can be conducted.
 %In this context, a fundamental result from \cite{nemhauser1978analysis} proves that a simple greedy algorithm (iteratively selecting the location which most increases the utility) can achieve a near-optimal solution if the problem can be shown to be \emph{submodular}\footnote{an intuitive diminishing returns property, where the informative value of adding sensors decrease with the number of sensors added.}. Building on this result, \cite{chekuri2005recursive} explored this in the setting of a graph using a recursive greedy algorithm, providing near-optimal solutions depending on the planning horizon and graph resolution. 
-Adaptive sampling of an evolving frontal feature has been explored in \cite{Zhang2012} and \cite{Pinto2018} using state-based autonomous agents. Both approaches use a reactive-adaptive scheme, meaning that the selection does not use a statistical model of the environment in its strategic sampling effort, but rather adapts based on detection and state switching.
-Myopic sampling, i.e. step-wise selection of the path (on the graph) which reduces the information criterion the most, has been used for adaptive surveying \citep{singh2009efficient,Binney2013}. These exploration strategies focus largely on reducing predictive variance or mutual information (entropy). Because the variance and entropy reduction are independent of the actual data realizations under the assumption of GP models, the use of data-driven (adaptive) criteria was introduced to include more targeted sampling of interesting regions (hotspot sampling) by \cite{Low2009} and \cite{fossuminformation}. 
+Adaptive sampling of an evolving frontal feature has been explored in
+\cite{fronts11,Zhang2012,Pinto2018,costa19} using state-based autonomous
+agents. These approaches typically use a reactive-adaptive scheme,
+whereby exploration does not rely on a statistical model of the
+environment, but rather adapts based on closing the sensing and
+actuation loop. Myopic sampling, i.e. step-wise selection of the path
+(on the graph) which reduces the information criterion the most, has
+been used for adaptive surveys \citep{singh2009efficient,Binney2013} which
+focus largely on reducing predictive variance or mutual information
+(entropy). Because the variance and entropy reduction are independent of
+the actual data realizations under the assumption of GP models, the use
+of data-driven (adaptive) criteria was introduced to include more
+targeted sampling of interesting regions (hotspot sampling) by
+\cite{Low2009} and \cite{fossuminformation}.
 
 
 %\begin{figure}[h]
@@ -389,7 +401,11 @@ Myopic sampling, i.e. step-wise selection of the path (on the graph) which reduc
 
 \subsection{Notation and excursion sets}
 
-In our setting we study two variables; temperature and salinity, which together characterize the phenomenon taking place in the river plume. At location $\bx \in \mathcal{M} \subset \mathbf{R^2}$, we define the two process variables by $\bxi(\bx)=(\xi_a(\bx),\xi_b(\bx))$. %In practice there is of course time variability, but we assume this to be negligible during the AUV operation. Depth variability could also be important in some cases, but in the current application the with depths only a few meters this is considered irrelevant for mapping the phenomenon. 
+In our setting we study two variables; temperature and salinity, which
+together characterize the phenomenon taking place in the river plume. At
+location $\bx \in \mathcal{M} \subset \mathbf{R^2}$, we define the two
+process variables by
+$\bxi(\bx)=(\xi_a(\bx),\xi_b(\bx))$. %In practice there is of course time variability, but we assume this to be negligible during the AUV operation. Depth variability could also be important in some cases, but in the current application the with depths only a few meters this is considered irrelevant for mapping the phenomenon.
 
 In the context illustrated by Figure \ref{fig:river4}, interest is on spatial separation of cold freshwater. 
 Because a main goal is classifying the water masses, ES variability is a useful sampling criterion for guiding the observation effort of the AUV. 
