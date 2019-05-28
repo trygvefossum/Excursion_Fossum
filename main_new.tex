@@ -403,23 +403,25 @@ include more targeted sampling of regions of scientific interest by
 
 In our setting we study two variables; temperature and salinity, which
 together characterize the phenomenon taking place in the river plume as
-they define the gradients which define the frontal zone we wish to
-observe. At location $\bx \in \mathcal{M} \subset \mathbf{R^2}$, we
-define the two process variables by
+they define the gradients defining the frontal zone. At location
+$\bx \in \mathcal{M} \subset \mathbf{R^2}$, we define the two process
+variables by
 $\bxi(\bx)=(\xi_a(\bx),\xi_b(\bx))$. %In practice there is of course time variability, but we assume this to be negligible during the AUV operation. Depth variability could also be important in some cases, but in the current application the with depths only a few meters this is considered irrelevant for mapping the phenomenon.
 
 % In the context illustrated by Figure \ref{fig:river4},
 Our focus is on spatial separation of cold freshwater from the saline
 waters of the fjord and to be able to classify these water masses. In
 this context, ES variability is a useful sampling criterion for guiding
-the observation effort of the AUV. A bivariate ES is defined via joint
-variables being below thresholds, at individual locations, for the
-process over the spatial domain $\mathcal{M}$. Denoting the threshold
-for temperature by $T_a$ and the threshold for salinity by $T_b$, we use
-the following definition;
+the observational effort of the AUV. A bivariate ES is defined via joint
+variables \kcomment{'being below thresholds' -- is this correct?}, at
+individual locations, for the process over $\mathcal{M}$. If $T_a$ is
+the threshold for temperature and $T_b$ the threshold for salinity,
+we use the following definition:
+
  \begin{equation}\label{ES}
      \mbox{ES} = \{\bx \in \mathcal{M} | \xi_a(\bx) < T_a,\xi_b(\bx) < T_b\}.
  \end{equation}
+
 The excursions could also be defined as larger than threshold, or within a boundary of limits for the two variables. Calculations and interpretations will be similar in these different cases. 
 
 The ES is defined by random indicator variables, and the associated EPs become 
