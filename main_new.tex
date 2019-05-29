@@ -86,9 +86,9 @@
   for efficient spatial sampling using autonomous robotic platforms,
   where the goal is to map the regions of cold and fresh water near a
   river mouth. Specifically, we define a design criterion based on
-  reducing uncertainty of excursion sets in the context of multivariate
+  reducing uncertainty in excursion sets of multivariate
   random fields. We develop analytical expressions for the expected
-  variance reduction in excursion sets, and show how these can be
+  variance reduction in excursion set indicators, and show how these can be
   applicable for static designs and sequential designs building on
   myopic and look-ahead planning. We use simulations to study the
   properties of the suggested methods. Results from field
@@ -135,7 +135,7 @@ while studying the large spatio-temporal variation inherent to ocean
 processes, prompts the need for effective means of sampling.
 % allocation of sampling resources.
 %\begin{em}
-Sampling can, in this context, not simply be distributed uniformly
+Sampling can, in this context, not simply be distributed evenly
 ---along simple transects, grids, or ``lawn-mover" patterns--- but must
 instead be prioritized to relevant regions to ensure it is
 cost-effective while providing adequate coverage of the area of
@@ -174,13 +174,13 @@ statistical methods in design and data assimilation
 % the application domain is clearly an arena where statisticians can
 % contribute.
 % There has recently been some statistical attention in oceanography:
-Others include \cite{wikle2013modern} which % present an overview of approaches for modeling
+Others include \cite{wikle2013modern} who % present an overview of approaches for modeling
 % uncertainties in the ocean sciences with
-focuses on hierarchical statistical models; \cite{sahu2008space} studies
+focus on hierarchical statistical models; \cite{sahu2008space} study
 spatio-temporal models for sea surface temperature and salinity data,
 while
 % which will also are our key variables of interest in the current paper.
-\cite{mellucci2018oceanic} looks at the statistical prediction of
+\cite{mellucci2018oceanic} look at the statistical prediction of
 features using an underwater glider.
 %From an oceanographic perspective, interesting regions are usually directly tied to a distinct phenomena that is of scientific interest. Each phenomenon can in turn be characterized by a set of process specific conditions expressed through different measures of key environmental variables, such as temperature or salinity. One such measure is the gradient, that can be associated with a number of important processes, such as the vertical location of the thermocline and pycnocline, location of upwelling systems, vertical mixing, eddies, fronts, and currents \cite{sverdrup2006}, as well as distribution, growth, and accumulation of biological activity \cite{SatOceanSoci00, Ryan2014}. These gradients create boundaries separating the ocean into process specific regions which are of profound interest to both identify and map effectively. Quantification of gradient features is therefore a much needed competence in robotic sampling.
 The combination of statistical tools and robotic platforms is a natural
@@ -188,14 +188,14 @@ symbiosis which enables information-based sensing. Central to this is
 the ability to model spatially correlated variables and provide formal
 measures of uncertainty. By far the most practical models use Gaussian
 processes (GPs), which will also be used in our formulation, in large
-part because this approach enables evaluation and prioritization of
+part because this approach allows efficient implementation and evaluation, enabling prioritization of
 sampling efforts to be formalized into decision making systems on-board
 a robotic platform.
 %The imperfect understanding of causality coupled with the underlying fundamental uncertainty of the ocean implies that we need to obtain more measurements and use statistical models and methods to determine what and how phenomena form, to increase the quality of predictive statements. 
 
 In this work, we study excursion sets (ES) and excursion probabilities
 (EP) for spatial GPs, and the goal is to design sampling strategies for
-reducing the variance in the ES. The main contributions involve: i)
+reducing the variance in the ES indicators. The main contributions involve: i)
 extending ES-based uncertainty criteria to multivariate random fields,
 allowing the evaluation to include multiple environmental parameters
 such as temperature and salinity, ii) develop methods for informative
@@ -207,8 +207,8 @@ The remainder of the paper is organized as follows: Section \ref{sec:bg}
 provides some background on ocean sampling, as also some notation for
 ESs and EPs. Section \ref{sec:GP_EP} sets up the required assumptions of
 GPs, including bi-variate random fields for temperature and salinity.
-Section \ref{sec:sur} formulates the sampling design criteria for
-variance reduction in ESs, with analytical derivation for multivariate
+Section \ref{sec:sur} formulates the choice of sampling design criteria for
+variance reduction in ES indicators, with analytical derivation for multivariate
 spatial processes. Section \ref{sec:heuristics} builds on these sampling
 criteria to present heuristics for adaptive sampling. Section
 \ref{sec:simulations} shows results and discusses properties of the
@@ -311,10 +311,9 @@ resolution is by direct observation. At larger \emph{mesoscale} ($>50$
 km), both three-dimensional space and time dynamics are important and
 can shift substantially, while in the case of river plumes one can often
 limit scope to cover only lateral spatial elements ([north, east]
-domain). For this case, time-effects can be regarded as static when
+domain). Morover, for this case, time-effects can be regarded as static when
 acquiring AUV data over a short time window and limited region. However,
-the methodological framework can be extended to three-dimensional
-spatial variability and temporal elements in a similar manner.
+the methodological framework can be extended to higher dimensional situations in a similar manner.
 
 \subsection{Autonomous Vehicles}
 
@@ -419,14 +418,14 @@ the threshold for temperature and $T_b$ the threshold for salinity,
 we use the following definition:
 
  \begin{equation}\label{ES}
-     \mbox{ES} = \{\bx \in \mathcal{M} | \xi_a(\bx) < T_a,\xi_b(\bx) < T_b\}.
+     \mbox{ES} = \{\bx \in \mathcal{M} | \xi_a(\bx) \leq T_a,\xi_b(\bx) \leq T_b\}.
  \end{equation}
 
 The excursions could also be defined as larger than threshold, or within a boundary of limits for the two variables. Calculations and interpretations will be similar in these different cases. 
 
 The ES is defined by random indicator variables, and the associated EPs become 
 \begin{equation}\label{eq:prob}
- p(\bx) = P(\xi_a(\bx) < T_a, \xi_b(\bx) < T_b), \hspace{3mm} \bx \in \mathcal{M}.
+ p(\bx) = P(\xi_a(\bx) \leq T_a, \xi_b(\bx) \leq T_b), \hspace{3mm} \bx \in \mathcal{M}.
 \end{equation}
 The actual calculation of the EP would require a model specification. As we demonstrate below, Gaussian modeling assumptions facilitate the computation. 
 If the EPs in Eq. (\ref{eq:prob}) are close to $1$ or $0$, it is easy to classify water masses. It is more difficult if the probabilities are close to $0.5$. In this case it will likely be worthwhile gathering data to improve the classification skill. 
@@ -470,15 +469,11 @@ Moreover, we assume a stationary isotropic correlation function $\rho(\bx,\bx')=
 For implementation on the computer, we discretize the spatial domain $\mathcal{M}$ on a set of $n$ grid locations; $\mathcal{M}_g = \{\bx_i, i=1,\ldots,n \}$.
 We let $\Delta$ be the area of each cell in the regular grid.
 Using vector notation, we collect the temperature and salinity variables on the grid as
-\begin{equation}
-    \bxi=(\xi_a(\bx_1),\xi_b(\bx_1),\ldots,\xi_a(\bx_n),\xi_b(\bx_n))^t \sim \mbox{GP} (\bmu,\bSigma), \nonumber
-\end{equation}
-where the entries in length $2 n$ vector $\bmu$ hold the expected values of temperature and salinity at the grid locations, and the $2n \times 2n$ matrix $\bSigma$ holds all the covariances between temperature and salinity variables at all grid locations. 
- The joint probability density function is then
-\begin{equation}\label{prior}
-\pi(\bxi) = N(\bxi;\bmu,\bSigma) = \frac{1}{(2\pi)^{\frac{n}{2}}|\bSigma|^{\frac{1}{2}}}e^{-\frac{1}{2}(\bxi -\bmu)^T\bSigma^{-1}(\bxi - \bmu)}.
-\end{equation}
-
+\begin{eqnarray}
+    \bxi &=& (\xi_a(\bx_1),\xi_b(\bx_1),\ldots,\xi_a(\bx_n),\xi_b(\bx_n))^t, \nonumber \\
+    \pi(\bxi) &=& N(\bmu,\bSigma) = \frac{1}{(2\pi)^{n}|\bSigma|^{\frac{1}{2}}}e^{-\frac{1}{2}(\bxi -\bmu)^T\bSigma^{-1}(\bxi - \bmu)},
+\end{eqnarray}
+where $\pi(\bxi)$ is the joint density function of $\bxi$, entries in length $2 n$ vector $\bmu$ hold the expected values of temperature and salinity at the grid locations, and the $2n \times 2n$ matrix $\bSigma$ holds all the variance-covariances of temperature and salinity variables at all grid locations. 
 
 \subsection{Updating Gaussian processes}
 
@@ -489,7 +484,7 @@ We here describe one round of updating. In Section \ref{sec:heuristics} we discu
 Denote the AUV data at $m$ locations by $\by=(y_{a,1},y_{b,1},\ldots,y_{a,m},y_{b,m})^t$, representing the temperature and salinity measurements gathered along a survey line.
 Restricting attention to the grid representation, the likelihood model is described by 
 \begin{equation}\label{likelihood}
-\by | \bxi \sim GP(\by; \bA \bxi,\bR),
+\pi(\by | \bxi)=N(\bA \bxi,\bR)= \frac{1}{(2\pi)^{m}|\bR|^{\frac{1}{2}}}e^{-\frac{1}{2}(\by -\bA\bxi)^T\bR^{-1}(\by-\bA\bxi)},
 \end{equation}
 where $\bA$ is an $2m \times 2n$ matrix holding $1$ entries at the measurement indexes on the grid, and otherwise $0$ entries. The size $2m \times 2m$ covariance matrix $\bR$ is diagonal with entries $r_a$ and $r_b$ which are the measurement error variances of temperature and salinity observations. 
 
@@ -500,12 +495,15 @@ The updated distribution for temperature and salinity variables on the spatial g
 \end{eqnarray}
 The updated bivariate distribution at a grid location $\bx$ is then 
 \begin{equation}\label{gp_hat}
+\pi 
+\left(
 \begin{bmatrix}
 \xi_a(\bx) \\
 \xi_b(\bx)
 \end{bmatrix}
  |\by
- \sim N \left( 
+ \right)
+ = N \left( 
 \begin{bmatrix} m_{a}(\bx)\\
 m_{b}(\bx)
 \end{bmatrix},\begin{bmatrix}
@@ -516,13 +514,14 @@ s_{a,b}(\bx)  & s_{b}^2(\bx)
 \end{equation}
 with entries extracted from the conditional mean and covariance expressions in Eq. (\ref{gp_upd}).
 
-The conditional mean $\bm$ will be important in the following derivation in Section \ref{sec:sur}. This mean is a linear function of the data $\by$, and since the marginal distribution of the data is $\by \sim N( \bA \bmu,\bA \bSigma \bA^t+\bR)$, we get
+The conditional mean $\bm$ will be important in the following derivation in Section \ref{sec:sur}. This mean is a linear function of the data $\by$, and since the marginal distribution of the data is $\pi (\by)= N( \bA \bmu,\bA \bSigma \bA^t+\bR)$, we get
 \begin{equation}\label{distxi}
-\bm \sim N(\bmu , \bPsi), \hspace{3mm} \bPsi=\bSigma \bA^t (\bA \bSigma \bA^t+\bR)^{-1} \bA \bSigma.  
+\pi(\bm)= N(\bmu , \bPsi), \hspace{3mm} \bPsi=\bSigma \bA^t (\bA \bSigma \bA^t+\bR)^{-1} \bA \bSigma.  
 \end{equation}
 When considering only grid location $\bx$, we can extract elements from the mean vector and covariance matrix to get the bivariate distribution as follows 
 \begin{equation}\label{dist_mxi}
-\bm(\bx) \sim N 
+\pi \left( \bm(\bx) \right) 
+= N 
 \left( 
 \begin{bmatrix}
 \mu_{a}(\bx) \\
@@ -540,7 +539,7 @@ When considering only grid location $\bx$, we can extract elements from the mean
 
 Based on the Gaussian modeling assumptions, the EPs in Eq. (\ref{eq:prob}) can be computed at any location $\bx$. Without additional data, we have
 \begin{eqnarray}\label{eq:prob_mv0}
- p(\bx) &=& P(\xi_a(\bx) < T_a, \xi_b(\bx) < T_b) \nonumber \\
+ p(\bx) &=& P(\xi_a(\bx) \leq T_a, \xi_b(\bx) \leq T_b) \nonumber \\
  &=& \Phi_2 \begin{pmatrix} 
 \begin{bmatrix} T_a\\
 T_b
@@ -556,7 +555,7 @@ where $\Phi_2$ is the bivariate Gaussian cumulative distribution function, and t
 
 When data $\by$ is available, we similarly get
 \begin{eqnarray}\label{eq:prob_mv}
- p(\bx;\by) &=& P(\xi_a(\bx) < T_a, \xi_b(\bx) < T_b |\by) 
+ p(\bx;\by) &=& P(\xi_a(\bx) \leq T_a, \xi_b(\bx) \leq T_b |\by) 
  \nonumber \\
  &=& \Phi_2 \begin{pmatrix} 
 \begin{bmatrix} T_a\\
@@ -575,15 +574,16 @@ For one particular dataset, the probability $p(\bx;\by)$ can be closer to $0.5$ 
 
 \section{Uncertainty reduction on excursion sets}\label{sec:sur}
 
-\subsection{Variance in excursion set}
+\subsection{Variance in excursion set indicators}
 
 Regions with temperatures or salinity that surpasses the thresholds with a large margin (e.g. very high/low temperatures) are not interesting, unless the uncertainty at these locations is very large. The objective will therefore be to explore regions where the process variables are close to the thresholds. With this mind, it is valuable to explore locations $\bx$ where $p(\bx) \approx 0.5$. This is what gives the maximum variance $p(\bx) (1-p(\bx))$ in the indicator for the ES. 
 
-Consider then a measure as follows:
+Consider then an integrated measure as follows:
 \begin{equation}\label{measVAR}
     V = \int_{\bx \in \mathcal{M}} p(\bx) \left(1-p(\bx)\right) d\bx \approx \sum_{x \in \mathcal{M}_g} p(\bx) \left(1-p(\bx)\right) \Delta.
 \end{equation}
 The measure is dominated by location having probabilities close to $0.5$. 
+(Note that \cite{Bect2019} call this the integrated Bernoulli variance.)
 
 Considering one location only, we study the effect of different correlation $\gamma$ and prior variance. 
 Figure \ref{illus_bivarDens} shows contour plots of three different densities. Here, the temperature mean is $T_a=5^o$ and salinity mean is $T_b=30$ mg/l. The thresholds are identical to these means. The variables have unit variance and different correlation (low, medium and high).
@@ -620,12 +620,12 @@ To evaluate AUV data sampling paths, it is hence natural to evaluate the expecte
 \begin{eqnarray}\label{sur}
     V_{\mbox{upd}} &=& \int_{\bx \in \mathcal{M}} E_{\by} \left\{ p(\bx;\by)\left( 1-p(\bx;\by)\right) \right\} d\bx \\
     & \approx & \sum_{\bx \in \mathcal{M}_g} E_{\by} \left\{ p(\bx;\by)\left( 1-p(\bx;\by)\right) \right\} \Delta, \nonumber \\
-    p(\bx;\by) &=& P(\xi_a(\bx) < T_a, \xi_b(\bx) < T_b |\by), \nonumber
+    p(\bx;\by) &=& P(\xi_a(\bx) \leq T_a, \xi_b(\bx) \leq T_b |\by), \nonumber
 \end{eqnarray}
 where the conditional probability is defined in Eq. (\ref{eq:prob_mv}).
 
 We will next derive closed form solutions to the expectation in (\ref{sur}). A critical
-element in the derivation is the GP model, and the linear dependence on data $\by$, which means that we have a closed form Gaussian distribution for the conditional mean in Eq. (\ref{dist_mxi}). This means that the high-dimensional inner integral in Eq. (\ref{sur}) reduces to a univariate integral \citep{bhattacharjya2013value, chevalier2014fast}. 
+element in the derivation is the GP model, and the linear dependence on data $\by$, which means that we have a closed form Gaussian distribution for the conditional mean in Eq. (\ref{dist_mxi}). This means that the high-dimensional inner integral in Eq. (\ref{sur}) reduces to a bivariate integral \citep{bhattacharjya2013value, chevalier2014fast}. The end result then relies on calls to the multivariate Gaussian cumulative distribution function for calculation of orthant probabilities. 
 
 Table \ref{tab:sim_rhoab} (bottom two rows) shows results of doing such calculations, for different correlation $\gamma$ and standard deviations (left and right). Here, the expected variances are computed for both data types $(y_a,y_b)$, and for temperature measurements $y_a$ alone. With both data; $(y_a,y_b)^t=(\xi_a,\xi_b)^t+N(0,0.5^2\bI)$, while $y_a=\xi_a+N(0,0.5^2)$ when only temperature is measured.
 The results in Table \ref{tab:sim_rhoab} shows that 
@@ -641,7 +641,7 @@ $Z_a=\frac{\xi_a-m_{a}}{s_{a}}$,
 $Z_b=\frac{\xi_b-m_{b}}{s_{b}}$; 
 then
 \begin{eqnarray}
-   P(\xi_a < T_a, \xi_b < T_b|\by) &=& P \left( Z_a <\frac{T_a-m_{a}}{s_{a}}, Z_b <\frac{T_b-m_{b}}{s_{b}}|\by \right) \nonumber \\
+   P(\xi_a \leq T_a, \xi_b \leq T_b|\by) &=& P \left( Z_a \leq\frac{T_a-m_{a}}{s_{a}}, Z_b \leq\frac{T_b-m_{b}}{s_{b}}|\by \right) \nonumber \\
    &=& \Phi_2 \begin{pmatrix} 
 \begin{bmatrix} \frac{T_a-m_{a}}{s_{a}}\\
 \frac{T_b-m_{b}}{s_{b}}
@@ -652,26 +652,26 @@ then
 1 & \eta_{s,t}  \\
 \eta_{s,t}   & 1  
 \end{bmatrix}\end{pmatrix} \nonumber \\
-&=& P(\xi_a < T_a, \xi_b < T_b|\bm),
+&=& P(\xi_a \leq T_a, \xi_b \leq T_b|\bm),
 \end{eqnarray}
 where $\eta_{a,b} =s_{a,b}/(s_{a} s_{b})$ is defined in Eq. (\ref{eq:prob_mv}).
 Since the expression only depends on $\by$ via $\bm$, the expectation in Eq. (\ref{sur}) is reduced to a bivariate integral over $\bm$ (which will vary for each integrand term, because the locations differ). 
 
 The expected variance can now be written as
 \begin{eqnarray}\label{eq:var2}
-E_{\by}(p[1-p]) &=& E_{\bm}(p[1-p]), \hspace{3mm} p=P(\xi_a < T_a, \xi_b < T_b|\bm) \nonumber \\
+E_{\by}(p[1-p]) &=& E_{\bm}(p[1-p]), \hspace{3mm} p=P(\xi_a \leq T_a, \xi_b \leq T_b|\bm) \nonumber \\
 E_{\bm}(p[1-p]) & = & \int p[1-p] p(\bm) d\bm, \nonumber \\
- &=& \int P(\xi_a < T_a, \xi_b < T_b|\bm)  p(\bm) d\bm \nonumber  \\
-&-& \int P(\xi_a < T_a, \xi_b < T_b|\bm) P(\xi_a < T_a, \xi_b < T_b|\bm) p(\bm) d\bm, 
+ &=& \int P(\xi_a \leq T_a, \xi_b \leq T_b|\bm)  p(\bm) d\bm \nonumber  \\
+&-& \int P(\xi_a \leq T_a, \xi_b \leq T_b|\bm) P(\xi_a \leq T_a, \xi_b \leq T_b|\bm) p(\bm) d\bm, 
 \end{eqnarray}
 where the integral is split in two components.
-We will next extend results of \cite{chevalier2014fast} to solve for these two parts.
+We will next extend results of \cite{chevalier2014fast} to solve for these two parts (see also \cite{stroh} who mentioned the possibilities of such extensions). 
 
 Considering part I of expression (\ref{eq:var2}), we have
 \begin{equation}\label{part1:phi2}
- \int P(\xi_a < T_a, \xi_b < T_b|\bm) p(\bm) d\bm= 
-P \left( Z_{a} < \frac{T_a-m_{a}}{s_{a}}, 
-Z_{b} < \frac{T_b-m_{b}}{s_{b}} \right), \nonumber
+ \int P(\xi_a \leq T_a, \xi_b \leq T_b|\bm) p(\bm) d\bm= 
+P \left( Z_{a} \leq \frac{T_a-m_{a}}{s_{a}}, 
+Z_{b} \leq \frac{T_b-m_{b}}{s_{b}} \right), \nonumber
 \end{equation}
 where $\bZ=(Z_{a},Z_{b})$ is a bivariate zero-mean and unit-variance Gaussian vector, with $\mbox{Corr}(Z_{a},Z_{b})=\eta_{a,b}$. Moreover, $\bZ$ is chosen to be independent of $\bm$. Using Eq. (\ref{dist_mxi}) we have
 \begin{equation}
@@ -680,8 +680,8 @@ where $\bZ=(Z_{a},Z_{b})$ is a bivariate zero-mean and unit-variance Gaussian ve
 \end{equation}
 and the same holds for the salinity part with subscript $b$. From this calculation, we get
 \begin{eqnarray}\label{two_parts0}
-& P & \left( Z_{a} < \frac{T_a-m_{a}}{s_{a}}, 
-Z_{b} < \frac{T_b-m_{b}}{s_{b}} \right) \\
+& P & \left( Z_{a} \leq \frac{T_a-m_{a}}{s_{a}}, 
+Z_{b} \leq \frac{T_b-m_{b}}{s_{b}} \right) \\
 &=& \Phi_2 \begin{pmatrix} 
 \begin{bmatrix} 0\\
 0
@@ -696,10 +696,10 @@ s_{a,b}+\psi_{a,b}   & s^2_a+ \psi^2_{a}
 
 For part II of expression (\ref{eq:var2}), standardization means that
 \begin{eqnarray}\label{part1:phi4}
-&& \int P(\xi_a < T_a, \xi_b < T_b|\bm) P(\xi_a < T_a, \xi_b < T_b|\bm) p(\bm) d\bm_{\xi}= \nonumber \\
-&& P\left( Z_{1,a} < \frac{T_a-m_{a}}{s_{a}}, 
-Z_{1,b} < \frac{T_b-m_{b}}{s_{b}},Z_{2,b} < \frac{T_a-m_{a}}{s_{a}}, 
-Z_{2,b} < \frac{T_b-m_{b}}{s_{b}} \right). \nonumber
+&& \int P(\xi_a \leq T_a, \xi_b \leq T_b|\bm) P(\xi_a \leq T_a, \xi_b \leq T_b|\bm) p(\bm) d\bm_{\xi}= \nonumber \\
+&& P\left( Z_{1,a} \leq \frac{T_a-m_{a}}{s_{a}}, 
+Z_{1,b} \leq \frac{T_b-m_{b}}{s_{b}},Z_{2,b} \leq \frac{T_a-m_{a}}{s_{a}}, 
+Z_{2,b} \leq \frac{T_b-m_{b}}{s_{b}} \right). \nonumber
 \end{eqnarray}
 Here,
 $\bZ_1=(Z_{1,a},Z_{1,b})$, $\bZ_2=(Z_{2,a},Z_{2,b})$ are independent bivariate zero-mean and unit-variance Gaussian vectors, both with element-wise correlation
@@ -763,9 +763,9 @@ The solution to part II is then to evaluate a four-variable cumulative distribut
 \end{equation}
 and the part II calculation becomes
 \begin{eqnarray}\label{part1:phi4}
-&& P \left( Z_{1,a} < \frac{T_a-m_{a}}{s_{a}}, 
-Z_{1,b} < \frac{T_b-m_{b}}{s_{b}},Z_{2,b} < \frac{T_a-m_{a}}{s_{a}}, 
-Z_{2,b} < \frac{T_b-m_{b}}{s_{b}} \right)  \\
+&& P \left( Z_{1,a} \leq \frac{T_a-m_{a}}{s_{a}}, 
+Z_{1,b} \leq \frac{T_b-m_{b}}{s_{b}},Z_{2,b} \leq \frac{T_a-m_{a}}{s_{a}}, 
+Z_{2,b} \leq \frac{T_b-m_{b}}{s_{b}} \right)  \\
 &=&  \Phi_4 
 \begin{pmatrix} 
 \begin{bmatrix} T_a\\
@@ -787,7 +787,7 @@ In our application with temperature and salinity, the solutions to the complex i
 
 The equations derived in the previous section can be generalized to such $K$-variable cases. We then define $\bxi(\bx)=(\xi_1(\bx),\ldots,\xi_K(\bx))$, and the expected variance in the ES is
 \begin{equation}\label{two_partsK}
-E_y(p[1-p]) = \int p[1-p] p(\by) d\by, \hspace{3mm} P(\xi_k < T_k ; k=1,\ldots,K|\by). 
+E_y(p[1-p]) = \int p[1-p] p(\by) d\by, \hspace{3mm} P(\xi_k \leq T_k ; k=1,\ldots,K|\by). 
 \end{equation}
 By the first key result of linear combination of Gaussian variables, we reduce the integral to a $K$ dimensional integral of the relevant $\bm=E(\bxi(\bx)|\by)$. Next, reducing the integral to two parts, we standard the variables in each and compute cumulative distributions. 
 In summary, we get 
@@ -825,7 +825,7 @@ where $\bS$ and $\bPsi$ are direct $K$-variate extensions of the matrices entrie
 %See also \cite{bhattacharjya2013value}.
 
 %\begin{equation}
-%E(\min \{ p,(1-p)\})=\int \min P(\xi_a < t, \xi_b < s),[1-P(\xi_a < t, \xi_b < s)] p(E(\bxi)=) dE(\bxi)=,
+%E(\min \{ p,(1-p)\})=\int \min P(\xi_a \leq t, \xi_b \leq s),[1-P(\xi_a \leq t, \xi_b \leq s)] p(E(\bxi)=) dE(\bxi)=,
 %\end{equation}
 %for the complementary probabilities, this is again evaluated by the corner regions for the block, and $\Phi_4()$ evaluations are required.
 
@@ -841,7 +841,7 @@ Considering a set $\mathcal{J}$ of possible designs for a survey. A criterion fo
 \begin{equation}\label{crit}
     j^* = \mbox{argmin}_{j \in \mathcal{J}} V_{\mbox{upd}}(j),
 \end{equation}
-where the criterion $V_{\mbox{upd}}(j)$ in Eq. (\ref{sur}) is computed for each of the possible designs.
+where the criterion $V_{\mbox{upd}}(j)$ in Eq. (\ref{sur}) is computed for each of the possible designs. 
 In practice, a survey is split in many stages, giving opportunities for sequential adaption of the AUV path. This means that the optimal survey design is found by considering not only the best current AUV line, but also what data gathered along this line would lead to for future sampling at the next stages. 
 
 Let $d^{j,n}$ denote design number $j$ at stage $s$ of sequential surveying. If this design is selected, data $\by^{j,s}$ will be gathered. The optimal path selection situation is then depicted in Figure \ref{fig:PathSelOpt}, 
@@ -881,7 +881,7 @@ The next batch of measurements $\by^{j,s}$, can be  gathered with design $j=1,\l
 \begin{eqnarray}\label{critSEQ}
     d^{*,s} &=& \mbox{argmin}_{j \in \mathcal{J}} \left\{ V_{m,\mbox{upd,j}} \right\},  \\
 V_{m,\mbox{upd}} & \approx & \sum_{\bx \in \mathcal{M}_g} E_{\by^{j,s}|\mathcal{Y}^{s-1}} \left\{ p(\bx;\mathcal{Y}^{j,s})\left( 1-p(\bx;\mathcal{Y}^{j,s})\right) \right\} \Delta \nonumber \\
-    p(\bx;\mathcal{Y}^{j,s}) &=& P(\xi_a(\bx) < T_a, \xi_b(\bx) < T_b |\by^{j,s},\mathcal{Y}^{s-1}). \nonumber
+    p(\bx;\mathcal{Y}^{j,s}) &=& P(\xi_a(\bx) \leq T_a, \xi_b(\bx) \leq T_b |\by^{j,s},\mathcal{Y}^{s-1}). \nonumber
 \end{eqnarray}
 
 Note that this strategy gives a sequential conditional version of the formula in Eq. (\ref{sur}). Now $\mathcal{Y}^{s-1}$ is available, and the expectation is with respect to the conditional distribution $p(\by^{j,s}|\mathcal{Y}^{s-1})$. The same closed form calculation is hence applicable in Eq. (\ref{critSEQ}), using the updated GP model from step $s-1$. 
@@ -902,7 +902,7 @@ The selected design is then
     d^{*,n} &=& \mbox{argmin}_{j \in \mathcal{J}} \left\{ U_{la,\mbox{upd,j}} \right\},  \\
     U_{la,\mbox{upd},j} & = &  E_{\by^{j,s}|\mathcal{Y}^{s-1}} \left\{ \mbox{argmin}_{j_2 \in \mathcal{J}_2} \left[ V_{la,\mbox{upd},j_2} \right] \right\} \nonumber \\
 V_{la,\mbox{upd},j_2} & \approx & \sum_{\bx \in \mathcal{M}_g} E_{\by^{j_2,s+1}|\mathcal{Y}^{j,s}} \left\{ p(\bx;\mathcal{Y}^{j,s+1})\left( 1-p(\bx;\mathcal{Y}^{j,s+1})\right) \right\} \Delta \nonumber \\
-    p(\bx;\mathcal{Y}^{j,s+1}) &=& P(\xi_a(\bx) < T_a, \xi_b(\bx) < T_b |\by^{j_2,s+1},\mathcal{Y}^{j,s}). \nonumber
+    p(\bx;\mathcal{Y}^{j,s+1}) &=& P(\xi_a(\bx) \leq T_a, \xi_b(\bx) \leq T_b |\by^{j_2,s+1},\mathcal{Y}^{j,s}). \nonumber
 \end{eqnarray}
 Here, $\mathcal{Y}^{j,s}=\{\by^{j,s},\mathcal{Y}^{s-1}\}$ and $\mathcal{Y}^{j,s+1}=\{\by^{j_2,s+1},\mathcal{Y}^{j,s}\}$ represent the set of data variables, and the expectations are with respect to the conditional distributions $p(\by^{j,s}|\mathcal{Y}^{s-1})$ and $p(\by^{j_2,s+1}|\by^{j,s},\mathcal{Y}^{s-1})$. 
 
@@ -917,7 +917,7 @@ We here show results from tests performed to study the properties of different s
 
 \subsection{Modeling}
 
-We use a bivariate GP model for temperature and salinity, with prior mean specified by
+We use a bivariate GP model for temperature and salinity, where we specify the prior mean 
 \begin{equation}\label{m}
     \bmu(\bx)=E 
     \begin{bmatrix}
@@ -930,7 +930,7 @@ We use a bivariate GP model for temperature and salinity, with prior mean specif
 \beta_{a,1} + \beta_{b,1} x_{\mbox{East}}
 \end{bmatrix}.
 \end{equation}
-We expect the eastern part of the domain to be cold freshwater. The situation mimics that of a river mouth entering from the south, and the water masses are pulled to the east. This is imposed by setting slopes to $\beta_{a,1}=0.065$ and $\beta_{b,1}=0.1$. Further, the intercepts of the temperature and salinity variables are set to $\beta_{a,0}=5.8$ and $\beta_{b,1}=29.0$. 
+In this simulation setup, which is motivated by the real case, we expect the eastern part of the domain to be cold freshwater. This situation mimics that of a river mouth entering from the south, and the water masses are pulled to the east. The actual trends are in practiece set from preliminary information or runs of oceanographic models solving the differential equations for fluid flow. In this example the mean is specified by $\beta_{a,1}=0.065$ and $\beta_{b,1}=0.1$. Further, the intercepts of the temperature and salinity variables are set to $\beta_{a,0}=5.8$ and $\beta_{b,1}=29.0$. 
 
 %The prior assumption used by the agent are $\tilde{\beta_{a,1}}=0.085$ and $\tilde{\beta_{b,1}}=0.138$, which assumes that the process is centered. 
 
