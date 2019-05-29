@@ -421,28 +421,43 @@ we use the following definition:
      \mbox{ES} = \{\bx \in \mathcal{M} | \xi_a(\bx) \leq T_a,\xi_b(\bx) \leq T_b\}.
  \end{equation}
 
-The excursions could also be defined as larger than threshold, or within a boundary of limits for the two variables. Calculations and interpretations will be similar in these different cases. 
+ The excursions could also be defined as larger than a threshold, or
+ within a boundary of limits for the two variables. Calculations and
+ interpretations will be similar in these different cases.
 
 The ES is defined by random indicator variables, and the associated EPs become 
 \begin{equation}\label{eq:prob}
  p(\bx) = P(\xi_a(\bx) \leq T_a, \xi_b(\bx) \leq T_b), \hspace{3mm} \bx \in \mathcal{M}.
 \end{equation}
-The actual calculation of the EP would require a model specification. As we demonstrate below, Gaussian modeling assumptions facilitate the computation. 
-If the EPs in Eq. (\ref{eq:prob}) are close to $1$ or $0$, it is easy to classify water masses. It is more difficult if the probabilities are close to $0.5$. In this case it will likely be worthwhile gathering data to improve the classification skill. 
 
-There has lately been much statistical literature on ESs and EPs connected to spatial statistics \citep{french2013spatio,bolin2015excursion,french2016credible}. 
-Most of the work done is based on GPs for the spatial phenomenon, as we use here.
-Our focus in the current paper is on ES as defined in Eq. (\ref{ES}) and location-wise EPs and the uncertainty reduction that can be achieved by informative sampling. 
-In this sense our work is similar to \cite{chevalier2014fast} and \cite{azzimonti2016quantifying} who described analytical results for uncertainty reduction in ESs for univariate processes.
-One contribution of the current paper is to derive closed-form results for expectations of ESs in the situation with multivariate processes.
+The actual calculation of the EP would require a model
+specification. As we demonstrate below, Gaussian modeling assumptions
+facilitate the computation.  If the EPs in Eq. (\ref{eq:prob}) are
+close to $1$ or $0$, it is easy to classify water masses; it is
+challenging if the probabilities are close to $0.5$. In such a case it
+would be worthwhile to gather data to improve classification skill.
 
-\section{Gaussian processes and excursion probabilities}\label{sec:GP_EP}
+Recent work in statistical literature on ESs and EPs connected to
+spatial statistics includes
+\citep{french2013spatio,bolin2015excursion,french2016credible}.  Most
+are based on GPs for spatial phenomena, as in our work.  Our own focus
+is on ES as defined in Eq. (\ref{ES}) and location-wise EPs and the
+uncertainty reduction achieved by informative sampling.  In this sense
+our work is similar to \cite{chevalier2014fast} and
+\cite{azzimonti2016quantifying} who describe analytical results for
+uncertainty reduction in ESs for univariate processes.  A major
+contribution of our work is to derive closed-form results for
+expectations of ESs in the situation with multivariate processes.
 
+\section{Gaussian processes and excursion probabilities}
+\label{sec:GP_EP}
 
 \subsection{Bivariate Gaussian processes}
 
-We represent the bivariate random field of ocean temperature and salinity by a Gaussian model.
-At location $\bx \in \mathcal{M}$, the bivariate distribution is 
+We represent the bivariate random field of ocean temperature and
+salinity by a Gaussian model.  At location $\bx \in \mathcal{M}$, the
+bivariate distribution is
+
 \begin{equation}\label{gp_bar}
 \begin{bmatrix}\xi_a(\bx) \\
 \xi_b(\bx) 
