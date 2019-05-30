@@ -519,23 +519,43 @@ salinity variables at all grid locations.
 
 \subsection{Updating Gaussian processes}
 
-The GP mean and covariance in Eq. (\ref{prior}) are updated when more information gets available. 
-In our setting, the autonomous vehicle will collect a batch of temperature and salinity measurements along a survey path. After each batch, the data are assimilated to get an updated model.
-We here describe one round of updating. In Section \ref{sec:heuristics} we discuss sequential data gathering and model updating.
+The GP mean and covariance in Eq. (\ref{prior} \kcomment{citation
+  incorrect}) are updated when more information is available. In our
+setting, the autonomous vehicle will collect a batch \kcomment{what is
+  a 'batch' be explicit or use another term; 'iteration'?} of
+temperature and salinity measurements along a survey path; after each
+batch, the data is assimilated to get an updated model. We describe
+one round of updating \kcomment{where? In this section?}. In Section
+\ref{sec:heuristics} we discuss sequential data gathering and the
+model update process.
 
-Denote the AUV data at $m$ locations by $\by=(y_{a,1},y_{b,1},\ldots,y_{a,m},y_{b,m})^t$, representing the temperature and salinity measurements gathered along a survey line.
-Restricting attention to the grid representation, the likelihood model is described by 
+We denote the AUV data at $m$ locations by
+$\by=(y_{a,1},y_{b,1},\ldots,y_{a,m},y_{b,m})^t$, representing the
+temperature and salinity measurements gathered along a survey
+transect. In the grid representation, the likelihood model is
+described by:
+
 \begin{equation}\label{likelihood}
 \pi(\by | \bxi)=N(\bA \bxi,\bR)= \frac{1}{(2\pi)^{m}|\bR|^{\frac{1}{2}}}e^{-\frac{1}{2}(\by -\bA\bxi)^T\bR^{-1}(\by-\bA\bxi)},
 \end{equation}
-where $\bA$ is an $2m \times 2n$ matrix holding $1$ entries at the measurement indexes on the grid, and otherwise $0$ entries. The size $2m \times 2m$ covariance matrix $\bR$ is diagonal with entries $r_a$ and $r_b$ which are the measurement error variances of temperature and salinity observations. 
 
-The updated distribution for temperature and salinity variables on the spatial grid, given survey data $\by$, is Gaussian with mean and covariance
+where $\bA$ is an $2m \times 2n$ matrix holding '$1$'s on the
+measurement indexes on the grid, otherwise '$0$'. The size
+$2m \times 2m$ covariance matrix $\bR$ has diagonal entries $r_a$ and
+$r_b$ which are measurement error variances of temperature and
+salinity observations.
+
+The updated distribution for temperature and salinity variables on the
+spatial grid, given survey data $\by$, is Gaussian with mean and
+covariance 
+
 \begin{eqnarray}\label{gp_upd}
 \bm &=& \bmu+\bSigma \bA^t (\bA \Sigma \bA^t+\bR)^{-1}(\by-\bA \bmu),  \\
 \bS &=& \bSigma - \bSigma \bA^t (\bA \bSigma \bA^t+\bR)^{-1} \bA \bSigma.\nonumber
 \end{eqnarray}
-The updated bivariate distribution at a grid location $\bx$ is then 
+
+The updated bivariate distribution at grid location $\bx$ is then 
+
 \begin{equation}\label{gp_hat}
 \pi 
 \left(
@@ -554,26 +574,25 @@ s_{a,b}(\bx)  & s_{b}^2(\bx)
 \end{bmatrix}
 \right),
 \end{equation}
-with entries extracted from the conditional mean and covariance expressions in Eq. (\ref{gp_upd}).
 
-The conditional mean $\bm$ will be important in the following derivation in Section \ref{sec:sur}. This mean is a linear function of the data $\by$, and since the marginal distribution of the data is $\pi (\by)= N( \bA \bmu,\bA \bSigma \bA^t+\bR)$, we get
-\begin{equation}\label{distxi}
-\pi(\bm)= N(\bmu , \bPsi), \hspace{3mm} \bPsi=\bSigma \bA^t (\bA \bSigma \bA^t+\bR)^{-1} \bA \bSigma.  
-\end{equation}
-When considering only grid location $\bx$, we can extract elements from the mean vector and covariance matrix to get the bivariate distribution as follows 
-\begin{equation}\label{dist_mxi}
-\pi \left( \bm(\bx) \right) 
-= N 
-\left( 
-\begin{bmatrix}
-\mu_{a}(\bx) \\
-\mu_{b}(\bx)
-\end{bmatrix},
-\begin{bmatrix}
-\psi^2_{a}(\bx) & \psi_{a,b}(\bx)\\
-\psi_{a,b}(\bx) & \psi^2_{b}(\bx)
-\end{bmatrix}
-\right).
+with entries extracted from the conditional mean and covariance
+expressions in Eq. (\ref{gp_upd}). 
+
+% The conditional mean $\bm$ will be important in the following
+% derivation in Section \ref{sec:sur}.
+This conditional mean is a linear function of the data $\by$, and
+since the marginal distribution of the data is
+$\pi (\by)= N( \bA \bmu,\bA \bSigma \bA^t+\bR)$, we get
+\begin{equation}\label{distxi} \pi(\bm)= N(\bmu , \bPsi), \hspace{3mm}
+  \bPsi=\bSigma \bA^t (\bA \bSigma \bA^t+\bR)^{-1} \bA \bSigma.
+\end{equation} When considering only grid location $\bx$, we can
+extract elements from the mean vector and covariance matrix to get the
+bivariate distribution as follows \begin{equation}\label{dist_mxi} \pi
+  \left( \bm(\bx) \right) = N \left( \begin{bmatrix}
+      \mu_{a}(\bx) \\
+      \mu_{b}(\bx) \end{bmatrix}, \begin{bmatrix}
+      \psi^2_{a}(\bx) & \psi_{a,b}(\bx)\\
+      \psi_{a,b}(\bx) & \psi^2_{b}(\bx) \end{bmatrix} \right).
 \end{equation}
 
 
