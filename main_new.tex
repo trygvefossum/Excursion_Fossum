@@ -471,24 +471,51 @@ bivariate distribution is
 \end{bmatrix}
 \right).
 \end{equation}
-Here, the means and standard deviations are allowed to vary with location, which can be important for capturing the trends and variabilities near a river mouth. The correlation in salinity and temperature is assumed to be the same for all locations.
 
-There exist several multivariate spatial covariance functions \citep{gneiting2010matern,genton2015cross}. But in practice it has shown difficult to estimate all parameters from data. Like is often done, we assume the same correlation decay for salinity and temperature, which is not unrealistic for a river plume. We use a separable covariance function such that
+\kcomment{Explain notion, even if this is a for a Statistics journal}
+Here, the mean and standard deviation are allowed to vary with
+location, which is important for capturing the variability such as
+near a river mouth even as the correlation between salinity and
+temperature is assumed to be uniform across all locations. While there
+exist several multivariate spatial covariance functions
+\citep{gneiting2010matern,genton2015cross}, in practice it has been
+shown to be difficult to estimate all parameters from data. Typically
+we assume the same correlation decay for salinity and temperature,
+which is not unrealistic for a river plume. As a result, We use a
+separable covariance function such that:
+
 \begin{eqnarray}\label{gp_corr}
 \mbox{Cov}(\xi_a(\bx),\xi_b(\bx')) &=& \rho(\bx,\bx') \gamma \sigma_a(\bx) \sigma_b(\bx'), \\
 \mbox{Cov}(\xi_a(\bx),\xi_a(\bx')) &=& \rho(\bx,\bx') \sigma_a(\bx) \sigma_a(\bx'), \nonumber \\
 \mbox{Cov}(\xi_b(\bx),\xi_b(\bx')) &=& \rho(\bx,\bx') \sigma_b(\bx) \sigma_b(\bx'). \nonumber
 \end{eqnarray}
-Moreover, we assume a stationary isotropic correlation function $\rho(\bx,\bx')=\rho(h)$, for distance $h=\sqrt{(\bx-\bx')^t (\bx-\bx')}$.
 
-For implementation on the computer, we discretize the spatial domain $\mathcal{M}$ on a set of $n$ grid locations; $\mathcal{M}_g = \{\bx_i, i=1,\ldots,n \}$.
-We let $\Delta$ be the area of each cell in the regular grid.
-Using vector notation, we collect the temperature and salinity variables on the grid as
+\kcomment{Ditto above; presumably x' is location separate from where an
+  earlier measurement was taken?}
+
+Moreover, we assume a stationary isotropic correlation function:
+
+$\rho(\bx,\bx')=\rho(h)$ where h is the distance between $x$ and $x'$ 
+($h=\sqrt{(\bx-\bx')^t (\bx-\bx')}$).
+
+For implementation we discretize the spatial domain $\mathcal{M}$ on a
+set of $n$ grid locations; $\mathcal{M}_g = \{\bx_i, i=1,\ldots,n \}$.
+We let $\Delta$ be the area of each cell in the regular grid.  Using
+vector notation, we collect the temperature and salinity variables on
+the grid as:
+
 \begin{eqnarray}
     \bxi &=& (\xi_a(\bx_1),\xi_b(\bx_1),\ldots,\xi_a(\bx_n),\xi_b(\bx_n))^t, \nonumber \\
     \pi(\bxi) &=& N(\bmu,\bSigma) = \frac{1}{(2\pi)^{n}|\bSigma|^{\frac{1}{2}}}e^{-\frac{1}{2}(\bxi -\bmu)^T\bSigma^{-1}(\bxi - \bmu)},
 \end{eqnarray}
-where $\pi(\bxi)$ is the joint density function of $\bxi$, entries in length $2 n$ vector $\bmu$ hold the expected values of temperature and salinity at the grid locations, and the $2n \times 2n$ matrix $\bSigma$ holds all the variance-covariances of temperature and salinity variables at all grid locations. 
+
+where $\pi(\bxi)$ \kcomment{suggest you try a different (e.g. upper
+  case) notation for $\pi$ given it is being used in different ways
+  above} is the joint density function of $\bxi$, entries in length
+$2 n$ vector $\bmu$ hold the expected values of temperature and
+salinity at the grid locations, and the $2n \times 2n$ matrix
+$\bSigma$ holds all the variance-covariances of temperature and
+salinity variables at all grid locations.
 
 \subsection{Updating Gaussian processes}
 
