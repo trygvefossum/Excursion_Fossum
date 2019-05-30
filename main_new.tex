@@ -598,7 +598,10 @@ bivariate distribution as follows \begin{equation}\label{dist_mxi} \pi
 
 \subsection{Excursion probabilities for Gaussian processes}
 
-Based on the Gaussian modeling assumptions, the EPs in Eq. (\ref{eq:prob}) can be computed at any location $\bx$. Without additional data, we have
+Based on the Gaussian modeling assumptions, the EPs in Eq.
+(\ref{eq:prob}) can be computed at any location $\bx$. Without
+additional data, we have:
+
 \begin{eqnarray}\label{eq:prob_mv0}
  p(\bx) &=& P(\xi_a(\bx) \leq T_a, \xi_b(\bx) \leq T_b) \nonumber \\
  &=& \Phi_2 \begin{pmatrix} 
@@ -612,9 +615,13 @@ T_b
 \sigma_{a}(\bx)\sigma_{b}(\bx) \gamma  & \sigma_{b}^2(\bx)  
 \end{bmatrix}\end{pmatrix},
 \end{eqnarray}
-where $\Phi_2$ is the bivariate Gaussian cumulative distribution function, and the mean and covariance entries are defined in Eq. (\ref{gp_bar}). 
 
-When data $\by$ is available, we similarly get
+where $\Phi_2$ is the bivariate Gaussian cumulative distribution
+function, and the mean and covariance entries are as defined in Eq.
+(\ref{gp_bar}).
+
+When $\by$ is available, we similarly get:
+
 \begin{eqnarray}\label{eq:prob_mv}
  p(\bx;\by) &=& P(\xi_a(\bx) \leq T_a, \xi_b(\bx) \leq T_b |\by) 
  \nonumber \\
@@ -629,9 +636,16 @@ s_{a}^2(\bx) & s_{a,b}(\bx)  \\
 s_{a,b}(\bx)  & s_{b}^2(\bx)  
 \end{bmatrix}\end{pmatrix},
 \end{eqnarray}
-with parameters defined in Eq. (\ref{gp_upd}) and (\ref{gp_hat}). 
 
-For one particular dataset, the probability $p(\bx;\by)$ can be closer to $0.5$ than the initial probability $p(\bx)$. This means that the variance in the ES is increased. On average, taking expectations over the data $\by$, the ES variance will be reduced by gathering data. We next explain how AUVs can be used to efficiently gather data and reduce the overall marginal spatial uncertainties in the ES. 
+with parameters as defined in Eq. (\ref{gp_upd}) and (\ref{gp_hat}).
+
+For one particular dataset \kcomment{This is unclear, rephrase}, the
+probability $p(\bx;\by)$ can be closer to $0.5$ than the initial
+probability $p(\bx)$. This means that the variance in the ES is
+increased. On average, taking expectations over the data $\by$, the ES
+variance will be reduced by gathering data. We next explain how AUVs
+can be used to efficiently gather data and reduce the overall marginal
+spatial uncertainties in the ES.
 
 \section{Uncertainty reduction on excursion sets}\label{sec:sur}
 
