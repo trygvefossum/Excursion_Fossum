@@ -647,31 +647,70 @@ variance will be reduced by gathering data. We next explain how AUVs
 can be used to efficiently gather data and reduce the overall marginal
 spatial uncertainties in the ES.
 
-\section{Uncertainty reduction on excursion sets}\label{sec:sur}
+\section{Uncertainty reduction on excursion sets}
+\label{sec:sur}
 
 \subsection{Variance in excursion set indicators}
 
-Regions with temperatures or salinity that surpasses the thresholds with a large margin (e.g. very high/low temperatures) are not interesting, unless the uncertainty at these locations is very large. The objective will therefore be to explore regions where the process variables are close to the thresholds. With this mind, it is valuable to explore locations $\bx$ where $p(\bx) \approx 0.5$. This is what gives the maximum variance $p(\bx) (1-p(\bx))$ in the indicator for the ES. 
+Regions with high variability in temperature or salinity % that surpasses the thresholds
+% with a large margin (e.g. very high/low temperatures)
+are not interesting, unless the uncertainty at these locations is very
+large \kcomment{Huh? Not sure I understand. Are you saying the
+  \emph{value} of a parameter if very large/small it is of less
+  interest? Why?}. The objective is to explore regions where the
+process variables are close to the thresholds \kcomment{You want to
+  justify this some more
+  -- why is it so? You can't make a categorical statement and leave it
+  at that; the reviewers will want to know.}. With this mind, it is
+valuable to explore locations $\bx$ where $p(\bx) \approx 0.5$. This
+is what gives the maximum variance $p(\bx) (1-p(\bx))$ in the
+indicator for the ES. \kcomment{This para is poorly structured. You
+  should make a positive case for what you want to measure, justify
+  and leave it as it is. Starting with what you \textbf{don't} want
+  and then stating the positive is less convincing.}
 
 Consider then an integrated measure as follows:
 \begin{equation}\label{measVAR}
     V = \int_{\bx \in \mathcal{M}} p(\bx) \left(1-p(\bx)\right) d\bx \approx \sum_{x \in \mathcal{M}_g} p(\bx) \left(1-p(\bx)\right) \Delta.
 \end{equation}
-The measure is dominated by location having probabilities close to $0.5$. 
-(Note that \cite{Bect2019} call this the integrated Bernoulli variance.)
 
-Considering one location only, we study the effect of different correlation $\gamma$ and prior variance. 
-Figure \ref{illus_bivarDens} shows contour plots of three different densities. Here, the temperature mean is $T_a=5^o$ and salinity mean is $T_b=30$ mg/l. The thresholds are identical to these means. The variables have unit variance and different correlation (low, medium and high).
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.99\textwidth]{Figures/illus_bivar.eps}
-\caption{Density contour plots having different correlations for temperature and salinity.}\label{illus_bivarDens}
+The measure is dominated by locations with probabilities \kcomment{Of
+  what?} close to $0.5$, or the integrated Bernoulli variance
+\cite{Bect2019}.
+
+Considering a single location, we explore the effect of different
+correlation ($\gamma$) and prior variance. Fig. \ref{illus_bivarDens}
+shows contour plots of three different densities where, the mean
+temperature $T_a=5^o$ and mean salinity $T_b=30$ mg/l. The thresholds
+are identical to these means. The variables have unit variance and
+different correlation (low, medium and high). \kcomment{I don't
+  understand these figures. Where did you get the three different
+  correlations from? Add a note about how they were constructed
+  and what is on the X/Y axis. Are the contours based on data from the
+  table below?}
+
+\begin{figure}[h!] \centering
+  \includegraphics[width=0.99\textwidth]{Figures/illus_bivar.eps}
+  \caption{Density contour plots having different correlations for
+    temperature and salinity.}\label{illus_bivarDens} 
 \end{figure}
-Table \ref{tab:sim_rhoab} shows the EPs and the associated variances in the ES (top rows). The results are computed for different correlations $\gamma$ indicated in Figure \ref{illus_bivarDens}, and for standard deviations $1$ (left) and $2$ (right). The variance in the ES is largest for high correlation, as there is more tendency of joint small or high occurrences for temperature and salinity in this case. EPs are the same for standard deviation $1$ or $2$. 
-\begin{table}[!h]
-\centering
-\caption{EP and variance of ES for different correlations (top rows), and for data of both variables and only for temperature (bottom rows).}
-\begin{tabular}{c|ccc|ccc}
+
+Table \ref{tab:sim_rhoab} shows the EPs and the associated variances
+in the ES (top rows). The results are computed for different
+correlations $\gamma$, indicated in Fig. \ref{illus_bivarDens}, and
+for standard deviations $1$ (left) and $2$ (right). The variance in
+the ES is largest for high correlation, as there is more tendency of
+joint small or high occurrences \kcomment{What is ``joint small''?}for
+temperature and salinity in this case. EPs are the same for standard
+deviation $1$ or $2$. \kcomment{Reformulate; this entire para is
+  unclear and its connection to Fig. 3 above, is tenuous and vague. If
+  there is a connection, then make it explicit.}
+
+
+\begin{table}[!h] \centering \caption{EP and variance of ES for
+    different correlations (top rows), and for data of both variables
+    and only for temperature (bottom rows).}
+  \begin{tabular}{c|ccc|ccc}
  &\multicolumn{3}{c}{$\sigma_b=\sigma_a=1$} & \multicolumn{3}{c}{$\sigma_b=\sigma_a=2$} \\
 \hline
 Correlation $\gamma$ & 0.2 & 0.6 & 0.8 & 0.2 & 0.6 & 0.8 \\
