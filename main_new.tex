@@ -472,9 +472,11 @@ We consider a lateral domain, near the sea surface, with locations
 $\bx \in \mathcal{M} \subset \mathbf{R^2}$. The two variables of
 interest, temperature and salinity, are defined as random processes;
 $\xi_a(\bx)$ denotes the temperature (in $^o C$) and $\xi_b(\bx)$
-denotes the salinity (in $mg/l$) at location $\bx$.  We let $t_a$ be a
+denotes the salinity (in $mg/l$) at location $\bx$. \kc{might be
+  clearer if you used 't' for temp and 's' for salinity. 'a' and 'b'
+  are somewhat opaque especially further in the text}.  We let $t_a$ be a
 threshold for temperature and $t_b$ a threshold for salinity, the
-bivariate ES is then defined by
+bivariate ES is then defined by:
 
 \begin{equation}\label{ES}
      \mbox{ES} = \{\bx \in \mathcal{M} | \xi_a(\bx) \leq t_a,\xi_b(\bx) \leq t_b\}.
@@ -483,14 +485,14 @@ The excursions could also be defined as larger than a threshold, or
 within a boundary of limits for the two variables; calculations and
 interpretations will be similar in these cases.
 
-The ES holds random indicator variables, while the associated EPs are 
+The ES holds random indicator variables, while the associated EPs are: 
 \begin{equation}\label{eq:prob}
   p(\bx) = P(\xi_a(\bx) \leq t_a, \xi_b(\bx) \leq t_b), \hspace{3mm} \bx \in \mathcal{M}.
 \end{equation}
 If the EPs in Eq. (\ref{eq:prob}) are
 close to $1$ or $0$, it is easy to classify water masses; it is
 challenging if the probabilities are close to $0.5$. 
-The integrated Bernoulli variance (IBV) \cite{bect2019}, is defined as 
+The integrated Bernoulli variance (IBV) \cite{bect2019}, is defined as: 
 \begin{equation}\label{measVAR}
     V = \int_{\bx \in \mathcal{M}} p(\bx) \left(1-p(\bx)\right) d\bx.
 \end{equation}
@@ -509,7 +511,7 @@ gathered at selected locations of the domain $\mathcal{M}$, to improve
 classification skill. We denote temperature measurements by
 $y_{a}(\bx_i)$ and salinity measurements by $y_{b}(\bx_i)$, at a
 sampling location $\bx_i \in \mathcal{M}$. Given a set of
-measurements, denoted $\by$, the conditional EPs are
+measurements, denoted $\by$, the conditional EPs are:
 \begin{equation}\label{eq:post_ep}
  p(\bx;\by) = P(\xi_a(\bx) \leq t_a, \xi_b(\bx) \leq t_b |\by). 
 \end{equation}
@@ -523,14 +525,14 @@ take the expectation with respect to the planned measurements $\by$;
     V_{\mbox{upd}} = \int_{\bx \in \mathcal{M}} E_{\by} \left\{ p(\bx;\by)\left( 1-p(\bx;\by)\right) \right\} d\bx, 
 \end{equation}
 where the probability is defined in Eq. (\ref{eq:post_ep}).
-Considering a set $\mathcal{J}$ of possible designs for an AUV survey. A criterion for the selection is
+Considering a set $\mathcal{J}$ of possible designs for an AUV survey. A criterion for the selection is:
 \begin{equation}\label{crit}
     j^* = \mbox{argmin}_{j \in \mathcal{J}} V_{\mbox{upd}}(j),
 \end{equation}
-where the criterion $V_{\mbox{upd}}(j)$ in Eq. (\ref{sur}) is computed for each of the possible designs. 
+where the criterion $V_{\mbox{upd}}(j)$ in Eq. (\ref{sur}) is computed
+for each of the possible designs. 
 
-Recent work in literature on ESs and EPs connected to spatial
-statistics include
+Recent work on ESs and EPs connected to spatial statistics include
 \cite{picheny2010,french2013spatio,bolin2015excursion,french2016credible}.
 Our focus is on ES as defined in Eq. (\ref{ES}), and the uncertainty
 reduction achieved by sampling as in Eq. (\ref{sur}). In this sense
@@ -543,17 +545,18 @@ design criteria in the situation with multivariate GPs.
 \section{Gaussian processes and excursion probabilities}
 \label{sec:GP_EP}
 
-The actual calculations of the EPs and the IBV require a model
-specification. Here, Gaussian modeling assumptions are used, as described next. They allow closed form evaluation of the IBVs, as derived in Section \ref{sec:sur}.  
+Calculations of the EPs and the IBV require a model specification.
+Here, we use Gaussian modeling assumptions which allow closed form
+evaluation of the IBVs, as derived in Section \ref{sec:sur}.
 
 \subsection{Bivariate Gaussian processes}
 
-We represent the bivariate random fields of sea temperature and
-salinity by a Gaussian model.  At location $\bx \in \mathcal{M}$, the bivariate distribution is
+We represent the bivariate random fields of temperature and salinity
+with a Gaussian model. At location $\bx \in \mathcal{M}$, the
+bivariate distribution is:
 \begin{equation}\label{gp_bar}
-\begin{bmatrix}\xi_a(\bx) \\
-\xi_b(\bx) 
-\end{bmatrix}
+  \begin{bmatrix}\xi_a(\bx) \\
+    \xi_b(\bx) \end{bmatrix}
  \sim N \left( 
 \begin{bmatrix} \mu_{a}(\bx)\\
 \mu_{b}(\bx)
@@ -563,33 +566,54 @@ salinity by a Gaussian model.  At location $\bx \in \mathcal{M}$, the bivariate 
 \end{bmatrix}
 \right),
 \end{equation}
-where the notation means Gaussian (Normal) distributed variables specified by the mean vector and covariance matrix.
-In the application below, the model parameters are specified from preliminary data: The mean varies with location, capturing the variability near the river mouth, while the variance parameters and correlation between salinity and
-temperature are assumed to be constant for all locations. 
+where the notation refers to Gaussian (Normal) distributed variables
+specified by the mean vector and covariance matrix. In the application
+below, the model parameters are specified from preliminary data: The
+mean varies with location, capturing the variability near the river
+mouth, while the variance parameters and correlation between salinity
+and temperature are assumed to be constant for all locations. \kc{?
+  Isn't that too strong an assumption? T/S tend to be correlated,
+  however for uniform bodies of water; here we're dealing with coastal
+  ecosystems where the two are not necessarily so.}
 
 For the spatial dependence among variables, 
 we assume a separable correlation function with the same decay for salinity and temperature,
-which is not unrealistic for a river plume. We have
+which is not unrealistic for a river plume \kc{why so?}. We have:
 \begin{equation}\label{gp_corr}
 \mbox{Cov}(\xi_i(\bx),\xi_j(\bx')) = \rho(\bx,\bx') \sigma_i \sigma_j (\gamma +(1-\gamma )\delta_{ij}), \\
 \end{equation}
-for $i,j \in {a,b}$ and $\delta_{ij}=1$ if $i=j$ and $\delta_{ij}=0$ otherwise.
-Moreover, we assume a stationary isotropic where the correlation function
-$\rho(\bx,\bx')$ solely depends on $\bx$ and $\bx'$ through their Euclidean distance $h=\sqrt{|\bx-\bx'|^2}$.
-With lots of data and prior knowledge one could possibly fit and estimate parameters of non-stationary or non-isotropic covariance function and more complex multivariate spatial covariance functions
-\citep{gneiting2010matern,genton2015cross}, but we do not consider that here.
+for $i,j \in {a,b}$ and $\delta_{ij}=1$ if $i=j$ and $\delta_{ij}=0$
+otherwise. Moreover, we assume a stationary isotropic property
+\kc{This is probably related to the assumption as above where T/S are
+  assumed to be constant in all locations? But why?} where the
+correlation function $\rho(\bx,\bx')$ solely depends on $\bx$ and
+$\bx'$ via a Euclidean distance measure $h=\sqrt{|\bx-\bx'|^2}$. With
+data and prior knowledge one could possibly fit and estimate
+parameters of non-stationary or non-isotropic covariance functions and
+more complex multivariate spatial covariance functions
+\citep{gneiting2010matern,genton2015cross}; however that is left for
+future work.
 
-For implementation on the computer we discretize the spatial domain $\mathcal{M}$ to a
-set of $n$ grid locations $\mathcal{M}_g = \{\bx_i, i=1,\ldots,n \}$, where each cell has area $\Delta$. The integral expression in Eq. (\ref{measVAR}) and (\ref{sur}) are then approximated by sums over all grid cells.
-This grid is identical to the possible set of design locations, as mentioned previously, defined as a waypoint graph. Using vector notation, we denote the Gaussian temperature and salinity variables on the grid and its density function by
+For implementation purposes, we discretize the spatial domain
+$\mathcal{M}$ to a set of $n$ grid locations
+$\mathcal{M}_g = \{\bx_i, i=1,\ldots,n \}$, where each cell has area
+$\Delta$. The integral expression in Eq. (\ref{measVAR}) and
+(\ref{sur}) are then approximated by sums over all grid cells. This
+grid is identical to the possible set of design locations and defined
+as a waypoint graph \kc{You mean the
+  centroids of the cells are part of the graph?}. Using vector
+notation, we denote the Gaussian temperature and salinity variables on
+the grid and its density function by: 
 \begin{equation}\label{prior}
     \bxi = (\xi_a(\bx_1),\xi_b(\bx_1),\ldots,\xi_a(\bx_n),\xi_b(\bx_n))^t, \hspace{3mm}
     \bxi  \sim  N(\bmu, \bSigma) %\pi (\bxi) & =& \frac{1}{(2\pi)^{n}|\bSigma|^{\frac{1}{2}}}e^{-\frac{1}{2}(\bxi -\bmu)^T\bSigma^{-1}(\bxi-\bmu)}.
 \end{equation}
 %Here, $\pi(\bxi)$ is the joint density function of length $2 n$ vector $\bxi$, and
-Here, the length
-$2 n$ vector $\bmu$ holds the expected values of temperature and
-salinity at the grid locations, while the $2n \times 2n$ positive definite  matrix $\bSigma$ holds the variance-covariances of temperature and salinity variables at all grid locations.
+The length $2 n$ vector $\bmu$ holds the expected values of
+temperature and salinity at the grid locations, while the
+$2n \times 2n$ positive definite matrix $\bSigma$ holds the
+variance-covariances of temperature and salinity variables at all grid
+locations.
 
 \subsection{Data model and updating of Gaussian processes}
 
