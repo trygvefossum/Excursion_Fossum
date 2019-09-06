@@ -463,45 +463,62 @@ means to characterize the frontal zone.
 
 Our objective is to characterize a river plume, focusing on spatial
 separation of cold freshwater from the warmer saline waters of the
-fjord. ESs and EPs are useful starting points to measure the ability
-to classify water masses, and the goal of experimental sampling is to
-improve this characterization, as quantified via changes in the EPs.
+fjord. Excursion sets (ES) and excursion probabilities (EP) are useful
+starting points to measure the ability to classify water masses. The
+goal of experimental sampling is to improve this characterization, as
+quantified via changes in the EPs.
 
-We consider a lateral domain, near sea surface, with locations
+We consider a lateral domain, near the sea surface, with locations
 $\bx \in \mathcal{M} \subset \mathbf{R^2}$. The two variables of
 interest, temperature and salinity, are defined as random processes;
 $\xi_a(\bx)$ denotes the temperature (in $^o C$) and $\xi_b(\bx)$
 denotes the salinity (in $mg/l$) at location $\bx$.  We let $t_a$ be a
 threshold for temperature and $t_b$ a threshold for salinity, the
 bivariate ES is then defined by
- \begin{equation}\label{ES}
+
+\begin{equation}\label{ES}
      \mbox{ES} = \{\bx \in \mathcal{M} | \xi_a(\bx) \leq t_a,\xi_b(\bx) \leq t_b\}.
- \end{equation}
- The excursions could also be defined as larger than a threshold, or
- within a boundary of limits for the two variables. Calculations and
- interpretations will be similar in these different cases.
+\end{equation}
+The excursions could also be defined as larger than a threshold, or
+within a boundary of limits for the two variables; calculations and
+interpretations will be similar in these cases.
 
 The ES holds random indicator variables, while the associated EPs are 
 \begin{equation}\label{eq:prob}
- p(\bx) = P(\xi_a(\bx) \leq t_a, \xi_b(\bx) \leq t_b), \hspace{3mm} \bx \in \mathcal{M}.
+  p(\bx) = P(\xi_a(\bx) \leq t_a, \xi_b(\bx) \leq t_b), \hspace{3mm} \bx \in \mathcal{M}.
 \end{equation}
 If the EPs in Eq. (\ref{eq:prob}) are
 close to $1$ or $0$, it is easy to classify water masses; it is
 challenging if the probabilities are close to $0.5$. 
-The integrated Bernoulli variance (IBV), see \cite{bect2019}, is here defined as 
+The integrated Bernoulli variance (IBV) \cite{bect2019}, is defined as 
 \begin{equation}\label{measVAR}
     V = \int_{\bx \in \mathcal{M}} p(\bx) \left(1-p(\bx)\right) d\bx.
 \end{equation}
 The measure is dominated by locations with EPs close to $0.5$.
+\kc{This sentence is a bit strange; just about, you state that EPs
+  close to 0.5 can be problematic since they do not categorize the
+  water masses well. And here you state that there is a strong
+  dominance of the average. So now you should say how the biasing can
+  change to make ``V'' more effective. Otherwise this sentence is
+  dangling.} 
 
-If prior knowledge strongly indicates cold freshwater in a part of the domain, it is easy to classify, and there is likely little value in exploring that part much. Similarly with strong prior knowledge about warm saltwater. 
-Data can be gathered at selected locations of the domain $\mathcal{M}$, to improve classification skill. We denote temperature measurements by $y_{a}(\bx_i)$ and salinity measurements by $y_{b}(\bx_i)$, at a sampling location $\bx_i \in \mathcal{M}$. Given a set of measurements, denoted $\by$, the conditional EPs are
+If prior knowledge provides a strong indication of cold freshwater
+(for instance) in a part of the domain, it is easy to classify, and
+there is likely little value in exploring those locations. Data can be
+gathered at selected locations of the domain $\mathcal{M}$, to improve
+classification skill. We denote temperature measurements by
+$y_{a}(\bx_i)$ and salinity measurements by $y_{b}(\bx_i)$, at a
+sampling location $\bx_i \in \mathcal{M}$. Given a set of
+measurements, denoted $\by$, the conditional EPs are
 \begin{equation}\label{eq:post_ep}
  p(\bx;\by) = P(\xi_a(\bx) \leq t_a, \xi_b(\bx) \leq t_b |\by). 
 \end{equation}
 
-Our goal is to construct designs for the data gathering, that are expected to improve the mapping of the water masses. 
-When designing AUV sampling designs, it is hence natural to evaluate the expected reduction in the IBV, as provided by the survey data. In this way, we take the expectation with respect to the planned measurements $\by$;
+Our goal is to construct designs for data gathering, that are expected
+to improve the mapping and separation of water masses. When designing
+AUV sampling designs, it is therefore natural to evaluate the expected
+reduction in the IBV, as provided by the survey data. In this way, we
+take the expectation with respect to the planned measurements $\by$;
 \begin{equation}\label{sur}
     V_{\mbox{upd}} = \int_{\bx \in \mathcal{M}} E_{\by} \left\{ p(\bx;\by)\left( 1-p(\bx;\by)\right) \right\} d\bx, 
 \end{equation}
@@ -512,15 +529,16 @@ Considering a set $\mathcal{J}$ of possible designs for an AUV survey. A criteri
 \end{equation}
 where the criterion $V_{\mbox{upd}}(j)$ in Eq. (\ref{sur}) is computed for each of the possible designs. 
 
-Recent works in statistical literature on ESs and EPs connected to
-spatial statistics include
-\cite{picheny2010,french2013spatio,bolin2015excursion,french2016credible}. Our focus
-is on ES as defined in Eq. (\ref{ES}), and the
-uncertainty reduction achieved by sampling as in Eq. (\ref{sur}).  In this sense
+Recent work in literature on ESs and EPs connected to spatial
+statistics include
+\cite{picheny2010,french2013spatio,bolin2015excursion,french2016credible}.
+Our focus is on ES as defined in Eq. (\ref{ES}), and the uncertainty
+reduction achieved by sampling as in Eq. (\ref{sur}). In this sense
 our work is similar to \cite{bect2012}, \cite{chevalier2014fast} and
 \cite{azzimonti2016quantifying} who describe analytical results for
-uncertainty reduction in ESs for univariate processes.  
-A major contribution of our work is to derive closed-form results for this design criteria in the situation with multivariate GPs.
+uncertainty reduction in ESs for univariate processes. A major
+contribution of our work is to derive closed-form results for this
+design criteria in the situation with multivariate GPs.
 
 \section{Gaussian processes and excursion probabilities}
 \label{sec:GP_EP}
