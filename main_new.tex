@@ -617,33 +617,44 @@ locations.
 
 \subsection{Data model and updating of Gaussian processes}
 
-Data are in our setting gathered by an autonomous vehicle that can measure
-temperature and salinity at a subset of locations on the defined grid. This can be done in a static manner, where the survey design is pre-planned, or in a sequential way with several rounds of data gathering. For the latter, a round of data is gathered first, and then assimilated to get an updated model. Then the updated model is used to design and select the next round of measurements, and so on. 
-We here describe the model for one round of data and the Gaussian formula for one round of updating. In Section
-\ref{sec:heuristics} we discuss sequential data gathering in the context of adaptive design of AUV measurements.
+Data is gathered by an AUV that can measure temperature and salinity
+at a subset of locations on the defined grid. This can be done in a
+static manner, where the survey design is pre-planned, or in a
+sequential way with several rounds of data gathering. For the latter,
+a round of data is gathered first, and then assimilated to get an
+updated model. Then the updated model is used to design and select the
+next round of measurements, and so on. We describe the model for one
+round of data and the Gaussian formula for a single update. In Section
+\ref{sec:heuristics} we discuss sequential data gathering in the
+context of adaptive design of AUV measurements.
 
-Denote the data at $n_y$ locations by
+We denote the data at $n_y$ locations by
 $\by=(y_{a,1},y_{b,1},\ldots,y_{a,n_y},y_{b,n_y})^t$, representing the
-temperature and salinity measurements gathered at one round grid nodes. The conditional model for the data, given the true temperature and salinity, is described by
+temperature and salinity measurements gathered at the first round of
+nodes in the grid. The conditional model for the data, given the true temperature
+and salinity, is described by: 
 \begin{equation}\label{likelihood}
 \by | \bxi \sim N( \bA \bxi, \bR), %\pi(\by | \bxi)= \frac{1}{(2\pi)^{m}|\bR|^{\frac{1}{2}}}e^{-\frac{1}{2}(\by -\bA\bxi)^T\bR^{-1}(\by-\bA\bxi)},
 \end{equation}
 where $\bA$ is an $2n_y \times 2n$ matrix holding '$1$'s on the
-measurement indices on the grid, otherwise '$0$'. The size
-$2n_y \times 2n_y$ covariance matrix $\bR$ contains diagonal entries $r^2_a$ and
-$r^2_b$ which are measurement error variances of temperature and
-salinity observations.
+measurement indices on the grid and '$0$' otherwise. The size
+$2n_y \times 2n_y$ covariance matrix $\bR$ contains diagonal entries
+$r^2_a$ and $r^2_b$ which are measurement error variances of
+temperature and salinity observations.
 
-The GP mean and covariance in Eq. (\ref{prior}) are moderated when more information gets available. 
-The updated distribution for temperature and salinity variables on the
+The GP mean and covariance in Eq. (\ref{prior}) are moderated \kc{What
+  does 'moderated' mean?} when more information is available. The
+updated distribution for temperature and salinity variables on the
 spatial grid, given survey data $\by$, is Gaussian with mean and
-covariance 
+covariance: 
 \begin{eqnarray}\label{gp_upd}
-\bm &=& \bm(\by) = \bmu+\bSigma \bA^t (\bA \Sigma \bA^t+\bR)^{-1}(\by-\bA \bmu),  \\
-\bS &=& \bSigma - \bSigma \bA^t (\bA \bSigma \bA^t+\bR)^{-1} \bA \bSigma.\nonumber
+  \bm &=& \bm(\by) = \bmu+\bSigma \bA^t (\bA \Sigma \bA^t+\bR)^{-1}(\by-\bA \bmu),  \\
+  \bS &=& \bSigma - \bSigma \bA^t (\bA \bSigma \bA^t+\bR)^{-1} \bA
+          \bSigma.\nonumber
 \end{eqnarray}
 
-The updated bivariate distribution at a grid location $\bx \in \mathcal{M}_g$ is then 
+The updated bivariate distribution at a grid location $\bx \in
+\mathcal{M}_g$ is then: 
 \begin{equation}\label{gp_hat}
 \begin{bmatrix}
 \xi_a(\bx) \\
@@ -660,7 +671,7 @@ s_{a,b}(\bx)  & s_{b}^2(\bx)
 \right),
 \end{equation}
 with entries extracted from the conditional mean and covariance
-expressions in Eq. (\ref{gp_upd}). 
+expressions in Eq. (\ref{gp_upd}).
 
 % The conditional mean $\bm$ will be important in the following
 % derivation in Section \ref{sec:sur}.
