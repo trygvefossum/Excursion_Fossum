@@ -165,8 +165,7 @@ important characteristics should be mentioned, namely:
 \item As a priori information about the state of the ocean is very
   uncertain, there lies a substantial efficiency gain in reacting to
   information obtained from measurements taken \emph{in-situ}, this is
-  usually referred to as the \emph{adaptivity gap} \kc{citation
-    needed}.
+  usually referred to as the \emph{adaptivity gap} \citep{Krause2008phd}.
 \item For such types of sampling problems, the number of choices (i.e.
   locations, trajectories, and candidate designs) makes the problem
   combinatorially large, creating a trade-off between optimization
@@ -385,9 +384,9 @@ grid, pre-programmed by the human operator.  By using on-board
 algorithms to continuously evaluate, update, and refine future
 sampling locations, one can make information gathering adaptive and
 contextual to the survey requirements
-\citep{das11b,fossuminformation,fossum18b}.  The space of sampling
+\citep{das11b,fossuminformation,fossum18b}. The space of sampling
 opportunities is still limited to the spatial grid, but now there is
-much more flexibility because of adaptation.  For instance, an AUV
+much more flexibility because of adaptation. For instance, an AUV
 could reconstruct or modify a survey line based on what temperatures
 it is measuring by using embedded methods in decision-theoretic
 planning \citep{py10,Rajan12,Rajan12b}.
@@ -424,6 +423,7 @@ planning \citep{py10,Rajan12,Rajan12b}.
 % where the potential measurement are assigned to nodes on which
 % evaluation of different routes can be conducted.
 %In this context, a fundamental result from \cite{nemhauser1978analysis} proves that a simple greedy algorithm (iteratively selecting the location which most increases the utility) can achieve a near-optimal solution if the problem can be shown to be \emph{submodular}\footnote{an intuitive diminishing returns property, where the informative value of adding sensors decrease with the number of sensors added.}. Building on this result, \cite{chekuri2005recursive} explored this in the setting of a graph using a recursive greedy algorithm, providing near-optimal solutions depending on the planning horizon and graph resolution. 
+
 Adaptive sampling of an evolving frontal feature has been explored in
 \cite{fronts11,Zhang2012,Pinto2018,costa19}. These approaches
 typically use a reactive-adaptive scheme, whereby exploration does not
@@ -1067,7 +1067,7 @@ We use a bivariate GP model for temperature and salinity, where we specify the p
 \beta_{a,1} + \beta_{b,1} x_{\mbox{East}}
 \end{bmatrix}.
 \end{equation}
-In this simulation setup, which is motivated by the real case, we expect the eastern part of the domain to be cold freshwater. This situation mimics that of a river mouth entering from the south, and the water masses are pulled to the east. The actual trends are in practiece set from preliminary information or runs of oceanographic models solving the differential equations for fluid flow. In this example the mean is specified by $\beta_{a,1}=0.065$ and $\beta_{b,1}=0.1$. Further, the intercepts of the temperature and salinity variables are set to $\beta_{a,0}=5.8$ and $\beta_{b,1}=29.0$. 
+In this simulation setup, which is motivated by the real case, we expect the eastern part of the domain to be cold freshwater. This situation mimics that of a river mouth entering from the south, and the water masses are pulled to the east. The actual trends are in practice set from preliminary information or runs of oceanographic models solving the differential equations for fluid flow. In this example the mean is specified by $\beta_{a,1}=0.065$ and $\beta_{b,1}=0.1$. Further, the intercepts of the temperature and salinity variables are set to $\beta_{a,0}=5.8$ and $\beta_{b,1}=29.0$. 
 
 %The prior assumption used by the agent are $\tilde{\beta_{a,1}}=0.085$ and $\tilde{\beta_{b,1}}=0.138$, which assumes that the process is centered. 
 
@@ -1116,15 +1116,15 @@ One realization of the random fields representing salt and temperature is shown 
   \subfigure[Excursion set given the realization of temperature and salinity.]{\includegraphics[height = 0.40\textwidth]{Figures/sim/es_ts_true.pdf}\label{fig:ESet}}
   \hfill
   \subfigure[Excursion probabilities given collected data along the strategy ``static\_north".]{\includegraphics[height = 0.40\textwidth]{Figures/sim/es_ts_posterior.pdf}\label{fig:Eprob}}
-  \caption{(\ref{fig:true_temp}) and (\ref{fig:true_sal}) shows
+  \caption{\ref{fig:true_temp} and \ref{fig:true_sal} shows
     realisations of the simulated temperature and salinity fields, as
-    well as the associated excursion set (\ref{fig:ESet}).
-    (\ref{fig:Eprob}) show the estimated excursion probabilities after
+    well as the associated excursion set \ref{fig:ESet}.
+    \ref{fig:Eprob} show the estimated excursion probabilities after
     performing data collection along the N-S survey line.} 
 \label{fig:realisations}
 \end{figure}
 
-
+\newpage
 \subsection{Static and sequential sampling designs}\label{sec:sampling_designs}
 
 %Three different designs are considered as indicated in Figure \ref{fig:stat_design}. 
@@ -1135,11 +1135,9 @@ One realization of the random fields representing salt and temperature is shown 
 %\end{figure}
 %In this display the designs are plotted along with the prior probability contours of the ES for the reference parameter inputs. 
 
-We compare three different static designs denoted \texttt{static\_north}, \texttt{static\_east and} \texttt{static\_zigzag} with the three sequential approaches \texttt{naive}, \texttt{myopic} and \texttt{look-ahead}. The static sampling paths are pre-determined, and cannot adapt to data. 
+We compare three different static designs denoted \texttt{static\_north}, \texttt{static\_east and} \texttt{static\_zigzag} with the three sequential approaches \texttt{naive}, \texttt{myopic}, and \texttt{look-ahead}. The static sampling paths are pre-determined and cannot be changed on the basis of data, representing the archetypical pre-planned observation strategies used in current observational practices. For a fixed survey length, the expected variance after static surveying is analytically available (equal coverage each time), but here we focus on the properties from the sequential designs which are evaluated using Monte Carlo sampling over several replicates of realizations from the prior, and conducting simulated sequential surveying for each one; making the result dependent on the observed data. For comparison, the same setup is used for the static designs. Figure \ref{fig:Eprob} shows the conditional EP, given data gathered along the north-south survey line for the realization indicated in these displays. In the Monte Carlo replicates, such results are repeatedly computed to approximate the expected variance reduction in the ES. Along with this criterion we also compare predictive performance measured by root mean square error (RMSE) in the temperature and salinity fields and variance reduction in these two field variables. It is important to note that the objective function used by the agents is focused on reducing the expected variance in the ES, but we nevertheless hope to achieve good predictive performance for criteria such as RMSE as well. Another non-statistical criteria that is important for practical purposes is the computing time of the strategy, as this will impact the performance of the approach in the field for an embedded system. 
 
-For a fixed length, the expected variance after static surveying is analytically available, but here we focus on the properties of the sequential designs which are evaluated using Monte Carlo sampling over several replicates of realizations from the prior, and conducting simulated sequential surveying for each one. For comparison, the same setup is used for the static designs. Figure \ref{fig:Eprob} shows the conditional EP, given data gathered along the north-south survey line for the realization indicated in these displays. In the Monte Carlo replicates, such results are repeatedly computed to approximate the expected variance reduction in the ES. Along with this criterion we also compare predictive performance measured by root mean square error (RMSE) in the temperature and salinity fields and variance reduction in these two field variables. Note that objective function used by the agents is focused on reducing the expected variance in the ES, but we nevertheless hope to achieve good predictive performance for the other criteria as well. Another non-statistical criteria that is important for practical purposes is the computing time of the strategy. 
-
-The agent of the sequential designs starts at the center East-West coordinate at the southern end of the domain (node 53), see Fig. \ref{fig:wp_graph}.
+The sequential sampling agents start at the center East-West coordinate at the southern end of the domain (node 53), see Fig. \ref{fig:wp_graph}.
 
 \begin{figure}[h]
 \centering
@@ -1148,20 +1146,13 @@ The agent of the sequential designs starts at the center East-West coordinate at
 \label{fig:wp_graph}
 \end{figure}
 
-At each step, the AUV will choose to move along an edge in this waypoint
-graph. While doing so, it gathers three measurements. These are
-assimilated in the model, and then a new choice is done at the end of
-the edge. The paths of will differ for the various sequential designs.
-The designs will also differ between the runs, because the measurements
-vary among replicates.
-
+Maintaining the AUV example, the AUV will move along edges in the Fig. \ref{fig:wp_graph} waypoint graph. While doing so, the AUV will gather measurements. These are assimilated in the GP model, before an evaluation of the next node to sample will be conducted at the end of the edge. The paths of will differ for the various sequential designs due to the individual design criteria and the simulated variability in the environment among the replicates.
 
 Results of the replicate runs are shown in Figure \ref{fig:sim_results},
 where the different criteria are plotted as a function of surveying
 distance. Here, expected ES variance in Figure \ref{fig:avg_ev} is
-reduced most when using the \texttt{myopic} and \texttt{look-ahead}
-strategies. There is not much difference between these two.  
-
+reduced most under the \texttt{myopic} and \texttt{look-ahead}
+strategies, performing almost equally.
 
 \begin{figure}[!th]
   \centering
