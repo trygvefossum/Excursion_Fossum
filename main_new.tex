@@ -892,7 +892,7 @@ combinations:
     \end{array}
     \right),
 \end{equation}
-and this part of the equation then becomes:
+and this in turn then becomes:
 \begin{eqnarray}\label{part1:phi4}
 && P \left( Z_{1,a} \leq \frac{t_a-m_{a}}{s_{a}}, 
 Z_{1,b} \leq \frac{t_b-m_{b}}{s_{b}},Z_{2,b} \leq \frac{t_a-m_{a}}{s_{a}}, 
@@ -912,22 +912,36 @@ The multivariate cumulative probabilities in two and four dimensions
 are fast to compute using methods of \cite{genz2009computation}.  In
 the end, the first part in Eq. (\ref{two_parts0}) and the second in
 Eq. (\ref{part1:phi4}) are computed for each location on the grid, and
-summing over the $x \in \mathcal{M}_g$, gives the design evaluation
+summed over $x \in \mathcal{M}_g$, gives the design evaluation
 criterion in Eq. (\ref{sur}). \kc{This might be a prevalent style in
   Math/Statistics, but this entire formulation is way too dense. I
   think it might be a good idea to have some basic intuition worked
-  out early before the start of Sec 3}
+  out early before the start of Sec 3.}
 
 \subsection{Generalization to the multivariate case}
 
-In our application with temperature and salinity, the solutions to the complex integral equations for the expected IBV are reduced to calculating bi-variate and four-variate cumulative distribution functions for Gaussian vectors. For the more general situation one would be interested in $K$ random fields. Say, in the ocean sciences the variables could include chlorophyll or other bio-chemical quantities, in addition to temperature and salinity. 
+In our application domain with the variables temperature and salinity,
+the solutions to the complex integral equations for the expected IBV
+are reduced to calculating bi-variate and four-variate cumulative
+distribution functions for Gaussian vectors. For the more general
+situation one would be interested in $K$ random fields. Say, in the
+ocean sciences the variables could include chlorophyll or other
+bio-geochemical quantities, in addition to temperature and salinity.
 
-The equations derived in the previous section can then be generalized. Let $\bxi(\bx)=(\xi_1(\bx),\ldots,\xi_K(\bx))$, and the expected Bernoulli variance is
+The equations derived in the previous section can then be generalized
+\kc{Aha! Looks like this is where the generalization across multiple
+  variables can be brought out. If so, state this up front that we're
+  starting off with 2 and then generalizing to more variables.}. Let
+$\bxi(\bx)=(\xi_1(\bx),\ldots,\xi_K(\bx))$, and the expected Bernoulli
+variance is:
 \begin{equation}\label{two_partsK}
 E_{\by}(p(\bx;\by)(1-p(\bx;\by))), \hspace{3mm} p(\bx;\by)=P(\xi_k(\bx) \leq t_k ; k=1,\ldots,K|\by). 
 \end{equation}
-By the first key result of linear combination of Gaussian variables, we reduce the integral to a $K$ dimensional integral of the relevant $\bm=E(\bxi(\bx)|\by)$. Next, reducing the integral to two parts, we standardize the variables and compute cumulative distributions. 
-In summary, we get 
+By the first key result of linear combination of Gaussian variables,
+we reduce the integral to a $K$ dimensional integral of the relevant
+$\bm=E(\bxi(\bx)|\by)$. Next, reducing the integral to two parts, we
+standardize the variables and compute cumulative distributions.  In
+summary, we get:
 \begin{equation}\label{two_parts}
 E_{\by}(p(\bx)(1-p(\bx))) =  \Phi_K 
 \begin{pmatrix}
