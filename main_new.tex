@@ -474,7 +474,10 @@ interest, temperature and salinity, are defined as random processes;
 $\xi_a(\bx)$ denotes the temperature (in $^o C$) and $\xi_b(\bx)$
 denotes the salinity (in $mg/l$) at location $\bx$. \kc{might be
   clearer if you used 't' for temp and 's' for salinity. 'a' and 'b'
-  are somewhat opaque especially further in the text}.  We let $t_a$ be a
+  are somewhat opaque especially further in the text. Also there
+  should be a statement about why we're considering only 2 variables
+  and the impact to considering (algebraically) more in the following
+  formulations. This will surely be asked by any reviewer.}.  We let $t_a$ be a
 threshold for temperature and $t_b$ a threshold for salinity, the
 bivariate ES is then defined by:
 
@@ -675,10 +678,12 @@ expressions in Eq. (\ref{gp_upd}).
 
 % The conditional mean $\bm$ will be important in the following
 % derivation in Section \ref{sec:sur}.
-The calculation of the design criterion in Eq. (\ref{sur}) requires the marginal distribution of the data which is defined via marginalization over $\bxi$ to be
-$\by \sim N( \bA \bmu,\bA \bSigma \bA^t+\bR)$. 
-However, it turns out that a simplified form of the calculation is possible because the 
-conditional mean in Eq (\ref{gp_hat}) is a linear (affine) function of the data $\by$ and the covariance is not a function of the data.
+The calculation of the design criterion in Eq. (\ref{sur}) requires
+the marginal distribution of the data which is defined over $\bxi$ to
+be $\by \sim N( \bA \bmu,\bA \bSigma \bA^t+\bR)$.  However, it turns
+out that a simplified form of the calculation is possible because the
+conditional mean in Eq (\ref{gp_hat}) is a linear (affine) function of
+the data $\by$ and the covariance is not a function of the data.
 Before knowing the data, the distribution of the conditional mean is
 \begin{equation}\label{distxi} \bm \sim N(\bmu , \bPsi), \hspace{3mm}
   \bPsi=\bSigma \bA^t (\bA \bSigma \bA^t+\bR)^{-1} \bA \bSigma.
@@ -694,14 +699,14 @@ bivariate distribution \begin{equation}\label{dist_mxi}
 \end{equation}
 which is important for the derivation of the closed form solution of the design criteria.
 
-\section{Uncertainty reduction on excursion sets}
+\section{Uncertainty reduction in excursion sets}
 \label{sec:sur}
 
 \subsection{Excursion probabilities for Gaussian processes}
 
-Based on the Gaussian modeling assumptions, the EPs can be computed at any location $\bx$. Without
-additional data, Eq.
-(\ref{eq:prob}), we have
+Based on Gaussian modeling assumptions, the EPs can be computed at any
+location $\bx$. Without additional data, Eq.  (\ref{eq:prob}) gives us:
+
 \begin{eqnarray}\label{eq:prob_mv0}
  p(\bx) &=& P(\xi_a(\bx) \leq t_a, \xi_b(\bx) \leq t_b) \nonumber \\
  &=& \Phi_2 \begin{pmatrix} 
@@ -718,7 +723,8 @@ t_b
 where $\Phi_2$ is the bivariate Gaussian cumulative distribution
 function, and the mean and covariance entries are as defined in Eq. (\ref{gp_bar}).
 
-When data $\by$ are available, Eq. (\ref{eq:post_ep}), we similarly get
+When data $\by$ are available, Eq. (\ref{eq:post_ep}) similarly gives
+us:
 \begin{eqnarray}\label{eq:prob_mv}
  p(\bx;\by) &=& P(\xi_a(\bx) \leq t_a, \xi_b(\bx) \leq t_b |\by)
  \nonumber \\
@@ -737,12 +743,20 @@ with parameters as defined in Eq. (\ref{gp_upd}) and (\ref{gp_hat}).
 
 \subsection{Expected Integrated Bernoulli variance for bivariate models}
 
-We will next derive closed form solutions to the expectation in (\ref{sur}). The location index $\bx$ is suppressed to avoid overly complex notation. We present new results for computing the expectation $E_{\by}\left\{ \cdot \right\}$ which is the integrand of Eq. (\ref{sur}).
+We will next derive closed form solutions to the expectation in
+(\ref{sur}). The location index $\bx$ is suppressed to avoid overly
+complex notation. We present new results for computing the expectation
+$E_{\by}\left\{ \cdot \right\}$ which is the integrand of
+Eq. (\ref{sur}).
 
-A critical first
-element in the derivation is the GP model, and the linear dependence on data $\by$ in the conditional mean in Eq. (\ref{gp_upd}), which means that we have a closed form Gaussian distribution for the conditional mean in Eq. (\ref{dist_mxi}). The high-dimensional inner integral in Eq. (\ref{sur}) then reduces to a bivariate integral \citep{bhattacharjya2013value, chevalier2014fast}, with expectation over $\bm=(m_{a},m_{b})^t$. 
-We standardize the two variables in Eq. (\ref{sur}), i.e.
-$Z_a=\frac{\xi_a-m_{a}}{s_{a}}$,
+A critical first element in the derivation is the GP model, and the
+linear dependence on $\by$ in the conditional mean in
+Eq. (\ref{gp_upd}), which results in a closed form Gaussian
+distribution for the conditional mean in Eq. (\ref{dist_mxi}). The
+high-dimensional inner integral in Eq. (\ref{sur}) then reduces to a
+bivariate integral \citep{bhattacharjya2013value, chevalier2014fast},
+with expectation over $\bm=(m_{a},m_{b})^t$.  We standardize the two
+variables in Eq. (\ref{sur}), i.e.  $Z_a=\frac{\xi_a-m_{a}}{s_{a}}$,
 $Z_b=\frac{\xi_b-m_{b}}{s_{b}}$, and then
 \begin{eqnarray}\label{ytom}
    P(\xi_a \leq t_a, \xi_b \leq t_b|\by) &=& P \left( Z_a \leq\frac{t_a-m_{a}}{s_{a}}, Z_b \leq\frac{t_b-m_{b}}{s_{b}}|\by \right) \nonumber \\
@@ -761,28 +775,34 @@ $Z_b=\frac{\xi_b-m_{b}}{s_{b}}$, and then
 where $\eta_{a,b} =s_{a,b}/(s_{a} s_{b})$.
 %Since the expression only depends on $\by$ via $\bm$, the expectation in Eq. (\ref{sur}) is reduced to a bivariate integral over $\bm$ (which will vary for each integrand term, because the locations differ). 
 
-Using Eq. (\ref{ytom}) and
-introducing $\pi(\bm)$ for the density function of $\bm$, the expected Bernoulli variance becomes
+Using Eq. (\ref{ytom}) and introducing $\pi(\bm)$ for the density
+function of $\bm$, the expected Bernoulli variance becomes:
 \begin{eqnarray}\label{eq:var2}
 E_{\by}(p(1-p)) &=& E_{\bm}(p(1-p)), \hspace{3mm} p=P(\xi_a \leq t_a, \xi_b \leq t_b|\bm) \nonumber \\
 E_{\bm}(p(1-p)) & = & \int p[1-p] \pi(\bm) d\bm, \nonumber \\
  &=& \int P(\xi_a \leq t_a, \xi_b \leq t_b|\bm)  \pi(\bm) d\bm \nonumber  \\
 &-& \int P(\xi_a \leq t_a, \xi_b \leq t_b|\bm) P(\xi_a \leq t_a, \xi_b \leq t_b|\bm) \pi(\bm) d\bm. 
 \end{eqnarray}
-We will next extend results of \cite{chevalier2014fast} to solve for these two parts (see also \cite{stroh} who mentioned the possibilities of such extensions). 
+We will next extend results of \cite{chevalier2014fast} to solve for
+these two parts (see also \cite{stroh} for such an extensions).
 
-Considering part I of the, we have
+For the first part of the above, we have:
 \begin{equation}\label{part1:phi2}
  \int P(\xi_a \leq t_a, \xi_b \leq t_b|\bm) \pi(\bm) d\bm= 
 P \left( Z_{a} \leq \frac{t_a-m_{a}}{s_{a}}, 
 Z_{b} \leq \frac{t_b-m_{b}}{s_{b}} \right), \nonumber
 \end{equation}
-where $\bZ=(Z_{a},Z_{b})$ is a bivariate zero-mean and unit-variance Gaussian vector, with $\mbox{Corr}(Z_{a},Z_{b})=\eta_{a,b}$. Moreover, $\bZ$ is chosen to be independent of $\bm$. Using Eq. (\ref{dist_mxi}) we have
+where $\bZ=(Z_{a},Z_{b})$ is a bivariate zero-mean and unit-variance
+Gaussian vector, with $\mbox{Corr}(Z_{a},Z_{b})=\eta_{a,b}$. Moreover,
+$\bZ$ is chosen to be independent of $\bm$. Using Eq. (\ref{dist_mxi})
+we have
 \begin{equation}
     E(s_{a} Z_{a}+m_{a}-t_a) = \mu_{a}-t_a, \hspace{3mm}
     \mbox{Var}(s_{a} Z_{a}+m_{a}-t_a) = s^2_a+ \psi^2_{a}, 
 \end{equation}
-and the same holds for the salinity part with subscript $b$. From this calculation, we get
+and the same holds for the salinity part with subscript $b$ \kc{I
+  really think this 'a' 'b' business should go and be more descriptive
+  or intuitive.}. From this we get:
 \begin{eqnarray}\label{two_parts0}
 & P & \left( Z_{a} \leq \frac{t_a-m_{a}}{s_{a}}, 
 Z_{b} \leq \frac{t_b-m_{b}}{s_{b}} \right) \\
@@ -798,16 +818,18 @@ s_{a,b}+\psi_{a,b}   & s^2_a+ \psi^2_{a}
 \end{bmatrix}\end{pmatrix} \nonumber.
 \end{eqnarray}
 
-For part II of expression (\ref{eq:var2}), standardization means that
+For the second part of the expression (\ref{eq:var2}), standardization
+implies that: 
 \begin{eqnarray}\label{part1:phi4}
 && \int P(\xi_a \leq t_a, \xi_b \leq t_b|\bm) P(\xi_a \leq t_a, \xi_b \leq t_b|\bm) p(\bm) d\bm =  \\
 && P\left( Z_{1,a} \leq \frac{t_a-m_{a}}{s_{a}}, 
 Z_{1,b} \leq \frac{t_b-m_{b}}{s_{b}},Z_{2,b} \leq \frac{t_a-m_{a}}{s_{a}}, 
 Z_{2,b} \leq \frac{t_b-m_{b}}{s_{b}} \right). \nonumber
 \end{eqnarray}
-Here,
-$\bZ_1=(Z_{1,a},Z_{1,b})$, $\bZ_2=(Z_{2,a},Z_{2,b})$ are independent bivariate zero-mean and unit-variance Gaussian vectors, both with element-wise correlation
-$\eta_{a,b}$. Moreover, $\bZ_1$ and $\bZ_2$ are chosen to be independent of $\bm$. Hence,
+Here, $\bZ_1=(Z_{1,a},Z_{1,b})$, $\bZ_2=(Z_{2,a},Z_{2,b})$ are
+independent bivariate zero-mean and unit-variance Gaussian vectors,
+both with element-wise correlation $\eta_{a,b}$. Moreover, $\bZ_1$ and
+$\bZ_2$ are chosen to be independent of $\bm$. Hence:
 \begin{equation}
     \left(
     \begin{array}{cccccc}
@@ -844,7 +866,12 @@ $\eta_{a,b}$. Moreover, $\bZ_1$ and $\bZ_2$ are chosen to be independent of $\bm
 \vspace{0.2cm}
 \end{equation}
 
-The solution to part II is then to evaluate a four-variable cumulative distribution function associated with Eqn. (\ref{part1:phi4}), accounting for the mean, variance and covariances of $\bZ_1$, $\bZ_2$ and $\bm$ in the appropriate linear combinations. Using vector-matrix formulations, we define linear combinations
+The solution to the second part of the equation above, is then to
+evaluate a four-variable cumulative distribution function associated
+with Eqn. (\ref{part1:phi4}), accounting for the mean, variance and
+covariances of $\bZ_1$, $\bZ_2$ and $\bm$ in the appropriate linear
+combinations. Using vector-matrix formulations, we define linear
+combinations:
 \begin{equation}\label{Vcomb}
     \bV=\left[
     \begin{array}{cccccc}
@@ -865,7 +892,7 @@ The solution to part II is then to evaluate a four-variable cumulative distribut
     \end{array}
     \right),
 \end{equation}
-and the part II calculation becomes
+and this part of the equation then becomes:
 \begin{eqnarray}\label{part1:phi4}
 && P \left( Z_{1,a} \leq \frac{t_a-m_{a}}{s_{a}}, 
 Z_{1,b} \leq \frac{t_b-m_{b}}{s_{b}},Z_{2,b} \leq \frac{t_a-m_{a}}{s_{a}}, 
@@ -881,8 +908,15 @@ E( \bV),Var(\bV)
 \end{pmatrix} \nonumber.
 \end{eqnarray}
 
-The multivariate cumulative probabilities in two and four dimensions are fast to compute using methods of \cite{genz2009computation}.
-In the end, the part I solution in Eq. (\ref{two_parts0}) and part II solution in Eq. (\ref{part1:phi4}) are computed for each location on the grid, and summing over the $x \in \mathcal{M}_g$, gives the design evaluation criterion in Eq. (\ref{sur}).
+The multivariate cumulative probabilities in two and four dimensions
+are fast to compute using methods of \cite{genz2009computation}.  In
+the end, the first part in Eq. (\ref{two_parts0}) and the second in
+Eq. (\ref{part1:phi4}) are computed for each location on the grid, and
+summing over the $x \in \mathcal{M}_g$, gives the design evaluation
+criterion in Eq. (\ref{sur}). \kc{This might be a prevalent style in
+  Math/Statistics, but this entire formulation is way too dense. I
+  think it might be a good idea to have some basic intuition worked
+  out early before the start of Sec 3}
 
 \subsection{Generalization to the multivariate case}
 
