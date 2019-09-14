@@ -975,14 +975,31 @@ salinity.
 \begin{figure}[h!] \centering
   \includegraphics[width=0.99\textwidth]{Figures/illus_bivar.eps}
   \caption{Density contour plots having different correlations between
-    temperature and salinity. The densities have unit variance and the thresholds are identical to the mean values $5^o C$ and $30 mg/l$.}\label{illus_bivarDens} 
+    temperature and salinity. The densities have unit variance and the
+    thresholds are identical to the mean values $5^o C$ and
+    $30 mg/l$. x-axis is temperature and y-axis is salinity.}
+\label{illus_bivarDens}
 \end{figure}
-Here, the thresholds are set equal to the mean, $\mu_a=t_a=5^o C$ and salinity $\mu_b=t_b=30$ mg/l. The displayed densities have unit standard deviations for both temperature and salinity, but we also study the effect of doubling the standard deviations. 
+Here, the thresholds are set equal to the mean, $\mu_a=t_a=5^o C$ and
+salinity $\mu_b=t_b=30$ mg/l. The displayed densities have unit
+standard deviations for both temperature and salinity, but we also
+study the effect of doubling the standard deviations.
 
-Table \ref{tab:sim_rhoab} shows the EPs and the associated Bernoulli variance (second row) for the examples indicated in Fig. \ref{illus_bivarDens}. The EPs increase with the correlation as there is a stronger tendency of having jointly small temperature and salinity. The Bernoulli variance is similarly largest for high correlation. EPs and Bernoulli variances are the same for standard deviation $1$ or $2$, and this means that high variability in the temperature and salinity variables is not captured in the $p(1-p)$ expression.
+Table \ref{tab:sim_rhoab} shows the EPs and the associated Bernoulli
+variance (second row) for the examples indicated in
+Fig. \ref{illus_bivarDens}. The EPs increase with the correlation as
+there is a stronger tendency of having jointly small temperature and
+salinity. The Bernoulli variance is similarly largest for high
+correlation. EPs and Bernoulli variances are the same for standard
+deviation $1$ or $2$, and this means that high variability in the
+temperature and salinity variables is not captured in the $p(1-p)$
+expression.
 
-\begin{table}[!h] \centering \caption{EP and Bernoulli variance for different correlations and variances (top rows), and expected Bernoulli variances for both data 
-    and only for temperature (bottom rows).}
+\begin{table}[!h] \centering \caption{EP and Bernoulli variance for
+    different correlations and variances (top rows), and expected
+    Bernoulli variances for both data \kc{Do you mean an update of the
+      data?} and only for temperature (bottom
+    rows).}
   \begin{tabular}{c|ccc|ccc}
  &\multicolumn{3}{c}{$\sigma_b=\sigma_a=1$} & \multicolumn{3}{c}{$\sigma_b=\sigma_a=2$} \\
 \hline
