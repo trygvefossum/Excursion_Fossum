@@ -88,8 +88,8 @@
 
 \begin{abstract}
   Improving and optimizing oceanographic sampling is a crucial task for
-  modern marine management and science faced with limited resources to
-  understand highly dynamic processes in the water-column. The
+  modern marine management and science. Faced with limited resources to
+  understand highly dynamic processes in the water-column, the
   combination of statistics and autonomous
   robotics provides opportunities for studying aspects related to
   experimental design for effective characterization of oceanographic
@@ -142,14 +142,14 @@ autonomous platforms can be combined with statistical methods to pursue
 measurements with high scientific relevance.
 
 Traditional data collection at sea has typically been based on static
-buoys, lagrangian floats or ship-based methods, with significant
+buoys, lagrangian float,s or ship-based methods, with significant
 logistical limitations that directly impact coverage and sampling
 resolution. Modern methods using satellite remote-sensing provide
 large-scale coverage, but have limited resolution, are limited to
-sensing the surface of the ocean, and is impacted by cloud cover. The
+sensing the surface of the ocean, and are impacted by cloud cover. The
 advent of robust mobile robotic platforms \cite{Bellingham07} has
 resulted in significant contributions to environmental monitoring and
-sampling. In particular autonomous underwater vehicles (AUVs), have made
+sampling. In particular, autonomous underwater vehicles (AUVs), have made
 strides in advancing the state of sampling and consequently have made
 robotics an integral part of ocean observation in large part by our own
 work % driven by
@@ -160,16 +160,15 @@ statistical models, \cite{sahu2008space} which studies spatio-temporal
 models for sea surface temperature and salinity data, while
 \cite{mellucci2018oceanic} looks at the statistical prediction of
 features using an underwater glider. Common to these approaches is the
-use of information-based methods to infer environmental sampling. A few
-important characteristics should be mentioned, namely:
+use of information-based methods to infer environmental sampling and overcome common challenges, namely:
 
 \begin{itemize}
-\item Decisions on where to sample happen sequentially, i.e.  how
+\item Static sampling paths fail to capture necessary features in dynamic ocean conditions. Incontrast, these approaches make decisions about where to sample  sequentially, i.e.  
   recently acquired information can be assimilated and used to improve
   statistical models and reduce uncertainty associated with where to make measurements.
 \item As a priori information about the state of the ocean is very
-  uncertain, there lies a substantial efficiency gain in reacting to
-  information obtained from measurements taken \emph{in-situ}, this is
+  uncertain, there is a substantial efficiency gain in reacting to
+  information obtained from measurements taken \emph{in-situ}; this is
   usually referred to as the \emph{adaptivity gap} \citep{Krause2008phd}.
 \item For such types of sampling problems, the number of choices (i.e.
   locations, trajectories, and candidate designs) makes the problem
