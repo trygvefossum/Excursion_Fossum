@@ -15,6 +15,7 @@
 % use option [preprint] to remove info line at bottom
 % journal options: aop,aap,aos,aoas,ssy
 % natbib option: authoryear
+
 \documentclass[aoas]{imsart}
 
 \input{commands.tex}
@@ -28,7 +29,7 @@
 \usepackage{subfigure}
 \usepackage[utf8]{inputenc}
 
-\usepackage[tableposition = top]{caption} % captions
+%\usepackage[tableposition = top]{caption} % captions
 \usepackage{booktabs}                     % horizontal lines in tables
 
 % == Enable text degree
@@ -63,22 +64,27 @@
 % \thankstext{t1}{Thanks to somebody} 
 % \address{line 1\\ line 2\\ printead{e1}}
 % \affiliation{Some University}
-
-\author{\fnms{Trygve Olav} \snm{Fossum}\ead[label=e1]{trygve.o.fossum@ntnu.no}, \fnms{Jo} \snm{Eidsvik}\ead[label=e2]{jo.eidsvik@math.ntnu.no}, \fnms{David} \snm{Ginsbourger} \ead[label=e3]{david.ginsbourger@idiap.ch}  \and \fnms{Kanna} \snm{Rajan}\ead[label=e4]{kanna.rajan@ntnu.no}}
+\begin{aug}
+\author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{a}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
+\author{\fnms{Jo} \snm{Eidsvik}\thanksref{b}, \ead[label=e2]{jo.eidsvik@math.ntnu.no}}
+\author{\fnms{David} \snm{Ginsbourger}\thanksref{c}, \ead[label=e3]{david.ginsbourger@idiap.ch}}
+\and
+\author{\fnms{Kanna} \snm{Rajan}\thanksref{d}. \ead[label=e4]{kanna.rajan@ntnu.no}}
 
 \address{Department of Marine Technology\\ Trondheim, Norway\printead{e1}}
-\affiliation{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU), Trondheim, Norway}
+\affiliation[a]{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU) \&\\ Centre for Autonomous Marine Operations and Systems (AMOS), Trondheim, Norway.}
 
 \address{Department of Mathematical Sciences \printead{e2}}
-\affiliation{Department of Mathematical Sciences, NTNU}
+\affiliation[b]{Department of Mathematical Sciences, NTNU.}
 
 \address{Idiap \printead{e3}}
-\affiliation{Uncertainty Quantification and Optimal Design group, Idiap Research Institute, Martigny, Switzerland}
+\affiliation[c]{Uncertainty Quantification and Optimal Design group, Idiap Research Institute, Martigny, Switzerland.}
 
 \address{Department of Engineering Cybernetics,\printead{e4}}
-\affiliation{Department of Engineering Cybernetics, NTNU \&\\ Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal}
+\affiliation[d]{Department of Engineering Cybernetics, NTNU \&\\ Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
 
-\runauthor{Fossum et al.}
+\runauthor{TO. Fossum et al.}
+\end{aug}
 
 \begin{abstract}
   Improving and optimizing oceanographic sampling is a crucial task for
@@ -278,7 +284,7 @@ ocean phenomena. Even today policy makers struggle with limited
 observability of severe environmental problems such as the recent (May
 2018) outbreak of harmful algal blooms in Northern
 Norway\footnote{Report from the Institute of Marine
-  Research:https://bit.ly/2KZGJfI}, with losses exceeding 12 million
+  Research: https://bit.ly/2KZGJfI}, with losses exceeding 12 million
 tons of salmon valued at \$ 80 million (Norwegian Directorate of
 Fisheries). This is a case in point in how adequate sampling efforts
 could have provided a more accurate assessment and prior
@@ -1251,7 +1257,6 @@ in Figure \ref{fig:ESet}.
 \label{fig:realisations}
 \end{figure}
 
-\newpage
 \subsection{Static and sequential sampling designs}\label{sec:sampling_designs}
 
 %Three different designs are considered as indicated in Figure \ref{fig:stat_design}. 
@@ -1263,61 +1268,29 @@ in Figure \ref{fig:ESet}.
 %In this display the designs are plotted along with the prior probability contours of the ES for the reference parameter inputs. 
 
 We compare three different static designs denoting
-\texttt{static\_north}, \texttt{static\_east} and
+\texttt{static\_north}, \texttt{static\_east}, and
 \texttt{static\_zigzag} with the three sequential approaches
 \texttt{naive}, \texttt{myopic}, and \texttt{look-ahead}. The static
 sampling paths are pre-determined and cannot be changed on the basis
-of data, representing the archetypical pre-planned observation
+of data, representing the typical pre-planned observation
 strategies used in typical AUV operational survey designs.
 
-For a fixed survey length, the expected variance after static
-surveying is analytically available (equal coverage each time), but
-here we focus on the properties from the sequential designs which are
-evaluated using Monte Carlo sampling over several replicates of
-realizations from the prior, and conducting simulated sequential
-surveying for each one, making the result dependent on observed
-data. For comparison, the same setup is used for static
-designs. Figure \ref{fig:Eprob} shows the conditional EP, given data
-gathered along the north-south survey line for the realization
-indicated in these displays. In the Monte Carlo replicates, such
-results are repeatedly computed to approximate the expected variance
-reduction in the ES. Along with this criterion we also compare
-predictive performance measured by root mean square error (RMSE) in
-the temperature and salinity fields and variance reduction in these
-two variables. It is important to note that the objective function
-used by the agents is focused on reducing the expected variance in the
-ES, but we nevertheless hope to achieve good predictive performance
-for criteria such as RMSE as well. Another non-statistical criteria
-that is important for practical purposes is the computational time of
-the strategy, as this will impact the performance of the approach in
-the field for an embedded system. In Fig. \ref{fig:wp_graph}, the
-sequential sampling agents start at the center East-West coordinate at
-the southern end of the domain (node 53).
+For a fixed survey length, the expected variance is analytically available (equal coverage and reduction in variance each time). However, for the sequential approaches this is not the case, as the result and path are dependent on the observed data and the expected reduction in IBV. The properties is therefore evaluated using Monte Carlo sampling over several replicates of realizations from the prior, conducting simulated sequential surveying for each one. Figure \ref{fig:Eprob} shows the conditional EP, given data gathered along the north-south survey line for the realization indicated in these displays. In the Monte Carlo replicates, such results are repeatedly computed to approximate the expected variance reduction in the ES. We also compare predictive performance measured by root mean square error (RMSE) for the temperature and salinity estimates and the variance reduction in these two variables. It is important to note that the objective function used by the agents is focused on reducing the expected variance in the ES, but we nevertheless hope to achieve good predictive performance for criteria such as RMSE as well. Another non-statistical criteria that is important for practical purposes is the computational time of the strategy, as this will impact the performance of the approach in the field for an embedded system. 
 
-
-\begin{figure}[t]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=0.50\textwidth]{Figures/sim/wp_graph_paper.pdf}
 \caption{The equilateral waypoint graph used to discretize the
-  trajectory choices over the $31\times31$ grid.}
+  trajectory choices over the $31\times31$ grid used to discretize the GP.}
 \label{fig:wp_graph}
 \end{figure}
 
-Maintaining the example above, the AUV will move along edges in the
-Fig. \ref{fig:wp_graph} waypoint graph while the vehicle gathers
-measurements. These are assimilated in the GP model, before an
-evaluation of the next node to sample is conducted at the end of the
-edge. The paths will differ for the various sequential designs due to
-the individual design criteria and the simulated variability in the
-environment among the replicates.
+Each strategy is conducted on an equilateral grid shown in Fig. \ref{fig:wp_graph}. The sequential sampling agents start at the center East-West coordinate at the southern end of the domain (node 53). The AUV will move along edges in the waypoint graph while the vehicle gathers measurements. The data is assimilated into the GP model, before an evaluation of the next node to sample is conducted at the end of the edge. The paths will differ for the various sequential designs due to the individual design criteria and the simulated variability in the environment among the replicates.
 
-Results of the replicate runs are shown in Figure \ref{fig:sim_results},
-where the different criteria are plotted as a function of surveying
-distance. Here, expected ES variance in Figure \ref{fig:avg_ev} is
-reduced most under the \texttt{myopic} and \texttt{look-ahead}
-strategies, performing almost equally.
+A total of 100 replicate simulation was conducted and the results are shown in Figure \ref{fig:sim_results},
+where the different criteria are plotted as a function of survey distance. Figure \ref{fig:avg_ev} shows the resulting drop in ES variance for each of the six strategies. The ES variance is reduced most under the \texttt{myopic} and \texttt{look-ahead} strategies, performing almost equally; this is expected as the two criteria (Eq. \eqref{critSEQ} and \eqref{critLA}) are much more sensitive to differences in IBV. The north-south design also does well in terms of ES variance reduction since the path is parallel to the  boundary between the water masses.
 
-\begin{figure}[!th]
+\begin{figure}[h!]
   \centering
   % \subfigure[Excursion set variance $E_{\by}(p[1-p])$.]{\label{fig:avg_ev}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_EV.pdf}}
   \subfigure[Excursion set $E_{\by}$(p\lbrack 1-p\rbrack) variance.]{\label{fig:avg_ev}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_EV.pdf}}
@@ -1332,14 +1305,7 @@ strategies, performing almost equally.
 \label{fig:sim_results}
 \end{figure}
 
-The north-south design also does well since it moves near the boundary
-of the water masses. In Figure \ref{fig:avg_rmse} and \ref{fig:avg_r2}
-we show results of RMSE and explained variance. Both \texttt{myopic}
-and \texttt{look-ahead} perform well, but some of the
-\texttt{static\_east} and \texttt{static\_zigzag} also achieve good
-results because they are set to cover large parts of the domain, and
-in doing so visit locations that are not considered interesting by the
-sequential strategies targeting ES variance.
+Figure \ref{fig:avg_rmse} and \ref{fig:avg_r2} show the resulting drop in RMSE and increase in explained variance. Both \texttt{myopic} and \texttt{look-ahead} perform well here, but some of the \texttt{static\_east} and \texttt{static\_zigzag} also achieve good results because they are pre-determined to cover large parts of the domain without re-visitation. Sequential strategies targeting ES variance will sometimes not reach similar coverage as interesting data may draw the path into turns and twists that may result in re-visitation. 
 
 \begin{figure}[!b]
   \centering
@@ -1356,51 +1322,12 @@ sequential strategies targeting ES variance.
 \label{fig:route_choices}
 \end{figure}
 
-Fig.  \ref{fig:avg_time} shows the computational effort; the
-\texttt{naive} strategy is on par with the static designs, while the
-\texttt{myopic} strategy is slower and \texttt{look-ahead} more so,
-with the latter reaching levels that are nearly impractical for
-execution on a vehicle -- with more pruning of branches in the graph,
-it would likely be faster. Then again, this pruning is likely the
-reason that this strategy does not outperform the myopic approach. In
-Figure \ref{fig:route_choices} we plot the realized sampling paths of
-the sequential schemes and static designs.
+Fig.  \ref{fig:avg_time} shows the computational effort; the \texttt{naive} strategy is on par with the static designs, while the \texttt{myopic} strategy is slower and \texttt{look-ahead} more so, with the latter reaching levels that are nearly impractical for execution on a vehicle. Some pruning of the graph is performed to improve the computational speed, such as ruling out repeated visitations and back-and-forth routes. Some of the intermediate results are also stored for longer planning horizons. Still, more pruning of branches or inclusion of other heuristics could be included to make the strategy faster. Then again, the inclusion of heuristics is likely a contributing factor that the \texttt{look-ahead} strategy is not outperforming the \texttt{myopic} strategy. In Figure \ref{fig:route_choices} the realized sampling paths for each sequential schemes and static designs is shown.  
 
-The naive strategy gets stuck in the southern part of the domain in
-some cases, because it is too focused on the probabilities near
-$0.5$. The myopic strategy meanwhile, covers a wider domain than the
-look-ahead, possibly because the look-ahead strategy sees less value
-of going far west because it accounts for having to return east again.
+The \texttt{naive} strategy gets stuck in the southern part of the domain in some cases, because it is too focused on the probabilities near $0.5$. The \texttt{myopic} strategy meanwhile, covers a wider domain than the look-ahead, there are several reasons for this. First, a greedy approach will tend to do more put more emphasis on locations close to the agent, which may lead away from the centre. Secondly, as the agent evaluates the impact of locations further away (look-ahead) where assimilated data has less effect, the prior (which is centered here) will act to restrict paths deviating from the central zone.   
 
-We further go on to study sensitivity of the result to different prior
-correlation values between temperature and salinity, prior standard
-deviations and spatial correlations, as well as those of measuring
-only temperature on-board the AUV (as indicated in the rows). We
-compare results at the end of the surveying distance. Expected ES
-variances are shown in Table \ref{tab:sim_res_ev}, results of RMSE are
-in Table \ref{tab:sim_res_rmse} and explained variance in Table
-\ref{tab:sim_res_r2}.  In all runs, the myopic and look-ahead
-strategies perform the best in terms of expected variance in the
-ES. Surprisingly, the myopic is on-par and even slightly better than
-the look-ahead strategy. Part of the reason is pruning of paths for
-the look-ahead strategy, but even with less pruning, the look-ahead
-does not outperform the myopic approach. % Of course, we are able to
-% make up cases where look-ahead beats myopic, but within our ranges of
-% realistic input parameter values it was not easy.
-The \texttt{static\_north} design is clearly better than the other two
-static designs, the reason being that the others do not focus on the
-areas where the ES is really uncertain.  By measuring temperature
-alone the expected variances in the ES is only slightly higher. This
-occurs because the ES is almost the same and because of the
-correlation of $0.6$ which means that temperature observations give
-information about salinity as well.
+We further go on to study sensitivity of the result to different prior correlation values between temperature and salinity, prior standard deviations, spatial correlations, as well as measuring only temperature on-board the AUV (as indicated in the rows). We only compare results at the end of each survey. The expected ES variances are shown in Table \ref{tab:sim_res_ev}, results of RMSE are in Table \ref{tab:sim_res_rmse}, and explained variance in Table \ref{tab:sim_res_r2}. In all runs, both the \texttt{myopic} and \texttt{look-ahead} strategies perform the best in terms of expected variance in the ES. Surprisingly, the \texttt{myopic} is on-par and even slightly better than the \texttt{look-ahead} strategy. Part of the reason can be traced to the act of pruning some of the paths for the \texttt{look-ahead} strategy, but even with less pruning, the \texttt{look-ahead} does not outperform the \texttt{myopic} approach. The \texttt{static\_north} design is clearly better than the other two static designs, the reason being that the others do not focus on the areas where the ES is really uncertain (centre locations are the most uncertain). By measuring temperature alone the expected variances in the ES is only slightly higher. This occurs because the ES is almost the same and because of the correlation of $0.6$, which means that temperature observations provide information about salinity as well. For the other predictive measures, \texttt{myopic} and \texttt{look-ahead} do well, clearly beating the \texttt{naive} strategy. The \texttt{static\_zigzag} design is usually the best among the static designs for these predictive performance measures because its pattern gives more effective coverage of the domain when there is significant spatial correlation as in this case.
 
-For the other predictive measures, myopic and look-ahead do well,
-clearly beating the naive approach. The \texttt{static\_zigzag} design
-is usually the best among the static designs for these predictive
-performance measures because its pattern gives more effective coverage
-of the domain when there is significant spatial correlation as in this
-case.
 \begin{table}[!h]
     \centering
     \scalebox{0.87}{
@@ -1422,11 +1349,10 @@ temp. only         &  38.25 &   29.16 &       \textbf{28.69} &         34.32 &  
 basecase           &  35.21 &   \textbf{28.56} &       28.94 &         33.50 &        39.84 &          39.26 \\
     \bottomrule
     \end{tabular}}
-  \caption{Simulation results for the final mean IBV (Eq. \eqref{two_partsK}) for 20 replicates, 8
-    configurations, and 6 strategies.}
+  \caption{Simulation results for the final mean IBV (Eq. \eqref{two_partsK}).}
     \label{tab:sim_res_ev}
 \end{table}
-
+\vspace{-0.4cm}
 \begin{table}[!h]
     \centering
     \scalebox{0.92}{
@@ -1448,12 +1374,10 @@ temp. only         &   0.65 &    0.63 &        0.62 &          0.65 &         \t
 basecase           &  0.61 &   \textbf{0.56} &       \textbf{0.56} &         0.60 &        0.57 &          0.57 \\
         \bottomrule
         \end{tabular}}
-      \caption{Simulation results for the final mean RMSE
-        ($\frac{1}{B} \sum_{b=1}^{B} \sqrt{(\bmu-\tilde{\bmu})^2}$)
-        for 20 replicates, 8 configurations, and 6 strategies.}
+      \caption{Simulation results for the final mean RMSE ($\frac{1}{B} \sum_{b=1}^{B} \sqrt{(\bmu-\tilde{\bmu})^2}$).}
     \label{tab:sim_res_rmse}
 \end{table}
-
+\vspace{-0.4cm}
 \begin{table}[!h]
     \centering
     \scalebox{0.95}{
@@ -1475,10 +1399,7 @@ temp. only         &  11.67 &   \textbf{22.82} &       21.98 &         18.16 &  
 basecase           &  24.71 &   33.45 &       32.25 &         26.71 &        30.62 &          \textbf{33.54}\\
         \bottomrule
         \end{tabular}}
-      \caption{Simulation results for the final mean explained
-        variance
-        ($\bR^{2}=100*(1-(\bSigma_{posterior}/\bSigma_{initial}))$)
-        for 20 replicates, 8 configurations, and 6 strategies.}
+      \caption{Simulation results for the final mean explained variance $\bR^{2}=100*(1-(\bSigma_{posterior}/\bSigma_{initial}))$).}
     \label{tab:sim_res_r2}
 \end{table}
 
@@ -1487,51 +1408,17 @@ basecase           &  24.71 &   33.45 &       32.25 &         26.71 &        30.
 \section{Case study - Mapping a river plume}
 \label{sec:case_study}
 
-To demonstrate the applicability of multivariate EPs and the IBV to informative
-oceanographic sampling, we present a case study mapping a river plume
-with an AUV.  This experiment was performed in Trondheim, Norway,
-where the Nidelva river (Figure \ref{fig:nidelven}) meets water from
-the Trondheim fjord. The experiment is focused along the eastern
-shoreline due to the aforementioned Coriolis
-force, and the frontal zone should therefore run more or less parallel to the eastern shore as
-indicated in purple in Figure \ref{fig:nidelven}. The experiments were
-conducted in late Spring 2019, when there is still snow melting in the mountains so that the fresh river water is substantially colder than the water in the fjord.
-
+To demonstrate the applicability of using multivariate EPs and the IBV to inform oceanographic sampling, we present a case study mapping a river plume with an AUV. The experiment was performed in Trondheim, Norway,
+surveying the Nidelva river (Figure \ref{fig:nidelven}). Here cold and fresh water from the river meet the warm and saline ocean water in the Trondheim fjord. The experiment is focused along the eastern shoreline due to the aforementioned Coriolis force. The frontal zone therefore runs more or less parallel to the eastern shore as
+indicated in purple in Figure \ref{fig:nidelven}. The experiments were conducted in late Spring 2019, when there is still snow melting in the surrounding mountains so that the river water is substantially colder than the water in the fjord.
 
 \subsection{Model specification}
 
-The statistical model parameters were specified based on a preliminary run where the AUV did an initial transect to determine the
-environmental conditions and correlation structure. In these runs the
-trend parameters were estimated by linear regression, where both
-temperature and salinity are assumed to increase linearly, going west
-from the river mouth. Next, the residuals from the regression analysis
-are analyzed to study the fit of the Gaussian model and to specify the
-covariance parameter.
-
-Figure \ref{fig:parest} shows diagnostic plots of this
-analysis. The display on the left shows a cross-plot of temperature and
-salinity residuals, after the westernly trends in both salinity and temperature are subtracted from the data. This scatterplot of joint residuals indicates larger variability in salinity than in
-temperature, and a positive correlation ($0.5$) between the two
-variables. Based on the fitted bivariate Gaussian model (ellipses in left display), we can compute the modeled quadratic form of the residuals, and if the model is
-adequate they should be approximately $\chi^2_2$
-distributed. Figure \ref{fig:parest} (middle) shows the empirical
-(cumulative distribution function) CDF of these quadratic forms
-(solid) together with the theoretical CDF of the $\chi^2_2$
-distribution. The modeled and theoretical curves are very similar and this indicates that the Gaussian model fits reasonable well. Even though there appears to be some clustering in both left and middle displays of Figure \ref{fig:parest}, the bivariate diagnostic plots look reasonable and justify a Gaussian model.
-Figure \ref{fig:parest} (right)
-shows the empirical variogram of the scaled residuals for temperature and salinity. The decay is similar for the two, and seems to be negligible after
-about $150$ m. 
-
-The resulting parameters are given in Table
-\ref{tab:experiment_param}. The regression parameters shown here are scaled to represent the east and west boundaries of the domain as seen in the preliminary transect data, and the thresholds are intermediate values.
-These parameter values were then used in field trials, where we explored the algorithm's ability to characterize the river plume front separating the river and fjord water masses.
-
-
-%Mapping the spatial extent of a frontal zones is an important problem for studying many bio-physical interactions in the ocean. The frontal zone is determined by the boundary where plumes of sediments, nutrients, and possibly pollutants spreading from the river outlet meet and interact with adjacent coastal water. Due to the lower density the plumes spread on the surface, creating a front with an sharp gradient in both temperature and salinity. 
+The statistical model parameters were specified based on a short preliminary survey where the AUV did an initial transect to determine the environmental conditions and correlation structure. Based on the initial data the trend parameters were estimated by linear regression, where both temperature and salinity are assumed to increase linearly, going west from the river mouth. Next, the residuals from the regression analysis are analyzed to study the fit of the Gaussian model and to specify the covariance parameters.
 
 \begin{figure}[!h] 
  \centering 
-\includegraphics[width=0.98\textwidth]{Figures/field-trials/res_diag.eps}
+\includegraphics[width=0.98\textwidth]{Figures/field-trials/res_diag.pdf}
 \caption{Data analysis from a preliminary trial experiment using the
   AUV. Left: Residual plot of temperature and salinity along with
   Gaussian contours. Middle: Empirical CDF of the quadratic form of
@@ -1539,6 +1426,13 @@ These parameter values were then used in field trials, where we explored the alg
   distribution with two degrees of freedom. Right: Empirical variogram
   of the salinity and temperature data.} \label{fig:parest}
 \end{figure}
+
+Figure \ref{fig:parest} shows diagnostic plots of this analysis. The display on the left shows a cross-plot of temperature and salinity residuals, after the westernly trends in both salinity and temperature are subtracted from the data. This scatterplot of joint residuals indicates larger variability in salinity than in temperature, and a positive correlation ($0.5$) between the two variables. Based on the fitted bivariate Gaussian model (ellipses in left display), we can compute the modeled quadratic form of the residuals, and if the model is adequate they should be approximately $\chi^2_2$ distributed. Figure \ref{fig:parest} (middle) shows the empirical (cumulative distribution function) CDF of these quadratic forms (solid) together with the theoretical CDF of the $\chi^2_2$ distribution. The modeled and theoretical curves are very similar and this indicates that the Gaussian model fits reasonable well. Even though there appears to be some clustering in both left and middle displays of Figure \ref{fig:parest}, the bivariate diagnostic plots look reasonable and justify a Gaussian model. Figure \ref{fig:parest} (right) shows the empirical variogram of the scaled residuals for temperature and salinity. The decay is similar for the two, and seems to be negligible after about $150$ m. 
+
+
+Based on the analysis in Fig. \ref{fig:parest} the resulting parameters are given in Table \ref{tab:experiment_param}. The regression parameters shown here are scaled to represent the east and west boundaries of the domain as seen in the preliminary transect data, and the thresholds are intermediate values. These parameter values were then used in field trials, where we explored the algorithm's ability to characterize the river plume front separating the river and fjord water masses, providing a spatial map of this boundary. 
+
+%Mapping the spatial extent of a frontal zones is an important problem for studying many bio-physical interactions in the ocean. The frontal zone is determined by the boundary where plumes of sediments, nutrients, and possibly pollutants spreading from the river outlet meet and interact with adjacent coastal water. Due to the lower density the plumes spread on the surface, creating a front with an sharp gradient in both temperature and salinity. 
 
 \begin{table}[!h]
 \centering
@@ -1556,11 +1450,11 @@ Corr. range  & 0.15 km & AUV observations (variogram)\\
 River temp. $T_{river}$ & $10.0\,^{\circ}\mathrm{C}$ & AUV observations\\
 Ocean temp. $T_{ocean}$ & $11.0\,^{\circ}\mathrm{C}$ & AUV observations\\
 \rowcolor{Gray}
-River sal. $S_{river}$ & $14.0$g/kg & AUV observations\\
-Ocean sal. $S_{ocean}$ & $22.0$g/kg & AUV observations\\
+River sal. $S_{river}$ & $14.0$ g/kg & AUV observations\\
+Ocean sal. $S_{ocean}$ & $22.0$ g/kg & AUV observations\\
 \rowcolor{Gray}
 Threshold temp. & $10.5\,^{\circ}\mathrm{C}$ & $(T_{ocean}-T_{river})/2+T_{river}$\\
-Threshold sal. & $22.0$g/kg & $(S_{ocean}-S_{river})/2+S_{river}$\\
+Threshold sal. & $18.0$ g/kg & $(S_{ocean}-S_{river})/2+S_{river}$\\
 \rowcolor{Gray}
 \bottomrule
 \end{tabular}
@@ -1571,95 +1465,45 @@ Threshold sal. & $22.0$g/kg & $(S_{ocean}-S_{river})/2+S_{river}$\\
 \end{table}
 
 
-
 \subsection{Experimental setup}
 
-Two full-scale deployments were conducted with adaptive AUV sampling.
-%on the 2$^{nd}$ of July 2019 spatially mapping the location of the plume from the Nidelven river (Trondheim, Norway) spreading into the Trondheimsfjord 
-The AUV used the onboard autonomous agent \texttt{T-REX}
-\citep{py10,Rajan12,Rajan12b}, running an instance of the myopic
-strategy from Section \ref{sec:sampling_designs}, to control the AUV and decide between sampling locations.
+The sampling locations was distributed over an equilateral grid, as shown in Fig. \ref{fig:map} in a grey colored lattice. The robotic platform consisted of a Light AUV \citep{sousa2012lauv} (Figure \ref{fig:lauv}) equipped with a 16 Hz Seabird Fastcat-49 CTD (conductivity, temperature, and depth) sensor providing temperature and salinity measurements. The accuracy of the CTD instrument is $\pm 0.0003$ S/m (conductivity) and $\pm0.002\,^{\circ}\mathrm{C}$ (temperature). The sampling agent was built on top of the autonomous agent framework \texttt{T-REX} \citep{py10,Rajan12,Rajan12b}, running an instance of the \texttt{myopic} strategy from Section \ref{sec:sampling_designs}, to control the AUV and decide between sampling locations.
 
-\begin{figure}[!b] 
- \centering 
-\includegraphics[width=0.98\textwidth]{Figures/LAUV.jpg}
-\caption{The commercially available Light Autonomous Underwater
-  Vehicle (LAUV) used in the experiments in Trondheim.}
+\begin{figure}[!h] 
+\centering 
+\includegraphics[width=0.98\textwidth]{Figures/harald.jpg}
+\caption{The commercially available Light Autonomous Underwater Vehicle (LAUV) platform (Harald) for upper water-
+column exploration used in the experiment.}
 \label{fig:lauv}
-\end{figure}
+\end{figure} 
 
+The sampling strategy was designed around the concept of visiting waypoints sequentially. Arriving at a desired waypoint, with new measurements and an updated model, the AUV triggers the myopic strategy to evaluate all possible design criteria, e.g Eq. \eqref{critSEQ}. The waypoint-and-path combination which is expected to reduce the IBV the most is selected; upon arrival this procedure is then repeated. At each stage, it takes the AUV about 30 sec to evaluate the expected IBV for all the possible waypoint-and-path alternatives.
 
-The sampling locations are distributed over an equilateral grid, as
-shown in Fig. \ref{fig:map} in a grey colored lattice. The robotic
-platform consisted of a Light AUV \citep{sousa2012lauv} (Figure
-\ref{fig:lauv}) equipped with a 16 Hz Seabird Fastcat-49 CTD
-(conductivity, temperature, and depth) sensor providing temperature
-and salinity measurements. The accuracy of
-the CTD instrument is $\pm 0.0003$ S/m (conductivity) and
-$\pm0.002\,^{\circ}\mathrm{C}$ (temperature).
+The AUV was set to start in the south center part of the waypoint graph, with the previously outlined GP prior model of the environment. Each AUV survey was set to take approximately 40 min, visiting 15 waypoints on the grid, with the AUV running near the surface to better capture the plume. On its path from one waypoint to the next, the AUV gathered data regularly, and the GP model assimilated temperature and salinity data with an update frequency of 30 sec, about three updates per stage.
 
-%\begin{figure}[!h] 
-%\centering 
-%\includegraphics[width=0.98\textwidth]{Figures/harald.jpg}
-%\caption{The light AUV platform (Harald) for upper water-
-%column exploration used in the experiment.}
-%\label{fig:harald_auv}
-%\end{figure} 
+\begin{figure*}[!h]
+\centering
+\subfigure[Survey map.]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/alt_map.eps}\label{fig:map}}
+\hspace{0.3cm}
+\subfigure[Temperature tracks.]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/auv.pdf}\label{fig:res_both}}
 
+\subfigure[Survey 1]{\includegraphics[height=0.40\textwidth]{Figures/field-trials/auv1_es_sal.pdf}\label{fig:res1}}
+\hspace{0.2cm}
+\subfigure[Survey 2]{\includegraphics[height=0.40\textwidth]{Figures/field-trials/auv4_es_sal.pdf}\label{fig:res2}}
 
-The sampling strategy was designed around sequential visiting of waypoints defined by the grid. Arriving at a desired waypoint, with new measurements and an updated model, the AUV triggers the myopic strategy to evaluate all possible design alternatives as in Eq. \eqref{critSEQ}. The design which is expected to reduce the IBV the most is selected and defines the next waypoint. This procedure is repeated for several stages in both surveys. At each stage, it takes the AUV about 30 sec to evaluate the expected IBV all possible design strategies.
-
-For the field trials, the AUV
-started in the south center part of the waypoint graph with the outlined GP prior model of
-the environment. Each AUV
-survey was set to take approximately 40 min, visiting 15 waypoints on the grid, with the AUV running near the surface to better capture the
-plume. On its path from one waypoint to the next, the AUV gathered data regularly, and the GP model assimilated these temperature and salinity data with an update frequency of 30 sec. This means about 3 measurements of temperature and salinity per stage.
+\subfigure[ES for Survey 1.]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/ep_1.pdf}\label{fig:res3}}\hspace{0.4cm}
+\subfigure[ES for Survey 2.]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/ep_4.pdf}\label{fig:res4}}
+\caption{Results from mapping the Nidelven river} 
+\label{fig:results}
+\end{figure*}
 
 \subsection{Results}
 
-Two missions, Survey 1 and 2, were run successively from 11:00 AM to
-01:00 PM, with a short break in between. The resulting path of
-the selected waypoints are shown in the map in
-Fig. \ref{fig:map}, both within the expected frontal region. The
-recorded temperatures are shown as colored trails in
-Fig. \ref{fig:res_both}, clearly showing the temperature difference
-between fjord and river waters. The temperatures are then shown
-separately overlaid with the estimated EP for each survey in
-Fig. \ref{fig:res1} and \ref{fig:res2}.
+Two missions, Survey 1 and 2, were run successively from 11:00 AM to 01:00 PM, with a short break in between. The resulting path of the selected waypoints are shown in the map in Fig. \ref{fig:map}, both within the expected frontal region (shaded pink region). The recorded temperatures are shown as colored trails in Fig. \ref{fig:res_both}, clearly showing the temperature difference between fjord and river waters. The salinity data are then shown separately overlaid with the estimated EP for each survey in Fig. \ref{fig:res1} and \ref{fig:res2}. 
 
-Both Survey 1 and 2 successfully estimate and navigate the separation
-zone while crossing the front multiple times. As conditions changed slightly 
-between the two deployments the resulting path (after waypoint 5
-\kc{This should be marked in the figure. And all figures need to be
-  zoomed up, since they're too small}) deviates. Survey 1 continues
-northwards tracking the north-eastern part of the front, while Survey
-2 turns west mapping the south-western part. 
+Both Survey 1 and 2 successfully estimate and navigate the separation zone crossing the frontal boundary multiple times. As conditions changed slightly between the two deployments the resulting path (after waypoint 5) deviates. Survey 1 continues northwards tracking the north-eastern part of the front, while Survey 2 turns west mapping the south-western part. 
 
-The final prediction of
-the front location given in Fig. \ref{fig:res3} and \ref{fig:res4},
-correspond with one another yielding a picture of the front gradually
-bending off towards north east. The amount of exploration done by
-Survey 1 is greater than Survey 2. In Survey 1 the AUV gets overall more detail by going north, while Survey 2 coming close to the survey area
-borders in the south-western corner get poorer understanding of the northern parts. A longer planning horizon would likely 
-identify and discourage such choices.
-
-\begin{figure}[!h]
-\centering
-\subfigure[Survey map.]{\includegraphics[height = 0.31\textwidth]{Figures/field-trials/alt_map.eps}\label{fig:map}}
-\hfill
-\subfigure[Temperature tracks.]{\includegraphics[height = 0.31\textwidth]{Figures/field-trials/auv.pdf}\label{fig:res_both}}
-\hfill
-\subfigure[Survey 1]{\includegraphics[height = 0.31\textwidth]{Figures/field-trials/auv1_es.pdf}\label{fig:res1}}
-\hfill
-\subfigure[Survey 2]{\includegraphics[height = 0.31\textwidth]{Figures/field-trials/auv4_es.pdf}\label{fig:res2}}
-\hfill
-\subfigure[ES for Survey 1.]{\includegraphics[height = 0.31\textwidth]{Figures/field-trials/ep_1.pdf}\label{fig:res3}}
-\hfill
-\subfigure[ES for Survey 2.]{\includegraphics[height = 0.31\textwidth]{Figures/field-trials/ep_4.pdf}\label{fig:res4}}
-\caption{Results from mapping the Nidelven river} 
-\label{fig:results}
-\end{figure}
-
+The final prediction of the front location given in Fig. \ref{fig:res3} and \ref{fig:res4}, correspond with one another yielding a picture of the front gradually bending off towards north east. The amount of exploration done by Survey 1 is greater than Survey 2. In Survey 1 the AUV gets overall more detail by going north, while Survey 2 coming close to the survey area borders in the south-western corner get poorer understanding of the northern parts. A longer planning horizon would likely identify and discourage such choices.
 
 %\begin{figure}[!h] 
 % \centering 
@@ -1669,31 +1513,20 @@ identify and discourage such choices.
 %the numerous processes and their interaction.} %\label{fig:envir}
 %\end{figure}
 
-
 \section{Closing remarks}\label{sec:concl_disc}
 
-This paper builds on multidisciplinary work combining statistical modeling and methods with new robotic surveying technologies for an oceanographic application. We show how the application can gain from new statistical approaches to achieve more effective spatial monitoring.
-At the same time, we show that novel autonomous sensing techniques give opportunities for multivariable spatial data gathering which statisticians can learn from to develop new general-purpose toolkits.
+This paper builds on multidisciplinary work combining statistical modeling and methods with robotic surveying technologies for oceanographic sensing applications. We show how the observation practices can gain from development of statistical techniques to achieve more effective spatial monitoring. We further demonstrate the opportunities available for real-time multivariable spatial data gathering and analysis onboard autonomous sensing platforms, upon which statisticians can exploit towards creating general-purpose toolkits for similar applications (enabeling theory).
 
-In particular, we derive and show results for
-characterizing river front water masses with cold river water separating from warmer saline fjord conditions. The characterization is based on joint excursion sets and we derive new results for the expected integrated Bernoulli variance reduction achieved by the spatial sampling design.
-This result is first derived for the situation with a static design, and then extended to the adaptive situation which provides new insight in our application with the autonomous vehicle.
+In particular, we derive and show results for characterizing phenomena connected to water masses properties. The characterization is based on joint excursion sets and we derive new results for the expected integrated Bernoulli variance reduction achieved by the spatial sampling design. This result is first derived for the situation with a static design, and then extended to the adaptive situation, which provides new insight in our application with the autonomous vehicle.
 
-The study did not consider
-any temporal effects, which would be relevant on a larger time
-scale. We consider the extension to spatio-temporal modeling as future work, and we envision that advection-diffusion equations could be useful in this kind of modeling \citep{sigrist2015stochastic}.  For more complex oceanographic phenomena, the methods will need to be
-extended to non-Gaussian phenomena, possibly feature-based mixtures of GPs which could still be run onboard, and augmented by dynamical models.
+The study did not consider any temporal effects, which would be relevant on a larger time scale. We consider the extension to spatio-temporal modeling as future work, and we envision that advection-diffusion equations could be useful in this kind of modeling \citep{sigrist2015stochastic}. For more complex oceanographic phenomena, the methods will need to be extended to non-Gaussian phenomena, possibly feature-based mixtures of GPs which could still be run onboard, and augmented by dynamical models. 
 
-The spatial statistical design criterion building on excursion sets is relevant in our setting with the different water masses and could also be useful in other oceanographic settings such as algea blooms or frontal systems. Other criteria more directly related to decision making would also be relevant, especially with much spatio-temporal effects. For instance, managers must make difficult decisions related to fish farming or other marine resources operations, or environmental projects. Value of information analysis \citep{Eidsvik:15} would then be used in a similar vein as the integrated Bernoulli variance in the current paper, now studying which, when and where information is likely to materialize in improved decisions. 
+The spatial statistical design criterion building on excursion sets is relevant in our setting with the different water mass properties and could also be useful in other oceanographic settings such as algae-blooms or frontal systems. Other criteria more directly related to decision making would also be relevant, especially with much spatio-temporal effects. For instance, managers must make difficult decisions related to fish farming or other marine resources operations, or environmental projects. Value of information analysis \citep{Eidsvik:15} would then be used in a similar vein as the integrated Bernoulli variance in the current paper, now studying which, when and where information is likely to materialize in improved decisions. 
 
-While more effort could be spent on approximating the look-ahead steps, it is perhaps more interesting to explore the additional
-flexibility that can be gained by having two or more AUVs \citep{ferreira2019advancing} exploring a
-spatial or spatio-temporal domain together. It might then be useful to
-sample different parts of the space, and maybe move in parallel to
-best capture the excursion set.
+While more effort could be spent on approximating the look-ahead steps, it is perhaps more interesting to explore the additional flexibility that can be gained by having two or more AUVs \citep{ferreira2019advancing} exploring a spatial or spatio-temporal domain together. It might then be useful to sample different parts of the space, and maybe move in parallel to best capture the excursion set.
 
 \section*{Acknowledgements}
-Thanks to SINTEF Ocean, AMOS, etc.JE acknowledge support from Norwegian research council project 294404. DG acknowledges support from the Swiss National Science Foundation project number 178858.\kc{Complete}
+TOF and KR acknowledge support from the Centre for Autonomous Marine Operations and Systems (AMOS)\footnote{\url{https://www.ntnu.edu/amos}}, Center of Excellence, project number 223254, and the Applied Underwater Robotics Labortatory (AURLab). JE acknowledge support from Norwegian research council project 294404. DG acknowledges support from the Swiss National Science Foundation project number 178858.
 
 %\begin{supplement}
 %\sname{Supplement A}\label{suppA}
@@ -1709,7 +1542,6 @@ Thanks to SINTEF Ocean, AMOS, etc.JE acknowledge support from Norwegian research
 \bibliographystyle{apalike}
 \bibliography{ref}
 
-
 % AOS,AOAS: If there are supplements please fill:
 %\begin{supplement}[id=suppA]
 %  \sname{Supplement A}
@@ -1719,23 +1551,4 @@ Thanks to SINTEF Ocean, AMOS, etc.JE acknowledge support from Norwegian research
 %  \sdescription{Some text}
 %\end{supplement}
 
-
 \end{document}
-
-%\begin{enumerate}
-%\item  This is the first item of an enumerated list.  Each item
-%      in the list is marked with a ``tick.''  The document
-%      style determines what kind of tick mark is used.
-%\item  This is the second item of the list.  It contains another
-%      list nested inside it.  The three inner lists are an {\em enumerated}
-%      list.
-%    \begin{enumerate}
-%       \item This is the first item of an enumerated list that
-%            is nested within the enumerated list.
-%          \item This is the second item of the inner list.  \LaTeX\
-%            allows you to nest lists deeper than you really should.
-%      \end{enumerate}
-%      This is the rest of the second item of the outer list.  It
-%      is no more interesting than any other part of the item.
-%   \item  This is the third item of the list.
-%\end{enumerate}
