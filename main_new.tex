@@ -142,7 +142,7 @@ autonomous platforms can be combined with statistical methods to pursue
 measurements with high scientific relevance.
 
 Traditional data collection at sea has typically been based on static
-buoys, lagrangian float,s or ship-based methods, with significant
+buoys, lagrangian floats or ship-based methods, with significant
 logistical limitations that directly impact coverage and sampling
 resolution. Modern methods using satellite remote-sensing provide
 large-scale coverage, but have limited resolution, are limited to
@@ -151,8 +151,9 @@ advent of robust mobile robotic platforms \cite{Bellingham07} has
 resulted in significant contributions to environmental monitoring and
 sampling. In particular, autonomous underwater vehicles (AUVs), have made
 strides in advancing the state of sampling and consequently have made
-robotics an integral part of ocean observation in large part by our own
-work % driven by
+robotics an integral part of ocean observation; our own work
+has contributed to this effort.
+
 % using statistical methods in design and data assimilation
 \citep{das11b,Graham2013,Das2015,das15,fossuminformation,fossum18b}.
 Others include \cite{wikle2013modern} focusing on hierarchical
@@ -163,7 +164,7 @@ features using an underwater glider. Common to these approaches is the
 use of information-based methods to infer environmental sampling and overcome common challenges, namely:
 
 \begin{itemize}
-\item Static sampling paths fail to capture necessary features in dynamic ocean conditions. Incontrast, these approaches make decisions about where to sample  sequentially, i.e.  
+\item Decisions on where to sample happen sequentially, i.e.  how
   recently acquired information can be assimilated and used to improve
   statistical models and reduce uncertainty associated with where to make measurements.
 \item As a priori information about the state of the ocean is very
@@ -172,18 +173,17 @@ use of information-based methods to infer environmental sampling and overcome co
   usually referred to as the \emph{adaptivity gap} \citep{Krause2008phd}.
 \item For such types of sampling problems, the number of choices (i.e.
   locations, trajectories, and candidate designs) makes the problem
-  combinatorially large, creating a trade-off between optimization
-  (finding the optimal design) and computability (arriving at a
+  combinatorially large, creating a trade-off between optimization (finding the most resource-efficient design to collect necessary data), and computability (arriving at a
   solution in reasonable time), which has to be considered in
   practice.
 \end{itemize}{}
 
 The combination of statistical tools and robotic platforms is a
 natural symbiosis which enables information-based sensing. Central to
-this is the ability to model spatially correlated variables and
+this is the ability to model spatially-correlated variables and
 provide formal measures of uncertainty. By far the most practical
 models use Gaussian processes (GPs), which will also be used in our
-formulation, in large part because it allows efficient implementation
+formulation, in large part because they allow efficient implementation
 and evaluation, in turn enabling prioritization of sampling efforts to
 be formalized into decision making systems on-board a robotic
 platform.
