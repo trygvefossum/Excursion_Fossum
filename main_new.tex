@@ -40,7 +40,7 @@
 \author{\fnms{Jo} \snm{Eidsvik}\thanksref{c}, \ead[label=e2]{jo.eidsvik@math.ntnu.no}}
 \author{\fnms{David} \snm{Ginsbourger}\thanksref{d}, \ead[label=e3]{david.ginsbourger@idiap.ch}}
 \and
-\author{\fnms{Kanna} \snm{Rajan}\thanksref{e,f}. \ead[label=e4]{kanna.rajan@ntnu.no}}
+\author{\fnms{Kanna} \snm{Rajan}\thanksref{b,e,f}. \ead[label=e4]{kanna.rajan@ntnu.no}}
 
 \address{Department of Marine Technology\\ Trondheim, Norway\printead{e1}}
 \affiliation[a]{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU), Trondheim, Norway.} 
@@ -54,33 +54,34 @@
 
 \address{Department of Engineering Cybernetics,\printead{e4}}
 \affiliation[e]{Department of Engineering Cybernetics, NTNU}
-\affiliation[f]{Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
+\affiliation[f]{Underwater Systems and Technology Laboratory (LSTS),
+  Faculty of Engineering, University of Porto, Portugal.}
 
 \runauthor{TO. Fossum et al.}
 \end{aug}
 
 \begin{abstract}
-  Improving and optimizing oceanographic sampling is a crucial task for
-  modern marine management and science. Faced with limited resources to
-  understand highly dynamic processes in the water-column, the
-  combination of statistics and autonomous
-  robotics provides opportunities for studying aspects related to
-  experimental design for effective characterization of oceanographic
-  phenomena. In this work we develop methods for efficient spatial
-  sampling applied to the mapping of coastal processes by
-  providing informative descriptions of spatial characteristics of ocean
+  Improving and optimizing oceanographic sampling is a crucial task
+  for modern marine management and science. Faced with limited
+  resources to understand highly dynamic processes in the
+  water-column, the combination of statistics and autonomous robotics
+  provides opportunities for studying aspects related to experimental
+  design for effective characterization of oceanographic phenomena. In
+  this work, we develop methods for efficient spatial sampling applied
+  to the mapping of coastal processes by providing informative
+  descriptions of spatial characteristics of ocean
   phenomena. Specifically, we define a design criterion based on
-  reducing uncertainty in the joint excursions of random
-  fields, and derive analytical expressions for the expected Bernoulli
-  variance reduction in the excursion set of spatial temperature and
-  salinity variables. We show how these can be applicable in static
-  designs and sequential designs, building on myopic and look-ahead
-  sampling strategies. We use simulations to study the properties and
+  reducing uncertainty in the joint excursions of random fields, and
+  derive analytical expressions for the expected Bernoulli variance
+  reduction in the excursion set of spatial temperature and salinity
+  variables. We show how these can be applicable in static designs and
+  sequential designs, building on myopic and look-ahead sampling
+  strategies. We use simulations to study the properties and
   differences between state-of-the-art approaches. Results from field
-  deployments with an autonomous underwater vehicle are also presented,
-  for a case study mapping the boundary of a river plume. The results
-  demonstrate the ability of the method to effectively inform and
-  execute data-driven environmental sampling.
+  deployments with an autonomous underwater vehicle are also
+  presented, for a case study mapping the boundary of a river
+  plume. The results demonstrate the ability of the method to
+  effectively inform and execute data-driven environmental sampling.
 
 %Motivated by the challenges related to efficient allocation of sampling resources in environmental sensing, the combination of Excursion Probabilities and Gaussian process modeling is explored for autonomous robotic sampling of ocean features; enabling information driven measures  sampling efforts to high-interest regions. These regions are usually characterized by gradients of measurable environmental variables, e.g., temperature or salinity gradients, on which EPs subsequently can be used...Correlation among samples and multivariate requirements are typical in environmental studies.
 \end{abstract}
@@ -267,7 +268,7 @@ understanding (See Fig. \ref{fig:envir}), where the surveying is
 guided by a dynamical ocean model and the measurements made onboard
 the robot are often used to update the model.
 
-\begin{figure}[!h] 
+\begin{figure}[!t] 
   \centering 
   \subfigure[Illustration of an ocean sensing network, where robotic
   assets augment ship based measurements to increase coverage and
@@ -296,7 +297,7 @@ distorted. Prior knowledge about the location and evolution of these
 features is therefore highly uncertain, making deterministic planning
 challenging.
 
-\begin{figure}[!h] 
+\begin{figure}[!t] 
 \centering 
 \includegraphics[width=0.85\textwidth]{Figures/pictures/c-updated.pdf}
 \caption{Frontal patterns off of the Nidelva river, Trondheim, Norway.}
@@ -983,10 +984,12 @@ $\bx$.
 
 \section{Sequential updating and heuristic path planning}\label{sec:heuristics}
 
-An important synergy underlining this work is the potential of robotic sampling to adapt survey plans based on data and statistical inference,
-in accordance with the sense-plan-act loop
-(Fig. \ref{fig:sense-plan-act}). We will therefore present a few adaptive strategies
-for robotic sampling that builds on the notion of multivariate ES. Simulations, analysis, and  results from full-scale trials are presented.
+An important synergy underlining this work is the connection to
+robotic sampling to adapt survey plans based on data and statistical
+inference, in accordance with the sense-plan-act loop
+(Fig. \ref{fig:sense-plan-act}). To do so we build on the notion of
+multivariate ES and simulations, analysis, and results from full-scale
+robotic trials are presented.
 
 \subsection{Optimal sequential design}
 \label{Optdes}
@@ -1003,7 +1006,7 @@ future sampling at successive stages.  Let $d^{j,s}$ denote design
 number $j$ at stage $s$ of a sequential survey. If this design is
 selected, data $\by^{j,s}$ will be gathered. The optimal path
 selection situation is then depicted in Figure \ref{fig:PathSelOpt},
-\begin{figure}[h!]
+\begin{figure}[!b]
 \centering
 \includegraphics[width=0.85\textwidth]{Figures/sequent_select.pdf}
 \caption{Optimal sequential path selection.}\label{fig:PathSelOpt}
@@ -1253,7 +1256,8 @@ For a fixed survey length, the expected variance is analytically available (equa
 \centering
 \includegraphics[width=0.50\textwidth]{Figures/sim/wp_graph_paper.pdf}
 \caption{The equilateral waypoint graph used to discretize the
-  trajectory choices over the $31\times31$ grid used to discretize the GP.}
+  trajectory choices over the $31\times31$ grid used to discretize the
+  Gaussian Process.}
 \label{fig:wp_graph}
 \end{figure}
 
@@ -1388,7 +1392,7 @@ indicated in purple in Figure \ref{fig:nidelven}. The experiments were conducted
 
 The statistical model parameters were specified based on a short preliminary survey where the AUV did an initial transect to determine the environmental conditions and correlation structure. Based on the initial data the trend parameters were estimated by linear regression, where both temperature and salinity are assumed to increase linearly, going west from the river mouth. Next, the residuals from the regression analysis are analyzed to study the fit of the Gaussian model and to specify the covariance parameters.
 
-\begin{figure}[!h] 
+\begin{figure}[!b] 
  \centering 
 \includegraphics[width=0.98\textwidth]{Figures/field-trials/res_diag.pdf}
 \caption{Data analysis from a preliminary trial experiment using the
@@ -1439,13 +1443,25 @@ Threshold sal. & $18.0$ g/kg & $(S_{ocean}-S_{river})/2+S_{river}$\\
 
 \subsection{Experimental setup}
 
-The sampling locations was distributed over an equilateral grid, as shown in Fig. \ref{fig:map} in a grey colored lattice. The robotic platform consisted of a Light AUV \citep{sousa2012lauv} (Figure \ref{fig:lauv}) equipped with a 16 Hz Seabird Fastcat-49 CTD (conductivity, temperature, and depth) sensor providing temperature and salinity measurements. The accuracy of the CTD instrument is $\pm 0.0003$ S/m (conductivity) and $\pm0.002\,^{\circ}\mathrm{C}$ (temperature). The sampling agent was built on top of the autonomous agent framework \texttt{T-REX} \citep{py10,Rajan12,Rajan12b}, running an instance of the \texttt{myopic} strategy from Section \ref{sec:sampling_designs}, to control the AUV and decide between sampling locations.
+The sampling locations was distributed over an equilateral grid, as
+shown in Fig. \ref{fig:map} in a grey colored lattice. The robotic
+platform consisted of a Light AUV \citep{sousa2012lauv} (Figure
+\ref{fig:lauv}) equipped with a 16 Hz Seabird Fastcat-49 CTD
+(conductivity, temperature, and depth) sensor providing temperature
+and salinity measurements. The accuracy of the CTD instrument is
+$\pm 0.0003$ S/m (conductivity) and $\pm0.002\,^{\circ}\mathrm{C}$
+(temperature). The sampling agent was built on top of the autonomous
+agent framework \texttt{T-REX} \citep{py10,Rajan12,Rajan12b}, running
+an instance of the \texttt{myopic} strategy from Section
+\ref{sec:sampling_designs}, to control the AUV and decide between
+sampling locations.
 
 \begin{figure}[!h] 
 \centering 
 \includegraphics[width=0.98\textwidth]{Figures/harald.jpg}
-\caption{The commercially available Light Autonomous Underwater Vehicle (LAUV) platform (Harald) for upper water-
-column exploration used in the experiment.}
+\caption{The commercially available Light Autonomous Underwater
+  Vehicle (LAUV) platform for upper water- column exploration used in
+  the experiment.}
 \label{fig:lauv}
 \end{figure} 
 
@@ -1498,7 +1514,13 @@ The spatial statistical design criterion building on excursion sets is relevant 
 While more effort could be spent on approximating the look-ahead steps, it is perhaps more interesting to explore the additional flexibility that can be gained by having two or more AUVs \citep{ferreira2019advancing} exploring a spatial or spatio-temporal domain together. It might then be useful to sample different parts of the space, and maybe move in parallel to best capture the excursion set.
 
 \section*{Acknowledgements}
-TOF and KR acknowledge support from the Centre for Autonomous Marine Operations and Systems (AMOS)\footnote{\url{https://www.ntnu.edu/amos}}, Center of Excellence, project number 223254, and the Applied Underwater Robotics Labortatory (AURLab). JE acknowledge support from Norwegian research council project 294404. DG acknowledges support from the Swiss National Science Foundation project number 178858.
+TOF and KR acknowledge support from the Centre for Autonomous Marine
+Operations and Systems
+(AMOS)\footnote{\url{https://www.ntnu.edu/amos}}, Center of
+Excellence, project number 223254, and the Applied Underwater Robotics
+Labortatory (AURLab). JE acknowledge support from Norwegian research
+council project 294404. DG acknowledges support from the Swiss
+National Science Foundation project number 178858.
 
 %\begin{supplement}
 %\sname{Supplement A}\label{suppA}
