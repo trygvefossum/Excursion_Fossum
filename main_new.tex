@@ -1,21 +1,3 @@
-% Template for the submission to:
-%   The Annals of Probability           [aop]
-%   The Annals of Applied Probability   [aap]
-%   The Annals of Statistics            [aos] 
-%   The Annals of Applied Statistics    [aoas]
-%   Stochastic Systems                  [ssy]
-%
-%Author: In this template, the places where you need to add information
-%        (or delete line) are indicated by {???}.  Mostly the information
-%        required is obvious, but some explanations are given in lines starting
-%Author:
-%All other lines should be ignored.  After editing, there should be
-%no instances of ??? after this line.
-
-% use option [preprint] to remove info line at bottom
-% journal options: aop,aap,aos,aoas,ssy
-% natbib option: authoryear
-
 \documentclass[aoas]{imsart}
 
 \input{commands.tex}
@@ -25,11 +7,8 @@
 \usepackage{floatrow}
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \floatsetup[table]{capposition=top}
-% \usepackage{subfig}
 \usepackage{subfigure}
 \usepackage[utf8]{inputenc}
-
-%\usepackage[tableposition = top]{caption} % captions
 \usepackage{booktabs}                     % horizontal lines in tables
 
 % == Enable text degree
@@ -37,9 +16,6 @@
 
 \usepackage{amsthm,amsmath,natbib}
 \RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
-
-% provide arXiv number if available:
-%\arxiv{arXiv:0000.0000}
 
 % == Trygve Test
 \usepackage{color, colortbl}
@@ -59,29 +35,26 @@
 \title{Informative Oceanographic Sampling using Excursion Probabilities for Multivariate Random Fields}
 \runtitle{Excursion Probabilities for Informative Sampling}
 
-% indicate corresponding author with \corref{}
-% \author{\fnms{John} \snm{Smith}\corref{}\ead[label=e1]{smith@foo.com}\thanksref{t1}}
-% \thankstext{t1}{Thanks to somebody} 
-% \address{line 1\\ line 2\\ printead{e1}}
-% \affiliation{Some University}
 \begin{aug}
-\author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{a}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
-\author{\fnms{Jo} \snm{Eidsvik}\thanksref{b}, \ead[label=e2]{jo.eidsvik@math.ntnu.no}}
-\author{\fnms{David} \snm{Ginsbourger}\thanksref{c}, \ead[label=e3]{david.ginsbourger@idiap.ch}}
+\author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{a,b}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
+\author{\fnms{Jo} \snm{Eidsvik}\thanksref{c}, \ead[label=e2]{jo.eidsvik@math.ntnu.no}}
+\author{\fnms{David} \snm{Ginsbourger}\thanksref{d}, \ead[label=e3]{david.ginsbourger@idiap.ch}}
 \and
-\author{\fnms{Kanna} \snm{Rajan}\thanksref{d}. \ead[label=e4]{kanna.rajan@ntnu.no}}
+\author{\fnms{Kanna} \snm{Rajan}\thanksref{e,f}. \ead[label=e4]{kanna.rajan@ntnu.no}}
 
 \address{Department of Marine Technology\\ Trondheim, Norway\printead{e1}}
-\affiliation[a]{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU) \&\\ Centre for Autonomous Marine Operations and Systems (AMOS), Trondheim, Norway.}
+\affiliation[a]{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU), Trondheim, Norway.} 
+\affiliation[b]{Centre for Autonomous Marine Operations and Systems (AMOS).}
 
 \address{Department of Mathematical Sciences \printead{e2}}
-\affiliation[b]{Department of Mathematical Sciences, NTNU.}
+\affiliation[c]{Department of Mathematical Sciences, NTNU.}
 
 \address{Idiap \printead{e3}}
-\affiliation[c]{Uncertainty Quantification and Optimal Design group, Idiap Research Institute, Martigny, Switzerland.}
+\affiliation[d]{Uncertainty Quantification and Optimal Design group, Idiap Research Institute, Martigny, Switzerland.}
 
 \address{Department of Engineering Cybernetics,\printead{e4}}
-\affiliation[d]{Department of Engineering Cybernetics, NTNU \&\\ Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
+\affiliation[e]{Department of Engineering Cybernetics, NTNU}
+\affiliation[f]{Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
 
 \runauthor{TO. Fossum et al.}
 \end{aug}
