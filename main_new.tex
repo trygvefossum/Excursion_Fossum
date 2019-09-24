@@ -1465,9 +1465,24 @@ sampling locations.
 \label{fig:lauv}
 \end{figure} 
 
-The sampling strategy was designed around the concept of visiting waypoints sequentially. Arriving at a desired waypoint, with new measurements and an updated model, the AUV triggers the myopic strategy to evaluate all possible design criteria, e.g Eq. \eqref{critSEQ}. The waypoint-and-path combination which is expected to reduce the IBV the most is selected; upon arrival this procedure is then repeated. At each stage, it takes the AUV about 30 sec to evaluate the expected IBV for all the possible waypoint-and-path alternatives.
+The sampling strategy was designed around the concept of visiting
+waypoints sequentially. Arriving at a desired waypoint, with new
+measurements and an updated model, the AUV triggers the myopic
+strategy to evaluate all possible design criteria, e.g
+Eq. \eqref{critSEQ}. The waypoint-and-path combination which is
+expected to reduce the IBV the most is selected; upon arrival this
+procedure is then repeated. At each stage, it takes the AUV about 30
+sec to evaluate the expected IBV for all the possible
+waypoint-and-path alternatives.
 
-The AUV was set to start in the south center part of the waypoint graph, with the previously outlined GP prior model of the environment. Each AUV survey was set to take approximately 40 min, visiting 15 waypoints on the grid, with the AUV running near the surface to better capture the plume. On its path from one waypoint to the next, the AUV gathered data regularly, and the GP model assimilated temperature and salinity data with an update frequency of 30 sec, about three updates per stage.
+The AUV was set to start in the south center part of the waypoint
+graph, with the previously outlined GP prior model of the
+environment. Each AUV survey was set to take approximately 40 min,
+visiting 15 waypoints on the grid, with the AUV running near the
+surface to better capture the plume. On its path from one waypoint to
+the next, the AUV gathered data regularly, and the GP model
+assimilated temperature and salinity data with an update frequency of
+30 sec, about three updates per stage.
 
 \begin{figure*}[!h]
 \centering
@@ -1487,11 +1502,32 @@ The AUV was set to start in the south center part of the waypoint graph, with th
 
 \subsection{Results}
 
-Two missions, Survey 1 and 2, were run successively from 11:00 AM to 01:00 PM, with a short break in between. The resulting path of the selected waypoints are shown in the map in Fig. \ref{fig:map}, both within the expected frontal region (shaded pink region). The recorded temperatures are shown as colored trails in Fig. \ref{fig:res_both}, clearly showing the temperature difference between fjord and river waters. The salinity data are then shown separately overlaid with the estimated EP for each survey in Fig. \ref{fig:res1} and \ref{fig:res2}. 
+Two missions, Survey 1 and 2, were run successively from 11:00 AM to
+01:00 PM \kc{date? month/year}, with a short break in between. The
+resulting path of the selected waypoints are shown in the map in
+Fig. \ref{fig:map}, both within the expected frontal region (shaded
+pink region). The recorded temperatures are shown as colored trails in
+Fig. \ref{fig:res_both}, clearly showing the temperature difference
+between fjord and river waters. The salinity data are then shown
+separately overlaid with the estimated EP for each survey in
+Fig. \ref{fig:res1} and \ref{fig:res2}.
 
-Both Survey 1 and 2 successfully estimate and navigate the separation zone crossing the frontal boundary multiple times. As conditions changed slightly between the two deployments the resulting path (after waypoint 5) deviates. Survey 1 continues northwards tracking the north-eastern part of the front, while Survey 2 turns west mapping the south-western part. 
+Both Survey 1 and 2 successfully estimate and navigate the separation
+zone crossing the frontal boundary multiple times. As conditions
+changed slightly between the two deployments the resulting path (after
+waypoint 5) deviates. Survey 1 continues northwards tracking the
+north-eastern part of the front, while Survey 2 turns west mapping the
+south-western part.
 
-The final prediction of the front location given in Fig. \ref{fig:res3} and \ref{fig:res4}, correspond with one another yielding a picture of the front gradually bending off towards north east. The amount of exploration done by Survey 1 is greater than Survey 2. In Survey 1 the AUV gets overall more detail by going north, while Survey 2 coming close to the survey area borders in the south-western corner get poorer understanding of the northern parts. A longer planning horizon would likely identify and discourage such choices.
+The final prediction of the front location given in
+Fig. \ref{fig:res3} and \ref{fig:res4}, correspond with one another
+yielding a picture of the front gradually bending off towards north
+east. The amount of exploration done by Survey 1 is greater than
+Survey 2. In Survey 1 the AUV gets overall more detail by going north,
+while Survey 2 coming close to the survey area borders in the
+south-western corner get poorer understanding of the northern parts. A
+longer planning horizon would likely identify and discourage such
+choices.
 
 %\begin{figure}[!h] 
 % \centering 
@@ -1503,15 +1539,53 @@ The final prediction of the front location given in Fig. \ref{fig:res3} and \ref
 
 \section{Closing remarks}\label{sec:concl_disc}
 
-This paper builds on multidisciplinary work combining statistical modeling and methods with robotic surveying technologies for oceanographic sensing applications. We show how the observation practices can gain from development of statistical techniques to achieve more effective spatial monitoring. We further demonstrate the opportunities available for real-time multivariable spatial data gathering and analysis onboard autonomous sensing platforms, upon which statisticians can exploit towards creating general-purpose toolkits for similar applications (enabeling theory).
+This work builds on multidisciplinary work combining statistical
+modeling and methods with robotic surveying technologies for
+oceanographic sensing applications. We show how the observation
+practices can gain from development of statistical techniques to
+achieve more effective spatial monitoring. We further demonstrate the
+opportunities available for real-time multivariable spatial data
+gathering and analysis onboard autonomous sensing platforms, upon
+which statisticians can exploit towards creating general-purpose
+toolkits for similar applications (enabeling theory).
 
-In particular, we derive and show results for characterizing phenomena connected to water masses properties. The characterization is based on joint excursion sets and we derive new results for the expected integrated Bernoulli variance reduction achieved by the spatial sampling design. This result is first derived for the situation with a static design, and then extended to the adaptive situation, which provides new insight in our application with the autonomous vehicle.
+In particular, we derive and show results for characterizing phenomena
+connected to water masses properties. The characterization is based on
+joint excursion sets and we derive new results for the expected
+integrated Bernoulli variance reduction achieved by the spatial
+sampling design. This result is first derived for the situation with a
+static design, and then extended to the adaptive situation, which
+provides new insight in our application with the autonomous vehicle.
 
-The study did not consider any temporal effects, which would be relevant on a larger time scale. We consider the extension to spatio-temporal modeling as future work, and we envision that advection-diffusion equations could be useful in this kind of modeling \citep{sigrist2015stochastic}. For more complex oceanographic phenomena, the methods will need to be extended to non-Gaussian phenomena, possibly feature-based mixtures of GPs which could still be run onboard, and augmented by dynamical models. 
+The study did not consider any temporal effects, which would be
+relevant on a larger time scale. We consider the extension to
+spatio-temporal modeling as future work, and we envision that
+advection-diffusion equations could be useful in this kind of modeling
+\citep{sigrist2015stochastic}. For more complex oceanographic
+phenomena, the methods will need to be extended to non-Gaussian
+phenomena, possibly feature-based mixtures of GPs which could still be
+run onboard, and augmented by dynamical models.
 
-The spatial statistical design criterion building on excursion sets is relevant in our setting with the different water mass properties and could also be useful in other oceanographic settings such as algae-blooms or frontal systems. Other criteria more directly related to decision making would also be relevant, especially with much spatio-temporal effects. For instance, managers must make difficult decisions related to fish farming or other marine resources operations, or environmental projects. Value of information analysis \citep{Eidsvik:15} would then be used in a similar vein as the integrated Bernoulli variance in the current paper, now studying which, when and where information is likely to materialize in improved decisions. 
+The spatial statistical design criterion building on excursion sets is
+relevant in our setting with the different water mass properties and
+could also be useful in other oceanographic settings such as
+algae-blooms or frontal systems. Other criteria more directly related
+to decision making would also be relevant, especially with much
+spatio-temporal effects. For instance, managers must make difficult
+decisions related to fish farming or other marine resources
+operations, or environmental projects. Value of information analysis
+\citep{Eidsvik:15} would then be used in a similar vein as the
+integrated Bernoulli variance in the current paper, now studying
+which, when and where information is likely to materialize in improved
+decisions.
 
-While more effort could be spent on approximating the look-ahead steps, it is perhaps more interesting to explore the additional flexibility that can be gained by having two or more AUVs \citep{ferreira2019advancing} exploring a spatial or spatio-temporal domain together. It might then be useful to sample different parts of the space, and maybe move in parallel to best capture the excursion set.
+While more effort could be spent on approximating the look-ahead
+steps, it is perhaps more interesting to explore the additional
+flexibility that can be gained by having two or more AUVs
+\citep{ferreira2019advancing} exploring a spatial or spatio-temporal
+domain together. It might then be useful to sample different parts of
+the space, and maybe move in parallel to best capture the excursion
+set.
 
 \section*{Acknowledgements}
 TOF and KR acknowledge support from the Centre for Autonomous Marine
