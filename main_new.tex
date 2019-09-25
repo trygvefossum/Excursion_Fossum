@@ -60,24 +60,25 @@
 \end{aug}
 
 \begin{abstract}
-  Improving and optimizing oceanographic sampling is a crucial task for
-  modern marine management and science. Faced with limited resources to
-  understand highly dynamic processes in the water-column, the
-  combination of statistics and autonomous
-  robotics provides opportunities for studying aspects related to
-  experimental design for effective characterization of oceanographic
-  phenomena. In this work we develop methods for efficient spatial
-  sampling applied to the mapping of coastal processes by
-  providing informative descriptions of spatial characteristics of ocean
+  Improving and optimizing oceanographic sampling is a crucial task
+  for modern marine management and science. Faced with limited
+  resources to understand highly dynamic processes in the
+  water-column, the combination of statistics and autonomous robotics
+  provides opportunities for studying aspects related to experimental
+  design for effective characterization of oceanographic phenomena. In
+  this work we develop methods for efficient spatial sampling applied
+  to the mapping of coastal processes by providing informative
+  descriptions of spatial characteristics of ocean
   phenomena. Specifically, we define a design criterion based on
-  reducing uncertainty in the joint excursions of random
-  fields, and derive analytical expressions for the expected Bernoulli
-  variance reduction in the excursion set of spatial temperature and
-  salinity variables. We show how these can be applicable in static
-  designs and sequential designs, building on myopic and look-ahead
-  sampling strategies. We use simulations to study the properties and
-  differences between state-of-the-art approaches. Results from field
-  deployments with an autonomous underwater vehicle are also presented as part of a case study mapping the boundary of a river plume. The results
+  reducing uncertainty in the joint excursions of random fields, and
+  derive analytical expressions for the expected Bernoulli variance
+  reduction in the excursion set of spatial temperature and salinity
+  variables. We show how these can be applicable in static designs and
+  sequential designs, building on myopic and look-ahead sampling
+  strategies. We use simulations to study the properties and
+  differences between state-of-the-art approaches followed by results
+  from field deployments with an autonomous underwater vehicle as part
+  of a case study mapping the boundary of a river plume. The results
   demonstrate the ability of the method to effectively inform and
   execute data-driven environmental sampling.
 
@@ -126,29 +127,45 @@ strides in advancing the state of sampling and consequently have made
 robotics an integral part of ocean observation; our previous work
 has contributed to this effort
 % using statistical methods in design and data assimilation
-\citep{das11b,Graham2013,Das2015,das15,fossuminformation,fossum18b}.
-Others working in this space include \cite{wikle2013modern}, focusing on hierarchical
-statistical models; \cite{sahu2008space}, studying spatio-temporal
-models for sea surface temperature and salinity data; and
-\cite{mellucci2018oceanic} looking at the statistical prediction of
-features using an underwater glider. Common to these approaches is the
-use of information-based methods to infer environmental sampling and overcome common challenges, namely:
+\citep{das11b,Graham2013,das15,Das2015,fossum18b,fossuminformation}.
+Others working in this space include \cite{wikle2013modern}, focusing
+on hierarchical statistical models; \cite{sahu2008space}, studying
+spatio-temporal models for sea surface temperature and salinity data;
+and \cite{mellucci2018oceanic} looking at the statistical prediction
+of features using an underwater glider. Common to these approaches is
+the use of information-based methods to infer environmental sampling
+and overcome common challenges, namely:
 
 \begin{itemize}
-\item Fully fledged numerical ocean models cannot be run online on the sensing platforms due to the computational load they require to provide accurate results, hence statistical proxy models of the environment must be used. 
-\item Decisions on where to sample happen sequentially, i.e.  
-  recently acquired information can be assimilated into and used to improve statistical models and reduce uncertainty associated with where to make measurements.
-\item As a priori information about the state of the ocean is very
+\item Full numerical ocean models cannot be run online on the sensing
+  platforms due to their computational load for accurate results,
+  hence statistical proxy models of the environment must be used.
+\item Decisions on where to sample happen sequentially, i.e.  recently
+  acquired information can be assimilated into and used to improve
+  statistical models and reduce uncertainty associated with where to
+  make measurements.
+\item As a-priori information about the state of the ocean is very
   uncertain, there is a substantial efficiency gain in reacting to
   information obtained from measurements taken \emph{in-situ}; this is
-  usually referred to as the \emph{adaptivity gap} \citep{Krause2008phd}.
+  usually referred to as the \emph{adaptivity gap}
+  \citep{Krause2008phd}.
 \item For such types of sampling problems, the number of choices (i.e.
   locations, trajectories, and candidate designs) makes the problem
-  combinatorially large, creating a trade-off between optimization (finding the most resource-efficient design to collect necessary data), and computability (arriving at a
-  solution in reasonable time); to engage in successful sampling, this trade-off has to be considered in sample design and practice.
-\end{itemize}{}
+  combinatorially large, creating a trade-off between optimization
+  (finding the most resource-efficient design to collect necessary
+  data), and computability (arriving at a solution in reasonable
+  time). To successfully resolve features, this trade-off has to be
+  considered in sample design and practice.
+\end{itemize}
 
-The combination of statistical tools and robotic platforms is a natural symbiosis which enables information-based sensing. Central to this is the ability to model spatially-correlated variables and provide formal measures of uncertainty. In our formulation we used Gaussian Processes (GPs), in large part because they allow for efficient implementation and evaluation, in turn enabling prioritization of sampling efforts which can be be formalized into decision-making systems on board a robotic platform.
+The combination of statistical tools and robotic platforms is a
+natural symbiosis which enables information-based sensing. Central to
+this is the ability to model spatially-correlated variables and
+provide formal measures of uncertainty. In our formulation we used
+Gaussian Processes (GPs) in large part because they allow for
+efficient implementation and evaluation, in turn enabling
+prioritization of sampling efforts which can be be formalized into
+decision-making systems on board a robotic platform.
 
 %Sampling can, in this context, not simply be distributed evenly ---along simple transects or ``lawn-mover" patterns--- but must instead be prioritized to relevant regions to ensure it is cost-effective while providing adequate coverage and resolution of the area of scientific interest.
 
@@ -190,27 +207,30 @@ The combination of statistical tools and robotic platforms is a natural symbiosi
 
 %The imperfect understanding of causality coupled with the underlying fundamental uncertainty of the ocean implies that we need to obtain more measurements and use statistical models and methods to determine what and how phenomena form, to increase the quality of predictive statements. 
 
-In this work, we build on joint excursion sets (ES) and excursion probabilities (EP) for the spatial design of experiments. The goal is to
-design sampling strategies for reducing the spatially-integrated
+In this work, we build on joint excursion sets (ES) and excursion
+probabilities (EP) for the spatial design of experiments. The goal is
+to design sampling strategies for reducing the spatially-integrated
 Bernoulli variance (IBV) in the ES indicators. Our main contributions
 include: i) extending ES-based uncertainty criteria to multivariate
 GPs, thereby allowing the evaluation to include multiple environmental
 parameters such as temperature and salinity; ii) developing methods
-for information-based environmental sensing and autonomous data collection;
-and iii) demonstrating the approach in the real-world scenario of
-sampling a river plume using an AUV.
+for information-based environmental sensing and autonomous data
+collection; and iii) demonstrating the approach in the real-world
+scenario of sampling a river plume using an AUV.
 
 The remainder of this paper is organized as follows: Section
 \ref{sec:bg} provides select background on ocean sampling; Section
-\ref{sec:ESEP} defines ESs, EPs, and the design criteria of
-IBV; Section \ref{sec:GP_EP} sets up the required statistical modeling
-assumptions of the bi-variate GPs for temperature and
-salinity; Section \ref{sec:sur} builds on these assumptions when deriving the analytical derivation of the design criteria; Section
+\ref{sec:ESEP} defines ESs, EPs, and the design criteria of IBV;
+Section \ref{sec:GP_EP} sets up the required statistical modeling
+assumptions of the bi-variate GPs for temperature and salinity;
+Section \ref{sec:sur} builds on these assumptions when deriving the
+analytical derivation of the design criteria; Section
 \ref{sec:heuristics} extends these results and present heuristics for
 adaptive sampling; Section \ref{sec:simulations} shows our results and
 discusses properties of the methods in simulation studies. Section
 \ref{sec:case_study} demonstrates the methodology used in field work
-characterizing a river plume; and Section \ref{sec:concl_disc} contains a summary and a discussion of future work.
+characterizing a river plume; and Section \ref{sec:concl_disc}
+contains a summary and a discussion of future work.
 
 
 \section{Background and Motivation}\label{sec:bg}
@@ -330,24 +350,24 @@ higher dimensional situations in a similar manner.
 
 \subsection{Autonomous Vehicles}
 
-AUVs are used to gather in-situ spatio-temporal data while carrying a range of scientific payloads to survey the
-water column. Typically, they operate at $\sim 1-3$ m/s, can reach
-depths from 100--6000 m with an in-water operation time capacity dependent on
-survey speed, payload sensors and mission design. By deploying AUVs
-together with other resources, one can augment information obtained
-from ocean models, remote-sensing data, or fixed-location
-sensors on buoys. Traditional operations and surveys with AUVs are
-usually limited to observations along fixed transects on a spatial
-grid, pre-programmed by the human operator. By instead using on-board
-algorithms to continuously evaluate, update, and refine future
-sampling locations, one can make information gathering adaptive and
-contextual to the survey requirements
-\citep{das11b,fossuminformation,fossum18b}. The space of sampling
-opportunities is still limited to the spatial grid, but now there is
-much more flexibility because of adaptation. For instance, an AUV
-could reconstruct or modify a survey line based on what temperatures
-it is measuring by using embedded methods in decision-theoretic
-planning \citep{py10,Rajan12,Rajan12b}.
+AUVs are used to gather in-situ spatio-temporal data while carrying a
+range of scientific payloads to survey the water column. Typically,
+they operate at $\sim 1-3$ m/s, can reach depths from 100--6000 m with
+an in-water operation time capacity dependent on survey speed, payload
+sensors and mission design. By deploying AUVs together with other
+resources, one can augment information obtained from ocean models,
+remote-sensing data, or fixed-location sensors on buoys. Traditional
+operations and surveys with AUVs are usually limited to observations
+along fixed transects on a spatial grid, pre-programmed by the human
+operator. By instead using on-board algorithms to continuously
+evaluate, update, and refine future sampling locations, one can make
+information gathering adaptive and contextual to the survey
+requirements \citep{das11b,fossum18b,fossuminformation}. The space of
+sampling opportunities is still limited to the spatial grid, but now
+there is much more flexibility because of adaptation. For instance, an
+AUV could reconstruct or modify a survey line based on what
+temperatures it is measuring by using embedded methods in
+decision-theoretic planning \citep{py10,Rajan12,Rajan12b}.
 
 %To improve the state of sampling, modern tools and methods, including the use of autonomous platforms, oceanographic models and satellite remote sensing, needs to be combined with traditional data acquired by surface vessels or buoys (See Fig. \ref{fig:envir}). However, without adequate understanding of the theoretical underpinnings of how, when, and where to gather data, these tools and methods are insufficient in the vast and harsh oceans.
 
@@ -1428,8 +1448,9 @@ The sampling locations was distributed over an equilateral grid, as shown in Fig
 \begin{figure}[!h] 
 \centering 
 \includegraphics[width=0.98\textwidth]{Figures/harald.jpg}
-\caption{The commercially available Light Autonomous Underwater Vehicle (LAUV) platform (Harald) for upper water-
-column exploration used in the experiment.}
+\caption{The commercially available Light Autonomous Underwater
+  Vehicle (LAUV) platform for upper water-column exploration used in
+  the experiment.}
 \label{fig:lauv}
 \end{figure} 
 
