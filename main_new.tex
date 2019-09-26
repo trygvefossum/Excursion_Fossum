@@ -439,7 +439,7 @@ means to characterize the frontal zone.
 \section{Excursion Sets and Integrated Bernoulli Variance}
 \label{sec:ESEP}
 
-Our objective is to leverage statistical tools to characterize a river plume, focusing on spatial separation of cold freshwater from the river and warmer saline waters of the fjord. Excursion sets (ES) and excursion probabilities (EP) are useful starting points to measure the ability to classify water masses. The goal of experimental sampling is to improve this characterization, as quantified via changes in the EPs.
+Our objective is to leverage statistical tools to characterize a river plume, focusing on spatial separation of cold freshwater from the river and warmer saline waters of the fjord. ES and EPs are useful starting points to measure the ability to classify water masses. The goal of experimental sampling is to improve this characterization, as quantified via changes in the EPs.
 
 We consider a lateral domain near the sea surface, with locations
 $\bx \in \mathcal{M} \subset \mathbf{R^2}$. The two variables of
@@ -505,12 +505,12 @@ design criteria for situations where the underlying model is based on multivaria
 \section{Gaussian Processes and Excursion Probabilities}
 \label{sec:GP_EP}
 
-Calculations of the EPs and the IBV require a model specification. We use Gaussian modeling, which provides a practical and popular probabilistic approach to modeling environmental data, allowing a closed form
-evaluation of the IBVs, as derived in Section \ref{sec:sur}.
+Calculations of the EPs and the IBV require a model specification. We use Gaussian modeling, which provides a practical and popular probabilistic approach to modeling environmental data, and allows a closed form
+evaluation of the IBVs as derived in Section \ref{sec:sur}.
 
 \subsection{Bivariate Gaussian Processes}
 
-The Gaussian model is used to represent the bivariate random fields of temperature and salinity. At location $\bx \in \mathcal{M}$, the prior bivariate distribution is:
+The Gaussian model is used to represent the bivariate random fields of temperature and salinity. At location $\bx \in \mathcal{M}$, the prior bivariate distribution is
 \begin{equation}\label{gp_bar}
   \begin{bmatrix}\xi_T(\bx) \\
     \xi_S(\bx) \end{bmatrix}
@@ -523,40 +523,40 @@ The Gaussian model is used to represent the bivariate random fields of temperatu
 \end{bmatrix}
 \right),
 \end{equation}
-where the notation refers to Gaussian (Normal) distributed variables
+where the notation refers to Gaussian (i.e. normal) distributed variables
 specified by the mean vector and covariance matrix. For the application
 of tracking river plumes, the model parameters are specified from a short preliminary survey. The mean varies with location, capturing the variability near the river mouth, while the variance parameters and correlation between salinity and temperature are assumed to be constant for all locations and within each water mass. 
 
 For the spatial dependence among variables, we assume a separable correlation function with the same decay for salinity and temperature,
-which is not unrealistic for our case with a river plume as the decay is related to the common water masses (Sect \ref{sec:case_study}). We have:
+which is consistent with expectations for  a river plume where the decay is related to the common water masses (Sect \ref{sec:case_study}). In the resulting function, we have
 \begin{equation}\label{gp_corr}
 \mbox{Cov}(\xi_i(\bx),\xi_j(\bx')) = \rho(\bx,\bx') \sigma_i \sigma_j (\gamma +(1-\gamma )\delta_{ij}), \\
 \end{equation}
-for $i,j \in {T,S}$ and $\delta_{ij}=1$ if $i=j$ and $\delta_{ij}=0$
+where for $i,j \in {T,S}$ and $\delta_{ij}=1$ if $i=j$, and $\delta_{ij}=0$
 otherwise. Moreover, we assume stationary isotropic random fields a priori where the
 correlation function $\rho(\bx,\bx')$ solely depends on $\bx$ and
 $\bx'$ via a Euclidean distance measure $h=\sqrt{||\bx-\bx'||^2}$. With
-data and prior knowledge one could possibly fit and estimate
+data and prior knowledge, one could possibly fit and estimate
 parameters of non-stationary or non-isotropic covariance functions and
 more complex multivariate spatial covariance functions
-\citep{gneiting2010matern,genton2015cross}; however that is left for
+\citep{gneiting2010matern,genton2015cross}; however, that is left for
 future work.
 
 We discretize the spatial domain
 $\mathcal{M}$ to a set of $n$ grid locations
 $\mathcal{M}_g = \{\bx_i, i=1,\ldots,n \}$, where each cell has area $\Delta$. The
 grid is used for the waypoint graph setting the possible design locations. It is also used when solving integrals expressions in Eq. (\ref{measVAR}) and
-(\ref{sur}) which are then approximated by sums over all grid cells.  Using vector
+(\ref{sur}), which are then approximated by sums over all grid cells.  Using vector
 notation, we denote the Gaussian temperature and salinity variables on
-the grid and its density function by: 
+the grid and its density function by the formula: 
 \begin{equation}\label{prior}
     \bxi = (\xi_T(\bx_1),\xi_S(\bx_1),\ldots,\xi_T(\bx_n),\xi_S(\bx_n))^t, \hspace{3mm}
     \bxi  \sim  N(\bmu, \bSigma) %\pi (\bxi) & =& \frac{1}{(2\pi)^{n}|\bSigma|^{\frac{1}{2}}}e^{-\frac{1}{2}(\bxi -\bmu)^T\bSigma^{-1}(\bxi-\bmu)}.
 \end{equation}
 %Here, $\pi(\bxi)$ is the joint density function of length $2 n$ vector $\bxi$, and
-The length $2 n$ vector $\bmu$ holds the expected values of
+The length $2 n$ vector $\bmu$ contains the expected values of
 temperature and salinity at the grid locations, while the
-$2n \times 2n$ matrix $\bSigma$ holds the
+$2n \times 2n$ matrix $\bSigma$ contains the
 variance-covariances of temperature and salinity variables at all grid
 locations.
 
@@ -564,7 +564,7 @@ locations.
 
 Data is gathered by an AUV that can measure temperature and salinity
 at a subset of locations on the defined grid. This can be done in a
-static manner, where the survey design is pre-planned, or in a
+static manner (where the survey design is pre-planned), or in a
 sequential way with several rounds of data gathering. For the latter,
 a round of data is gathered first, and then assimilated to get an
 updated model. Then the updated model is used to design and select the
@@ -577,17 +577,17 @@ We denote the data at $n_y$ locations by
 $\by=(y_{T,1},y_{S,1},\ldots,y_{T,n_y},y_{S,n_y})^t$, representing the
 temperature and salinity measurements gathered at the first round of
 nodes in the grid. The conditional model for the data, given the true temperature
-and salinity, is described by: 
+and salinity, is described by 
 \begin{equation}\label{likelihood}
 \by | \bxi \sim N( \bG \bxi, \bR), %\pi(\by | \bxi)= \frac{1}{(2\pi)^{m}|\bR|^{\frac{1}{2}}}e^{-\frac{1}{2}(\by -\bG\bxi)^T\bR^{-1}(\by-\bG\bxi)},
 \end{equation}
-where $\bG$ is an $2n_y \times 2n$ matrix holding '$1$'s on the
-measurement indices on the grid and '$0$' otherwise. The size
+where $\bG$ is a $2n_y \times 2n$ matrix containing '$1$'s on the
+measurement indices of the grid and '$0$' otherwise. The size
 $2n_y \times 2n_y$ covariance matrix $\bR$ contains diagonal entries
 $r^2_T$ and $r^2_S$ which are measurement error variances of
 temperature and salinity observations.
 
-The GP mean and covariance in Eq. (\ref{prior}) are updated when more information is available. The
+The GP mean and covariance in Eq. (\ref{prior}) are updated in the model when more information is available. The
 updated distribution for temperature and salinity variables on the
 spatial grid, given survey data $\by$, is Gaussian with mean and
 covariance: 
@@ -625,7 +625,7 @@ be $\by \sim N( \bG \bmu,\bG \bSigma \bG^t+\bR)$.  However, it turns
 out that a simplified form of the calculation is possible because the
 conditional mean in Eq (\ref{gp_hat}) is a linear (affine) function of
 the data $\by$ and the covariance is not a function of the data.
-Before knowing the data, the distribution of the conditional mean is
+Before inputting the data, the distribution of the conditional mean is
 \begin{equation}\label{distxi} \bm \sim N(\bmu , \bPsi), \hspace{3mm}
   \bPsi=\bSigma \bG^t (\bG \bSigma \bG^t+\bR)^{-1} \bG \bSigma.
 \end{equation} 
@@ -638,7 +638,7 @@ bivariate distribution \begin{equation}\label{dist_mxi}
       \psi^2_{T}(\bx) & \psi_{T,S}(\bx)\\
       \psi_{T,S}(\bx) & \psi^2_{S}(\bx) \end{bmatrix} \right),
 \end{equation}
-which is important for the derivation of the closed form solution of the design criteria.
+which is important for the derivation of the closed-form solution of the design criteria.
 
 \section{Uncertainty reduction in excursion sets}
 \label{sec:sur}
