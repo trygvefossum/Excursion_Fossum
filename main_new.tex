@@ -137,9 +137,9 @@ the use of information-based methods to infer environmental sampling
 and overcome common challenges, namely:
 
 \begin{itemize}
-\item Full numerical ocean models cannot be run online on the sensing
-  platforms due to their computational load for accurate results,
-  hence statistical proxy models of the environment must be used.
+\item Full numerical ocean models cannot provide accurate results online if run on robotic sensing
+  platforms, as on board computers cannot deliver the computational power required,
+  hence statistical proxy models of the environment must be used instead.
 \item Decisions on where to sample happen sequentially, i.e.  recently
   acquired information can be assimilated into and used to improve
   statistical models and reduce uncertainty associated with where to
@@ -276,10 +276,10 @@ guided by assimilation of measurements and statistical models.
   \subfigure[Illustration of an ocean sensing network, where robotic
   assets augment ship-based measurements to increase coverage and
   resolution of phenomena of scientific interest.]{\includegraphics[width =
-    0.48\textwidth]{Figures/envir.pdf}\label{fig:envir1}}
+    0.49\textwidth]{Figures/envir2.pdf}\label{fig:envir1}}
   \hfill
-  \subfigure[Data-driven sampling under the sense-plan-act paradigm.]{\includegraphics[width =
-    0.48\textwidth]{Figures/adaptive_cycle.pdf}\label{fig:sense-plan-act}}
+  \subfigure[Frontal patterns off of the Nidelva river, Trondheim, Norway.]{\includegraphics[width =
+    0.49\textwidth]{Figures/river_proccess.pdf}\label{fig:nidelven}}
   \caption{Ocean observation is moving away from single-ship sampling
     towards more autonomous and collaborative networked operations in
     order to resolve the numerous bio-geochemical processes and their
@@ -300,12 +300,12 @@ distorted. Prior knowledge about the location and evolution of these
 features is therefore highly uncertain, making deterministic planning
 challenging.
 
-\begin{figure}[!h] 
-\centering 
-\includegraphics[width=0.85\textwidth]{Figures/pictures/c-updated.pdf}
-\caption{Frontal patterns off of the Nidelva river, Trondheim, Norway.}
-\label{fig:nidelven}
-\end{figure}
+%\begin{figure}[!h] 
+%\centering 
+%\includegraphics[width=0.85\textwidth]{Figures/pictures/c-updated.pdf}
+%\caption{Frontal patterns off of the Nidelva river, Trondheim, Norway.}
+%\label{fig:nidelven}
+%\end{figure}
 
 %\begin{figure}[!h]
 %\centering
@@ -1037,26 +1037,26 @@ they will be used to score the different adaptive designs. % Efficient
 
 The simplest heuristic for adaptive sampling is to choose the next
 sampling location based on current EPs. The largest variance in
-sampling locations is an indication of higher uncertainty; therefore
+sampling locations indicates higher levels of uncertainty; therefore
 one selects the design location with an EP closest to $0.5$.
 
 At stage $s$, based on the currently available data
 $\mathcal{Y}^{s-1}$, we fit an updated Gaussian model from
-Eq. (\ref{gp_upd}), with mean $\bm_{s-1}=E(\bxi|\mathcal{Y}^{s-1})$
+Eq. (\ref{gp_upd}) with mean $\bm_{s-1}=E(\bxi|\mathcal{Y}^{s-1})$
 and covariance matrix $\bA_{s-1}=\mbox{Var}(\bxi|\mathcal{Y}^{s-1})$.
-The next round of measurements $\by^{j,s}$, can be gathered with
+The next round of measurements $\by^{j,s}$ can be gathered with
 design $d^{j,s}$, $j=1,\ldots,J$, where $J$ indicates all possible AUV
-trajectories from the current stage. The {\it{naive}} strategy then,
+trajectories from the current stage. The {\it{naive}} strategy, then,
 selects the design according to:
 \begin{eqnarray}\label{critNaive}
     d^{*,s} &=& \mbox{argmin}_{j \in \{1,\ldots,J\}} |p(\bx_{d^{j,s}};\mathcal{Y}^{s-1})-0.5|, \\
     p(\bx;\mathcal{Y}^{s-1}) &=& P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S | \mathcal{Y}^{s-1}). \nonumber
 \end{eqnarray}
 This strategy does not account for the uncertainty in the temperature
-or salinity variables, only if one design (node) has EPs closer to
-$0.5$ (see Table \ref{tab:sim_rhoab}, line two). Neither does it
+or salinity variables, but is instead applicable only if one design (node) has EPs closer to
+$0.5$ (see Table \ref{tab:sim_rhoab}, line two). Additionally, this strategy does not
 account for spatial correlation. This strategy lacks memory of where
-it has been and where the uncertainty has been reduced and therefore
+it has been and where the uncertainty has been reduced, and is therefore
 susceptible to local minimas.
 
 \subsection{Myopic path planning}
@@ -1064,8 +1064,8 @@ susceptible to local minimas.
 
 The myopic (greedy) strategy which we present here is optimal if we
 imagine taking only one more round of measurements. In this selection
-strategy there is no anticipation of what the subsequent designs might
-offer, beyond the first round.
+strategy, there is no anticipation of what the subsequent designs might
+offer beyond the first round.
 
 Based on the currently available data $\mathcal{Y}^{s-1}$, we again
 fit an updated Gaussian model, represented on the grid locations
@@ -1082,8 +1082,8 @@ V_{m,\mbox{upd}} & \approx & \sum_{\bx \in \mathcal{M}_g} E_{\by^{j,s}|\mathcal{
 Note that this strategy gives a sequential conditional version of the
 formula in Eq. (\ref{sur}). Now $\mathcal{Y}^{s-1}$ is available, and
 the expectation is with respect to the conditional density
-$\pi(\by^{j,s}|\mathcal{Y}^{s-1})$. A similar closed form calculation
-for expected IBV is hence applicable in Eq. (\ref{critSEQ}), using the
+$\pi(\by^{j,s}|\mathcal{Y}^{s-1})$. A similar closed-form calculation
+for expected IBV is hence applicable in Eq. (\ref{critSEQ}) using the
 updated GP model from step $s-1$.  Once the data is collected for the
 best design, the GP model is updated again. The mean $\bm_{s}$ and
 covariance matrix $\bA_{s}$ are used to compute the next design at
@@ -1092,19 +1092,19 @@ stage $s+1$, and so on.
 Even though this myopic strategy is non-anticipative, it still gives a
 reasonable approach for creating designs in many
 applications. Moreover, it is easily implemented on-board an AUV,
-using the efficient approach for data updating of the GP model and the
-calculation of the closed form expected IBV expressions for each
+using an efficient approach for data updating the GP model and the
+calculation of the closed-form expected IBV expressions for each
 subsequent trajectory.
 
 
 \subsection{Look-ahead trajectory planning}
 \label{LA}
 
-We now extend the myopic strategy to a look-ahead strategy which is
+We now extend the myopic strategy to a look-ahead strategy, which is
 optimal when one can gather only two more rounds of measurements. In
 addition to the next round of measurements $\by^{j,s}$, this
 look-ahead strategy, anticipates the subsequent design $j_2$ with
-data $\by^{j_2,s+1}$, when choosing the current design $d^{j,s}$.  The
+data $\by^{j_2,s+1}$ when choosing the current design $d^{j,s}$.  The
 selected design is:
 \begin{eqnarray}\label{critLA}
     d^{*,s} &=& \mbox{argmin}_{j \in \{1,\ldots,J\}} \left\{ U_{la,\mbox{upd,j}} \right\},  \\
@@ -1114,7 +1114,7 @@ V_{la,\mbox{upd},j_2} & \approx & \sum_{\bx \in \mathcal{M}_g} E_{\by^{j_2,s+1}|
 \end{eqnarray}
 Here, $\mathcal{Y}^{j,s}=\{\by^{j,s},\mathcal{Y}^{s-1}\}$ and
 $\mathcal{Y}^{j,s+1}=\{\by^{j_2,s+1},\mathcal{Y}^{j,s}\}$ represent
-the sets of data variables, and the expectations are with respect to
+the sets of data variables, and the expectations are calculated with respect to
 the conditional densities $\pi(\by^{j,s}|\mathcal{Y}^{s-1})$ and
 $\pi(\by^{j_2,s+1}|\by^{j,s},\mathcal{Y}^{s-1})$.
 
@@ -1122,17 +1122,17 @@ Because of the intermixed optimization and expectation, there is no
 longer a closed form for the required integrals. Instead, we solve the
 first expectation by Monte Carlo sampling of data $\by^{j,s}$ from its
 conditional distribution. For each data sample, the second expectation
-is solved using the closed form expressions for expected IBV from
+is solved using the closed-form expressions for expected IBV from
 Section \ref{sec:sur}.
 
-Even though the strategy looks at two stages, it is only used to find
-the current best design. When data is collected, the GP model is
+Even though the strategy looks at two sampling stages, it is only used to find
+the current best design. When data are collected, the GP model is
 updated, and the mean $\bm_{s}$ and covariance matrix $\bA_{s}$ are
 used to compute the next design at stage $s+1$, now anticipating what
 stage $s+2$ could offer, and so on.
 
 This look-ahead approach is much more computationally demanding than
-the myopic strategy, and for practical implementation we prune paths
+the myopic strategy, so for practical implementation, we prune paths
 in the evaluation of Eq. (\ref{critLA}). This means that we do not
 compute all possible branches of the first two stages, as they are
 indicated in Figure \ref{fig:PathSelOpt}. Instead, we use the myopic
