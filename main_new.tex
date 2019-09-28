@@ -568,10 +568,7 @@ static manner (where the survey design is pre-planned), or in a
 sequential way with several rounds of data gathering. For the latter,
 a round of data is gathered first, and then assimilated to get an
 updated model. Then the updated model is used to design and select the
-next round of measurements, and so on. We describe the model for one
-round of data and the Gaussian formula for a single update. In Section
-\ref{sec:heuristics} we discuss sequential data gathering in the
-context of adaptive design of AUV measurements.
+next round of measurements, and so on. Below, we describe the model for one round of data and the Gaussian formula for a single update; in Section \ref{sec:heuristics}, we discuss sequential data gathering in the context of adaptive design of AUV measurements.
 
 We denote the data at $n_y$ locations by
 $\by=(y_{T,1},y_{S,1},\ldots,y_{T,n_y},y_{S,n_y})^t$, representing the
@@ -643,10 +640,10 @@ which is important for the derivation of the closed-form solution of the design 
 \section{Uncertainty reduction in excursion sets}
 \label{sec:sur}
 
-\subsection{Excursion probabilities for Gaussian processes}
+\subsection{Excursion Probabilities for Gaussian Processes}
 
 Based on Gaussian modeling assumptions, the EPs can be computed at any
-location $\bx$. Without additional data, Eq.  (\ref{eq:prob}) gives us:
+location $\bx$. Without additional data, Eq.  (\ref{eq:prob}) gives us
 
 \begin{eqnarray}\label{eq:prob_mv0}
  p(\bx) &=& P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S) \nonumber \\
@@ -665,7 +662,7 @@ where $\Phi_2$ is the bivariate Gaussian cumulative distribution
 function, and the mean and covariance entries are as defined in Eq. (\ref{gp_bar}).
 
 When data $\by$ are available, Eq. (\ref{eq:post_ep}) similarly gives
-us:
+us
 \begin{eqnarray}\label{eq:prob_mv}
  p(\bx;\by) &=& P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\by)
  \nonumber \\
@@ -680,11 +677,11 @@ a_{T}^2(\bx) & a_{T,S}(\bx)  \\
 a_{T,S}(\bx)  & a_{S}^2(\bx)  
 \end{bmatrix}\end{pmatrix},
 \end{eqnarray}
-with parameters as defined in Eq. (\ref{gp_upd}) and (\ref{gp_hat}). Here, the probabilities would not only depend on the data but also on the data design defined via matrix $\bG$ in Eq. (\ref{likelihood}). We next derive results that ease comparison of several designs.
+with parameters as defined in Eq. (\ref{gp_upd}) and (\ref{gp_hat}). Here, the probabilities would not only depend on the data but also on the data design defined via matrix $\bG$ in Eq. (\ref{likelihood}). We next derive results that simplify the comparison of several designs.
 
 \subsection{Expected Integrated Bernoulli variance for bivariate models}
 
-We will next derive closed form solutions to the expectation in
+We will next derive closed-form solutions for the expectation in
 (\ref{sur}). The location index $\bx$ is suppressed to avoid overly
 complex notation. We present new results for computing the expectation
 $E_{\by}\left\{ \cdot \right\}$ which is the integrand of
@@ -696,9 +693,9 @@ Eq. (\ref{gp_upd}). This results in a closed form Gaussian
 distribution for the conditional mean in Eq. (\ref{dist_mxi}). The
 high-dimensional inner integral in Eq. (\ref{sur}) then reduces to a
 bivariate integral \citep{bhattacharjya2013value, chevalier2014fast},
-with expectation over $\bm=(m_{T},m_{S})^t$.  We standardize the two
-variables in Eq. (\ref{sur}), i.e.  $Z_T=\frac{\xi_T-m_{T}}{a_{T}}$,
-$Z_S=\frac{\xi_S-m_{S}}{a_{S}}$, and then
+with an expectation over $\bm=(m_{T},m_{S})^t$.  We standardize the two
+variables in Eq. (\ref{sur}) as   $Z_T=\frac{\xi_T-m_{T}}{a_{T}}$,
+$Z_S=\frac{\xi_S-m_{S}}{a_{S}}$; we can then rephrase the probability as
 \begin{eqnarray}\label{ytom}
    P(\xi_T \leq t_T, \xi_S \leq t_S|\by) &=& P \left( Z_T \leq\frac{t_T-m_{T}}{a_{T}}, Z_S \leq\frac{t_S-m_{S}}{a_{S}}|\by \right) \nonumber \\
    &=& \Phi_2 \begin{pmatrix} 
@@ -726,7 +723,7 @@ E_{\bm}(p(1-p)) & = & \int p[1-p] \pi(\bm) d\bm, \nonumber \\
 We will next extend results of \cite{chevalier2014fast} to solve for
 these two parts (see also \cite{stroh} for such an extensions).
 
-For the first part of the above, we have:
+For the first part of the integral above, we have
 \begin{equation}\label{part1:phi2}
  \int P(\xi_T \leq t_T, \xi_S \leq t_S|\bm) \pi(\bm) d\bm= 
 P \left( Z_{T} \leq \frac{t_T-m_{T}}{a_{T}}, 
@@ -734,12 +731,12 @@ Z_{S} \leq \frac{t_S-m_{S}}{a_{S}} \right), \nonumber
 \end{equation}
 where $\bZ=(Z_{T},Z_{S})$ is a bivariate zero-mean and unit-variance
 Gaussian vector, with $\mbox{Corr}(Z_{T},Z_{S})=\eta_{T,S}$. Moreover,
-$\bZ$ is chosen to be independent of $\bm$. Using Eq. (\ref{dist_mxi}) we have
+$\bZ$ is chosen to be independent of $\bm$. Using Eq. (\ref{dist_mxi}), we have
 \begin{equation}
     E(a_{T} Z_{T}+m_{T}-t_T) = \mu_{T}-t_T, \hspace{3mm}
-    \mbox{Var}(a_{T} Z_{T}+m_{T}-t_T) = a^2_T+ \psi^2_{T}, 
+    \mbox{Var}(a_{T} Z_{T}+m_{T}-t_T) = a^2_T+ \psi^2_{T} 
 \end{equation}
-for the temperature part and the same holds for the salinity part. From this we get:
+for the temperature part; the same holds for the salinity part. From this we get:
 \begin{eqnarray}\label{two_parts0}
 & P & \left( Z_{T} \leq \frac{t_T-m_{T}}{a_{T}}, 
 Z_{S} \leq \frac{t_S-m_{S}}{a_{S}} \right) \\
@@ -766,8 +763,11 @@ Z_{2,S} \leq \frac{t_S-m_{S}}{a_{S}} \right). \nonumber
 Here, $\bZ_1=(Z_{1,T},Z_{1,S})$, $\bZ_2=(Z_{2,T},Z_{2,S})$ are
 independent bivariate zero-mean and unit-variance Gaussian vectors,
 both with element-wise correlation $\eta_{T,S}$. Moreover, $\bZ_1$ and
-$\bZ_2$ are chosen to be independent of $\bm$. Hence:
+$\bZ_2$ are chosen to be independent of $\bm$, hence:
+
 \begin{equation}
+\small
+\label{eq:22}
     \left(
     \begin{array}{cccccc}
          Z_{1,T} \\
@@ -803,13 +803,13 @@ $\bZ_2$ are chosen to be independent of $\bm$. Hence:
 \vspace{0.2cm}
 \end{equation}
 
-The solution to the second part of the equation above, is then to
-evaluate a four-variable cumulative distribution function associated
-with Eqn. (\ref{part1:phi4}), accounting for the mean, variance and
+The solution to the second part of Eq. \eqref{eq:22} can be found by evaluating a four-variable cumulative distribution function associated
+with Eq. (\ref{part1:phi4}), accounting for the mean, variance and
 covariances of $\bZ_1$, $\bZ_2$ and $\bm$ in the appropriate linear
-combinations. Using vector-matrix formulations, we define linear
-combinations:
-\begin{equation}\label{Vcomb}
+combinations. Using vector-matrix formulations, we define the linear
+combinations
+\begin{equation}
+\label{Vcomb}
     \bV=\left[
     \begin{array}{cccccc}
         a_T & 0 & 0 & 0 & 1 & 0 \\
@@ -829,11 +829,12 @@ combinations:
     \end{array}
     \right),
 \end{equation}
-and this in turn then becomes:
-\begin{eqnarray}\label{part1:phi4_2}
-&& P \left( Z_{1,T} \leq \frac{t_T-m_{T}}{a_{T}}, 
-Z_{1,S} \leq \frac{t_S-m_{S}}{a_{S}},Z_{2,S} \leq \frac{t_T-m_{T}}{a_{T}}, 
-Z_{2,S} \leq \frac{t_S-m_{S}}{a_{S}} \right)  \\
+which in turn then becomes:
+{\small
+\begin{eqnarray}
+\label{part1:phi4_2}
+&&P \left( Z_{1,T} \leq \frac{t_T-m_{T}}{a_{T}}, 
+Z_{1,S} \leq \frac{t_S-m_{S}}{a_{S}}, Z_{2,S} \leq \frac{t_T-m_{T}}{a_{T}}, Z_{2,S} \leq \frac{t_S-m_{S}}{a_{S}} \right)\\
 &=&  \Phi_4 
 \begin{pmatrix} 
 \begin{bmatrix} t_T\\
@@ -844,12 +845,12 @@ t_S
 E( \bV),Var(\bV)
 \end{pmatrix} \nonumber.
 \end{eqnarray}
-
+}
 The multivariate cumulative probabilities in two and four dimensions
-are fast to compute using methods of \cite{genz2009computation}.  In
+are fast to compute using methods developed by \cite{genz2009computation}.  In
 the end, the first part in Eq. (\ref{two_parts0}) and the second in
-Eq. (\ref{part1:phi4}) are computed for each location on the grid, and
-summed over $\bx \in \mathcal{M}_g$, gives the design evaluation
+Eq. (\ref{part1:phi4}) are computed for each location on the grid and
+summed over $\bx \in \mathcal{M}_g$, which gives the design evaluation
 criterion in Eq. (\ref{sur}). 
 
 \subsection{Generalization to the multivariate case}
@@ -859,9 +860,9 @@ In our application domain with the variables temperature and salinity,
 the solutions to the complex integral equations for the expected IBV
 are reduced to calculating bi-variate and four-variate cumulative
 distribution functions for Gaussian vectors. For the more general
-situation one would be interested in $K$ random fields. Say, in the
-ocean sciences the variables could include chlorophyll or other
-bio-geochemical quantities, in addition to temperature and salinity.
+situation, one would be interested in $K$ random fields. In the
+ocean sciences, the variables could include chlorophyll or other
+bio-geochemical quantities in addition to temperature and salinity.
 
 The equations derived in the previous section can then be generalized. Let
 $\bxi(\bx)=(\xi_1(\bx),\ldots,\xi_K(\bx))$, and the expected Bernoulli
@@ -869,11 +870,11 @@ variance is:
 \begin{equation}\label{two_partsK}
 E_{\by}(p(\bx;\by)(1-p(\bx;\by))), \hspace{3mm} p(\bx;\by)=P(\xi_k(\bx) \leq t_k ; k=1,\ldots,K|\by). 
 \end{equation}
-By the first key result of linear combination of Gaussian variables,
+From the first key result of linear combination of Gaussian variables,
 we reduce the integral to a $K$ dimensional integral of the relevant
 $\bm=E(\bxi(\bx)|\by)$. Next, reducing the integral to two parts, we
 standardize the variables and compute cumulative distributions.  In
-summary, we get:
+summary, we get
 \begin{equation}\label{two_parts}
 E_{\by}(p(\bx)(1-p(\bx))) =  \Phi_K 
 \begin{pmatrix}
@@ -901,22 +902,22 @@ relevant linear combination of two independent vectors
 $\bZ_l=(Z_{l,1},\ldots,Z_{l,K})$, $l=1,2$ and $\bm$, as an extension
 of Eq. (\ref{Vcomb}).
 
-\subsection{An Example}
+\subsection{An Example of IBV using Temperature and Salinity}
 
-We calculate EPs and the Bernoulli variance for a few bivariate
+In this section, we calculate EPs and the Bernoulli variance for a few bivariate
 Gaussian distributions to illustrate the concepts articulated above.
 Fig. \ref{illus_bivarDens} shows contour plots of three different
 densities with increasing correlation $\gamma$ between temperature and
 salinity.
 \begin{figure}[h!] \centering
   \includegraphics[width=0.99\textwidth]{Figures/illus_bivar.eps}
-  \caption{Density contour plots having different correlations between
+  \caption{Density contour plots with different correlations between
     temperature and salinity. The densities have unit variance and the
     thresholds are identical to the mean values $5^o C$ and
-    $30 mg/l$. x-axis is temperature and y-axis is salinity.}
+    $30 mg/l$. X-axis is temperature and y-axis is salinity.}
 \label{illus_bivarDens}
 \end{figure}
-Here, the thresholds are set equal to the mean, $\mu_T=t_T=5^o C$ and
+Here, the thresholds are set equal to the mean $\mu_T=t_T=5^o C$, and
 salinity $\mu_S=t_S=30$ mg/l. The displayed densities have unit
 standard deviations for both temperature and salinity, but we also
 study the effect of doubling the standard deviations.
@@ -924,15 +925,15 @@ study the effect of doubling the standard deviations.
 Table \ref{tab:sim_rhoab} shows the EPs and the associated Bernoulli
 variance (second row) for the examples indicated in
 Fig. \ref{illus_bivarDens}. The EPs increase with the correlation as
-there is a stronger tendency of having jointly small temperature and
-salinity. The Bernoulli variance is similarly largest for high
-correlation. EPs and Bernoulli variances are the same for standard
-deviation $1$ or $2$, and this implies that high variability in
+there is a strong tendency to have concurrently low temperature and
+salinity. The Bernoulli variance is similarly large for high
+correlations. EPs and Bernoulli variances are the same for standard
+deviation $1$ or $2$, which implies that high variability in
 temperature and salinity is not captured in the $p(1-p)$ expression.
 
 \begin{table}[!h] \centering \caption{EP and Bernoulli variance for
     different correlations and variances (top rows), and expected
-    Bernoulli variances for both temperature and salinity data $\by$ and only for
+    Bernoulli variances for both temperature and salinity data $\by$ and 
     temperature $y_T$ (bottom rows).}
   \begin{tabular}{c|ccc|ccc}
  &\multicolumn{3}{c}{$\sigma_S=\sigma_T=1$} & \multicolumn{3}{c}{$\sigma_S=\sigma_T=2$} \\
@@ -951,16 +952,15 @@ $E_{y_T}(p(y_T) (1-p(y_T)))$ & 0.151 & 0.138 & 0.123 & 0.137 & 0.114 & 0.093 \\
 Table \ref{tab:sim_rhoab} (bottom two rows) shows results of expected
 Bernoulli variance calculations. This is presented for a design
 gathering both data types $(y_T,y_S)$, and for a design with
-temperature measurements $y_T$ alone. Having both data;
+temperature measurements $y_T$ alone. With both data,
 $(y_T,y_S)^t=(\xi_T,\xi_S)^t+N(0,0.5^2\bI)$, while
 $y_T=\xi_T+N(0,0.5^2)$ when only temperature is measured.  For this illustration, Table \ref{tab:sim_rhoab} shows that the expected Bernoulli variance
 gets lower with larger standard deviations $\sigma_T$ and $\sigma_S$
 (right columns). The reduction of Bernoulli variance is largest
 for the cases with high correlation $\gamma$. Albeit smaller, there is
 also uncertainty reduction when only temperature is measured (bottom
-row), especially when temperature and salinity are very
-dependent. When correlation is low ($\gamma=0.2$) there is little
-information about salinity in the temperature data, and hence less
+row), especially when temperature and salinity are highly correlated. When correlation is low ($\gamma=0.2$), there is little
+information about salinity in the temperature data, and therefore less
 uncertainty reduction. In an application with fresh cold water from
 river source, the temperature and salinity variables will not only be
 interdependent, but will show dependence in the spatial
@@ -987,26 +987,24 @@ $\bx$.
 
 \section{Sequential updating and heuristic path planning}\label{sec:heuristics}
 
-An important synergy underlining this work is the potential of robotic sampling to adapt survey plans based on data and statistical inference,
+An important concept underlying this work is the potential of robotic sampling to adapt survey plans based on data and statistical inference
 in accordance with the sense-plan-act loop
 (Fig. \ref{fig:sense-plan-act}). We will therefore present a few adaptive strategies
-for robotic sampling that builds on the notion of multivariate ES. Simulations, analysis, and  results from full-scale trials are presented.
+for robotic sampling that build on the notion of multivariate ES. Simulations, analysis, and  results from full-scale trials are presented.
 
 \subsection{Optimal sequential design}
 \label{Optdes}
 
-An adaptive AUV survey is split in many rounds (stages), and at each
-round, the survey design is found by using a myopic approach of
-considering the largest reduction in uncertainty of the ES. In our
-setting the selection is made on the graph defined by the nearest grid
+An adaptive AUV survey is split into many rounds (stages). In each
+round, the survey design is created using a myopic approach that considers the largest reduction in uncertainty of the ES. In our
+setting, the selection is made on the graph and defined by the nearest grid
 nodes in the domain $\mathcal{M}_g$.
 
 The optimal sequential design not only considers the best current AUV
-grid node, but also what data gathered at this node would lead to for
-future sampling at successive stages.  Let $d^{j,s}$ denote design
+grid node, but also how the data gathered at this node could inform future sampling at successive stages. Let $d^{j,s}$ denote design
 number $j$ at stage $s$ of a sequential survey. If this design is
 selected, data $\by^{j,s}$ will be gathered. The optimal path
-selection situation is then depicted in Figure \ref{fig:PathSelOpt},
+selection situation is  depicted in Figure \ref{fig:PathSelOpt},
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.85\textwidth]{Figures/sequent_select.pdf}
@@ -1020,16 +1018,16 @@ where design choices are indicated by squares while data realizations are indica
 %where $\ldots$ represents the expected variance reduction in the ES under the continued optimal design, which will depend on the data at earlier stages. 
 The mathematical expression for the optimal design then involves a
 series of intermixed maximizations over designs and integrals over
-data.  In practice the optimal solution is not tractable because of
-the enormous growth over stages, see
-e.g. \cite{sucar2015probabilistic} and \cite{powell2016perspectives}.
+data.  In practice, the optimal solution is intractable because of
+the enormous growth over stages (see
+e.g. \cite{sucar2015probabilistic} and \cite{powell2016perspectives}).
 Instead, we outline heuristic strategies. In terms of notation, let
 $\mathcal{Y}^{s-1} =\{d^{j,r}, \by^{j,r} ; r=1,\ldots,s-1 \}$ denote
 the data gathered until stage $s-1$, using a selected design
 $d^{j,r}$, $r=1,\ldots,s-1$.
 
-The derived closed form solutions for the expected IBV are still
-important building blocks when constructing the sampling designs as
+The derived closed-form solutions for the expected IBV are still
+important building blocks when constructing the sampling designs, as
 they will be used to score the different adaptive designs. % Efficient
 % calculation is important for using adaptive survey designs with
 % robotic platforms.
@@ -1039,7 +1037,7 @@ they will be used to score the different adaptive designs. % Efficient
 
 The simplest heuristic for adaptive sampling is to choose the next
 sampling location based on current EPs. The largest variance in
-sampling locations is and indication of higher uncertainty; therefore
+sampling locations is an indication of higher uncertainty; therefore
 one selects the design location with an EP closest to $0.5$.
 
 At stage $s$, based on the currently available data
