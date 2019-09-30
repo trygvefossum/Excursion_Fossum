@@ -20,9 +20,7 @@
 % == Trygve Test
 \usepackage{color, colortbl}
 \definecolor{Gray}{gray}{0.9}
-\newcommand{\kcomment}[1]{{\color{red}{\{KR: #1\}}}}
-\newcommand{\tofcomment}[1]{{\color{green}{\{TF: #1\}}}}
-\newcommand{\kc}{\kcomment}
+
 % put your definitions there:
 \startlocaldefs
 \endlocaldefs
@@ -36,25 +34,26 @@
 \runtitle{Excursion Probabilities for Informative Sampling}
 
 \begin{aug}
-\author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{a,b}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
-\author{\fnms{Jo} \snm{Eidsvik}\thanksref{c}, \ead[label=e2]{jo.eidsvik@math.ntnu.no}}
-\author{\fnms{David} \snm{Ginsbourger}\thanksref{d}, \ead[label=e3]{david.ginsbourger@idiap.ch}}
+\author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{t1,t2}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
+\author{\fnms{Jo} \snm{Eidsvik}\thanksref{t3}, \ead[label=e2]{jo.eidsvik@math.ntnu.no}}
+\author{\fnms{David} \snm{Ginsbourger}\thanksref{t4}, \ead[label=e3]{david.ginsbourger@idiap.ch}}
 \and
-\author{\fnms{Kanna} \snm{Rajan}\thanksref{b,e,f}. \ead[label=e4]{kanna.rajan@ntnu.no}}
+\author{\fnms{Kanna} \snm{Rajan}\thanksref{t2,t5,t6}. \ead[label=e4]{kanna.rajan@ntnu.no}}
 
-\address{Department of Marine Technology\\ Trondheim, Norway\printead{e1}}
-\affiliation[a]{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU), Trondheim, Norway.} 
-\affiliation[b]{Centre for Autonomous Marine Operations and Systems (AMOS).}
+\affiliation[t1]{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU), Trondheim, Norway.} 
+\affiliation[t2]{Centre for Autonomous Marine Operations and Systems (AMOS).}
+\affiliation[t3]{Department of Mathematical Sciences, NTNU.}
+\affiliation[t4]{Uncertainty Quantification and Optimal Design group, Idiap Research Institute, Martigny, Switzerland.}
+\affiliation[t5]{Department of Engineering Cybernetics, NTNU}
+\affiliation[t6]{Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
 
-\address{Department of Mathematical Sciences \printead{e2}}
-\affiliation[c]{Department of Mathematical Sciences, NTNU.}
-
-\address{Idiap \printead{e3}}
-\affiliation[d]{Uncertainty Quantification and Optimal Design group, Idiap Research Institute, Martigny, Switzerland.}
-
-\address{Department of Engineering Cybernetics,\printead{e4}}
-\affiliation[e]{Department of Engineering Cybernetics, NTNU}
-\affiliation[f]{Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
+\address{ \\Department of Marine Technology,\\ Trondheim, Norway \\
+\printead{e1}}
+\address{Department of Mathematical Sciences,\\ Trondheim, Norway\\ \printead{e2}}
+\address{Idiap, \\ Martigny, Switzerland, \\
+\printead{e3}}
+\address{Department of Engineering Cybernetics,\\ Trondheim, Norway \\
+\printead{e4}}
 
 \runauthor{TO. Fossum et al.}
 \end{aug}
@@ -133,26 +132,12 @@ spatio-temporal models for sea surface temperature and salinity data;
 and \cite{mellucci2018oceanic} looking at the statistical prediction
 of features using an underwater glider. 
 
-The goal of the information-based methods that we highlight in the current paper, is to do efficient environmental sampling and overcome common challenges, namely:
+The potential that lies in using information-based methods, which we highlight in the current paper, is to do efficient environmental sampling and overcome three common challenges, namely:
 
 \begin{itemize}
-\item Full numerical ocean models cannot provide accurate results online if run on robotic sensing
-  platforms, as onboard computers cannot deliver the computational power required,
-  hence statistical proxy models of the environment must be used instead.
-\item Decisions on where to sample happen sequentially, i.e. recently
-  acquired information can be assimilated into and used to improve
-  statistical models and reduce uncertainty associated with where to
-  make measurements.
-\item As a priori information about the state of the ocean is rather
-  uncertain, there is a substantial efficiency gain in reacting to
-  information obtained from measurements taken in-situ. %\emph{in-situ}; this is usually referred to as the \emph{adaptivity gap} \citep{Krause2008phd}.
-\item For such types of sampling problems, the number of choices (i.e.
-  locations, trajectories, and candidate designs) makes the problem
-  combinatorially large, creating a trade-off between optimization
-  (finding the most resource-efficient design to collect necessary
-  data), and computability (arriving at a solution in reasonable
-  time). To successfully resolve features, this trade-off has to be
-  considered in sample design and practice.
+\item Full numerical ocean models cannot provide accurate results online if run on robotic sensing platforms, as onboard computers cannot deliver the computational power required, hence statistical proxy models of the environment must be used for doing inference about where to sample.
+\item As a priori information about the state of the ocean is uncertain, there is a substantial efficiency gain in reacting to information obtained from measurements taken in-situ. Recently acquired information can be assimilated into statistical models that is used to inform decisions on where to sample sequentially.%\emph{in-situ}; this is usually referred to as the \emph{adaptivity gap} \citep{Krause2008phd}.
+\item For sampling problems related to environmental sensing, the number of choices (i.e. locations, trajectories, and candidate designs) makes the problem combinatorially large, creating a trade-off between optimization (finding the most resource-efficient design to collect necessary data), and computability (arriving at a solution in reasonable time). To successfully resolve features, this trade-off has to be considered in sample design and practice.
 \end{itemize}
 
 The combination of statistical tools and robotic platforms is a
@@ -264,22 +249,17 @@ could have provided a more accurate assessment and early
 warning of changing environmental conditions. These challenges related to undersampling have been driving
 ocean sensing practices towards more autonomous, networked, and
 distributed use of robotic assets in order to fill the gaps in our
-understanding (See Fig. \ref{fig:envir}), where observation is
+understanding (See Fig. \ref{fig:envir1}), where observation is
 guided by assimilation of measurements and statistical models. 
 
 \begin{figure}[!h] 
   \centering 
-  \subfigure[Illustration of an ocean sensing network, where robotic
-  assets augment ship-based measurements to increase coverage and
-  resolution of phenomena of scientific interest.]{\includegraphics[width =
+  \subfigure[Illustration of an ocean sensing network and the sense-plan-act control methodology.]{\includegraphics[width =
     0.49\textwidth]{Figures/envir2.pdf}\label{fig:envir1}}
   \hfill
   \subfigure[Frontal patterns off of the Nidelva river, Trondheim, Norway.]{\includegraphics[width =
     0.49\textwidth]{Figures/river_proccess.pdf}\label{fig:nidelven}}
-  \caption{Ocean observation is moving away from single-ship sampling
-    towards more autonomous and collaborative networked operations in
-    order to resolve the numerous bio-geochemical processes and their
-    interactions.}
+  \caption{\ref{fig:envir1} Ocean observation is moving away from single-ship sampling towards more autonomous and collaborative networked operations in order to resolve the numerous bio-geochemical processes and their interactions; this requires autonomy that can reason and make decisions on their own following the sense-plan-act control methodology. \ref{fig:nidelven} The interaction of river and ocean creates processes that are challenging to map, where the combination of robotics and statistics can play a vital role in enabling more effective observation practices.}
 \label{fig:envir}
 \end{figure}
 
@@ -893,7 +873,7 @@ Fig. \ref{illus_bivarDens} shows contour plots of three different
 densities with increasing correlation $\gamma$ between temperature and
 salinity.
 \begin{figure}[h!] \centering
-  \includegraphics[width=0.99\textwidth]{Figures/illus_bivar.eps}
+  \includegraphics[width=0.99\textwidth]{Figures/illus_bivar.pdf}
   \caption{Density contour plots with different correlations between
     temperature and salinity. The densities have unit variance and the
     thresholds are identical to the mean values $5^o C$ and
@@ -1365,18 +1345,29 @@ indicated in purple in Fig. \ref{fig:nidelven}.
 
 The statistical model parameters were specified based on a short preliminary survey where the AUV did an initial transect to determine the environmental conditions and correlation structure. Based on the initial data, the trend parameters were estimated by linear regression, where both temperature and salinity are assumed to increase linearly, going west from the river mouth. Next, the residuals from the regression analysis were analyzed to study the fit of the GP model and to specify the covariance parameters.
 
-\begin{figure}[!h] 
- \centering 
-\includegraphics[width=0.98\textwidth]{Figures/field-trials/res_diag.pdf}
-\caption{Data analysis from a preliminary trial experiment using the
-  AUV. Left: Residual plot of temperature and salinity along with
-  Gaussian contours. Middle: Empirical CDF (solid) of the quadratic form of
-  the residuals along with the theoretical CDF (dashed) of the $\chi^2$
-  distribution with two degrees of freedom. Right: Empirical variogram
-  of the salinity and temperature data.} \label{fig:parest}
+%\begin{figure}[!h] 
+% \centering 
+%\includegraphics[width=0.98\textwidth]{Figures/field-trials/res_diag.pdf}
+%\caption{Data analysis from a preliminary trial experiment using the
+%  AUV. Left: Residual plot of temperature and salinity along with
+%  Gaussian contours. Middle: Empirical CDF (solid) of the quadratic form of
+%  the residuals along with the theoretical CDF (dashed) of the $\chi^2$
+%  distribution with two degrees of freedom. Right: Empirical variogram
+%  of the salinity and temperature data.} \label{fig:parest}
+%\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \subfigure[Residual plot.]{\includegraphics[width = 0.32\textwidth]{Figures/field-trials/res_diag_a.pdf}\label{fig:parest_a}}
+  \hfill
+  \subfigure[Empirical CDF.]{\includegraphics[width = 0.32\textwidth]{Figures/field-trials/res_diag_b.pdf}\label{fig:parest_b}}
+  \hfill
+  \subfigure[Empirical variogram.]{\includegraphics[width = 0.32\textwidth]{Figures/field-trials/res_diag_c.pdf}\label{fig:parest_c}}
+  \caption{Data analysis from a preliminary trial experiment using the AUV. \ref{fig:parest_a} Residual plot of temperature and salinity along with Gaussian contours. \ref{fig:parest_b} Empirical CDF (solid) of the quadratic form of the residuals along with the theoretical CDF (dashed) of the $\chi^2$  distribution with two degrees of freedom. \ref{fig:parest_c} Empirical variogram of the salinity and temperature data.} 
+\label{fig:parest}
 \end{figure}
 
-Fig. \ref{fig:parest} shows diagnostic plots of this analysis. The display on the left shows a cross-plot of temperature and salinity residuals after the westernly trends in both salinity and temperature are subtracted from the data. This scatterplot of joint residuals indicates larger variability in salinity than in temperature, and a positive correlation ($0.5$) between the two variables. Based on the fitted bivariate Gaussian model (ellipses in left display), we can compute the modeled quadratic form of the residuals, and if the model is adequate they should be approximately $\chi^2_2$ distributed. Fig. \ref{fig:parest} (middle) shows the empirical cumulative distribution function (CDF) of these quadratic forms (solid) together with the theoretical CDF of the $\chi^2_2$ distribution. The modeled and theoretical curves are very similar, which indicates that the Gaussian model fits reasonably well. Even though there appears to be some clustering in both left and middle displays of Fig. \ref{fig:parest}, the bivariate diagnostic plots look reasonable and justify a Gaussian model. Fig. \ref{fig:parest} (right) shows the empirical variogram of the scaled residuals for temperature and salinity. The decay is similar for the two, and seems to be negligible after about $150$ m. 
+Fig. \ref{fig:parest} shows diagnostic plots of this analysis. Fig. \ref{fig:parest_a} shows a cross-plot of temperature and salinity residuals after the westernly trends in both salinity and temperature are subtracted from the data. This scatterplot of joint residuals indicates larger variability in salinity than in temperature, and a positive correlation ($0.5$) between the two variables. Based on the fitted bivariate Gaussian model (ellipses in Fig. \ref{fig:parest_a}), we can compute the modeled quadratic form of the residuals, and if the model is adequate they should be approximately $\chi^2_2$ distributed. Fig. \ref{fig:parest_b} shows the empirical cumulative distribution function (CDF) of these quadratic forms (solid) together with the theoretical CDF of the $\chi^2_2$ distribution. The modeled and theoretical curves are very similar, which indicates that the Gaussian model fits reasonably well. Even though there appears to be some clustering in both Fig. \ref{fig:parest_a} and \ref{fig:parest_b}, the bivariate diagnostic plots look reasonable and justify a Gaussian model. Fig. \ref{fig:parest_c} shows the empirical variogram of the scaled residuals for temperature and salinity. The decay is similar for the two, and seems to be negligible after about $150$ m. 
 
 
 Based on the analysis in Fig. \ref{fig:parest}, the resulting parameters are given in Table \ref{tab:experiment_param}. The regression parameters shown here are scaled to represent the east and west boundaries of the domain as seen in the preliminary transect data, and the thresholds are intermediate values. These parameter values were then used in field trials where we explored the algorithm's ability to characterize the river plume front separating the river and fjord water masses, providing a spatial map of this boundary. 
@@ -1438,13 +1429,13 @@ The AUV was set to start in the south-center part of the waypoint graph, with th
 \hspace{0.3cm}
 \subfigure[Temperature tracks]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/auv.pdf}\label{fig:res_both}}
 
-\subfigure[Survey 1]{\includegraphics[height=0.40\textwidth]{Figures/field-trials/auv1_es_sal.pdf}\label{fig:res1}}
+\subfigure[Survey 1]{\includegraphics[height=0.40\textwidth]{Figures/field-trials/auv1_es_sal_ep.pdf}\label{fig:res1}}
 \hspace{0.2cm}
-\subfigure[Survey 2]{\includegraphics[height=0.40\textwidth]{Figures/field-trials/auv4_es_sal.pdf}\label{fig:res2}}
+\subfigure[Survey 2]{\includegraphics[height=0.40\textwidth]{Figures/field-trials/auv4_es_sal_ep.pdf}\label{fig:res2}}
 
-\subfigure[ES for Survey 1]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/ep_1.pdf}\label{fig:res3}}\hspace{0.4cm}
-\subfigure[ES for Survey 2]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/ep_4.pdf}\label{fig:res4}}
-\caption{Results from mapping the Nidelva river} 
+%\subfigure[ES for Survey 1]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/ep_1.pdf}\label{fig:res3}}\hspace{0.4cm}
+%\subfigure[ES for Survey 2]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/ep_4.pdf}\label{fig:res4}}
+\caption{Results from mapping the Nidelva river. \ref{fig:map} Show an overview of the survey area overlaid with the AUV path in black and dashed line. Note the shaded region indicating the usual frontal region. \ref{fig:res_both} Presents the collected temperature data as colored trails. Note waypoint 5 (WP5) which indicate where the two surveys deviate. \ref{fig:res1} and \ref{fig:res2} Shows the collected salinity data (as a colored trail) overlaid on the final EP, which indicate the AUVs statistical impression of the front. For both missions the temperature and salinity data correspond with the EP front indication.} 
 \label{fig:results}
 \end{figure*}
 
@@ -1454,7 +1445,7 @@ Two missions, Surveys 1 and 2, were run successively from 11:00 AM to 01:00 PM, 
 
 Both Surveys 1 and 2 successfully estimated and navigated the separation zone, crossing the frontal boundary multiple times. As conditions changed slightly between the two deployments, the resulting path (after waypoint 5) deviates. Survey 1 continued northwards, tracking the north-eastern part of the front, while Survey 2 turned west, mapping the south-western part. 
 
-The final prediction of the front location given in Fig. \ref{fig:res3} and \ref{fig:res4}, correspond with one another, yielding a picture of the front gradually bending off toward the north east. The amount of exploration done by Survey 1 is greater than Survey 2. In Survey 1, the AUV obtained more detail by going north, while Survey 2, coming close to the survey area borders in the south-western corner, obtained a poorer understanding of the northern parts. A longer planning horizon would likely identify and discourage such choices.
+The final prediction of the front location given in Fig. \ref{fig:res1} and \ref{fig:res2} as a dashed line, correspond with one another, yielding a picture of the front gradually bending off toward the north east. The amount of exploration done by Survey 1 is greater than Survey 2. In Survey 1, the AUV obtained more detail by going north, while Survey 2, coming close to the survey area borders in the south-western corner, obtained a poorer understanding of the northern parts. A longer planning horizon would likely identify and discourage such choices.
 
 %\begin{figure}[!h] 
 % \centering 
@@ -1490,7 +1481,7 @@ TOF and KR acknowledge support from the Centre for Autonomous Marine Operations 
 
 % == Adding references
 \footnotesize
-\bibliographystyle{apalike}
+\bibliographystyle{imsart-nameyear}
 \bibliography{ref}
 
 % AOS,AOAS: If there are supplements please fill:
