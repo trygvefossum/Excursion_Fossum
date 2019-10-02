@@ -1,0 +1,75 @@
+\documentclass[10pt,stdletter]{newlfm}
+\usepackage{charter}
+\usepackage{times}
+
+\widowpenalty=1000
+\clubpenalty=1000
+
+\newsavebox{\Luiuc}
+\sbox{\Luiuc}{%
+	\parbox[b]{1.75in}{%
+		\vspace{0.5in}%
+		\includegraphics[scale=0.8]
+		{hovedlogo_eng.pdf}%
+	}%
+}%
+\makeletterhead{Uiuc}{\Lheader{\usebox{\Luiuc}}}
+
+\newlfmP{headermarginskip=10pt}
+\newlfmP{sigsize=10pt}
+\newlfmP{dateskipafter=30pt}
+\newlfmP{addrfromphone}
+\newlfmP{addrfromemail}
+\PhrPhone{Phone}
+\PhrEmail{Email}
+
+\lthUiuc
+
+\namefrom{\vspace{-1.2cm}Trygve Olav Fossum}
+\addrfrom{Department of Marine Technology\\
+	Otto Nielsens Veg 10\\
+	Trondheim, Norway
+}
+\phonefrom{(+47) 98 678 309}
+\emailfrom{\emph{trygve.o.fossum@ntnu.no}}
+
+\addrto{%
+Editor-in-Chief\\
+Annals of Applied Statistics\\
+}
+
+\greetto{Dear Editor,}
+\closeline{Yours faithfully,}
+
+\Lfooter{\vspace{-2cm}Norwegian University of Science and Technology\\
+Department of Marine Technology, Applied Underwater Robotics Laboratory\\
+NO-7491, Trondheim, Norway\\ 
+}
+
+
+\Rheader{1 of 1}
+
+\begin{document}
+\begin{newlfm}
+
+Please see our manuscript \textbf{Informative Oceanographic Sampling using Excursion Probabilities for Multivariate Random Fields} submitted for possible publication in the \emph{Annals of Applied Statistics} (AOAS).\\*
+
+This work focuses on tackling the challenges related to oceanographic sampling, where observations are expensive, few, and far apart. A key question in this regard is 
+
+\begin{quote}
+\textit{where and when should we measure in order to effectively measure a phenomenon or process taking place in the ocean?}      
+\end{quote}{}
+
+The research presented aims to address this central question by combining statistical models and methodology with autonomous robotic sensing platforms. A central effort is the introduction of informative descriptions of spatial characteristics of ocean phenomena that greatly improve how sequential data collection can be conducted. Specifically, we present a design criterion based on reducing uncertainty in the joint excursions of random fields, and derive analytical expressions for the expected Bernoulli variance reduction in the excursion set of spatial temperature and salinity variables. The proposed methodology is deployed and tested in a full-scale deployment where an autonomous underwater vehicle is tasked with mapping a river plume. 
+
+The combined study demonstrate the potential of statistics applied to support autonomous robotic decision making, representing methods and approaches with a substantial potential for further integration, which are necessary and critical to understand our changing oceans. 
+\vspace{1em}
+
+% combining new methods and tools to achieve increased sampling efficiency.
+%Towards this end, the work introduces informative descriptions of spatial characteristics of ocean phenomena by define a design criterion based on reducing uncertainty in the joint excursions of random fields, and derive analytical expressions for the expected Bernoulli variance reduction in the excursion set of spatial temperature and salinity variables. 
+%Resolving this type of sensing problem require theory and assets that can capitalize on the 
+%Combining oceanographic sampling, combining compact models and autonomous robotic platforms for upper water-column observation. The work is novel in multiple ways. First, it uses a combination of unsupervised machine learning and hierarchical clustering methods to distill a compact ocean model based on remote sensing images. The method is capable of characterizing important dominant sea conditions using these images by grouping them into distinct classes. The classification is then verified using preceding wind data to ensure that the model is physically correct in oceanographical sense. Second, the work is supplemented with theory for doing forecast and predictions, as well as evaluation of model error. The combined study demonstrates a novel sampling perspective, combining new methods and tools to achieve increased sampling efficiency.\par \vspace{1em}
+%We believe such a work to be representative of new methods and approaches which are necessary and critical to understand our changing oceans.
+
+\end{newlfm}
+\end{document}
