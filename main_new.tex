@@ -10,6 +10,7 @@
 \usepackage{subfigure}
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}                     % horizontal lines in tables
+\usepackage{comment}
 
 % == Enable text degree
 \usepackage{textcomp}
@@ -71,7 +72,7 @@
   random fields, and derive analytical expressions for the expected
   Bernoulli variance reduction in the excursion set of spatial
   temperature and salinity variables, providing a description of
-the boundary uncertainty that can be used prioritize sampling efforts at locations that are
+the boundary uncertainty that can be used to prioritize sampling efforts at locations that are
 ambiguous, making exploration more effective. We show how these can be
   applicable in static and sequential designs, building on myopic and
   non-myopic sampling strategies. We use simulations to study the
@@ -446,7 +447,7 @@ plume, focusing on spatial separation of cold freshwater from the
 river and warmer saline waters of the fjord. ES and EPs are useful
 starting points to measure the ability to classify water masses. The
 goal of experimental sampling is to improve this
-characterization. %, as quantified via changes in the EPs.
+characterization, as quantified via changes in the EPs.
 
 We consider a lateral domain near the sea surface, with locations
 $\bx \in \mathcal{M} \subset \mathbf{R^2}$. The two variables of
@@ -1068,9 +1069,7 @@ $\mathcal{Y}^{s-1} =\{d^{j,r}, \by^{j,r} ; r=1,\ldots,s-1 \}$ denote
 the data gathered until stage $s-1$, using a selected design
 $d^{j,r}$, $r=1,\ldots,s-1$.
 
-The derived closed-form solutions for the expected IBV are still
-important building blocks when constructing the sampling designs, as
-they will be used to score the different adaptive designs. % Efficient
+%The derived closed-form solutions for the expected IBV are still important building blocks when constructing the sampling designs, as they will be used to score the different adaptive designs. % Efficient
 % calculation is important for using adaptive survey designs with
 % robotic platforms.
  
@@ -1197,14 +1196,14 @@ specify the prior mean:
 \mu_{S}(\bx)
 \end{bmatrix} 
 = \begin{bmatrix} \beta_{T,0} + \beta_{T,1} x_{\mbox{West}} \\
-\beta_{T,1} + \beta_{S,1} x_{\mbox{West}}
+\beta_{S,0} + \beta_{S,1} x_{\mbox{West}}
 \end{bmatrix}.
 \end{equation}
 This situation
 mimics that of a river mouth opening from the south, with the water
 masses pulled to the east. The regression parameters are  $\beta_{T,1}=0.065$ and
-$\beta_{S,1}=0.1$ for the slope, with west coordinate and $\beta_{T,0}=5.8$
-and $\beta_{S,1}=29.0$ for the intercept at a reference map coordinate.
+$\beta_{S,1}=0.1$ for the slopes with west coordinate, and $\beta_{T,0}=5.8$
+and $\beta_{S,0}=29.0$ for the intercept at a chosen reference map coordinate.
 
 %The prior assumption used by the agent are $\tilde{\beta_{T,1}}=0.085$ and $\tilde{\beta_{S,1}}=0.138$, which assumes that the process is centered. 
 
@@ -1280,9 +1279,7 @@ We compare three different static designs denoted
 \textit{naive}, \textit{myopic}, and \textit{look-ahead}. The static sampling paths are pre-determined and cannot be altered and represent the pre-planned strategies used in most current AUV
 operational survey designs.
 
-For a fixed survey length, the expected IBV is analytically available
-\kc{I don't understand what ``analytically available''
-  means}. However, for the sequential approaches this is not the
+For a fixed survey length, a closed form expression for the expected IBV is available as in Eq. \eqref{sur}. However, for the sequential approaches this is not the
 case. For comparison the properties are therefore evaluated using
 Monte Carlo sampling over several replicates of realizations from the
 prior while conducting simulated sequential surveys for each
@@ -1313,8 +1310,7 @@ center East-West coordinate at the southern end of the domain (node
 53). The AUV moves along edges in the waypoint graph while the vehicle
 gathers measurements. The data is assimilated into the GP model before
 an evaluation of the next node to sample is conducted at the end of
-the edge. \kc{Note there are plenty of language errors related to
-  tense. Pl. do not mess with any more changes from here onwards.}
+the edge.
 
 \subsection{Simulation Results}
 
@@ -1389,15 +1385,16 @@ of the sequential schemes and static designs are shown. The
 domain because it is too focused on the probabilities near $0.5$. The
 \textit{myopic} strategy covers a wider domain than the naive or
 look-ahead. There are several reasons for this. First, a greedy
-approach will tend to put more emphasis on locations close to the
+approach will tend to put more emphasis on promising locations close to the
 agent, which may lead away from the centre. Second, as the agent
 evaluates the impact of locations further away (look-ahead) where
 assimilated data has less predictive power, the GP prior model (which
 is centered here) will act to restrict paths deviating from the
 central zone.
 
-%We studied the sensitivity of the results by modifying the input parameters to different prior correlations between temperature and salinity, standard deviations, and spatial correlation range.  In all runs,  the \textit{myopic} and \textit{look-ahead} strategies perform the best in terms of IBV, and much better than \textit{naive}. The \textit{look-ahead} strategy seems to be substantially better than the \textit{myopic} only for very small prior standard deviation or very large spatial correlation range. The \textit{static\_north} design continues to be the best static design for IBV, while \textit{static\_zigzag} is the best design for the other predictive performance measures, especially so with large spatial correlation range. We also ran simulation studies with only temperature data, and for realistic correlation levels between temperature and salinity the effects are not much worse in terms of IBV when only temperature data are available. In addition to the comparison made in Table \ref{tab:sim_rhoab}, the current setting includes spatial correlation and this likely reduces the additional influence of having bivariate data. However, it seems that having temperature data alone does a substantially worse job in terms of explained variance
+We studied the sensitivity of the results by modifying the input parameters to different prior correlations between temperature and salinity, standard deviations, and spatial correlation range.  In all runs,  the \textit{myopic} and \textit{look-ahead} strategies perform the best in terms of IBV, and much better than \textit{naive}. The \textit{look-ahead} strategy seems to be substantially better than the \textit{myopic} only for very small prior standard deviation or very large spatial correlation range. The \textit{static\_north} design continues to be the best static design for IBV, while \textit{static\_zigzag} is the best design for the other predictive performance measures, especially so with large spatial correlation range. We also ran simulation studies with only temperature data, and for realistic correlation levels between temperature and salinity the effects are not much worse in terms of IBV when only temperature data are available. In addition to the comparison made in Table \ref{tab:sim_rhoab}, the current setting includes spatial correlation and this likely reduces the additional influence of having bivariate data. However, it seems that having temperature data alone does a substantially worse job in terms of explained variance
 
+\begin{comment}
 \subsection{Performance Metrics}
 
 The tables below explore the sensitivity of the result to different
@@ -1500,7 +1497,7 @@ basecase           &  24.71 &   33.45 &       32.25 &         26.71 &        30.
     \label{tab:sim_res_r2}
 \end{table}
 
-\newpage
+\end{comment}
 
 \section{Case Study - Mapping a River Plume}
 \label{sec:case_study}
