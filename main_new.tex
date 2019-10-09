@@ -410,7 +410,7 @@ Adaptive sampling of an evolving frontal feature has been explored in
 \cite{fronts11,Zhang2012,Pinto2018,costa19}. These approaches
 typically use a reactive-adaptive scheme, whereby exploration does not
 rely on a statistical model of the environment, but rather adapts
-based on closing the sensing and actuation loop. Myopic sampling, i.e. step-wise selection of
+based on closing the sensing and actuation loop. Myopic sampling, i.e. stage-wise selection of
 the path (on the graph) which reduces the information criterion the
 most, has been used for adaptive surveys
 \citep{singh2009efficient,Binney2013} that focus largely on reducing
@@ -597,16 +597,16 @@ locations.
 Data are gathered by an AUV that can measure temperature and salinity
 at a subset of locations on the defined grid. This can be done in a
 static manner (where the survey design is pre-planned), or in a
-sequential way with several rounds of data gathering. For the latter,
-a round of data is gathered first, and then assimilated to get an
+sequential way with several stages of data gathering. For the latter,
+a stage of data is gathered first, and then assimilated to get an
 updated model. Then the updated model is used to design and select the
-next round of measurements, and so on (Section
-\ref{sec:heuristics}). Below, we describe the model for one round of
+next stage of measurements, and so on (Section
+\ref{sec:heuristics}). Below, we describe the model for one stage of
 data and the Gaussian formula for a single update.
 
 We denote the data at $n_y$ locations by
 $\by=(y_{T,1},y_{S,1},\ldots,y_{T,n_y},y_{S,n_y})^t$, representing the
-temperature and salinity measurements gathered at the first round of
+temperature and salinity measurements gathered at the first stage of
 nodes in the grid. The conditional model for the data, given the true temperature
 and salinity, is described by: 
 \begin{equation}\label{likelihood}
@@ -1040,7 +1040,7 @@ that build on the notion of multivariate ES.
 \subsection{Optimal Sequential Design}
 \label{Optdes}
 
-An adaptive AUV survey is split into many rounds (stages). The selection --on where to sample-- is made on the graph and defined by the nearest grid nodes in the domain $\mathcal{M}_g$.
+An adaptive AUV survey is split into many stages. The selection --on where to sample-- is made on the graph and defined by the nearest grid nodes in the domain $\mathcal{M}_g$.
 
 The optimal sequential design not only considers the best current AUV
 grid node, but also how the data gathered at this node could inform
@@ -1085,7 +1085,7 @@ At stage $s$, based on the currently available data
 $\mathcal{Y}^{s-1}$, we fit an updated Gaussian model from
 Eq. (\ref{gp_upd}) with mean $\bm^{s-1}=E(\bxi|\mathcal{Y}^{s-1})$
 and covariance matrix $\bA^{s-1}=\mbox{Var}(\bxi|\mathcal{Y}^{s-1})$.
-The next round of measurements $\by^{j,s}$ can be gathered with
+The next stage of measurements $\by^{j,s}$ can be gathered with
 design $d^{j,s}$, $j=1,\ldots,J$. The {\it{naive}} strategy then
 selects the design according to:
 \begin{eqnarray}\label{critNaive}
@@ -1103,12 +1103,12 @@ susceptible to local minima.
 \label{sec:myopic}
 
 The myopic (greedy) strategy which we present here is optimal if we
-imagine taking only one more round of measurements. In this selection
+imagine taking only one more stage of measurements. In this selection
 strategy, there is no anticipation of what the subsequent designs might
-offer beyond the first round.
+offer beyond the first stage.
 
 Based on the currently available data $\mathcal{Y}^{s-1}$, we
-fit an updated GP model.  The next round of measurements
+fit an updated GP model.  The next stage of measurements
 $\by^{j,s}$, can be gathered with design $d^{j,s}$, $j=1,\ldots,J$. The
 selected design is then:
 \begin{eqnarray}\label{critSEQ}
@@ -1122,7 +1122,7 @@ formula in Eq. (\ref{sur}). Now $\mathcal{Y}^{s-1}$ is available, and
 the expectation is with respect to the conditional density
 $\pi(\by^{j,s}|\mathcal{Y}^{s-1})$. A similar closed-form calculation
 for expected IBV is hence applicable in Eq. (\ref{critSEQ}) using the
-updated GP model from step $s-1$. Once the data is collected for the
+updated GP model from stage $s-1$. Once the data is collected for the
 best design, the GP model is updated again. The mean $\bm^{s}$ and
 covariance matrix $\bA^{s}$ are used to compute the next design at
 stage $s+1$, and so on.
@@ -1139,8 +1139,8 @@ subsequent trajectory.
 \label{sec:LA}
 
 We now extend the myopic strategy to a look-ahead strategy, which is
-optimal when one can gather only two more rounds of measurements. In
-addition to the next round of measurements $\by^{j,s}$, this
+optimal when one can gather only two more stages of measurements. In
+addition to the next stage of measurements $\by^{j,s}$, this
 look-ahead strategy, anticipates the subsequent design $j_2$ with
 data $\by^{j_2,s+1}$ when choosing the current design $d^{j,s}$.  The
 selected design is:
@@ -1336,7 +1336,7 @@ the path is parallel to the boundary between the water masses.
   \hfill 
   \subfigure[Time used to do inference.]{\label{fig:avg_time}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_Time.pdf}}
 \caption{Simulation results from 100 replicate simulations for 10
-  sampling choices/steps on the grid.} 
+  sampling choices/stages on the grid.} 
 \label{fig:sim_results}
 \end{figure}
 
@@ -1362,7 +1362,7 @@ vertical lines. Nevertheless, the ordering of strategies is similar.
   \subfigure[Static]{\includegraphics[height = 0.46\textwidth]{Figures/sim/route_static.pdf}\label{fig:route_static}}
   \hfill
   \caption{The overlaid route choices (strategies), superimposed on
-    the 100 replicate surveys with 10 sampling choices/steps.}
+    the 100 replicate surveys with 10 sampling choices/stages.}
 \label{fig:route_choices}
 \end{figure}
 
@@ -1406,12 +1406,10 @@ each survey. The expected ES variances are shown in Table
 \ref{tab:sim_res_rmse}, and explained variance is in Table
 \ref{tab:sim_res_r2}. In all runs, both the \textit{myopic} and
 \textit{look-ahead} strategies perform the best in terms of expected
-variance in the ES. Surprisingly, the \textit{myopic} strategy
+variance in the ES. The \textit{myopic} strategy
 performs slightly better than the \textit{look-ahead}. Part of the
 reason for this discrepancy can be traced to the act of pruning some
-of the paths for the \textit{look-ahead} strategy; however, even with
-less pruning, the \textit{look-ahead} does not outperform the
-\textit{myopic} approach. The \textit{static\_north} design is clearly
+of the paths for the \textit{look-ahead} strategy. The \textit{static\_north} design is clearly
 better than the other two static designs, the reason being that the
 others do not focus on the areas where the ES is really uncertain
 (centre locations are the most uncertain). By measuring temperature
@@ -1763,7 +1761,7 @@ operations, or environmental projects. Value of information analysis
 the current paper, as both analytic methods explore when, where and
 which information is likely to result in improved decision-making.
 
-While more effort could be spent on approximating the look-ahead steps
+While more effort could be spent on approximating the look-ahead stages
 in the adaptive designs, it is perhaps more interesting to explore the
 additional flexibility that can be gained by having two or more AUVs
 co-temporally exploring a spatial or spatio-temporal domain together
