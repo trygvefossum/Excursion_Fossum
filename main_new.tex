@@ -62,7 +62,7 @@
   Improving and optimizing oceanographic sampling is a crucial task
   for marine science and maritime management. Faced with limited
   resources to understand dynamic processes in the water-column, the
-  combination of statistics and autonomous robotics provide
+  combination of statistics and autonomous robotics provide new
   opportunities for studying experimental design. In this work we develop
   methods for efficient spatial sampling applied to the mapping of
   coastal processes by providing informative descriptions of spatial
@@ -70,10 +70,12 @@
   criterion based on reducing uncertainty in the joint excursions of
   random fields, and derive analytical expressions for the expected
   Bernoulli variance reduction in the excursion set of spatial
-  temperature and salinity variables. We show how these can be
+  temperature and salinity variables, providing a description of
+the boundary uncertainty that can be used prioritize sampling efforts at locations that are
+ambiguous, making exploration more effective. We show how these can be
   applicable in static and sequential designs, building on myopic and
   non-myopic sampling strategies. We use simulations to study the
-  properties and differences between state-of-the-art approaches
+  properties and differences between state-of-the-art approaches,
   followed by results from field deployments with an autonomous
   underwater vehicle as part of a case study mapping the boundary of a
   river plume. The results demonstrate the potential of combining statistical methods and robotic platforms, and the abilities of the derived methods to effectively inform and execute data-driven environmental sampling.
@@ -115,15 +117,13 @@ buoys, Lagrangian floats, or ship-based methods, with significant
 logistical limitations that directly impact coverage and sampling
 resolution. Modern methods using satellite remote-sensing provide
 large-scale coverage but have limited resolution, are limited to
-sensing the surface of the ocean and are impacted by cloud cover. The
+sensing the surface of the ocean, and are impacted by cloud cover. The
 advent of robust mobile robotic platforms \citep{Bellingham07} has
 resulted in significant contributions to environmental monitoring and
 sampling. In particular, autonomous underwater vehicles (AUVs), have
 advanced the state of sampling and consequently have made robotics an
 integral part of ocean observation; our previous work has contributed
-to this effort
-% using statistical methods in design and data assimilation
-\citep{das11b,Das2015,fossum18b,fossuminformation}.  Other statistical
+to this effort \citep{das11b,Das2015,fossum18b,fossuminformation}. Other statistical
 work in the oceanographic domain include \cite{wikle2013modern}
 focusing on hierarchical statistical models; \cite{sahu2008space},
 studying spatio-temporal models for sea surface temperature and
@@ -131,7 +131,7 @@ salinity data; and \cite{mellucci2018oceanic} looking at the
 statistical prediction of features using an underwater glider.
 
 The potential that lies in using information-based methods, which we
-highlight in the paper, is to do efficient environmental sampling and
+highlight in this paper, is to do efficient environmental sampling and
 overcome three common challenges, namely:
 
 \begin{itemize}
@@ -145,7 +145,7 @@ overcome three common challenges, namely:
 \item As a priori information about the state of the ocean is
   uncertain, there is a substantial efficiency gain in reacting to
   information obtained from measurements taken in-situ. Recently
-  acquired information can be assimilated into statistical models that
+  acquired information can be used to resolve this by assimilating up-to-date data into statistical models that
   can be used to inform decisions on where to sample
   sequentially.%\emph{in-situ}; this is usually referred to as the \emph{adaptivity gap} \citep{Krause2008phd}.
 
@@ -155,16 +155,16 @@ overcome three common challenges, namely:
   trade-off between optimization (finding the most resource-efficient
   design to collect necessary data), and computability (arriving at a
   solution in reasonable time). To successfully resolve features, this
-  trade-off has to be considered in sample design and the practice.
+  trade-off has to be considered in development and practice.
 
 \end{itemize}
 
-The combination of statistical tools and robotic platforms is a
+Addressing this, the combination of statistical tools and robotic platforms is a
 natural symbiosis which enables information-based sensing. Central to
 this is the ability to model spatially-correlated variables and
 provide formal measures of uncertainty. In our formulation we use
 Gaussian Processes (GPs) in large part because they allow for
-efficient implementation and evaluation onboard a robotic platform.
+efficient implementation and evaluation in real time onboard a robotic platform.
 
 %Sampling can, in this context, not simply be distributed evenly ---along simple transects or ``lawn-mover" patterns--- but must instead be prioritized to relevant regions to ensure it is cost-effective while providing adequate coverage and resolution of the area of scientific interest.
 
@@ -249,9 +249,9 @@ contains a summary and a discussion of future work.
 Central to understanding the changes taking place in the upper
 water-column is an understanding of biophysical interaction driven by
 an agglomeration of physical forcing (wind, topography, bathymetry,
-tidal influences and local geography, such as fresh water inflows) and
+tidal influences, and local geography, such as fresh water inflows) and
 incipient micro-biology driven by planktonic and coastal anthropogenic
-input, such as pollution and agricultural runoff. These often result
+input, such as pollution and agricultural runoff transported into the ocean by rivers and streams. These often result
 in a range of ecosystem-related phenomena such as blooms, anoxic zones
 and plumes, all of which have significant direct and indirect effects
 on society. Walter Munk referred to the 20\textsuperscript{th} century
@@ -270,7 +270,7 @@ conditions. These challenges related to undersampling have been
 driving ocean sensing practices towards more autonomous, networked,
 and distributed use of robotic assets in order to fill the gaps in our
 understanding (See Fig. \ref{fig:envir1}), where observation is guided
-by assimilation of measurements and statistical models.
+by assimilation of recent measurements and statistical models.
 
 \begin{figure}[!b] 
   \centering 
@@ -340,7 +340,7 @@ challenging.
 %This challenge can be addressed by employing more elaborate and adaptive sampling strategies that can capitalize on both prior and current observations in order to locate and map these areas.  
 
 River plumes belong to a class of ocean processes that are local and
-at smaller \emph{sub-mesoscale} (from $5 m^2$ -- $10 km^2$) where
+act on smaller \emph{sub-mesoscale} extent (from $5 m^2$ -- $10 km^2$) where
 lateral spatial variability tends to dominate. Remote sensing and
 synthetic ocean models often find it challenging to provide detail at
 this scale \citep{Lermusiaux:2006} and the principal way to resolve
@@ -362,11 +362,11 @@ resources, one can augment information from synthetic ocean models,
 remote-sensing data, or fixed-location sensors on buoys. Traditional
 operations and surveys with AUVs are usually limited to observations
 along fixed transects on a spatial grid, pre-programmed by the human
-operator. Instead using onboard algorithms to continuously evaluate,
-update, and refine future sampling locations, one can make information
+operator. A more effective approach is to instead use onboard algorithms to continuously evaluate,
+update, and refine future sampling locations (sense-plan-act cycle in Fig. \ref{fig:envir1}), making the information
 gathering \emph{adaptive} and \emph{contextual} to the survey
 requirements \citep{das11b,fossum18b,fossuminformation}. The space of
-sampling opportunities is still limited to a grid, but adaptation
+sampling opportunities can still be limited to a grid, but adaptation
 allows more flexibility. For instance, an AUV could reconstruct or
 modify a survey line based on what temperatures it is measuring by
 using embedded methods in decision-theoretic planning
@@ -409,8 +409,7 @@ Adaptive sampling of an evolving frontal feature has been explored in
 \cite{fronts11,Zhang2012,Pinto2018,costa19}. These approaches
 typically use a reactive-adaptive scheme, whereby exploration does not
 rely on a statistical model of the environment, but rather adapts
-based on closing the sensing and actuation loop
-(Fig. \ref{fig:envir1}). Myopic sampling, i.e. step-wise selection of
+based on closing the sensing and actuation loop. Myopic sampling, i.e. step-wise selection of
 the path (on the graph) which reduces the information criterion the
 most, has been used for adaptive surveys
 \citep{singh2009efficient,Binney2013} that focus largely on reducing
@@ -421,7 +420,7 @@ criteria was introduced to include more targeted sampling of regions
 of scientific interest in \cite{Low2009} and \cite{fossuminformation}.
 In this paper, with a focus on mapping the river plume, we reward the
 designs that improve the classification of water masses as a means to
-characterize the frontal zone.
+characterize the frontal zone and thereby the extent of the river plume.
 
 %\begin{figure}[h]
 %\centering
@@ -453,8 +452,8 @@ We consider a lateral domain near the sea surface, with locations
 $\bx \in \mathcal{M} \subset \mathbf{R^2}$. The two variables of
 interest, temperature and salinity, are defined as random processes:
 $\xi_T(\bx)$ denotes the temperature (in $^o C$) and $\xi_S(\bx)$
-denotes the salinity (in $mg/l$) at location $\bx$. The generalization
-to more than two variables is given in Section \ref{gen_k}. The
+denotes the salinity (in $g/kg$) at location $\bx$. The generalization
+to more than two variables is given in Section \ref{gen_k}, and the
 adaptive sampling strategies are described in Section
 \ref{sec:heuristics}.
 
@@ -513,7 +512,7 @@ Recent work on ESs and EPs connected to spatial statistics include
 \cite{picheny2010,french2013spatio,bolin2015excursion,french2016credible}.
 Our focus is on ES as defined in Eq. (\ref{ES}) and the uncertainty
 reduction achieved by sampling as in Eq. (\ref{sur}). In this sense,
-our work is similar to \cite{bect2012}, \cite{chevalier2014fast} and
+our work is similar to \cite{bect2012}, \cite{chevalier2014fast}, and
 \cite{azzimonti2016quantifying} who describe analytical results for
 the IBV for univariate processes. A major contribution of our work is
 to derive closed-form results for this design criteria for situations
@@ -578,7 +577,7 @@ locations $\mathcal{M}_g = \{\bx_i, i=1,\ldots,n \}$, where each cell
 has area $\Delta$; the grid is used for the waypoint graph setting the
 possible design locations. It is also used when solving integral
 expressions in Eq. (\ref{measVAR}) and (\ref{sur}), which are then
-approximated by sums over all grid cells.  Using vector notation, we
+approximated by sums over all grid cells. Using vector notation, we
 denote the Gaussian temperature and salinity variables on the grid and
 its density function by the formula:
 \begin{equation}\label{prior}
@@ -586,7 +585,7 @@ its density function by the formula:
     \bxi  \sim  N(\bmu, \bSigma). %\pi (\bxi) & =& \frac{1}{(2\pi)^{n}|\bSigma|^{\frac{1}{2}}}e^{-\frac{1}{2}(\bxi -\bmu)^T\bSigma^{-1}(\bxi-\bmu)}.
 \end{equation}
 %Here, $\pi(\bxi)$ is the joint density function of length $2 n$ vector $\bxi$, and
-The length $2 n$ vector $\bmu$ contains the expected values of
+The length $2n$ vector $\bmu$ contains the expected values of
 temperature and salinity at the grid locations, while the
 $2n \times 2n$ matrix $\bSigma$ contains the
 variance-covariances of temperature and salinity variables at all grid
@@ -1033,15 +1032,14 @@ integrating over several locations (Section \ref{sec:case_study}).
 
 An important concept underlying this work is the potential of robotic
 sampling to adapt survey plans based on data and statistical methods
-in accordance with the sense-plan-act loop (Fig. \ref{fig:envir1}). We
+in accordance with the sense-plan-act control loop (Fig. \ref{fig:envir1}). We
 will therefore present a few adaptive strategies for robotic sampling
 that build on the notion of multivariate ES.
 
 \subsection{Optimal Sequential Design}
 \label{Optdes}
 
-An adaptive AUV survey is split into many rounds (stages). The selection is made on the graph and defined by the nearest grid
-nodes in the domain $\mathcal{M}_g$.
+An adaptive AUV survey is split into many rounds (stages). The selection --on where to sample-- is made on the graph and defined by the nearest grid nodes in the domain $\mathcal{M}_g$.
 
 The optimal sequential design not only considers the best current AUV
 grid node, but also how the data gathered at this node could inform
@@ -1061,8 +1059,8 @@ where design choices are indicated by squares while data realizations are indica
 %\end{equation}
 %where $\ldots$ represents the expected variance reduction in the ES under the continued optimal design, which will depend on the data at earlier stages. 
 The mathematical expression for the optimal design then involves a
-series of intermixed maximizations over designs and integrals over
-data.  In practice, the optimal solution is intractable because of
+series of intermixed maximisations over designs and integrals over
+data. In practice, the optimal solution is intractable because of
 the enormous growth over stages (see
 e.g. \cite{sucar2015probabilistic} and \cite{powell2016perspectives}).
 Instead, we outline heuristic strategies. In terms of notation, let
@@ -1103,7 +1101,7 @@ it has been and where the uncertainty has been reduced, and is therefore
 susceptible to local minima.
 
 \subsection{Myopic Path Planning}
-\label{myopic}
+\label{sec:myopic}
 
 The myopic (greedy) strategy which we present here is optimal if we
 imagine taking only one more round of measurements. In this selection
@@ -1125,7 +1123,7 @@ formula in Eq. (\ref{sur}). Now $\mathcal{Y}^{s-1}$ is available, and
 the expectation is with respect to the conditional density
 $\pi(\by^{j,s}|\mathcal{Y}^{s-1})$. A similar closed-form calculation
 for expected IBV is hence applicable in Eq. (\ref{critSEQ}) using the
-updated GP model from step $s-1$.  Once the data is collected for the
+updated GP model from step $s-1$. Once the data is collected for the
 best design, the GP model is updated again. The mean $\bm^{s}$ and
 covariance matrix $\bA^{s}$ are used to compute the next design at
 stage $s+1$, and so on.
@@ -1139,7 +1137,7 @@ subsequent trajectory.
 
 
 \subsection{Look-ahead Trajectory Planning}
-\label{LA}
+\label{sec:LA}
 
 We now extend the myopic strategy to a look-ahead strategy, which is
 optimal when one can gather only two more rounds of measurements. In
@@ -1206,7 +1204,7 @@ This situation
 mimics that of a river mouth opening from the south, with the water
 masses pulled to the east. The regression parameters are  $\beta_{T,1}=0.065$ and
 $\beta_{S,1}=0.1$ for the slope, with west coordinate and $\beta_{T,0}=5.8$
-and $\beta_{S,1}=29.0$ for the intercept at a reference start map coordinate.
+and $\beta_{S,1}=29.0$ for the intercept at a reference map coordinate.
 
 %The prior assumption used by the agent are $\tilde{\beta_{T,1}}=0.085$ and $\tilde{\beta_{S,1}}=0.138$, which assumes that the process is centered. 
 
@@ -1278,10 +1276,8 @@ in Fig. \ref{fig:ESet}.
 
 We compare three different static designs denoted
 \textit{static\_north}, \textit{static\_east}, and
-\textit{static\_zigzag} with the three sequential approaches
-\textit{naive}, \textit{myopic}, and \textit{look-ahead}. Recall that
-the static sampling paths are pre-determined and cannot be altered.
-These represent the pre-planned strategies used in most current AUV
+\textit{static\_zigzag} with the three described sequential approaches
+\textit{naive}, \textit{myopic}, and \textit{look-ahead}. The static sampling paths are pre-determined and cannot be altered and represent the pre-planned strategies used in most current AUV
 operational survey designs.
 
 For a fixed survey length, the expected IBV is analytically available
@@ -1291,7 +1287,7 @@ case. For comparison the properties are therefore evaluated using
 Monte Carlo sampling over several replicates of realizations from the
 prior while conducting simulated sequential surveys for each
 one. Fig. \ref{fig:Eprob} shows the conditional EP, given data
-gathered along the north-south survey lines in these figures.  In the
+gathered along the north-south survey lines in these figures. In the
 Monte Carlo replicates, such results are repeatedly computed to
 approximate the expected IBV. We also compare predictive performance
 measured by root mean square error (RMSE) for temperature and salinity
@@ -1374,7 +1370,7 @@ vertical lines. Nevertheless, the ordering of strategies is similar.
 \label{fig:route_choices}
 \end{figure}
 
-Fig.  \ref{fig:avg_time} shows the computational effort: the
+Fig. \ref{fig:avg_time} shows the computational effort: the
 \textit{naive} strategy is on par with the static designs, while the
 \textit{myopic} strategy is slower. The \textit{look-ahead} is even
 slower, reaching levels that are nearly impractical for execution on a
@@ -1427,11 +1423,7 @@ the combined temperature-salinity estimate. This occurs because the
 correlation of $0.6$ means that temperature observations provide
 information about salinity as well. For the other predictive measures,
 \textit{myopic} and \textit{look-ahead} strategies do well, clearly
-beating the \textit{naive} strategy. The \textit{static\_zigzag}
-design is usually the best among the static designs for these
-predictive performance measures because its pattern gives more
-effective coverage of the domain when there is significant spatial
-correlation, as indicated in this case.
+beating the \textit{naive} strategy. 
 
 \begin{table}[!h]
     \centering
@@ -1524,7 +1516,7 @@ focused along the frontal zone that runs more or less parallel to the
 eastern shore as noted in Fig. \ref{fig:nidelven}.
 
 \subsection{Model Specification}
-
+\label{sec:exp_modeling}
 The statistical model parameters were specified based on a short
 preliminary survey where the AUV made an initial transect to determine
 environmental conditions and correlation structure. Based on the
@@ -1565,7 +1557,7 @@ of the GP model and to specify the covariance parameters.
 Fig. \ref{fig:parest} shows diagnostic plots of this
 analysis. Fig. \ref{fig:parest_a} shows a cross-plot of temperature
 and salinity residuals after the westerly trends in both salinity and
-temperature are subtracted from the data. This scatterplot of joint
+temperature are subtracted from the data. This scatter-plot of joint
 residuals indicates larger variability in salinity than in
 temperature, and a positive correlation ($0.5$) between the two
 variables. Based on the fitted bivariate Gaussian model (ellipses in
@@ -1639,7 +1631,7 @@ measurements. %The accuracy of the CTD instrument is $\pm 0.0003$ S/m (conductiv
 The sampling agent was built on top of the autonomous agent framework
 Teleo-Reactive EXecutive (\textit{T-REX})
 \citep{py10,Rajan12,Rajan12b}, running an instance of the
-\textit{myopic} strategy from Section \ref{sec:sampling_designs} to
+\textit{myopic} strategy from Section \ref{sec:myopic} to
 control the AUV and decide between sampling locations.
 
 \begin{figure}[!h] 
@@ -1654,20 +1646,20 @@ control the AUV and decide between sampling locations.
 The sampling strategy was designed around the concept of visiting
 waypoints sequentially. Arriving at a desired waypoint with new
 measurements and an updated model, the AUV triggers the myopic
-strategy to evaluate all possible design criteria (see
+strategy to evaluate the different design criteria (see
 Eq. \eqref{critSEQ}). The waypoint-and-path combination that is
-expected to reduce the IBV the most is selected; upon arrival this
+expected to reduce the IBV the most is selected, and upon arrival this
 procedure is then repeated. At each stage, it takes the AUV about 30
 seconds to evaluate the expected IBV for all the possible
 waypoint-and-path alternatives.
 
 The AUV was set to start in the south-center part of the waypoint
-graph, with the previously outlined GP model of the environment. A
-survey was set to take approximately 40 minutes to visit 15 waypoints
+graph, with the previously outlined GP model of the environment (Section \ref{sec:exp_modeling}). A
+survey was set to take approximately 40 minutes, visiting 15 waypoints
 on the grid, with the AUV running near the surface to capture the
 plume. On its path from one waypoint to the next, the AUV gathered
 data regularly, and the GP model assimilated temperature and salinity
-data with an update frequency of 30 seconds, with about three updates
+data with an update frequency of 30 seconds, giving about three updates
 per stage.
 
 \begin{figure*}[!h]
@@ -1749,7 +1741,7 @@ connected to the properties of water masses. The characterization is
 based on joint ESs, whereby we derive new results for the expected IBV
 reduction achieved by the spatial sampling design. This result is
 first calculated in closed form for the situation with a static
-design, and then extended to the adaptive situation; the sequential
+design, and then extended to the adaptive situation. The sequential
 derivations provide new insights into efficient applications of
 adaptive sampling, as demonstrated in our application of these models
 with an autonomous vehicle in Trondheim fjord.
@@ -1767,7 +1759,7 @@ The spatial-statistical design criterion, building on ESs, is relevant
 in our setting with different water mass properties; this could also
 be useful in other oceanographic settings, such as algal-blooms or
 open water fronts. Of course, other criteria are also relevant for
-decision-making.  For instance, managers and regulators must make
+decision-making. For instance, managers and regulators must make
 difficult decisions related to fish farming, other marine resources
 operations, or environmental projects. Value of information analysis
 (VOI) \citep{Eidsvik:15} could be used in a similar vein as the IBV in
