@@ -37,16 +37,17 @@
 \begin{aug}
 \author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{t1,t2}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
 \author{\fnms{Jo} \snm{Eidsvik}\thanksref{t3}, \ead[label=e2]{jo.eidsvik@math.ntnu.no}}
-\author{\fnms{David} \snm{Ginsbourger}\thanksref{t4}, \ead[label=e3]{david.ginsbourger@idiap.ch}}
+\author{\fnms{David} \snm{Ginsbourger}\thanksref{t4,t5}, \ead[label=e3]{david.ginsbourger@idiap.ch}}
 \and
-\author{\fnms{Kanna} \snm{Rajan}\thanksref{t2,t5,t6}. \ead[label=e4]{kanna.rajan@ntnu.no}}
+\author{\fnms{Kanna} \snm{Rajan}\thanksref{t2,t6,t7}. \ead[label=e4]{kanna.rajan@ntnu.no}}
 
 \affiliation[t1]{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU), Trondheim, Norway.} 
 \affiliation[t2]{Centre for Autonomous Marine Operations and Systems (AMOS).}
 \affiliation[t3]{Department of Mathematical Sciences, NTNU.}
 \affiliation[t4]{Uncertainty Quantification and Optimal Design group, Idiap Research Institute, Martigny, Switzerland.}
-\affiliation[t5]{Department of Engineering Cybernetics, NTNU}
-\affiliation[t6]{Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
+\affiliation[t5]{Department of Mathematics and Statistics, Uncertainty of Bern, Switzerland.}
+\affiliation[t6]{Department of Engineering Cybernetics, NTNU}
+\affiliation[t7]{Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
 
 \address{\\Trygve Olav Fossum \\Department of Marine Technology\\ Otto Nielsens veg. 10, 7491 Trondheim\\ Norway\\
 \printead{e1}}
@@ -62,24 +63,19 @@
 \begin{abstract}
   Improving and optimizing oceanographic sampling is a crucial task
   for marine science and maritime management. Faced with limited
-  resources to understand dynamic processes in the water-column, the
+  resources to understand processes in the water-column, the
   combination of statistics and autonomous robotics provide new
-  opportunities for studying experimental design. In this work we develop
-  methods for efficient spatial sampling applied to the mapping of
-  coastal processes by providing informative descriptions of spatial
+  opportunities for experimental designs. In this work we develop
+  methods for efficient spatial sampling applied to the mapping of coastal processes by providing informative descriptions of spatial
   characteristics of ocean phenomena. Specifically, we define a design
-  criterion based on reducing uncertainty in the joint excursions of
-  random fields, and derive analytical expressions for the expected
-  Bernoulli variance reduction in the excursion set of spatial
-  temperature and salinity variables, providing a description of
-the boundary uncertainty that can be used to prioritize sampling efforts at locations that are
-ambiguous, making exploration more effective. We show how these can be
-  applicable in static and sequential designs, building on myopic and
-  non-myopic sampling strategies. We use simulations to study the
+  criterion based on reducing uncertainty in the joint excursions of vector-valued Gaussian random fields, and derive tractable expressions for the expected
+  Bernoulli variance reduction in such a framework. We demonstrate how these provide a description of
+the boundary uncertainty in temperature and salinity variables, which is used to prioritize sampling efforts at locations that are ambiguous, making exploration more effective by building on myopic and
+  non-myopic strategies. We use simulations to study the
   properties and differences between state-of-the-art approaches,
   followed by results from field deployments with an autonomous
   underwater vehicle as part of a case study mapping the boundary of a
-  river plume. The results demonstrate the potential of combining statistical methods and robotic platforms, and the abilities of the derived methods to effectively inform and execute data-driven environmental sampling.
+  river plume. The results demonstrate the potential of combining statistical methods and robotic platforms to effectively inform and execute data-driven environmental sampling.
 
 %Motivated by the challenges related to efficient allocation of sampling resources in environmental sensing, the combination of Excursion Probabilities and Gaussian process modeling is explored for autonomous robotic sampling of ocean features; enabling information driven measures  sampling efforts to high-interest regions. These regions are usually characterized by gradients of measurable environmental variables, e.g., temperature or salinity gradients, on which EPs subsequently can be used...Correlation among samples and multivariate requirements are typical in environmental studies.
 \end{abstract}
@@ -140,19 +136,17 @@ overcome three common challenges, namely:
 \item Full numerical ocean models cannot provide accurate results
   online if run on robotic sensing platforms, as onboard computers
   cannot deliver the computational power required, hence statistical
-  proxy models of the environment must be used for doing inference
-  about where to sample.
+  proxy models of the environment must be used for learning where to sample.
 
-\item As a priori information about the state of the ocean is
-  uncertain, there is a substantial efficiency gain in reacting to
-  information obtained from measurements taken in-situ. Recently
-  acquired information can be used to resolve this by assimilating up-to-date data into statistical models that
+\item With limited available information about the state of the ocean, there is substantial value in reacting to
+  information obtained from measurements taken in-situ. This
+  acquired information must be assimilated into statistical models that
   can be used to inform decisions on where to sample
   sequentially.%\emph{in-situ}; this is usually referred to as the \emph{adaptivity gap} \citep{Krause2008phd}.
 
 \item For sampling problems related to environmental sensing, the
   number of choices (i.e. locations, trajectories, and candidate
-  designs) makes the problem combinatorially large, creating a
+  designs) is enormous, creating a
   trade-off between optimization (finding the most resource-efficient
   design to collect necessary data), and computability (arriving at a
   solution in reasonable time). To successfully resolve features, this
@@ -209,7 +203,7 @@ efficient implementation and evaluation in real time onboard a robotic platform.
 
 In this work, we build on joint excursion sets (ES) and excursion
 probabilities (EP) for the spatial design of experiments. The goal is
-to design sampling strategies for reducing the spatially-integrated
+to design sampling strategies for for improving the estimation of joint ES with respect to temperature and salinity by reducing the spatially integrated
 Bernoulli variance (IBV) in the ES indicators. Our main contributions
 include: i) extending the IBV criteria to multivariate
 GPs, thereby allowing the evaluation to include multiple environmental
@@ -442,7 +436,7 @@ characterize the frontal zone and thereby the extent of the river plume.
 \section{Excursion Sets and Integrated Bernoulli Variance}
 \label{sec:ESEP}
 
-Our objective is to leverage statistical tools to characterize a river
+Our objective is to leverage statistical approaches to characterize a river
 plume, focusing on spatial separation of cold freshwater from the
 river and warmer saline waters of the fjord. ES and EPs are useful
 starting points to measure the ability to classify water masses. The
@@ -564,7 +558,7 @@ decay is related to common water masses (Section
 \end{equation}
 where for $i,j \in {T,S}$ and $\delta_{ij}=1$ if $i=j$, and
 $\delta_{ij}=0$ otherwise. Moreover, we assume stationary isotropic
-random fields a priori where the correlation function $\rho(\bx,\bx')$
+random fields where the correlation function $\rho(\bx,\bx')$
 solely depends on $\bx$ and $\bx'$ via Euclidean distance
 $h=\sqrt{||\bx-\bx'||^2}$. With data and prior knowledge, one could
 possibly fit and estimate parameters of non-stationary or
@@ -887,8 +881,8 @@ E( \bV),Var(\bV)
 \end{pmatrix} \nonumber.
 \end{eqnarray}
 }
-The multivariate cumulative probabilities in two and four dimensions
-are computationally efficient using methods developed by
+The multivariate cumulative probabilities in two and four dimensions 
+are available using methods developed by
 \cite{genz2009computation}.  In the end, the first part in
 Eq. (\ref{two_parts0}) and the second in Eq. (\ref{part1:phi4}) are
 computed for each location on the grid and summed over
@@ -1669,14 +1663,14 @@ per stage.
 
 %\subfigure[ES for Survey 1]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/ep_1.pdf}\label{fig:res3}}\hspace{0.4cm}
 %\subfigure[ES for Survey 2]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/ep_4.pdf}\label{fig:res4}}
-\caption{Results from mapping the Nidelva river. \ref{fig:map} Show an
-  overview of the survey area overlaid with the AUV path in black and
-  dashed line. Note the shaded region indicating the usual frontal
-  region. \ref{fig:res_both} Presents the collected temperature data
-  as colored trails. Note waypoint 5 (WP5) which indicate where the
-  two surveys deviate. \ref{fig:res1} and \ref{fig:res2} Shows the
-  collected salinity data (as a colored trail) overlaid on the final
-  EP, which indicate the AUVs statistical impression of the front. For
+\caption{Results from mapping the Nidelva river. \ref{fig:map} shows an
+  overview of the survey area overlaid with the AUV paths in black and
+  dashed line. The shaded region indicates the usual frontal
+  region. \ref{fig:res_both} presents the collected temperature data
+  as colored trails. Waypoint 5 (WP5) is where the
+  two surveys deviate. \ref{fig:res1} and \ref{fig:res2} show the
+  collected salinity data in the two surveys (as colored trails) overlaid on the final
+  EPs, which indicate the AUVs statistical impression of the front in the surveys. For
   both missions the temperature and salinity data correspond with the
   EP front indication.}
 \label{fig:results}
@@ -1685,30 +1679,29 @@ per stage.
 \subsection{Results}
 
 Two missions, Surveys 1 and 2, were run successively from 11:00 AM to
-01:00 PM, with a short break in between. The resulting path of the
+01:00 PM, with a break in between. The resulting path of the
 selected waypoints are shown in the map in Fig. \ref{fig:map}, both
 within the expected frontal region (shaded pink). The recorded
-temperatures are shown as colored trails in Fig. \ref{fig:res_both},
+temperatures in the two surveys are shown as colored trails in Fig. \ref{fig:res_both},
 clearly indicating the temperature difference between fjord and river
 waters. The salinity data are then shown separately, overlaid with the
-estimated EP for each survey in Fig. \ref{fig:res1} and
+estimated EPs for each survey in Fig. \ref{fig:res1} and
 \ref{fig:res2}.
 
 Both surveys successfully estimated and navigated the separation zone,
 crossing the frontal boundary multiple times. As conditions changed
-slightly between the two deployments, the resulting path (after
-waypoint 5) is shown to deviate. Survey 1 continued northwards,
+slightly between the two deployments, the resulting paths (after
+waypoint 5) are shown to deviate. Survey 1 continued northwards,
 tracking the north-eastern part of the front, while Survey 2 turned
 west, mapping the south-western part.
 
-The final predictions of the front location given in
-Fig. \ref{fig:res1} and \ref{fig:res2} as a dashed line, correspond
-with one another, yielding a picture of the front gradually bending
-off toward the north east. The amount of exploration done by Survey 1
+The final predictions of the front location, represented by conditional EPs in
+Fig. \ref{fig:res1} and \ref{fig:res2} as dashed lines, correspond
+with one another. In both surveys they yield a picture of the front being a bit to the west in the southern parts of the domain and gradually bending off toward the north east. The amount of exploration done by Survey 1
 is greater than Survey 2. In Survey 1, the AUV obtained more detail by
-going north, while Survey 2, coming close to the survey area borders
+going north from waypoint 5, while Survey 2, coming close to the survey area borders
 in the south-western corner, obtained a poorer understanding of the
-northern parts. A longer planning horizon would likely identify and
+northern parts. A look-ahead strategy might identify and
 discourage such choices.
 
 %\begin{figure}[!h] 
