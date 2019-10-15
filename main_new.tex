@@ -61,7 +61,7 @@
 
 \begin{abstract}
 
-  Improving and optimizing oceanographic sampling is a crucial task for marine science and maritime management. Faced with limited resources to understand processes in the water-column, the combination of statistics and autonomous robotics provide new opportunities for experimental designs. In this work we develop methods for efficient spatial sampling applied to the mapping of coastal processes by providing informative descriptions of spatial characteristics of ocean phenomena. Specifically, we define a design criterion based on reducing uncertainty in the joint excursions of vector-valued Gaussian random fields, and derive tractable expressions for the expected Bernoulli variance reduction in such a framework. We demonstrate how these provide a description of the boundary uncertainty in temperature and salinity variables, which is used to prioritize sampling efforts at locations that are ambiguous, making exploration more effective by building on myopic and non-myopic strategies. We use simulations to study the properties and differences between state-of-the-art approaches, followed by results from field deployments with an autonomous underwater vehicle as part of a case study mapping the boundary of a river plume. The results demonstrate the potential of combining statistical methods and robotic platforms to effectively inform and execute data-driven environmental sampling.
+  Improving and optimizing oceanographic sampling is a crucial task for marine science and maritime management. Faced with limited resources to understand processes in the water-column, the combination of statistics and autonomous robotics provides new opportunities for experimental designs. In this work we develop methods for efficient spatial sampling applied to the mapping of coastal processes by providing informative descriptions of spatial characteristics of ocean phenomena. Specifically, we define a design criterion based on reducing uncertainty in the joint excursions of vector-valued Gaussian random fields, and derive tractable expressions for the expected Bernoulli variance reduction in such a framework. We demonstrate how this criterion gives a description of the boundary uncertainty in temperature and salinity variables, which is used to prioritize sampling efforts at locations that are ambiguous, making exploration more effective by building on myopic and non-myopic strategies. We use simulations to study the properties of methods and to compare them with state-of-the-art approaches, followed by results from field deployments with an autonomous underwater vehicle as part of a case study mapping the boundary of a river plume. The results demonstrate the potential of combining statistical methods and robotic platforms to effectively inform and execute data-driven environmental sampling.
   
 %Motivated by the challenges related to efficient allocation of sampling resources in environmental sensing, the combination of Excursion Probabilities and Gaussian process modeling is explored for autonomous robotic sampling of ocean features; enabling information driven measures  sampling efforts to high-interest regions. These regions are usually characterized by gradients of measurable environmental variables, e.g., temperature or salinity gradients, on which EPs subsequently can be used...Correlation among samples and multivariate requirements are typical in environmental studies.
 \end{abstract}
@@ -121,22 +121,20 @@ overcome three common challenges, namely:
 
 \item Full numerical ocean models cannot provide accurate results
   online if run on robotic sensing platforms, as onboard computers
-  cannot deliver the computational power required, hence statistical
-  proxy models of the environment must be used for doing inference
-  about where to sample.
+  cannot deliver the computational power required. Hence statistical
+  proxy models of the environment must be used for learning where to sample.
 
-\item As a priori information about the state of the ocean is
-  uncertain, there is a substantial efficiency gain in reacting to
-  information obtained from measurements taken in-situ. Recently
-  acquired information can be used to resolve this by assimilating up-to-date data into statistical models that
+\item With limited available information about the state of the ocean, there is substantial value in reacting to
+  information obtained from measurements taken in-situ. This
+  acquired information must be assimilated into statistical models that
   can be used to inform decisions on where to sample
   sequentially.%\emph{in-situ}; this is usually referred to as the \emph{adaptivity gap} \citep{Krause2008phd}.
 
 \item For sampling problems related to environmental sensing, the
   number of choices (i.e. locations, trajectories, and candidate
-  designs) makes the problem combinatorially large, creating a
+  designs) is enormous, creating a
   trade-off between optimization (finding the most resource-efficient
-  design to collect necessary data), and computability (arriving at a
+  design to collect necessary data) and computability (arriving at a
   solution in reasonable time). To successfully resolve features, this
   trade-off has to be considered in development and practice.
 
@@ -284,7 +282,7 @@ salinity. Because of the local topography and the Coreolis force
 \citep{coriolis1835memoire} the cold fresh water tends to flow near
 land to the east. Depending on the river discharge, tidal effects,
 wind, and temperature differences, this boundary often gets
-distorted. Prior knowledge about the location and evolution of these
+distorted. Initial knowledge about the location and evolution of these
 features is therefore highly uncertain, making deterministic planning
 challenging.
 
@@ -514,7 +512,7 @@ computational assets, such as AUVs.
 \subsection{Bivariate GPs}
 
 The Gaussian model is used to represent the bivariate random fields of
-temperature and salinity. At location $\bx \in \mathcal{M}$, the prior
+temperature and salinity. At location $\bx \in \mathcal{M}$, the
 bivariate distribution is:
 \begin{equation}\label{gp_bar}
   \begin{bmatrix}\xi_T(\bx) \\
@@ -546,7 +544,7 @@ decay is related to common water masses (Section
 \end{equation}
 where for $i,j \in {T,S}$ and $\delta_{ij}=1$ if $i=j$, and
 $\delta_{ij}=0$ otherwise. Moreover, we assume stationary isotropic
-random fields a priori where the correlation function $\rho(\bx,\bx')$
+random fields where the correlation function $\rho(\bx,\bx')$
 solely depends on $\bx$ and $\bx'$ via Euclidean distance
 $h=\sqrt{||\bx-\bx'||^2}$. With data and prior knowledge, one could
 possibly fit and estimate parameters of non-stationary or
@@ -946,7 +944,7 @@ salinity $\mu_S=t_S=30$ mg/l. The displayed densities have unit
 standard deviations for both temperature and salinity, but we also
 study the effect of doubling the standard deviations.
 
-Table \ref{tab:sim_rhoab} shows the EPs and the associated prior Bernoulli
+Table \ref{tab:sim_rhoab} shows the initial EPs and the associated Bernoulli
 variance (second row) for the examples indicated in
 Fig. \ref{illus_bivarDens}. The EPs increase with the correlation as
 there is a strong tendency to have concurrently low temperature and
@@ -1168,7 +1166,7 @@ simulated case that emulates the spatial properties of a river plume interacting
 \subsection{Modeling}
 
 We use a bivariate GP model for temperature and salinity, where we
-specify the prior mean:
+specify the mean:
 \begin{equation}\label{m}
     \bmu(\bx)=E 
     \begin{bmatrix}
@@ -1225,7 +1223,7 @@ where $h=\sqrt{||\bx-\bx'||^2}$ and $\phi=0.3$ indicates an effective correlatio
 %Figure \ref{fig:stat_design} shows the contour lines for the EP for the reference. We notice the trend of increasing salinity and temperature to the west.  
 One realization of the random fields representing salinity and
 temperature is shown in Fig. \ref{fig:true_temp} and
-\ref{fig:true_sal}. The true ES from this prior realization is shown
+\ref{fig:true_sal}. The true ES is a realization from this model as shown
 in Fig. \ref{fig:ESet}.
 
 \begin{figure}[!ht]
@@ -1263,8 +1261,7 @@ operational survey designs.
 
 For a fixed survey length, a closed form expression for the expected IBV is available as in Eq. \eqref{sur}. However, for the sequential approaches this is not the
 case. For comparison the properties are therefore evaluated using
-Monte Carlo sampling over several replicates of realizations from the
-prior while conducting simulated sequential surveys for each
+Monte Carlo sampling over several replicates of realizations from the model while conducting simulated sequential surveys for each
 one. Fig. \ref{fig:Eprob} shows the conditional EP, given data
 gathered along the north-south survey lines in these figures. In the
 Monte Carlo replicates, such results are repeatedly computed to
@@ -1370,18 +1367,16 @@ look-ahead. There are several reasons for this. First, a greedy
 approach will tend to put more emphasis on promising locations close to the
 agent, which may lead away from the centre. Second, as the agent
 evaluates the impact of locations further away (look-ahead) where
-assimilated data has less predictive power, the GP prior model (which
+assimilated data has less predictive power, the GP model (which
 is centered here) will act to restrict paths deviating from the
 central zone.
 
-We studied the sensitivity of the results by modifying the input parameters to different prior correlations between temperature and salinity, standard deviations, and spatial correlation range.  In all runs,  the \textit{myopic} and \textit{look-ahead} strategies perform the best in terms of IBV, and much better than \textit{naive}. The \textit{look-ahead} strategy seems to be substantially better than the \textit{myopic} only for very small prior standard deviation or very large spatial correlation range. The \textit{static\_north} design continues to be the best static design for IBV, while \textit{static\_zigzag} is the best design for the other predictive performance measures, especially so with large spatial correlation range. We also ran simulation studies with only temperature data, and for realistic correlation levels between temperature and salinity the effects are not much worse in terms of IBV when only temperature data are available. In addition to the comparison made in Table \ref{tab:sim_rhoab}, the current setting includes spatial correlation and this likely reduces the additional influence of having bivariate data. However, it seems that having temperature data alone does a substantially worse job in terms of explained variance
+We studied the sensitivity of the results by modifying the input parameters to have different correlations between temperature and salinity, standard deviations, and spatial correlation range.  In all runs,  the \textit{myopic} and \textit{look-ahead} strategies perform the best in terms of IBV, and much better than \textit{naive}. The \textit{look-ahead} strategy seems to be substantially better than the \textit{myopic} only for very small initial standard deviation or very large spatial correlation range. The \textit{static\_north} design continues to be the best static design for IBV, while \textit{static\_zigzag} is the best design for the other predictive performance measures, especially so with large spatial correlation range. We also ran simulation studies with only temperature data, and for realistic correlation levels between temperature and salinity the IBV results are not much worse when only temperature data are available. In addition to the comparison made in Table \ref{tab:sim_rhoab}, the current setting includes spatial correlation and this likely reduces the additional influence of having bivariate data. However, it seems that having temperature data alone does a substantially worse job in terms of explained variance
 
 \begin{comment}
 \subsection{Performance Metrics}
 
-The tables below explore the sensitivity of the result to different
-prior correlation values between temperature measured onboard the AUV,
-temperature and salinity, prior standard deviations, and spatial
+The tables below explore the sensitivity of the result to different input correlation values between temperature and salinity measured onboard the AUV, standard deviations, and spatial
 correlations (see table rows). We only compare results at the end of
 each survey. The expected ES variances are shown in Table
 \ref{tab:sim_res_ev}, results of RMSE are in Table
@@ -1495,8 +1490,7 @@ eastern shore as noted in Fig. \ref{fig:nidelven}.
 \subsection{Model Specification}
 \label{sec:exp_modeling}
 The statistical model parameters were specified based on a short
-preliminary survey where the AUV made an initial transect to determine
-environmental conditions and correlation structure. Based on the
+preliminary survey where the AUV made an initial transect to determine the trends in environmental conditions and correlation structures. Based on the
 initial data, the trend parameters were estimated by linear
 regression, where both temperature and salinity are assumed to
 increase linearly, going west from the river mouth. Next, the
@@ -1531,7 +1525,7 @@ of the GP model and to specify the covariance parameters.
 \label{fig:parest}
 \end{figure}
 
-Fig. \ref{fig:parest} shows diagnostic plots of this
+Fig. \ref{fig:parest} summarizes diagnostic plots of this
 analysis. Fig. \ref{fig:parest_a} shows a cross-plot of temperature
 and salinity residuals after the westerly trends in both salinity and
 temperature are subtracted from the data. This scatter-plot of joint
@@ -1683,14 +1677,13 @@ waypoint 5) is shown to deviate. Survey 1 continued northwards,
 tracking the north-eastern part of the front, while Survey 2 turned
 west, mapping the south-western part.
 
-The final predictions of the front location given in
-Fig. \ref{fig:res1} and \ref{fig:res2} as a dashed line, correspond
-with one another, yielding a picture of the front gradually bending
-off toward the north east. The amount of exploration done by Survey 1
+The final predictions of the front location, represented by conditional EPs in
+Fig. \ref{fig:res1} and \ref{fig:res2} as dashed lines, correspond
+with one another. In both surveys they yield a picture of the front being a bit to the west in the southern parts of the domain and gradually bending off toward the north east. The amount of exploration done by Survey 1
 is greater than Survey 2. In Survey 1, the AUV obtained more detail by
-going north, while Survey 2, coming close to the survey area borders
+going north from waypoint 5, while Survey 2, coming close to the survey area borders
 in the south-western corner, obtained a poorer understanding of the
-northern parts. A longer planning horizon would likely identify and
+northern parts. A look-ahead strategy might identify and
 discourage such choices.
 
 %\begin{figure}[!h] 
@@ -1700,7 +1693,7 @@ discourage such choices.
 %towards more collaborative networked operations in %order to resolve
 %the numerous processes and their interaction.} %\label{fig:envir}
 %\end{figure}
-
+\newpage
 \section{Closing remarks}\label{sec:concl_disc}
 
 This work builds on a multidisciplinary effort combining statistical
