@@ -136,6 +136,9 @@
 \newcommand{\srevcomment}[1]{{\color{red}{\{Rev 2: #1\}}}}
 \newcommand{\trevcomment}[1]{{\color{violet}{\{Rev 3: #1\}}}}
 
+\usepackage{amsthm,amsmath,natbib}
+\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+
 \begin{document}
 
 %----------------------------------------------------------------------
@@ -246,20 +249,33 @@ All changes requested from Reviewer 1 are marked as \frevcomment{blue text} in t
 \reply: See the numbered list below:
 \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
 
-\item[1] “joint excursion sets” in the title would be a turnoff for most statisticians. Having read the paper pretty carefully I still am not sure why they are so labelled.
+\item[1.1.1] “joint excursion sets” in the title would be a turnoff for most statisticians. Having read the paper pretty carefully I still am not sure why they are so labelled.\par
 \action: Our actions
-\item[2] Why on page 13 were those particular values chosen for the means $\mu$? Would a different choice have made a difference?
+\vspace{1em}
+
+\item[1.1.2] Why on page 13 were those particular values chosen for the means $\mu$? Would a different choice have made a difference?\par
 \action: Our actions
-\item[3] I don’t think Figure 3 conveys too much additional benefit and eliminating it for space might be considered.
+\vspace{1em}
+
+\item[1.1.3] I don’t think Figure 3 conveys too much additional benefit and eliminating it for space might be considered.\par
 \action: Our actions
-\item[4] Why are the ES’s called ”excursion sets? Why excursion probabilities?
+\vspace{1em}
+
+\item[1.1.4] Why are the ES’s called ”excursion sets? Why excursion probabilities?\par
 \action: Our actions
-\item[5] I did not spot a definition for the “waypoint graph” a phrase used several times in the paper. Again points to the need to identify the audience. I doubt that most statisticians would know that phrase. 
+\vspace{1em}
+
+\item[1.1.5] I did not spot a definition for the “waypoint graph” a phrase used several times in the paper. Again points to the need to identify the audience. I doubt that most statisticians would know that phrase.\par
 \action: Our actions
-\item[6] In statistics journals, random variables are commonly labelled by Roman characters e.g. Z, parameters in Greek e.g. $\xi$. I realize that in other scientific domains that distinction is not always made but I do recommend the change if the paper is to appear in a stats journal. 
+\vspace{1em}
+
+\item[1.1.6] In statistics journals, random variables are commonly labelled by Roman characters e.g. Z, parameters in Greek e.g. $\xi$. I realize that in other scientific domains that distinction is not always made but I do recommend the change if the paper is to appear in a stats journal.\par 
 \action: Our actions
-\item[7] There is not much of novelty in the Gaussian Process theory used in the paper- its pretty much standard. I suggest that the derivations stated in detail be summarized by just the results. Statisticians will know these things and users will not care.
+\vspace{1em}
+
+\item[1.1.7] There is not much of novelty in the Gaussian Process theory used in the paper- its pretty much standard. I suggest that the derivations stated in detail be summarized by just the results. Statisticians will know these things and users will not care.\par
 \action: Our actions
+\vspace{1em}
 
 \end{itemize}
 
@@ -281,21 +297,31 @@ in the updated manuscript.
 
 \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
 
-\item[1] What sort of onboard computing do they have? It may not be something like an Intel 2.1 GHz, 4-thread processor, but a more informative description of something most readers relate to would be helpful. Similar information related to RAM and hard drive space would be helpful. What are the computational limits of these machines? 
+\item[2.1.1] What sort of onboard computing do they have? It may not be something like an Intel 2.1 GHz, 4-thread processor, but a more informative description of something most readers relate to would be helpful. Similar information related to RAM and hard drive space would be helpful. What are the computational limits of these machines?\par
+\action: Our actions
+\vspace{1em}
 
-\item[2] How long do the AUVs typically explore in one go? Is there a minimum/maximum time? 
+\item[2.1.2] How long do the AUVs typically explore in one go? Is there a minimum/maximum time?\par 
+\action: Our actions
+\vspace{1em}
 
-\item[3] What kind of movements can the AUVs make? Chess-like moves (horizontal, vertical, diagonal)?  
+\item[2.1.3] What kind of movements can the AUVs make? Chess-like moves (horizontal, vertical, diagonal)?\par  
+\action: Our actions
+\vspace{1em}
 
-\item[4] Is there a minimum/maximum number of points you want to sample?
+\item[2.1.4] Is there a minimum/maximum number of points you want to sample?\par
+\action: Our actions
+\vspace{1em}
 
-\item[5] What is the size of the grid that is typically considered? i.e., what is a typical value of $n$ in Eq.(9)? 
+\item[2.1.5] What is the size of the grid that is typically considered? i.e., what is a typical value of $n$ in Eq.(9)?\par 
+\action: Our actions
+\vspace{1em}
 
-\item[6] Does the AUV use a selection algorithm from the very beginning or is there a minimum number of initial measurements that are made before the optimization algorithm begins?
+\item[2.1.6] Does the AUV use a selection algorithm from the very beginning or is there a minimum number of initial measurements that are made before the optimization algorithm begins?\par
+\action: Our actions
+\vspace{1em}
 
 \end{itemize}
-
-\action: Our action
 
 \begin{quote}
 \srevcomment{a change in the text}
@@ -398,15 +424,22 @@ the simulated AUV moves back and forth across the excursion set.
 
 \reply: \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
 
-\item[-] “closed-form” is sometimes written as “closed form” (e.g., p. 7, p. 18)
+\item[2.15.1] “closed-form” is sometimes written as “closed form” (e.g., p. 7, p. 18)
 
-\item[-] p. 9, `1s` should be ‘1s’. Similar for 0s.
+\item[2.15.2] p. 9, `1s` should be ‘1s’. Similar for 0s.
 
-\item[-] p. 15, my manuscript has -on where to sample-, which is an unusual use of dashes.
+\item[2.15.3] p. 15, my manuscript has -on where to sample-, which is an unusual use of dashes.
 
 \end{itemize}
 
-\action: Our actions
+\action:
+\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+
+\item[2.15.1] 
+\item[2.15.2] 
+\item[2.15.3] 
+
+\end{itemize}
 
 \end{answers}
 %======================================================================
@@ -454,63 +487,78 @@ in the updated manuscript.
 
 \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
 
-\item[1.] General: The inferential problem considered is the paper is that of estimating the “boundary”
+\item[3.1.1] General: The inferential problem considered is the paper is that of estimating the “boundary”
 of a plume. However, the authors never define exactly what a “boundary” is. Such a definition
 should be provided, as well as some discussion of why determining the location of a boundary
 is so important. Why is it not sufficient to create a map of predictions (with an accompanying
 map of prediction error variances) for the variable(s) under study throughout the region of
-interest (a problem for which there is a huge literature on sampling design)?
+interest (a problem for which there is a huge literature on sampling design)?\par
+\action: Our actions
+\vspace{1em}
 
-
-\item[2.] Page 8, second paragraph of Section 4.1: The assumptions of separability and isotropy, and
-even stationarity, are not really necessary for the methodological development of Sections 4–6.
+\item[3.1.2] Page 8, second paragraph of Section 4.1: The assumptions of separability and isotropy, and even stationarity, are not really necessary for the methodological development of Sections 4–6.
 I suggest that you wait to make these assumptions until you get to the simulation studies and
-example.
+example.\par
+\action: Our actions
+\vspace{1em}
 
-
-\item[3.] Page 9, second paragraph of Section 4.2: It has been assumed here that the measurement
+\item[3.1.3] Page 9, second paragraph of Section 4.2: It has been assumed here that the measurement
 errors for temperature and salinity at any given location are uncorrelated. Is this a reasonable
-assumption? This could easily be checked by taking replicate measurements at each site.
+assumption? This could easily be checked by taking replicate measurements at each site.\par
+\action: Our actions
+\vspace{1em}
 
-
-\item[4.] General: Related to the previous point, I do not understand why sampling locations are being
-restricted to a regular grid. In fact, it seems unwise because it is well known (see, for example,
-Chapters 9 and 22 of Handbook of Environmental and Ecological Statistics, 2019, CRC Press)
+\item[3.1.4] General: Related to the previous point, I do not understand why sampling locations are being restricted to a regular grid. In fact, it seems unwise because it is well known (see, for example, Chapters 9 and 22 of Handbook of Environmental and Ecological Statistics, 2019, CRC Press)
 that the quality of inferences for spatial fields can be improved substantially by taking some
-observations very close to others.
+observations very close to others.\par
+\action: Our actions
+\vspace{1em}
 
-\item[5.] Page 13, last line: Specifically, what was the design? We aren’t even told what the sample size
-($n_y$) was used in these calculations.
+\item[3.1.5] Page 13, last line: Specifically, what was the design? We aren’t even told what the sample size ($n_y$) was used in these calculations.\par
+\action: Our actions
+\vspace{1em}
 
-\item[6.] Page 18, first paragraph of Section 7.1: The numerical values of the regression parameters
-given here are not meaningful without knowing the units of “West.”
+\item[3.1.6] Page 18, first paragraph of Section 7.1: The numerical values of the regression parameters given here are not meaningful without knowing the units of “West.”\par
+\action: Our actions
+\vspace{1em}
 
-\item[7.] Page 24, first paragraph of Fig. 8: Please define “the modeled quadratic form of the residuals”
-more precisely. Perhaps a mathematical expression is needed for clarity.
+\item[3.1.7] Page 24, first paragraph of Fig. 8: Please define “the modeled quadratic form of the residuals” more precisely. Perhaps a mathematical expression is needed for clarity.\par
+\action: Our actions
+\vspace{1em}
 
 \end{itemize}
 
-\action: Changes made.
 
 \item{Minor comments to the Author}\label{q31}
 
 \reply: 
 \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
 
-\item[-] Page 3, line 19: Change “bi-variate” to “bivariate”. The same change is needed on the next-
+\item[3.2.1] Page 3, line 19: Change “bi-variate” to “bivariate”. The same change is needed on the next-
 to-last line of Page 12.
 
-\item[-] Page 9, three lines after (10): I presume that all off-diagonal elements of R are zeros, but this
+\item[3.2.2] Page 9, three lines after (10): I presume that all off-diagonal elements of R are zeros, but this
 should be stated explicitly.
 
-\item[-] Page 19, fourth line from bottom: Change “as also” to “as well as”
+\item[3.2.3] Page 19, fourth line from bottom: Change ``as also" to ``as well as"
 
-\item[-] Page 30, second and third references listed: “et al.” is listed after the authors’ names for each
+\item[3.2.4] Page 30, second and third references listed: ``et al." is listed after the authors’ names for each
 of these two references, but actually there are no additional authors beyond the two listed.
 
 \end{itemize}
 
-\action: Changes made.
+\action: 
+\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+
+\item[3.2.1] we have changed this in the text - page 3 and 12.
+
+\item[3.2.2] we have added a statement on page 9: $\bR$ contains \edcomment{zeroes except on the diagonal entries, which are set to $r^2_T$ and $r^2_S$, holding the measurement error variances of temperature and salinity observations}.
+
+\item[3.2.3] we have changed this in the text - page 19.
+
+\item[3.2.4] we have made this change to the citations \cite{genton2015cross} and \cite{french2016credible} - page 30.
+
+\end{itemize}
 
 \end{answers}
 

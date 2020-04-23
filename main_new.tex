@@ -202,7 +202,7 @@ The remainder of this paper is organized as follows: Section
 \ref{sec:bg} provides select background on ocean sampling; Section
 \ref{sec:ESEP} defines ESs, EPs, and the design criteria of IBV;
 Section \ref{sec:GP_EP} sets up the required statistical modeling
-assumptions of the bi-variate GPs for temperature and salinity;
+assumptions of the bivariate GPs for temperature and salinity;
 Section \ref{sec:sur} builds on these assumptions when deriving the
 analytical derivation of the design criteria; Section
 \ref{sec:heuristics} extends these results and present heuristics for
@@ -594,9 +594,7 @@ and salinity, is described by:
 \end{equation}
 where $\bG$ is a $2n_y \times 2n$ matrix containing '$1$'s on the
 measurement indices of the grid and '$0$' otherwise. The size
-$2n_y \times 2n_y$ covariance matrix $\bR$ contains diagonal entries
-$r^2_T$ and $r^2_S$ which are measurement error variances of
-temperature and salinity observations.
+$2n_y \times 2n_y$ covariance matrix $\bR$ contains \edcomment{zeroes except on the diagonal entries, which are set to $r^2_T$ and $r^2_S$, holding the measurement error variances of temperature and salinity observations}.
 
 The GP mean and covariance in Eq. (\ref{prior}) are updated in the
 model when more information is available. The updated distribution for
@@ -880,7 +878,7 @@ Eq. (\ref{sur}).
 
 In our application domain with the variables temperature and salinity,
 the solutions to the complex integral equations for the expected IBV
-are reduced to calculating bi-variate and four-variate cumulative
+are reduced to calculating bivariate and four-variate cumulative
 distribution functions for Gaussian vectors. For the more general
 case, one would be interested in $K$ random fields. In the ocean
 sciences, the variables could include chlorophyll or other
@@ -1267,7 +1265,7 @@ gathered along the north-south survey lines in these figures. In the
 Monte Carlo replicates, such results are repeatedly computed to
 approximate the expected IBV. We also compare predictive performance
 measured by root mean square error (RMSE) for temperature and salinity
-estimates as also the variance reduction in these two variables. It is
+estimates \edcomment{as well as} also the variance reduction in these two variables. It is
 important to note that the objective function used by the agent is
 focused on reducing the expected IBV, but we nevertheless expect that
 we will achieve good predictive performance for criteria such as RMSE
