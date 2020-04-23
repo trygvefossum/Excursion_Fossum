@@ -1,0 +1,524 @@
+\documentclass[a4paper]{article}
+\topmargin	-10mm
+\oddsidemargin	0mm
+\textwidth	150mm
+\textheight	230mm
+
+\newcommand{\ba}{ {\boldsymbol a} }
+\newcommand{\bA}{ {\boldsymbol A} }
+\newcommand{\bb}{ {\boldsymbol b} }
+\newcommand{\bB}{ {\boldsymbol B} }
+\newcommand{\bc}{ {\boldsymbol c} }
+\newcommand{\bC}{ {\boldsymbol C} }
+\newcommand{\bd}{ {\boldsymbol d} }
+\newcommand{\bD}{ {\boldsymbol D} }
+\newcommand{\be}{ {\boldsymbol e} }
+\newcommand{\bE}{ {\boldsymbol E} }
+\newcommand{\boldf}{ {\boldsymbol f} }
+\newcommand{\bF}{ {\boldsymbol F} }
+\newcommand{\bg}{ {\boldsymbol g} }
+\newcommand{\bG}{ {\boldsymbol G} }
+\newcommand{\bh}{ {\boldsymbol h} }
+\newcommand{\bH}{ {\boldsymbol H} }
+\newcommand{\bi}{ {\boldsymbol i} }
+\newcommand{\bI}{ {\boldsymbol I} }
+\newcommand{\bj}{ {\boldsymbol j} }
+\newcommand{\bJ}{ {\boldsymbol J} }
+\newcommand{\bk}{ {\boldsymbol k} }
+\newcommand{\bK}{ {\boldsymbol K} }
+\newcommand{\bl}{ {\boldsymbol l} }
+\newcommand{\bL}{ {\boldsymbol L} }
+\newcommand{\bm}{ {\boldsymbol m} }
+\newcommand{\bM}{ {\boldsymbol M} }
+\newcommand{\bn}{ {\boldsymbol n} }
+\newcommand{\bN}{ {\boldsymbol N} }
+\newcommand{\bo}{ {\boldsymbol o} }
+\newcommand{\bO}{ {\boldsymbol O} }
+\newcommand{\bp}{ {\boldsymbol p} }
+\newcommand{\bP}{ {\boldsymbol P} }
+\newcommand{\bq}{ {\boldsymbol q} }
+\newcommand{\bQ}{ {\boldsymbol Q} }
+\newcommand{\br}{ {\boldsymbol r} }
+\newcommand{\bR}{ {\boldsymbol R} }
+\newcommand{\bs}{ {\boldsymbol s} }
+\newcommand{\bS}{ {\boldsymbol S} }
+\newcommand{\bt}{ {\boldsymbol t} }
+\newcommand{\bT}{ {\boldsymbol T} }
+\newcommand{\bu}{ {\boldsymbol u} }
+\newcommand{\bU}{ {\boldsymbol U} }
+\newcommand{\bv}{ {\boldsymbol v} }
+\newcommand{\bV}{ {\boldsymbol V} }
+\newcommand{\bw}{ {\boldsymbol w} }
+\newcommand{\bW}{ {\boldsymbol W} }
+\newcommand{\bx}{ {\boldsymbol x} }
+\newcommand{\bX}{ {\boldsymbol X} }
+\newcommand{\by}{ {\boldsymbol y} }
+\newcommand{\bY}{ {\boldsymbol Y} }
+\newcommand{\bz}{ {\boldsymbol z} }
+\newcommand{\bZ}{ {\boldsymbol Z} }
+\newcommand{\vc}[1]{\mbox{\boldmath $#1$}}
+\newcommand{\balph}{ {\boldsymbol \alpha} }
+\newcommand{\balpha}{ {\boldsymbol \alpha} }
+\newcommand{\bbet}{ {\boldsymbol \beta} }
+\newcommand{\bbeta}{ {\boldsymbol \beta} }
+\newcommand{\bgam}{ {\boldsymbol \gamma} }
+\newcommand{\bgamma}{ {\boldsymbol \gamma} }
+\newcommand{\bGamma}{ {\boldsymbol \Gamma} }
+\newcommand{\bdelta}{ {\boldsymbol \delta} }
+\newcommand{\bDelta}{ {\boldsymbol \Delta} }
+\newcommand{\beps}{ {\boldsymbol \epsilon} }
+\newcommand{\bepsilon}{ {\boldsymbol \epsilon} }
+\newcommand{\bphi}{ {\boldsymbol \phi} }
+\newcommand{\bPhi}{ {\boldsymbol \Phi} }
+\newcommand{\bpi}{ {\boldsymbol \pi} }
+\newcommand{\bpsi}{ {\boldsymbol \psi} }
+\newcommand{\bkap}{ {\boldsymbol \kappa} }
+\newcommand{\bkappa}{ {\boldsymbol \kappa} }
+\newcommand{\bKappa}{ {\boldsymbol \Kappa} }
+\newcommand{\blam}{ {\boldsymbol \lambda} }
+\newcommand{\blambda}{ {\boldsymbol \lambda} }
+\newcommand{\bLambda}{ {\boldsymbol \Lambda} }
+\newcommand{\bmu}{ {\boldsymbol \mu} }
+\newcommand{\bMu}{ {\boldsymbol \Mu} }
+\newcommand{\bet}{ {\boldsymbol \eta} }
+\newcommand{\bome}{ {\boldsymbol \omega} }
+\newcommand{\bomega}{ {\boldsymbol \omega} }
+\newcommand{\bOmega}{ {\boldsymbol \Omega} }
+\newcommand{\bnabla}{ {\boldsymbol \nabla} }
+\newcommand{\brho}{ {\boldsymbol \rho} }
+\newcommand{\bsigma}{ {\boldsymbol \sigma} }
+\newcommand{\bSig}{ {\boldsymbol \Sigma} }
+\newcommand{\bSigma}{ {\boldsymbol \Sigma} }
+\newcommand{\btheta}{ {\boldsymbol \theta} }
+\newcommand{\bTheta}{ {\boldsymbol \Theta} }
+\newcommand{\bzeta}{ {\boldsymbol \zeta} }
+\newcommand{\bPsi}{ {\boldsymbol \Psi} }
+\newcommand{\btau}{ {\boldsymbol \tau} }
+\newcommand{\bzero}{ {\boldsymbol 0} }
+\newcommand{\bones}{ {\boldsymbol 1} }
+\newcommand{\given}{\,|\,}
+\newcommand{\sS}{{\cal S}}
+\newcommand{\Ss}{{\cal S}}
+\newcommand{\Field}{{\cal F}}
+\newcommand{\colsp}{{\cal C}}
+\newcommand{\nullsp}{{\cal N}}
+\newcommand{\rowsp}{{\cal R}}
+\newcommand{\tildeC}{\tilde{C}}
+\newcommand{\tildeK}{\tilde{K}}
+\newcommand{\tildew}{\tilde{w}}
+\newcommand{\tildebw}{\tilde{\bw}}
+\newcommand{\tildebW}{\tilde{\bW}}
+\newcommand{\calC}{{\cal C}}
+\newcommand{\calcbC}{{\bf {\cal C}}}
+
+\def\rx{{\texttt{T-REX\ }}}
+\def\rxe{{\texttt{T-REX}}}
+\def\du{{\texttt{DUNE}\ }}
+\def\due{{\texttt{DUNE}}}
+
+% == Maths
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem} %to strike the words
+
+\newcounter{reviewer}
+\def\reply{\textbf{Reviewer query}}
+\def\action{\textbf{Action taken}}
+
+\newlist{answers}{enumerate}{10}
+\setlist[answers]{leftmargin=*, label=\arabic{reviewer}.\arabic*}
+
+\newcommand{\edcomment}[1]{{\color{green}{\{Editor: #1\}}}}
+\newcommand{\frevcomment}[1]{{\color{blue}{\{Rev 1: #1\}}}}
+\newcommand{\srevcomment}[1]{{\color{red}{\{Rev 2: #1\}}}}
+\newcommand{\trevcomment}[1]{{\color{violet}{\{Rev 3: #1\}}}}
+
+\begin{document}
+
+%----------------------------------------------------------------------
+\title{Informative Autonomous Sampling of Oceanographic Variables Using Joint Excursion Sets
+  \\\vspace{5mm}
+ Authors response
+  \\\vspace{5mm}
+\small{Manuscript: AOAS1910-027}}
+\author{ }
+
+\date{\today}
+
+\maketitle
+
+The authors are grateful to the reviewers for their comments and
+suggestions. They have all been carefully considered in this revised
+version of this manuscript, which we believe has significantly
+improved as a result. Detailed responses to the feedback, from each reviewer and the editorial comments follow.\\
+
+The principal revisions made to the manuscript are:
+\vspace{0.5cm}
+
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+\item \textbf{item1}: bla bla.
+\item \textbf{item2}: bla bla.
+\item \textbf{item3}: bla bla.
+\end{itemize}
+\par \vspace{1em}
+Note that the reference to page $X$ is made relative to
+the original submitted manuscript given to the reviewers.
+
+%======================================================================
+\section*{Answers to referee 1}
+%======================================================================
+All changes requested from Reviewer 1 are marked as \frevcomment{blue text} in the updated manuscript. \setcounter{reviewer}{1}
+\begin{answers}
+
+%----------------------------------------------------------------------
+\item{Major comment 1}\label{q1}
+
+\reply: Reviewer comment 4: Adjustments and improvements towards the intended audience?
+
+\action: Our action
+
+\begin{quote}
+\frevcomment{a change in the text}
+\end{quote}
+
+\begin{quote}
+  \frevcomment{another change in the text} \end{quote}
+
+\item{Major comment 2}\label{q2}
+
+\reply: Reviewer comment 4: On including relevant code.
+
+\action: Our actions
+
+\item{Major comment 3}\label{q3}
+
+\reply: Reviewer comment 5: On shortening the paper and moving important sentences earlier.
+
+\action: Our actions
+
+\item{Major comment 4}\label{q4}
+
+\reply: Reviewer comment 6: It is not clear why the binary classification and excursion sets are being used. Is there really a sharp boundary at the edge of a plume? Why not mapping the salinity and temperature fields instead? After all, on page 19, “achieving good predictive performance” is mentioned as a desirable feature of a good design. A lot of work has been done on that topic. And what about indicator kriging (along with logit regression) that generalizes indicator kriging that has been used to identify plumes? Modelling the p(x) is more like prohibit analysis-what is the advantage.
+
+\action: Our actions
+
+\item{Major comment 5}\label{q5}
+
+\reply: Reviewer comment 7: The sequential sampling approaches are not novel. they are mentioned as examples in the cited paper by Bect et al. What is novel is the study of how all these methods work first in simulation studies as well as well as in the case study. That work will be a valuable contribution.
+
+\action: Our actions
+
+\item{Major comment 6}\label{q6}
+
+\reply: Reviewer comment 8: While I can see some advantages of simplicity in the IBV of Bect et al for binary data, one could have used entropy as it has information-theoretical credentials. Furthermore it could cover design both for spatial mapping as well as indicator mapping. Finally model uncertainty could be included in the overall assessment of uncertainty. The more general issue here is what objective function should be optimized in the design? Are we in a multi-attribute criterion situation?
+
+\action: Our actions
+
+\item{Major comment 7}\label{q7}
+
+\reply: Reviewer comment 9: On the issue of covariance separability, objections have always been raised when I have used it as its unrealistic. My rejoinder has always worked, that of citing the “all models are wrong”, George Box’s famous phrase. But what I was able to show in each case is a cross-validatory assessment that showed the model was “useful”. I wonder if such a model assessment could be made here to support the assumption of separability and other things as well. By the way, in spatial mapping at least, point predictors are pretty robust against mis-specification of the covariance. Where things go sideways is in the confidence bands or ellipsoids they produce. What are the error bands when modelling binary responses? Surely the predicted plumes have fuzzy boundaries. 
+
+\action: Our actions
+
+\item{Major comment 8}\label{q8}
+
+\reply: Reviewer comment 10: The strategy at the bottom of page 17 seems ad hoc. Could you not use the data collected with the two ahead design to get better estimates of parameters and then with these parameters and thereafter a better myopic design?
+
+\action: Our actions
+
+\item{Major comment 9}\label{q9}
+
+\reply: Reviewer comment 11: Are these results generalizable? In other words, how much plume-to-plume variability is there? One of the problems with modelling using a lot of parameters, is there instability over replicate experiments. To put it another way which model parameters represent plume-population parameters and which represent random plume effects?
+
+\action: Our actions
+
+\item{Major comment 10}\label{q10}
+
+\reply: Reviewer comment 12: The separability assumption is to be relaxed in future work. Should publication of this case study await the proposed improvement? It would make for a much better paper.
+
+\action: Our actions
+
+\item{Specific comments}\label{q11}
+
+\reply: See the numbered list below:
+\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+
+\item[1] “joint excursion sets” in the title would be a turnoff for most statisticians. Having read the paper pretty carefully I still am not sure why they are so labelled.
+\action: Our actions
+\item[2] Why on page 13 were those particular values chosen for the means $\mu$? Would a different choice have made a difference?
+\action: Our actions
+\item[3] I don’t think Figure 3 conveys too much additional benefit and eliminating it for space might be considered.
+\action: Our actions
+\item[4] Why are the ES’s called ”excursion sets? Why excursion probabilities?
+\action: Our actions
+\item[5] I did not spot a definition for the “waypoint graph” a phrase used several times in the paper. Again points to the need to identify the audience. I doubt that most statisticians would know that phrase. 
+\action: Our actions
+\item[6] In statistics journals, random variables are commonly labelled by Roman characters e.g. Z, parameters in Greek e.g. $\xi$. I realize that in other scientific domains that distinction is not always made but I do recommend the change if the paper is to appear in a stats journal. 
+\action: Our actions
+\item[7] There is not much of novelty in the Gaussian Process theory used in the paper- its pretty much standard. I suggest that the derivations stated in detail be summarized by just the results. Statisticians will know these things and users will not care.
+\action: Our actions
+
+\end{itemize}
+
+\end{answers}
+
+% \newpage
+%======================================================================
+\section*{Answers to referee 2}
+%======================================================================
+All changes requested from Reviewer 2 are marked as \srevcomment{red text}
+in the updated manuscript.
+
+\setcounter{reviewer}{2}
+
+\begin{answers}
+\item{Major comment 1 - Details on AUVs}\label{q12}
+
+\reply: I know very little about the AUVs you discuss, and I suspect many of your readers will be in a similar position. Additional contextual information would be helpful
+
+\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+
+\item[1] What sort of onboard computing do they have? It may not be something like an Intel 2.1 GHz, 4-thread processor, but a more informative description of something most readers relate to would be helpful. Similar information related to RAM and hard drive space would be helpful. What are the computational limits of these machines? 
+
+\item[2] How long do the AUVs typically explore in one go? Is there a minimum/maximum time? 
+
+\item[3] What kind of movements can the AUVs make? Chess-like moves (horizontal, vertical, diagonal)?  
+
+\item[4] Is there a minimum/maximum number of points you want to sample?
+
+\item[5] What is the size of the grid that is typically considered? i.e., what is a typical value of $n$ in Eq.(9)? 
+
+\item[6] Does the AUV use a selection algorithm from the very beginning or is there a minimum number of initial measurements that are made before the optimization algorithm begins?
+
+\end{itemize}
+
+\action: Our action
+
+\begin{quote}
+\srevcomment{a change in the text}
+\end{quote}
+
+\begin{quote}
+  \srevcomment{another change in the text} \end{quote}
+
+\item{Major comment 2}\label{q13}
+
+\reply: p. 9, Eq. (8): the dependency on $\bx$ and $\bx'$ has been omitted for some of the parameters without mention. Or are the parameters constant across locations?
+
+\action: Our actions
+
+\item{Major comment 3}\label{q14}
+
+\reply: p. 9, How reasonable is the assumption of stationary and isotropic random fields? You may be limited by the computational abilities of the AUVs so that more complex models are computationally infeasible. That is a valid reason to choose a simpler, less accurate model. I’m just wondering if that is the reason here. 
+
+\action: Our actions
+
+\item{Major comment 4}\label{q15}
+
+\reply: p. 9, Eq. (10). Are the temperature and salinity processes at a specific location effectively independent of one another? (I truly don’t know). That is what is implied by Eq. (10).
+
+\action: Our actions
+
+\item{Major comment 5}\label{q16}
+
+\reply: p. 9, Eq. (11). The form of the equation is reminiscent of the Sherman-Morrison-Woodbury solution for fixed-rank kriging. $\bSigma$ may not be small here, but I wonder if there may be a computational advantage to considering an alternative computational solution.  See e.g., Cressie, N. and Johannesson, G. (2008), Fixed rank kriging for very large spatial data sets. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 70: 209-226. doi:10.1111/j.1467-9868.2007.00633.x.
+
+\action: Our actions
+
+\item{Major comment 6}\label{q17}
+
+\reply: p. 9, Eq. (13). Why does $\bm$ have a distribution before seeing the data? I can see how $\bm(\by)$ would have a distribution since it depends on $\by$. It almost feels Bayesian, but nothing indicates that this analysis is being pursued from a Bayesian perspective. Why is it valid for $\bm$ to have a distribution prior to seeing data?
+
+\action: Our actions
+
+\item{Major comment 7}\label{q18}
+
+\reply: p. 11, Eq. (17). I’m not understanding the advantage to conditioning on $\bm$ instead of $\by$? $\bm$ is a function of $\by$. The probability is the same two-dimensional integral either way. It seems to be related to the standardization that results in $\bZ$? Please clarify.
+
+\action: Our actions
+
+\item{Major comment 8}\label{q19}
+
+\reply: p. 11, Is $\bpi(\bm)$ the density associated with the distribution in Eq. (14)? 
+
+\action: Our actions
+
+\item{Major comment 9}\label{q20}
+
+\reply: p. 11, Is it purely for stylistic reasons that $P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)$ isn’t written as $P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)^2$? It seems to be a more natural way of expanding Eq. (18). 
+
+\action: Our actions
+
+\item{Major comment 10}\label{q21}
+
+\reply: p. 11, It is stated that $\bZ$ is chosen to be independent of $\bm$, so presumably the joint CDF $F_{z,m}=F_{Z}F_m$ which would certainly be convenient, but is not obvious to me why this would be true. 
+Instead, it appears that $\bZ$ is chosen to be a pivotal quantity to get the simple CDF in Eq. (20). Please clarify.
+
+\action: Our actions
+
+\item{Major comment 11}\label{q22}
+
+\reply: p. 11, Eq. (21). The trailing $p(\bm)$ should be $\bpi(\bm)$. Should the right side of the equality be squared? 
+
+\action: Our actions
+
+\item{Major comment 12}\label{q23}
+
+\reply: This method relies on computing the marginal probabilities in each grid cell. This is computationally convenient and is likely required because of the limited computing power of the AUVs. However, the optimization should technically be performed with respect to the joint distribution across all grid cells. While the context may not allow this in practice, it would be helpful to get an idea of how much error is introduced by this approximation. I recommend creating a small but realistic-as-feasible simulation study comparing the accuracy of the probabilities, a comparison of the computational expense, and examining if/how navigation decisions change based on whether one uses the marginal/joint computations. 
+
+\action: Our actions
+
+\item{Major comment 13}\label{q24}
+
+\reply: Fig. 7 is difficult to understand. The goal is to show the various paths taken by the AUV in the
+simulation example. But it is very difficult to determine which paths are very common and which
+are uncommon. Some ideas that may make this graphic more useful:
+
+\begin{quote}
+-Don’t worry about the paths but focus on the nodes visited. Represent each node using a circle or hexagon.\par
+-Make the node shading darker depending on whether that node is visited in a
+simulation. Nodes with no visits would be white. Nodes with 100 visits would be black.\par
+-The true excursion set is a random variable, but it would be informative to overlay the
+average position of the excursion set over each of the panels so the reader can see how
+the simulated AUV moves back and forth across the excursion set.
+\end{quote}
+
+\action: Our actions
+
+\item{Major comment 14}\label{q25}
+
+\reply: While the context doesn’t allow full reproducibility of the paper’s results, no implementation details are provided. What software was used to perform the bulk of analysis? Are there scripts available that can be adapted by others for similar purposes? Please provide resources for the practical implementation of the methodology discussed in the paper.
+
+\action: Our actions
+
+\item{Minor comments}\label{q26}
+
+\reply: \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+
+\item[-] “closed-form” is sometimes written as “closed form” (e.g., p. 7, p. 18)
+
+\item[-] p. 9, `1s` should be ‘1s’. Similar for 0s.
+
+\item[-] p. 15, my manuscript has -on where to sample-, which is an unusual use of dashes.
+
+\end{itemize}
+
+\action: Our actions
+
+\end{answers}
+%======================================================================
+\section*{Answers to referee 3}
+%======================================================================
+All changes requested from Reviewer 3 are marked as \trevcomment{violet text}
+in the updated manuscript.
+
+\setcounter{reviewer}{3}
+
+\begin{answers}
+
+\item{Minor comment 1}\label{q27}
+
+\reply: The authors indicate several paths forward for work in this area, which I think pose interesting questions. They may want to elaborate
+a bit more on those.
+
+\action: Our action
+
+\item{Minor comment 2}\label{q28}
+
+\reply: I think the equation $V_{m,upd}$ needs a j as a part of that subscript.
+
+\action: Our action
+
+\item{Major comment 3}\label{q29}
+
+\reply: Figure 4: Why not show excursion probabilities for, say, myopic selection as well?
+
+\action: Our actions
+
+\end{answers}
+
+%======================================================================
+ \section*{Associate Editor}
+%======================================================================
+All changes requested from the editor are marked as \edcomment{green text}
+in the updated manuscript. 
+
+\begin{answers}
+
+\item{Comments to the Author}\label{q30}
+
+\reply: Specific comments:
+
+\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+
+\item[1.] General: The inferential problem considered is the paper is that of estimating the “boundary”
+of a plume. However, the authors never define exactly what a “boundary” is. Such a definition
+should be provided, as well as some discussion of why determining the location of a boundary
+is so important. Why is it not sufficient to create a map of predictions (with an accompanying
+map of prediction error variances) for the variable(s) under study throughout the region of
+interest (a problem for which there is a huge literature on sampling design)?
+
+
+\item[2.] Page 8, second paragraph of Section 4.1: The assumptions of separability and isotropy, and
+even stationarity, are not really necessary for the methodological development of Sections 4–6.
+I suggest that you wait to make these assumptions until you get to the simulation studies and
+example.
+
+
+\item[3.] Page 9, second paragraph of Section 4.2: It has been assumed here that the measurement
+errors for temperature and salinity at any given location are uncorrelated. Is this a reasonable
+assumption? This could easily be checked by taking replicate measurements at each site.
+
+
+\item[4.] General: Related to the previous point, I do not understand why sampling locations are being
+restricted to a regular grid. In fact, it seems unwise because it is well known (see, for example,
+Chapters 9 and 22 of Handbook of Environmental and Ecological Statistics, 2019, CRC Press)
+that the quality of inferences for spatial fields can be improved substantially by taking some
+observations very close to others.
+
+\item[5.] Page 13, last line: Specifically, what was the design? We aren’t even told what the sample size
+($n_y$) was used in these calculations.
+
+\item[6.] Page 18, first paragraph of Section 7.1: The numerical values of the regression parameters
+given here are not meaningful without knowing the units of “West.”
+
+\item[7.] Page 24, first paragraph of Fig. 8: Please define “the modeled quadratic form of the residuals”
+more precisely. Perhaps a mathematical expression is needed for clarity.
+
+\end{itemize}
+
+\action: Changes made.
+
+\item{Minor comments to the Author}\label{q31}
+
+\reply: 
+\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+
+\item[-] Page 3, line 19: Change “bi-variate” to “bivariate”. The same change is needed on the next-
+to-last line of Page 12.
+
+\item[-] Page 9, three lines after (10): I presume that all off-diagonal elements of R are zeros, but this
+should be stated explicitly.
+
+\item[-] Page 19, fourth line from bottom: Change “as also” to “as well as”
+
+\item[-] Page 30, second and third references listed: “et al.” is listed after the authors’ names for each
+of these two references, but actually there are no additional authors beyond the two listed.
+
+\end{itemize}
+
+\action: Changes made.
+
+\end{answers}
+
+% == Adding references
+\footnotesize
+\bibliographystyle{apalike}
+\bibliography{ref}
+
+%======================================================================
+\end{document}
+%======================================================================

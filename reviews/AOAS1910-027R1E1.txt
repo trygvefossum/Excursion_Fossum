@@ -1,0 +1,16 @@
+
+Report from Referee 3
+
+I think this is an interesting paper. The paper is well written, 
+and the authors have motivated the application well. The authors 
+also indicate several paths forward for work in this area, which 
+I think pose interesting questions.  They may want to elaborate
+a bit more on those.
+
+
+Minor comments
+
+
+1. I think the equation V_{m,upd} = ... needs a j as a part of that subscript
+
+2.  Figure 4: Why not show excursion probabilities for, say, myopic selection as well?
