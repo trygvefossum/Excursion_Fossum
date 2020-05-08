@@ -600,7 +600,7 @@ and salinity, is described by:
 \end{equation}
 where $\bG$ is a $2n_y \times 2n$ matrix containing '$1$'s on the
 measurement indices of the grid and '$0$' otherwise. The size
-$2n_y \times 2n_y$ covariance matrix $\bR$ contains \edcomment{zeroes except on the diagonal entries, which are set to $r^2_T$ and $r^2_S$, holding the measurement error variances of temperature and salinity observations}.
+$2n_y \times 2n_y$ covariance matrix $\bR$ contains zeroes except on the diagonal entries, which are set to $r^2_T$ and $r^2_S$, holding the measurement error variances of temperature and salinity observations.
 
 The GP mean and covariance in Eq. (\ref{prior}) are updated in the
 model when more information is available. The updated distribution for
@@ -1271,7 +1271,7 @@ gathered along the north-south survey lines in these figures. In the
 Monte Carlo replicates, such results are repeatedly computed to
 approximate the expected IBV. We also compare predictive performance
 measured by root mean square error (RMSE) for temperature and salinity
-estimates \edcomment{as well as} also the variance reduction in these two variables. It is
+estimates as well as also the variance reduction in these two variables. It is
 important to note that the objective function used by the agent is
 focused on reducing the expected IBV, but we nevertheless expect that
 we will achieve good predictive performance for criteria such as RMSE
