@@ -96,32 +96,27 @@ central problem for understanding these factors is the lack of
 representative data with sufficient resolution. Most of this
 \emph{undersampling} can be attributed to the large spatio-temporal
 variations on which ocean processes transpire, prompting the need for
-effective means of sampling. By \emph{sampling}, we refer to the design
-of observational strategies in the spatial domain, where the use of
-autonomous platforms can be combined with statistical methods to pursue
-measurements with high scientific relevance.
+effective means of sampling. By \emph{sampling}, we refer to the design of observational strategies in the spatial domain, where the use of autonomous platforms can be combined with statistical methods to pursue measurements with high scientific relevance. The potential that lies in using information-based methods \citep{das11b,Das2015,fossum18b,fossuminformation}, which we highlight in this paper, is to do efficient environmental sampling and overcome three common challenges, namely:
 
-Traditional data collection at sea has typically been based on static
-buoys, Lagrangian floats, or ship-based methods, with significant
-logistical limitations that directly impact coverage and sampling
-resolution. Modern methods using satellite remote-sensing provide
-large-scale coverage but have limited resolution, are limited to
-sensing the surface of the ocean, and are impacted by cloud cover. The
-advent of robust mobile robotic platforms \citep{Bellingham07} has
-resulted in significant contributions to environmental monitoring and
-sampling. In particular, autonomous underwater vehicles (AUVs), have
-advanced the state of sampling and consequently have made robotics an
-integral part of ocean observation; our previous work has contributed
-to this effort \citep{das11b,Das2015,fossum18b,fossuminformation}. Other statistical
-work in the oceanographic domain include \cite{wikle2013modern}
-focusing on hierarchical statistical models; \cite{sahu2008space},
-studying spatio-temporal models for sea surface temperature and
-salinity data; and \cite{mellucci2018oceanic} looking at the
-statistical prediction of features using an underwater glider.
 
-The potential that lies in using information-based methods, which we
-highlight in this paper, is to do efficient environmental sampling and
-overcome three common challenges, namely:
+% After reviews: - This is moved to Section 2.1. 
+
+%Traditional data collection at sea has typically been based on static
+%buoys, Lagrangian floats, or ship-based methods, with significant
+%logistical limitations that directly impact coverage and sampling
+%resolution. Modern methods using satellite remote-sensing provide
+%large-scale coverage but have limited resolution, are limited to
+%sensing the surface of the ocean, and are impacted by cloud cover. The
+%advent of robust mobile robotic platforms \citep{Bellingham07} has
+%resulted in significant contributions to environmental monitoring and
+%sampling. In particular, autonomous underwater vehicles (AUVs), have
+%advanced the state of sampling and consequently have made robotics an
+%integral part of ocean observation; our previous work has contributed
+%to this effort \citep{das11b,Das2015,fossum18b,fossuminformation}. Other ¤ %statistical work in the oceanographic domain include \cite{wikle2013modern}
+%focusing on hierarchical statistical models; \cite{sahu2008space},
+%studying spatio-temporal models for sea surface temperature and
+%salinity data; and \cite{mellucci2018oceanic} looking at the
+%statistical prediction of features using an underwater glider.
 
 \begin{itemize}
 
@@ -149,9 +144,9 @@ overcome three common challenges, namely:
 Addressing this, the combination of statistical tools and robotic platforms is a
 natural symbiosis which enables information-based sensing. Central to
 this is the ability to model spatially-correlated variables and
-provide formal measures of uncertainty. In our formulation we use
-Gaussian Processes (GPs) in large part because they allow for
-efficient implementation and evaluation in real time onboard a robotic platform.
+provide formal measures of uncertainty. Our formulation is based on
+Gaussian Processes (GPs) as they allow efficient implementation 
+and evaluation in real time onboard a robotic platform.
 
 %Sampling can, in this context, not simply be distributed evenly ---along simple transects or ``lawn-mover" patterns--- but must instead be prioritized to relevant regions to ensure it is cost-effective while providing adequate coverage and resolution of the area of scientific interest.
 
@@ -230,7 +225,6 @@ contains a summary and a discussion of future work.
 % With the onset of the warming oceans and increased anthropogenic
 % pressure, it is critical to improve our understanding of the associated
 % ecosystem response.
-
 % owing to current observation practices.
 
 Central to understanding the changes taking place in the upper
@@ -238,26 +232,33 @@ water-column is an understanding of biophysical interaction driven by
 an agglomeration of physical forcing (wind, topography, bathymetry,
 tidal influences, and local geography, such as fresh water inflows) and
 incipient micro-biology driven by planktonic and coastal anthropogenic
-input, such as pollution and agricultural runoff transported into the ocean by rivers and streams. These often result
-in a range of ecosystem-related phenomena such as blooms, anoxic zones
-and plumes, all of which have significant direct and indirect effects
-on society. Walter Munk referred to the 20\textsuperscript{th} century
-as the \emph{century of undersampling} \citep{munk2002}, pointing out
-a lack of sufficient sampling resolution in time and space as a
-critical issue for characterizing ocean phenomena. Even today,
-policymakers struggle with limited observability of severe
-environmental problems; a prominent example is the recent (May 2018)
-outbreak of harmful algal blooms in Northern Norway\footnote{Report
-  from the Institute of Marine Research: https://bit.ly/2KZGJfI}, with
-losses exceeding 12 million tons of salmon valued at \$80 million
-(Norwegian Directorate of Fisheries). This is a case in point of how
-adequate sampling efforts could have provided a more accurate
-assessment and early warning of changing environmental
-conditions. These challenges related to undersampling have been
-driving ocean sensing practices towards more autonomous, networked,
-and distributed use of robotic assets in order to fill the gaps in our
-understanding (See Fig. \ref{fig:envir1}), where observation is guided
-by assimilation of recent measurements and statistical models.
+input, such as pollution and agricultural runoff transported into the ocean by rivers and streams. These often result in a range of ecosystem-related phenomena such as blooms, anoxic zones and plumes, all of which have significant direct and indirect effects on society.
+
+% On observation and why robotics
+Traditional data collection at sea has typically been based on static
+buoys, Lagrangian floats, or ship-based methods, with significant
+logistical limitations that directly impact coverage and sampling
+resolution. Modern methods using satellite remote-sensing provide
+large-scale coverage but have limited resolution, are limited to
+sensing the surface of the ocean, and are impacted by cloud cover. The
+advent of mobile robotic platforms \citep{Bellingham07} has
+resulted in significant contributions to environmental monitoring and
+sampling. In particular, autonomous underwater vehicles (AUVs), have
+advanced the state of sampling and consequently have made robotics an
+integral part of ocean observation. The previously listed challenges related to undersampling have also been driving ocean sensing practices towards more autonomous, networked, and distributed use of robotic assets (See Fig. \ref{fig:envir1}), where observation is guided by assimilation of recent measurements and statistical models.
+
+%Walter Munk referred to the 20\textsuperscript{th} century
+%as the \emph{century of undersampling} \citep{munk2002}, pointing out
+%a lack of sufficient sampling resolution in time and space as a
+%critical issue for characterizing ocean phenomena. Even today,
+%policymakers struggle with limited observability of severe
+%environmental problems; a prominent example is the recent (May 2018)
+%outbreak of harmful algal blooms in Northern Norway\footnote{Report
+%  from the Institute of Marine Research: https://bit.ly/2KZGJfI}, with
+%losses exceeding 12 million tons of salmon valued at \$80 million
+%(Norwegian Directorate of Fisheries). This is a case in point of how
+%adequate sampling efforts could have provided a more accurate
+%assessment and early warning of changing environmental conditions.
 
 \begin{figure}[!h] 
   \centering 
@@ -269,9 +270,7 @@ by assimilation of recent measurements and statistical models.
   \caption{\ref{fig:envir1} Traditional ocean observation based on
     ship-based sampling has recently been augmented by autonomous and
     collaborative networked operations of robotic vehicles to resolve
-    numerous bio-geochemical processes and their interactions. The
-    sense-plan-act control approach to autonomous control can reason
-    and make decisions for efficient onboard adaptive sampling.
+    numerous bio-geochemical processes and their interactions. AUV platforms are an integral part of this network being able to reason and make decisions for efficient onboard adaptive sampling using the sense-plan-act control approach to autonomous control.
     \ref{fig:nidelven} The interaction of river and ocean creates
     processes that are challenging to map, where the combination of
     statistics and robotics can play a vital role in enabling more
@@ -279,8 +278,7 @@ by assimilation of recent measurements and statistical models.
 \label{fig:envir}
 \end{figure}
 
-Our focus in this work is towards spatial characterization of a
-frontal system specifically, fronts generated by river
+The application that is of focus in this work is towards spatial characterization of a frontal system specifically, fronts generated by river
 plumes. Fig. \ref{fig:nidelven} shows the survey area (the outlet of
 the Nidelva river, Trondheim, Norway) where cold freshwater enters
 from the river, creating a strong gradient in both temperature and
@@ -290,7 +288,17 @@ land to the east. Depending on the river discharge, tidal effects,
 wind, and temperature differences, this boundary often gets
 distorted. Initial knowledge about the location and evolution of these
 features is therefore highly uncertain, making deterministic planning
-challenging.
+challenging. River plumes belong to a class of ocean processes that are local and
+act on smaller \emph{sub-mesoscale} extent (from $5 m^2$ -- $10 km^2$) where
+lateral spatial variability tends to dominate. Remote sensing and
+synthetic ocean models often find it challenging to provide detail at
+this scale \citep{Lermusiaux:2006} and the principal way to resolve
+for fine resolution is by direct in-situ observation. At larger
+\emph{mesoscale} ($>50 km^2$), both three-dimensional space and time
+dynamics are important and can shift substantially, while in the case
+of river plumes one can often limit the scope to cover only lateral
+spatial elements. However, the methodological framework can be
+extended to higher dimensional situations in a similar manner.
 
 %\begin{figure}[!h] 
 %\centering 
@@ -326,17 +334,7 @@ challenging.
 
 %This challenge can be addressed by employing more elaborate and adaptive sampling strategies that can capitalize on both prior and current observations in order to locate and map these areas.  
 
-River plumes belong to a class of ocean processes that are local and
-act on smaller \emph{sub-mesoscale} extent (from $5 m^2$ -- $10 km^2$) where
-lateral spatial variability tends to dominate. Remote sensing and
-synthetic ocean models often find it challenging to provide detail at
-this scale \citep{Lermusiaux:2006} and the principal way to resolve
-for fine resolution is by direct in-situ observation. At larger
-\emph{mesoscale} ($>50 km^2$), both three-dimensional space and time
-dynamics are important and can shift substantially, while in the case
-of river plumes one can often limit the scope to cover only lateral
-spatial elements. However, the methodological framework can be
-extended to higher dimensional situations in a similar manner.
+
 
 \subsection{Autonomous Vehicles}
 
@@ -344,7 +342,9 @@ AUVs are used to gather in-situ spatio-temporal data while carrying a
 range of scientific payloads to survey the water column. Typically,
 they operate at $\sim 1-3$ m/s, can reach depths from 100--6000 m with
 an in-water operation time capacity dependent on survey speed, payload
-sensors and mission design. By deploying AUVs together with other
+sensors and mission design. AUVs have limited computational capacity due to their limited energy and payload space. The computations is usually done on a single-board computer (SBC), like the Raspberry Pi or an multicore GPU NVIDIA Jetson TX1. 
+
+By deploying AUVs together with other
 resources, one can augment information from synthetic ocean models,
 remote-sensing data, or fixed-location sensors on buoys. Traditional
 operations and surveys with AUVs are usually limited to observations
@@ -1279,11 +1279,24 @@ as well. Another non-statistical criteria that is important for
 practical purposes is the computational time needed for the strategy,
 as this will impact the performance for an embedded system.
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.50\textwidth]{Figures/sim/wp_graph_paper.pdf}
-\caption{The equilateral waypoint graph used to discretize the
-  trajectory choices over the $31\times31$ grid used to discretize the GP.}
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=0.50\textwidth]{Figures/sim/wp_graph_paper.pdf}
+%\caption{The equilateral waypoint graph used to discretize the
+%  trajectory choices over the $31\times31$ grid used to discretize the GP.}
+%\label{fig:wp_graph}
+%\end{figure}
+
+\begin{figure}[!h] 
+\centering 
+\subfigure[The waypoint graph.]{\includegraphics[width =
+0.49\textwidth]{Figures/sim/wp_graph_paper.pdf}\label{fig:wp_graph_a}}
+\hfill
+\subfigure[The waypoint graph in 3D.]{\includegraphics[width =
+0.49\textwidth]{Figures/sim/wp_graph_3d.pdf}\label{fig:wp_graph_b}}
+\caption{\ref{fig:wp_graph_a} The equilateral waypoint graph used to discretize the
+trajectory choices over the $31\times31$ grid used to discretize the GP.
+\ref{fig:wp_graph_b} The waypoint grid shown in a 3D environment.}
 \label{fig:wp_graph}
 \end{figure}
 

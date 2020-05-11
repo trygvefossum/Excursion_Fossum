@@ -153,28 +153,138 @@
 
 \maketitle
 
-The authors are grateful to the reviewers for their comments and
-suggestions. They have all been carefully considered in this revised
-version of this manuscript, which we believe has significantly
-improved as a result. Detailed responses to the feedback, from each reviewer and the editorial comments follow.\\
+We are grateful to the reviewers for their comments and
+suggestions. They have all been considered in this revised
+version of this manuscript. The principal revisions made to the manuscript are as follows and are done to address the main comments by Editors and Reviewers:
 
-The principal revisions made to the manuscript are:
-\vspace{0.5cm}
+\begin{enumerate}
+\item The motivation for excursion sets (ESs) and in particular that of {\bf{multivariate ESs}} has been strengthened. Motivating examples are abundant in medicine where doctors do not solely rely on a single symptom but must see several combined effects before making a diagnosis. Another example is that of photosynthesis where plants and algae produce oxygen only when given enough of every component; light, carbon dioxide and water. Our motivation in this paper is that temperature and salinity, combined, drive several processes in the oceans. For instance, salmon lice larvae are known to depend on relatively high temperature and high salinities to survive. Salmon lice are parasites to salmon, and the bivariate ES for temperature and salinity is hence important to understand for sustainable activities in salmon fisheries.
 
-\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
-\item \textbf{item1}: Generalized
-\item \textbf{item2}: Simulation code
-\item \textbf{item3}: Introduction more succinct 
-\end{itemize}
+{\it{Action:}} In the revised manuscript these aspects are largely rewritten in the Introduction, Background, ES definitions and Case Study. This change addresses the comments of AE1, R1 (3,) MORE.
+
+\item The {\bf{statistical methodological contribution}} have been clarified and improved, including definitions of ESs and having more general results related to the integrated Bernoulli variance (IBV) for multivariate processes, using marginal (one-location) entries and for volume calculations requiring multiple locations. The revised version highlights these novel statistical results as a main contribution of the paper. 
+
+{\it{Action:}} In the revised manuscript these aspects are largely rewritten in the main body containing novel results for IBV for sums of marginal variances as well as for volumes, while the new Appendix derives the closed form results. This change addresses the comments of E2, AE1, R2 (7), R3 (1), MORE.
+
+\item We realized that a contribution of the current work is available code for statisticians who could try this themselves or even extend it for their own statistical cases. The computer code could of course also be useful to practitioners having related sampling design problems. The {\bf{simulation results and code}} are thoroughly re-worked. Open-source python code is now provided for all the examples used in the paper and also for simulation studies using more nuances statistical models (non-stationary, non-isotropic and non-separable). 
+
+{\it{Action:}} The simulation study section is largely modified and it contains pointers to the associated open-source code. This change addresses the comments of R1 (2,3),  MORE.
+
+
+\item In the initial submission we tried to motivate these kinds of applications carefully, but based on the comments, we see that the {\bf{introduction and background}} were too long. We were not selling the paper enough to professional statisticians, and maybe too much to other scientists who are interested in particular areas of these statistical application. In the revised version we motivate more for statisticians, in particular we emphasize the statistical design problem which is sought solved by AUV with its constraints on navigation and computing resources.
+
+{\it{Action:}} The Introduction and Background sections have been largely rewritten. We now get quicker to the point and engage readers in its both applied statistical focus and the methodological contributions. This change addresses the comments of E1, E4, AE1, R2 (7), R3 (1), MORE.
+
+\item We have further included Cedrid Traveletti as co-author. He has contributed on deriving statistical properties of the methods and on improving the code for open-source quality. 
+
+\end{enumerate}
 \par \vspace{1em}
 
 Note that the reference to page $X$ is made relative to
 the original submitted manuscript given to the reviewers.
 
+
+%======================================================================
+\section*{Editor}
+%======================================================================
+All changes requested from the editor are listed below and answered on a point-by-point basis.
+
+\begin{answers}
+	
+	\item{Comment:}\label{ec1}
+
+Thank you for submitting your manuscript to The Annals of 
+Applied Statistics.  Three referees, an Associate Editor (AE),
+and I have read it carefully; reports from all four reviewers,
+including particularly constructive reports from Referee 1
+(R1R1.pdf; marked manuscript in R1R2.pdf) and the AE (R1AE1.pdf), 
+can be downloaded via the links below. We all agree that your 
+manuscript offers a potentially useful approach to estimating 
+plume boundaries and a sequential design for the data collection
+by autonomous underwater vehicles (AUVs). Citing from Referee 3
+(R1E1.txt), "the authors have motivated the application well."
+In this sense, the paper is consistent with the mission of AOAS.
+
+However, the reports also identify serious shortcomings that 
+prevent me from accepting your manuscript for publication at
+this time. The reports are rather consistent in the nature of 
+the problems that would need to be addressed for an AOAS publication.  
+Briefly, these issues include:
+
+\item{1. Intended audience:}\label{r3c1}
+
+
+As you know from reading the Manuscript Submission page of our
+web site (from where you submitted your manuscript), "AOAS is 
+intended to be read by all professional statisticians, as well 
+as by other scientists who are interested in particular areas 
+of statistical application. It is important for the abstract
+and introduction to say: Why the topic is of interest, and What 
+is to be shown, in as non-technical a manner as possible."
+Remarks from the AE (point 1), Referee 1 (point 4), and Referee 2 
+(R1R3.pdf, 1) refer to this question: "Who is the intended
+audience?"  Quoting from Referee 1, "I am not clear about the 
+intended audience for this paper.  Or to put it another way, 
+for whom is this paper important?" The reports have some 
+suggestions that may guide you in making the necessary critical 
+revisions along these lines.  
+
+\reply: The comment by you, AE and reviewers made us realize that the initial submission had a motivation which was too applied. We were not selling the paper contributions in early enough, and it was not targeted sufficiently to professional statisticians. In the revised version we motivate more for statisticians. (See also comment 4 in the list of main changes above.)
+
+\action: Our actions are to i) rewrite Introduction and Background sections to catch our intended audience and highlight our contributions, ii) restructure the presentation to highlight both statistical contributions as well as the impact such technologies and applied questions could provide for statisticians. 
+
+\item{2. Novelty:}\label{r3c2}
+
+As noted in the AOAS mission statement, papers are expected
+to include some degree of "methodological innovation."
+In separate comments to the Editors, one reviewer noted,
+"Methodological novelty is an issue with this paper.  Much of 
+it is either standard Gaussian process calculations/formulae 
+or sequential designs that were, in all but one case, previously 
+proposed. Two things that could add a lot would be good code 
+that others could run for the simulation studies like the authors' 
+(if someone else were contemplating a similar experiment), and 
+good code for finding the optimum design. That could lead to a 
+fairly substantial impact of their work."
+
+\reply: We realize that we did not stress the statistical novelty sufficiently in the submitted version. The main statistical novelty is in the closed form calculation for the design criteria of the integrated Bernoulli variance (IBV) associated with excursion sets (ESs) for multivariate processes. In the revised version this is extended to volumes (going beyond single location). We believe that part of the problem with the initial submission was the organization of these new results in the structure of the paper. This is hence re-structured in the revision.
+
+\action: Our actions are to i) extend the closed form calculations to a criterion working on ES volume calculations (going beyond single location), ii) restructure the presentation to work directly on $p$-variate random fields and hence generalize the presentation, iii) restructure the closed form results to be presented in the main body, but with proofs in the new Appendix.
+
+\item{3. Assumptions }\label{r3c3}
+
+Referees 1 and 2, as well as the AE, call attention to some of
+the assumptions (e.g., stationary and isotropic random fields),
+and ask you to address how realistic they are.
+
+\reply: At this spatial scale there is often not so much data to infer a detailed statistical model, and this is the reason for our parsimonious construction for the real-data case. In other related situations, for instance that of larger fjord, ocean fronts, which are at a larger scale, there would usually be more data available for instance in the form of satellite data or from ensembles of computer model simulations. For such cases, we agree that it would make sense to embed more nuanced models, for instance that of larger variances at certain locations and stronger correlations in certain directions, but for our field trial here we attempted to have as few parameters as possible and had no reason to assume more complicated forms. 
+
+That said, in the updated simulation study, which we have generalized and made open-source there are opportunities and examples of more complex covariance models (non-stationary and non-separable and non-isotropic), but we do not conduct any inference for parameters in these models from ocean model data. 
+
+\action: Our actions include i) a better description of our parameter choices for the synthetic case and the specification for the real-data case, and ii) brief notes of the extended opportunities available for the associated open-access code, iii) references to related papers (including one of our own) that explored non-stationary Gaussian models for oceanographic phenomena at a larger scale than what is used here. 
+
+\item{Major comment 4. Exposition}\label{r3c4}
+
+Both the AE and Referee 1 strongly advise shortening the first
+five pages - or, at least, getting to the point (currently on p6)
+much sooner.  Quoting from  Referee 1, 5: "I slogged through the 
+first six [pages] before I discovered what the paper was to be 
+about, on page 6."  You do not want to lose your readers, so I
+advise you to engage them early on.  All four reviewers note
+potential technical or typographical errors, so please proofread
+carefully.
+
+\reply: Based on the comments by yourself, AE and referees, we realize that the motivation part of the paper was too long. 
+
+\action: Our actions include a much shorter Section 2 with background. We now aim to engage readers earlier on with the applied statistical focus and methodological contribution of our work. 
+
+\end{answers}
+
+
 %======================================================================
  \section*{Associate Editor}
 %======================================================================
-All changes requested from the editor are are listed below and answered on a point-by-point basis.
+All changes requested from the editor are listed below and answered on a point-by-point basis.
 
 \setcounter{reviewer}{1}
 
@@ -199,8 +309,7 @@ All changes requested from the editor are are listed below and answered on a poi
 \action: Conditional independent sensors. 
 \vspace{1em}
 
-\item[1.1.4]\label{ec4} General: Related to the previous point, I do not understand why sampling locations are being restricted to a regular grid. In fact, it seems unwise because it is well known (see, for example, Chapters 9 and 22 of Handbook of Environmental and Ecological Statistics, 2019, CRC Press)
-that the quality of inferences for spatial fields can be improved substantially by taking some
+\item[1.1.4]\label{ec4} General: Related to the previous point, I do not understand why sampling locations are being restricted to a regular grid. In fact, it seems unwise because it is well known (see, for example, Chapters 9 and 22 of Handbook of Environmental and Ecological Statistics, 2019, CRC Press) that the quality of inferences for spatial fields can be improved substantially by taking some
 observations very close to others.\par
 \action: The AUV and the sampling happens regularly at 1 Hz, the collected measurements are then assimilated to this regular grid. The sampling density is therefore higher than the grid resolution. Still, there is a limitation on restricting the sampling locations to finite number of fixed locations. However, in order to handle the computational load and resources available on the AUV this simplification is necessary. % Comment Trygve: Should we add some more here? 
 \vspace{1em}
@@ -411,13 +520,6 @@ All changes requested from Reviewer 2 are listed below and answered on a point-b
 
 \end{itemize}
 
-\begin{quote}
-\srevcomment{a change in the text}
-\end{quote}
-
-\begin{quote}
-  \srevcomment{another change in the text} \end{quote}
-
 \item{Major comment 2}\label{r2c2}
 
 \reply: p. 9, Eq. (8): the dependency on $\bx$ and $\bx'$ has been omitted for some of the parameters without mention. Or are the parameters constant across locations?
@@ -540,19 +642,21 @@ All changes requested from Reviewer 3 are listed below and answered on a point-b
 
 \begin{answers}
 
-\item{Minor comment 1}\label{r3c1}
+\item{Comment:}\label{r3c1}
 
-\reply: The authors indicate several paths forward for work in this area, which I think pose interesting questions. They may want to elaborate a bit more on those.
+\reply: I think this is an interesting paper. The paper is well written, 
+and the authors have motivated the application well. 
+The authors indicate several paths forward for work in this area, which I think pose interesting questions. They may want to elaborate a bit more on those.
 
 \action: Space-time \cite{sigrist2015stochastic,richardson2017sparsity}. More complex sampling Look-ahead, going further. 3D sampling, requiring more computationally efficient spatial statistical models. 
 
-\item{Minor comment 2}\label{r3c2}
+\item{Minor comment 1}\label{r3c2}
 
 \reply: I think the equation $V_{m,upd}$ needs a j as a part of that subscript.
 
 \action: Our action
 
-\item{Major comment 3}\label{r3c3}
+\item{Major comment 2}\label{r3c3}
 
 \reply: Figure 4: Why not show excursion probabilities for, say, myopic selection as well?
 
