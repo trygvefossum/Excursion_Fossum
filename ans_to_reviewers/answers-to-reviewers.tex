@@ -559,7 +559,7 @@ All changes requested from Reviewer 2 are listed below and answered on a point-b
 \setcounter{reviewer}{2}
 
 \begin{answers}
-\item{\revcom 1: - Details on AUVs}\label{r2c1}
+\item{\revcom : }\label{r2c1}
 
 I know very little about the AUVs you discuss, and I suspect many of your readers will be in a similar position. Additional contextual information would be helpful
 
@@ -591,74 +591,74 @@ I know very little about the AUVs you discuss, and I suspect many of your reader
 
 \end{itemize}
 
-\item{\revcom 2:}\label{r2c2}
+\item{\revcom :}\label{r2c2}
 
 p. 9, Eq. (8): the dependency on $\bx$ and $\bx'$ has been omitted for some of the parameters without mention. Or are the parameters constant across locations?
 
 \action: Our actions
 
-\item{\revcom 3:}\label{r2c3}
+\item{\revcom :}\label{r2c3}
 
 p. 9, How reasonable is the assumption of stationary and isotropic random fields? You may be limited by the computational abilities of the AUVs so that more complex models are computationally infeasible. That is a valid reason to choose a simpler, less accurate model. I’m just wondering if that is the reason here. 
 
 \action: No data to fit a complex model. See Ocean model comments to Rev 1.
 
-\item{\revcom  4:}\label{r2c4}
+\item{\revcom  :}\label{r2c4}
 
 p. 9, Eq. (10). Are the temperature and salinity processes at a specific location effectively independent of one another? (I truly don’t know). That is what is implied by Eq. (10).
 
 \action: Conditionally independent measurements.
 
-\item{\revcom 5:}\label{r2c5}
+\item{\revcom :}\label{r2c5}
 
 p. 9, Eq. (11). The form of the equation is reminiscent of the Sherman-Morrison-Woodbury solution for fixed-rank kriging. $\bSigma$ may not be small here, but I wonder if there may be a computational advantage to considering an alternative computational solution.  See e.g., Cressie, N. and Johannesson, G. (2008), Fixed rank kriging for very large spatial data sets. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 70: 209-226. doi:10.1111/j.1467-9868.2007.00633.x.
 
 \action: Only the surface is considered here, so computational requirements are not mainly driven by the size of the domain, but rather by the number of combinations for sampling designs (computational complexity). No 3D with depth, which would require simplified spatial models like fixed-rank-kriging or similar approaches. 
 
-\item{\revcom  6:}\label{r2c6}
+\item{\revcom  :}\label{r2c6}
 
 p. 9, Eq. (13). Why does $\bm$ have a distribution before seeing the data? I can see how $\bm(\by)$ would have a distribution since it depends on $\by$. It almost feels Bayesian, but nothing indicates that this analysis is being pursued from a Bayesian perspective. Why is it valid for $\bm$ to have a distribution prior to seeing data?
 
 \action: Appendix? 
 
-\item{\revcom 7:}\label{r2c7}
+\item{\revcom :}\label{r2c7}
 
 p. 11, Eq. (17). I’m not understanding the advantage to conditioning on $\bm$ instead of $\by$? $\bm$ is a function of $\by$. The probability is the same two-dimensional integral either way. It seems to be related to the standardization that results in $\bZ$? Please clarify.
 
 \action: Appendix? 
 
-\item{\revcom  8:}\label{r2c8}
+\item{\revcom  :}\label{r2c8}
 
 p. 11, Is $\bpi(\bm)$ the density associated with the distribution in Eq. (14)? 
 
 \action: Appendix? 
 
-\item{\revcom 9:}\label{r2c9}
+\item{\revcom :}\label{r2c9}
 
 p. 11, Is it purely for stylistic reasons that $P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)$ isn’t written as $P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)^2$? It seems to be a more natural way of expanding Eq. (18). 
 
 \action: Appendix? 
 
-\item{\revcom 10:}\label{r2c10}
+\item{\revcom :}\label{r2c10}
 
 p. 11, It is stated that $\bZ$ is chosen to be independent of $\bm$, so presumably the joint CDF $F_{z,m}=F_{Z}F_m$ which would certainly be convenient, but is not obvious to me why this would be true. 
 Instead, it appears that $\bZ$ is chosen to be a pivotal quantity to get the simple CDF in Eq. (20). Please clarify.
 
 \action: Appendix? 
 
-\item{\revcom 11:}\label{r2c11}
+\item{\revcom :}\label{r2c11}
 
 p. 11, Eq. (21). The trailing $p(\bm)$ should be $\bpi(\bm)$. Should the right side of the equality be squared? 
 
 \action: Our actions
 
-\item{\revcom 12:}\label{r2c12}
+\item{\revcom :}\label{r2c12}
 
 This method relies on computing the marginal probabilities in each grid cell. This is computationally convenient and is likely required because of the limited computing power of the AUVs. However, the optimization should technically be performed with respect to the joint distribution across all grid cells. While the context may not allow this in practice, it would be helpful to get an idea of how much error is introduced by this approximation. I recommend creating a small but realistic-as-feasible simulation study comparing the accuracy of the probabilities, a comparison of the computational expense, and examining if/how navigation decisions change based on whether one uses the marginal/joint computations. 
 
 \action: Joints would be too demanding here. There is more of a question of the longer planning horizon for the AUV to improve the sampling design, so the domain can be more efficiently explored. 
 
-\item{\revcom 13:}\label{r2c13}
+\item{\revcom :}\label{r2c13}
 
 Fig. 7 is difficult to understand. The goal is to show the various paths taken by the AUV in the
 simulation example. But it is very difficult to determine which paths are very common and which
@@ -675,7 +675,7 @@ the simulated AUV moves back and forth across the excursion set.
 
 \action: Our actions
 
-\item{\revcom  14:}\label{r2c14}
+\item{\revcom :}\label{r2c14}
 
 While the context doesn’t allow full reproducibility of the paper’s results, no implementation details are provided. What software was used to perform the bulk of analysis? Are there scripts available that can be adapted by others for similar purposes? Please provide resources for the practical implementation of the methodology discussed in the paper.
 
@@ -686,12 +686,15 @@ While the context doesn’t allow full reproducibility of the paper’s results,
 \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
 
 \item[2.15.1] “closed-form” is sometimes written as “closed form” (e.g., p. 7, p. 18)
+
 \action:
 
 \item[2.15.2] p. 9, `1s` should be ‘1s’. Similar for 0s.
+
 \action:
 
 \item[2.15.3] p. 15, my manuscript has -on where to sample-, which is an unusual use of dashes.
+
 \action:
 \end{itemize}
 
@@ -716,13 +719,13 @@ The authors indicate several paths forward for work in this area, which I think 
 
 \item{\revcom - Minor 1:}\label{r3c2}
 
-\reply: I think the equation $V_{m,upd}$ needs a j as a part of that subscript.
+I think the equation $V_{m,upd}$ needs a j as a part of that subscript.
 
 \action: Our action
 
 \item{\revcom - Major 2:}\label{r3c3}
 
-\reply: Figure 4: Why not show excursion probabilities for, say, myopic selection as well?
+Figure 4: Why not show excursion probabilities for, say, myopic selection as well?
 
 \action: Our actions
 
