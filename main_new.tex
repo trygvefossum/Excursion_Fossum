@@ -469,7 +469,8 @@ through its moments.
 	\end{split}
 	\end{equation*}
 	In the particular orthant case with $\T=(-\infty, t_1] \times \dots \times (-\infty, t_{r}]$,
-	the latter probability directly writes in terms of the multivariate Gaussian
+	the latter probability directly writes \kc{What does
+          ``writes'' mean here? Connotes?} in terms of the multivariate Gaussian
 	cumulative distribution, % with mean $\meanUU$ and covariance matrix $\covUU$,
 	this time without requiring $\covUU$ %the latter 
 	to be non-singular: 
@@ -742,7 +743,8 @@ We calculate EPs and the Bernoulli variance for a few bivariate
 Gaussian distributions to illustrate the concepts articulated above.
 Fig. \ref{illus_bivarDens} shows contour plots of three different
 densities with increasing correlation $\gamma$ between temperature and
-salinity. \kc{What is the source of this data?}
+salinity. \kc{What is the source of this data and this figure,
+  i.e. how did you derive this plot?}
 \begin{figure}[h!] \centering
   \includegraphics[width=0.99\textwidth]{Figures/illus_bivar.pdf}
   \caption{Density contour plots with different correlations between
@@ -760,8 +762,10 @@ standard deviations.
 Table \ref{tab:sim_rhoab} shows the initial EPs and the associated
 Bernoulli variance (second row) for the examples indicated in Fig.
 \ref{illus_bivarDens}. The EPs increase with the correlation as there
-is a strong tendency to have concurrently low temperature and
-salinity. The Bernoulli variance is similarly large for high
+is a strong tendency to have concurrently low temperature and salinity
+\kc{Same question as above. What is the basis for this correlation? Is
+  this just an example or derived from actual data in the mixed layer
+  in the front?}. The Bernoulli variance is similarly large for high
 correlations. EPs and Bernoulli variances are the same for standard
 deviation $1$ or $2$, which implies that high variability in
 temperature and salinity is not captured in the $p(1-p)$ expression.
@@ -786,11 +790,15 @@ EIBV, Temperature data only & 0.151 & 0.138 & 0.123 & 0.137 & 0.114 & 0.093 \\
 
 Table \ref{tab:sim_rhoab} (bottom two rows) shows results of expected
 Bernoulli variance calculations. This is presented for a design
-gathering both data types, and for a design with
-temperature measurements alone. Both data are modeled by $(Y_1,Y_2)^t=(Z_1,Z_2)^t+N(0,0.5^2I_2)$, while
-$Y_2=Z_2+N(0,0.5^2)$ when only temperature is measured.  For this
-illustration, Table \ref{tab:sim_rhoab} shows that the expected
-Bernoulli variance gets lower with larger standard deviations
+gathering both data types, and for a design with temperature
+measurements alone. Both data are modeled by
+$(Y_1,Y_2)^t=(Z_1,Z_2)^t+N(0,0.5^2I_2)$, while $Y_2=Z_2+N(0,0.5^2)$
+when only temperature is measured \kc{I find this notation somewhat
+  confusing. Earlier you had set up t1 and t2 to denote temp and
+  salinity respectively. It might help to have \emph{some} notational
+  similarity with that; otherwise it becomes mind bending I believe.}.
+For this illustration, Table \ref{tab:sim_rhoab} shows that the
+expected Bernoulli variance gets lower with larger standard deviations
 $\sigma_1$ and $\sigma_2$ (right columns). The reduction of Bernoulli
 variance is largest for the cases with high correlation
 $\gamma$. Albeit smaller, there is also uncertainty reduction when
@@ -803,6 +811,12 @@ and salinity variables will not only be interdependent, but will also
 likely show dependence in the spatial dimension. This in turn will
 impact the design criteria when we evaluate the information measure by
 integrating over several locations (Section \ref{sec:simulations}).
+
+\kc{I feel this section above, which was present in the earlier
+  submitted version too, but to which I did not comment, is
+  significant as an example to the reader. But, as noted above, I
+  don't understand the provenance of the data. It isn't made up,
+  right?}
 
 %\subsection{Expected classification criteria}
 
@@ -825,30 +839,43 @@ integrating over several locations (Section \ref{sec:simulations}).
 
 An important concept underlying this work is the potential of robotic
 sampling to adapt survey plans based on data and statistical methods
-in accordance with the sense-plan-act control loop (Fig. \ref{fig:envir1}). We now present a few adaptive strategies for robotic sampling
-that build on the notion of EIBV.
+in accordance with the sense-plan-act control loop
+(Fig. \ref{fig:envir1}). We now present a few adaptive strategies for
+robotic sampling that build on the notion of EIBV.
 
 \subsection{Optimal Sequential Design}
 \label{Optdes}
 
-An adaptive AUV survey is split into many stages. The selection on where to sample is made with restriction to the triangular waypoint graph and defined by its nearest grid nodes.
+Our adaptive AUV survey is split into many stages. The selection on
+where to sample is constrained by a triangular waypoint graph and
+defined by its nearest grid nodes.
 
-Let $d^{j,s}$ denote design
-number $j$ at stage $s$ of a sequential survey. If this design is
-selected, data $\by_{d^{j,s}}$ will be gathered. 
-We further let
-$\mathcal{Y}^{s-1} =\{(d^{j,1}, \by_{d^{j,1}}),\ldots, (d^{j,s}, \by_{d^{j,s}}) \}$ denote
-the set of all data gathered until stage $s-1$ according to selected design $d^{j,1},\ldots,d^{j,s}$. 
-This defines the AUV position at the stage $s$. 
-The data further defines the conditional GP  with mean $\bbm^{s-1}(\x)=E(\gp[\x]|\mathcal{Y}^{s-1})$ from
-Eq. (\ref{eq:cokrig})
-and (cross) covariance matrix $\Sigma^{s-1}=\mbox{Var}(\gp[\x]|\mathcal{Y}^{s-1})$ from Eq. (\ref{eq:krig:cov}).
+Let $d^{j,s}$ denote design number $j$ at stage $s$ of a sequential
+survey. If this design is selected, data $\by_{d^{j,s}}$ will be
+gathered.  We further let
+$\mathcal{Y}^{s-1} =\{(d^{j,1}, \by_{d^{j,1}}),\ldots, (d^{j,s},
+\by_{d^{j,s}}) \}$ denote the set of all data gathered until stage
+$s-1$ according to selected design $d^{j,1},\ldots,d^{j,s}$.  This
+defines the AUV position at the stage $s$.  The data further defines
+the conditional GP with mean
+$\bbm^{s-1}(\x)=E(\gp[\x]|\mathcal{Y}^{s-1})$ from
+Eq. (\ref{eq:cokrig}) and (cross) covariance matrix
+$\Sigma^{s-1}=\mbox{Var}(\gp[\x]|\mathcal{Y}^{s-1})$ from
+Eq. (\ref{eq:krig:cov}).
 
-At the next stage, we choose where measurements $\by_{d^{j,s}}$ should be gathered with
-design $d^{j,s}$. For the triangularized waypoint graph that we use in our AUV application, there are six possible directions for $j$, and we must evaluate the design criterion for all these. 
-The goal of the sampling design is to minimize the expected uncertainty of random sets, and specifically the EIBV for our application. We hence focus on choosing designs for data modeled by equation \eqref{eq:meas}, to conduct efficient sequential uncertainty reduction according to the EIBV criterion.
-Notably, compared with the static design $d$ in equation \eqref{eq:eibv}, the optimal sequential design not only considers the best current AUV
-design grid point, but also how the data gathered at this node could inform future sampling at successive stages. 
+At the next stage, we choose where measurements $\by_{d^{j,s}}$ should
+be gathered with design $d^{j,s}$. For the triangularized waypoint
+graph that we use in our application, there are six possible
+directions for $j$, and we must evaluate the design criterion for all
+these.  The goal of the sampling design is to minimize the expected
+uncertainty of random sets, and specifically the EIBV for our
+application. We hence focus on choosing designs for data modeled by
+equation \eqref{eq:meas}, to conduct efficient sequential uncertainty
+reduction according to the EIBV criterion.  Notably, compared with the
+static design $d$ in equation \eqref{eq:eibv}, the optimal sequential
+design not only considers the best current design grid point, but also
+how the data gathered at this node could inform future sampling at
+successive stages.
 
 
 
@@ -865,12 +892,12 @@ design grid point, but also how the data gathered at this node could inform futu
 %    \bd^* = \mbox{argmin}_{d^{j,1}} \left\{ \int_{\by^{j,1}} \mbox{argmin}_{d^{j,2}} \left\{ \int_{\by^{j,2}} \ldots \pi(\by^{j,2}|\by^{j,1}) d\by^{j,2} \right\} \pi(\by^{j,1}) d \by^{j,1} \right\},
 %\end{equation}
 %where $\ldots$ represents the expected variance reduction in the ES under the continued optimal design, which will depend on the data at earlier stages. 
-The mathematical expression for the optimal design involves a
-series of intermixed maximizations over designs and integrals over
-data. In practice, the optimal solution is intractable because of
-the enormous growth over stages (see
-e.g. \cite{sucar2015probabilistic} and \cite{powell2016perspectives}).
-Instead, we outline heuristic strategies. 
+The mathematical expression for the optimal design involves a series
+of intermixed maximizations over designs and integrals over data. In
+practice, the optimal solution is intractable because of the enormous
+growth over stages (see e.g. \cite{sucar2015probabilistic} and
+\cite{powell2016perspectives}).  Instead, we outline heuristic
+strategies.
 
 
 %The derived closed-form solutions for the EIBV are still important building blocks when constructing the sampling designs, as they will be used to score the different adaptive designs. % Efficient
@@ -881,29 +908,36 @@ Instead, we outline heuristic strategies.
 \label{naive}
 
 The simplest heuristic for adaptive sampling is to choose the next
-sampling location based on current probabilities. One reduces the largest levels of uncertainty by selecting the design $j$ with $P(Z(\x_j) \in T)$ closest to $0.5$.
-For our situation with temperature and salinity variables, this {\it{naive}} strategy selects the stage $s$ sampling design according to:
+sampling location based on current probabilities. One reduces the
+largest levels of uncertainty by selecting the design $j$ with
+$P(Z(\x_j) \in T)$ closest to $0.5$.  With temperature and salinity
+variables, this {\it{naive}} strategy selects the stage $s$ sampling
+design according to:
 \begin{eqnarray}\label{critNaive}
     d^{*,s} &=& \mbox{argmin}_{j} |P(Z_1(\x_j) \leq t_1, Z_2(\x_j) \leq t_2 | \mathcal{Y}^{s-1})-0.5|, \nonumber
 \end{eqnarray}
 where $j$ is indexing all neighboring locations on the waypoint graph.
 
-This strategy does not account for the uncertainty in the GP variables, but is instead applicable only if one design (node) has EPs closer to
-$0.5$ (see Table \ref{tab:sim_rhoab}, line two). Additionally, this strategy does not
-account for spatial correlation. This strategy lacks memory of where
-it has been and where the uncertainty has been reduced, and is therefore
-susceptible to local minima.
+This strategy does not account for the uncertainty in the GP
+variables, but is instead applicable only if one design (node) has EPs
+closer to $0.5$ (see Table \ref{tab:sim_rhoab}, line \kc{row?}
+two). Additionally, this strategy does not account for spatial
+correlation. This strategy lacks memory of where it has been and where
+the uncertainty has been reduced, and therefore susceptible to local
+minima.
 
 \subsection{Myopic Path Planning}
 \label{sec:myopic}
 
 The myopic (greedy) strategy which we present here is optimal if we
 imagine taking only one more stage of measurements. This selection
-strategy is based on expected uncertainty reduction, but it is heuristic because there is no anticipation of what the subsequent designs might
-offer beyond the first stage.
+strategy is based on expected uncertainty reduction, but it is a
+heuristic because there is no anticipation of what the subsequent
+designs might offer beyond the first stage.
 
-Based on the currently available data $\mathcal{Y}^{s-1}$, we
-fit an updated GP model. Focusing on the EIBV criterion, at the next stage $s$, the selected design is:
+Based on the currently available data $\mathcal{Y}^{s-1}$, we fit an
+updated GP model. Focusing on the EIBV criterion, at the next stage
+$s$, the selected design is:
 \begin{eqnarray}\label{critSEQ}
     d^{*,s} &=& \mbox{argmin}_{j} \left\{ \int_{\mathcal{M}} E_{\by_{d^{j,s}}|\mathcal{Y}^{s-1}} \left( p(\x;\mathcal{Y}^{j,s})\left( 1-p(\x;\mathcal{Y}^{j,s})\right) \right) d\mes(u), \right\} \\
     p(\x;\mathcal{Y}^{j,s}) &=& P(Z_u \in T |\by_{d^{j,s}},\mathcal{Y}^{s-1}). \nonumber
