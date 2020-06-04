@@ -741,11 +741,12 @@ The proof of Proposition \ref{propo2} is provided in the Appendix.
 
 \subsection{An Example of EIBV using Temperature and Salinity}
 
-In this section, we calculate EPs and the Bernoulli variance for a few bivariate
+% In this section, 
+We calculate EPs and the Bernoulli variance for a few bivariate
 Gaussian distributions to illustrate the concepts articulated above.
 Fig. \ref{illus_bivarDens} shows contour plots of three different
 densities with increasing correlation $\gamma$ between temperature and
-salinity.
+salinity. \kc{What is the source of this data?}
 \begin{figure}[h!] \centering
   \includegraphics[width=0.99\textwidth]{Figures/illus_bivar.pdf}
   \caption{Density contour plots with different correlations between
@@ -755,14 +756,15 @@ salinity.
 \label{illus_bivarDens}
 \end{figure}
 Here, the thresholds are set equal to the mean $\mu_1=t_1=5^o C$, and
-salinity $\mu_2=t_2=30$ mg/l, and the EP is $p=P(Z_1 < 5,Z_2 < 30)$. The displayed densities have unit
-standard deviations for both temperature and salinity, but we also
-study the effect of doubling the standard deviations.
+salinity $\mu_2=t_2=30$ mg/l, and the EP is $p=P(Z_1 < 5,Z_2 < 30)$.
+The displayed densities have unit standard deviations for both
+temperature and salinity, but we also study the effect of doubling the
+standard deviations.
 
-Table \ref{tab:sim_rhoab} shows the initial EPs and the associated Bernoulli
-variance (second row) for the examples indicated in
-Fig. \ref{illus_bivarDens}. The EPs increase with the correlation as
-there is a strong tendency to have concurrently low temperature and
+Table \ref{tab:sim_rhoab} shows the initial EPs and the associated
+Bernoulli variance (second row) for the examples indicated in Fig.
+\ref{illus_bivarDens}. The EPs increase with the correlation as there
+is a strong tendency to have concurrently low temperature and
 salinity. The Bernoulli variance is similarly large for high
 correlations. EPs and Bernoulli variances are the same for standard
 deviation $1$ or $2$, which implies that high variability in
