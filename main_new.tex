@@ -910,7 +910,8 @@ fit an updated GP model. Focusing on the EIBV criterion, at the next stage $s$, 
 Note that this strategy gives a sequential conditional version of
 expression (\ref{eq:eibv}). Now $\mathcal{Y}^{s-1}$ is available, and
 the expectation is conditional to this data. A similar closed-form calculation
-for EIBV is hence applicable in Eq. (\ref{critSEQ}) using the
+for EIBV is hence applicable in Eq.
+\eqref{critSEQ} using the
 updated GP model from stage $s-1$. Once the data is collected for the
 best design at stage $s$, the GP model is updated again. The mean $\bbm^{s}$ and
 covariance matrix $\Sigma^{s}$ are used to compute the next design at
@@ -934,8 +935,8 @@ look-ahead strategy, anticipates the subsequent design indexed $j_2$ with
 data $\by^{j_2,s+1}$ when choosing the current design $d^{j,s}$.  The
 selected design is:
 \begin{eqnarray}\label{critLA}
-    d^{*,s} &=& \mbox{argmin}_{j} \left\{ E_{\by_{d^{j,s}}|\mathcal{Y}^{s-1}} \left[ \mbox{argmin}_{j_2}  V_{j_2} \right] \right\}, \\
-V_{j_2} & = & \int_{\mathcal{M}} E_{\by_{d^{j_2,s+1}}|\mathcal{Y}^{j,s}} \left( p(\x;\mathcal{Y}^{j,s+1})\left( 1-p(\x;\mathcal{Y}^{j,s+1})\right) \right) d\mes(u), \nonumber \\
+    d^{*,s} &=& \mbox{argmin}_{j} \left\{ E_{\by_{d^{j,s}}|\mathcal{Y}^{s-1}} \left( \mbox{argmin}_{j_2}  V_{j_2} \right) \right\}, \\
+V_{j_2} & = & \int_{\mathcal{M}} E_{\by_{d^{j_2,s+1}}|\mathcal{Y}^{j,s}} \left( p(\x;\mathcal{Y}^{j,s+1}) ( 1-p(\x;\mathcal{Y}^{j,s+1}) ) \right) d\mes(u), \nonumber \\
     p(\x;\mathcal{Y}^{j,s+1}) &=& P(Z(\x) \in T |\by_{d^{j_2,s+1}},\mathcal{Y}^{j,s}). \nonumber
 \end{eqnarray}
 Here, $\mathcal{Y}^{j,s}=\{\by_{d^{j,s}},\mathcal{Y}^{s-1}\}$ and
@@ -1060,7 +1061,7 @@ For a fixed survey length, a closed-form expression for the EIBV is available as
 case. For comparison the properties are therefore evaluated using
 Monte Carlo sampling over several replicates of realizations from the model while conducting simulated sequential surveys for each
 one. Fig. \ref{fig:Eprob} shows the conditional EP, given data
-gathered along the north-south survey lines in these figures. In the
+gathered along the north-south survey lines in these displays. In the
 Monte Carlo replicates, such results are repeatedly computed to
 approximate the EIBV. We also compare predictive performance
 measured by root mean square error (RMSE) for temperature and salinity
@@ -1181,7 +1182,7 @@ assimilated data has less predictive power, the GP model (which
 is centered here) will act to restrict paths deviating from the
 central zone.
 
-We studied the sensitivity of the results by modifying the input parameters to have different correlations between temperature and salinity, standard deviations, and spatial correlation range.  In all runs,  the \textit{myopic} and \textit{look-ahead} strategies perform the best in terms of IBV, and much better than \textit{naive}. The \textit{look-ahead} strategy seems to be substantially better than the \textit{myopic} only for very small initial standard deviation or very large spatial correlation range. The \textit{static\_north} design continues to be the best static design for IBV, while \textit{static\_zigzag} is the best design for the other predictive performance measures, especially so with large spatial correlation range. We also ran simulation studies with only temperature data, and for realistic correlation levels between temperature and salinity the IBV results are not much worse when only temperature data are available. In addition to the comparison made in Table \ref{tab:sim_rhoab}, the current setting includes spatial correlation and this likely reduces the additional influence of having bivariate data. However, it seems that having temperature data alone does a substantially worse job in terms of explained variance
+We studied the sensitivity of the results by modifying the input parameters to have different correlations between temperature and salinity, standard deviations, and spatial correlation range.  In all runs,  the \textit{myopic} and \textit{look-ahead} strategies perform the best in terms of realized IBV, and much better than \textit{naive}. The \textit{look-ahead} strategy seems to be substantially better than the \textit{myopic} only for very small initial standard deviation or very large spatial correlation range. The \textit{static\_north} design continues to be the best static design for IBV, while \textit{static\_zigzag} is the best design for the other predictive performance measures, especially so with large spatial correlation range. We also ran simulation studies with only temperature data, and for realistic correlation levels between temperature and salinity the IBV results are not much worse when only temperature data are available. In addition to the comparison made in Table \ref{tab:sim_rhoab}, the current setting includes spatial correlation and this likely reduces the additional influence of having bivariate data. However, it seems that having temperature data alone does a substantially worse job in terms of explained variance
 
 \begin{comment}
 \subsection{Performance Metrics}
