@@ -192,7 +192,8 @@ upper water-column processes.
 
 With this in mind, we have designed AUV sampling strategies for
 reducing the spatially-integrated Bernoulli variance (IBV) in the ES
-indicator variables. Recent work on ESs and associated excursion
+indicator variables. 
+ES of random fields are thoroughly presented in \citep{adler2009random}. Recent work on ESs and associated excursion
 probabilities (EPs) connected to spatial statistics include
 \cite{french2013spatio,bolin2015excursion,french2016credible}. Our
 focus is on uncertainty characterization and how this is influenced by
@@ -354,12 +355,10 @@ that improve the classification of ES in temperature and salinity.
 \section{Quantifying uncertainty on Excursion Sets implicitly defined by Gaussian processes}
 \label{sec:ESEP}
 
-\kc{Typically, I have been told in the past, it is bad form to start a section and
-  then a subsection right away. I sort of see it, so, it might be good to
-  provide a 1-2 sentence introduction here perhaps?}
+The definitions of the sets of interest are introduced in Section \ref{sec:ES}, while the closed-form expressions for the expected uncertainty reduction are derived in Section \ref{sec:EIBV}. Section \ref{Sec:UnivarEx} provides an instructive bivariate example relevant for sampling in the temperature and salinity application.
 
 \subsection{Excursion sets and Integrated Bernoulli variance}
-\label{ES}
+\label{sec:ES}
 
 Our objective is to leverage statistical tools onboard an autonomous
 robotic platform to characterize a river plume, focusing on spatial
@@ -370,9 +369,7 @@ useful goal of this sampling strategy.
 In order to formalize the problem in mathematical terms, let us
 consider a multivariate (i.e., vector-valued) Gaussian random field
 $(\gp[\x])_{\x \in \mathcal{M}}$, where $\mathcal{M}$ is an arbitrary
-set (typically in geostatistical studies, a subset of interest of the
-ambient Euclidean space or of a sphere therein \kc{is this obvious to
-  the readership why a sphere? It isn't for me certainly.}) and the
+set (typically in geostatistical studies, a geographical subset of interest) and the
 dimensionality of the output $\no \geq 1$ is arbitrary \kc{Is the
   definition of such a 'p' and its dimensionality, obvious? This to me
   springs out of nowhere.}. Assume furthermore that the set of interest
@@ -409,7 +406,7 @@ with $\T$ and general $\es$ \kc{Again, previous phrase doesn't parse.}
 for most of the derivations. Note that assuming that $\gp$ has
 continuous trajectories (almost surely) and $T$ to be closed, then
 $\es$ can be cast as a Random Closed Set
-\citep{Molchanov2005,adler2009random}. %In what follows, we will express various quantities related to $\es$ in terms of $\gp$'s moments both for general and orthant $T$'s.
+\citep{Molchanov2005}. %In what follows, we will express various quantities related to $\es$ in terms of $\gp$'s moments both for general and orthant $T$'s.
 Let us in particular consider a locally finite (Borel) measure $\mes$
 on $D$ and investigate the probability distribution of $\mes(\es)$
 through its moments.
@@ -497,10 +494,10 @@ have
 \begin{equation*}
 \begin{split}
 \emv
-&=\int_{D^2} \mathbb{P}\left(
+&=\int_{\mathcal{M}^2} \mathbb{P}\left(
 \gp[u]\in T, \gp[v]\in T \right) 
 d\mes^{\otimes}(u, v)\\
-&-\left( \int_{D} \mathbb{P}\left(\gp[u]\in T\right) d\mes(u) \right)^2,
+&-\left( \int_{\mathcal{M}} \mathbb{P}\left(\gp[u]\in T\right) d\mes(u) \right)^2,
 \end{split}
 \end{equation*} 
 which evaluates in the excursion/sojourn case where
@@ -508,17 +505,17 @@ $\T=(-\infty, t_1] \times \dots \times (-\infty, t_{\no}]$ to
 \begin{equation*} \begin{split}
   \emv
 %\operatorname{Var}[\mes(\es)]
-&=\int_{D^2} 
+&=\int_{\mathcal{M}^2} 
 \varPhi_{2\no}
 \left(
 (\bt, \bt); \bmu((u,v)), 
-\bK((u,v),(u,v))
+K((u,v),(u,v))
 \right) 
 \
 \mathrm{d}\mes^{\otimes} %\mes 
 %\productMeasure 
 (u,v)\\
-&-\left( \int_{D} \varPhi_{\no}\left(\bt;\bmu(u), \bK(u)\right) d\mes(u) \right)^2.
+&-\left( \int_{\mathcal{M}} \varPhi_{\no}\left(\bt;\bmu(u), K(u)\right) d\mes(u) \right)^2.
 \end{split}
 \end{equation*}
 This quantity requires  an integral over $D^2$. In
@@ -532,14 +529,15 @@ our present setting as follows
 \mathbb{P}\left(\gp[\uu]\in T\right)(1-\mathbb{P}\left(\gp[\uu]\in T\right))
 d\mes(u) \\
 &=\int_{\mathcal{M}}
-\varPhi_{\no}\left(\bt;\bmu(\uu), \bK(\uu)\right) 
--\left(\varPhi_{\no}\left(\bt;\bmu(\uu), \bK(\uu)\right) \right)^2
+\varPhi_{\no}\left(\bt;\bmu(\uu), K(\uu)\right) 
+-\left(\varPhi_{\no}\left(\bt;\bmu(\uu), K(\uu)\right) \right)^2
 \mathrm{d}\mes(u). 
 \end{split}
 \end{equation}
 
 
 \subsection{Expected Integrated Bernoulli Variance and Sampling Designs}
+\label{sec:EIBV}
 
 Our goal is to construct informative sampling designs, given limited
 resources \kc{information?}. In our domain, data is gathered by an AUV
@@ -562,17 +560,16 @@ design criteria of semi-analytical forms relying on integrals of
 multivariate Gaussian cumulative distribution functions; we will
 appeal to some key intermediate results presented next.
 
-We let $d \in \mathcal{D}$ denote a sampling design, with $q$ sampling 
-locations $\bu_d=\left(u_d^{(1)},\ldots, u_d^{(q)}\right)$. The
+We let $d \in \mathcal{D}$ denote a concatenation of sampling designs with $q$ sampling locations $\bu_d=\left(u_d^{(1)},\ldots, u_d^{(q)}\right)$. The
 measurement model is defined by 
 \begin{equation}\label{eq:meas}
-    \bY_d=\bG_d \bz(\bu_d) + \epsilon(\bu_d), \hspace{3mm} \epsilon(\bu_d) \sim N(0,\bR_d).
+    \bY_d=G_d \bz(\bu_d) + \epsilon, \hspace{3mm} \epsilon \sim N(0,R_d).
 \end{equation}
 Here, $\bz(\bu_d)$ is the size $pq$ vector of GP variables at the
-sampling locations, $\bG_d$ is the design matrix which in principle
+sampling locations, $G_d$ is the design matrix which in principle
 allows for observing subsets of the vector-valued field at some of the
 $q$ locations (i.e. the matrix has fewer rows than columns). If the
-additive error has independent elements, the covariance matrix $\bR_d$
+additive error has independent elements, the covariance matrix $R_d$
 is diagonal. In our setting temperature and salinity measurements are
 extracted from different sensors, so the independence assumption
 between variables is not unrealistic, but this is not necessarily the
@@ -584,11 +581,12 @@ designs does not rely on these independence assumptions.
 For a given design $d$ the evaluation is based on the expected
 information contained in the data to influence the criterion.   
 Considering the EIBV criteria, we have
-\begin{equation}\label{eq:eibv}
-    \mbox{EIBV} (d)= E_{\bY(\bu_d)} \int_{M}
-\mathbb{P}\left(\gp[\uu]\in T|\by(\bu_d) \right)(1-\mathbb{P}\left(\gp[\uu]\in T |\by(\bu_d)\right))
-d\mes(u),
-\end{equation}
+\begin{eqnarray}\label{eq:eibv}
+    \mbox{EIBV} (d) &=& E_{\bY_d} \left( \int_{\mathcal{M}}
+p(\x;\by_d)(1-p(\x;\by_d))
+d\mes(u) \right), \nonumber \\
+p(\x;\by_d) &=& \mathbb{P}\left(\gp[\uu]\in T|\bY_d=\by_d \right)
+\end{eqnarray}
 where the expectation is over the planned data.  The optimal design
 for an AUV survey is then 
 \begin{equation}\label{crit}
@@ -600,48 +598,45 @@ closed-form expression which is relatively fast to compute and hence
 useful for onboard design selection.
 
 Assuming now that $q$ observations are available, one wishes to
-predict $\gp[\bu]$, the multivariate Kriging equations holds with size
-$p$ vector of conditional means \kc{This last sentence doesn't parse.
-  Are they two separate statements?}:  
+predict $\gp[\x]$. The multivariate Kriging equations holds with size
+$p$ vector of conditional means:  
 \begin{equation}\label{eq:cokrig}
-\bbm(\x)=\bmu(\x)+\blambda(\x,\bu_d)^T \left( \by_d-\bG_d \bmu(\bu_d)\right),
+\bbm(\x)=\bmu(\x)+\lambda(\x,\bu_d)^T \left( \by_d-G_d \bmu(\bu_d)\right),
 \end{equation}
 where $\bmu$ is size $p$ unconditional mean function of $Z$, $\by_d$
 is the realized vector of observed responses, and
-$\blambda(\x,\bu_d)=\bK^{-1}_y(\bu_d,\bu_d) \bk(\bu_d, \bu)$. Here,
+$\lambda(\x,\bu_d)=K^{-1}_y(\bu_d,\bu_d) k(\bu_d, \bu)$. Here,
 the data covariance is
-$K_y=\mbox{Cov}(\bY_d,\bY_d)=\bG_d\bK(\bu_d,\bu_d)\bG_d^T+\bR_d$ and
-the cross-covariance is $\mbox{Cov}(\bY_d,Z(\x)) \bk(\bu_d, \x)=$,
-\kc{There is a dangling '='. Is this legit?} assuming the measurement
-error is independent of the GP.  The Kriging 
-(cross-)covariance function can also be expressed in the same vein via
+$K_y=\mbox{Cov}(\bY_d,\bY_d)=G_d K(\bu_d,\bu_d)G_d^T+R_d$ while
+the cross-covariance is $\mbox{Cov}(\bY_d,Z(\x))=G_d k(\bu_d, \x)$, assuming the measurement
+error is independent of the random fields.  The Kriging (cross-)covariance function can also be expressed in the same vein via
 a $p \times p$ matrix 
 \begin{equation}\label{eq:krig:cov}
-\bSigma(\x,\x')=\bK(\x,\x')-\blambda(\x,\bu_d)^T \bK_y(\bu_d, \bu_d) \lambda(\x,\bu_d).
+\Sigma(\x,\x')=K(\x,\x')-\lambda(\x,\bu_d)^T K_y(\bu_d, \bu_d) \lambda(\x,\bu_d).
 \end{equation}
 
-Equations \eqref{eq:cokrig} and \eqref{eq:krig:cov} are used to
+Eq. \eqref{eq:cokrig} and \eqref{eq:krig:cov} are used to
 provide informative, updated statements about sets of interest. For
 our case with temperature and salinity, the conditional EPs, given
 measurements $\by_d$, can then be computed from
 \begin{eqnarray}\label{eq:post_ep}
- p(\x;\by) &=& P(Z_1(\x) \leq t_1, Z_{2}(\x) \leq t_2 |\by(\bu_d)),  \nonumber \\
- &=& \Phi_2 ((t_1,t_2)^T-\bmu(\x)-\blambda(\x,\bu_d)^T \left( \by(\bu_d)-\bG_d \bmu(\bu_d)\right);0_2, \bSigma(\bu,\bu)). 
+ p(\x;\by_d) &=& P(Z_1(\x) \leq t_1, Z_{2}(\x) \leq t_2 |\bY_d=\by_d),  \nonumber \\
+ &=& \Phi_2 ((t_1,t_2)^T-\bbm(\x);0_2, \Sigma(\x,\x)). 
 \end{eqnarray}
 
 A critical element in the derivation of a closed-form for the EIBV is
 that the conditional mean in Eq. \eqref{eq:cokrig} is a linear
 (affine) function of the data $\by_d$ and the covariance is not a
-function of the data. This in turn means that the probabilities in
+function of the data. This in turn means that the probabilities in Eq.
 \eqref{eq:post_ep} involve inequality statements for linear
 combinations of Gaussian variables. Related closed-form solutions have
 been noted in similar contexts \citep{bhattacharjya2013value,
   chevalier2014fast,stroh}, but not generalized to our situation with
 random sets for vector-valued GPs. Notably, the mean in equation
-\eqref{eq:cokrig}, is in the form of $\ba+\bB \bV$, where
-$\bV \sim N(0_q, \bK_y (\bu_d,\bu_d))$,
-$\ba=(t_1,t_2)^t-\bmu(\bu)-\blambda(\bu,\bu_d)^T \bG_d \bmu(\bu_d)$
-and $\bB=\blambda(\bu,\bu_d)^T$. The following then applies to give a
+\eqref{eq:cokrig}, is in the form of $\ba+B V$, where
+$V \sim N(0_q, K_y (\bu_d,\bu_d))$,
+$\ba=(t_1,t_2)^t-\bmu(\x)+\lambda(\x,\bu_d)^T G_d \bmu(\bu_d)$
+and $B=\lambda(\x,\bu_d)^T$. The following then applies to give a
 closed-form solution to EIBV calculation in this case.
 
 \begin{propo}
@@ -651,21 +646,21 @@ closed-form solution to EIBV calculation in this case.
 	$\R^{p\times p}$ and $\R^{q\times q}$, respectively.
 	Then, for $V \sim \mathcal{N}_{q}(0_q, \covV)$,
 	\begin{equation*}
-	\mathbb{E}\left[ \varPhi_{p}\left( a + BV; 0_p,\covN \right)^h \right]
+	\mathbb{E}\left[ \varPhi_{p}\left( \ba + BV; 0_p,\covN \right)^h \right]
 	=
 	\varPhi_{ph}
 	\left(
-	\bm{a}
+	\ba
 	;0_{ph},
-	\bm{\Sigma}
+	\Sigma
 	\right),
 	\end{equation*}
-	where the vector $\bm{a} \in \R^{p h}$ is defined as 
-	$\bm{a} := 1_h\otimes a = 
+	where the vector $\ba \in \R^{p h}$ is defined as 
+	$\ba := 1_h\otimes a = 
 	\left(a, \dots , a
 	\right)'$
 	and the $p h\times p h$ covariance matrix is given by
-	$\bm{\Sigma} := 
+	$\Sigma := 
 	1_h 1_h'\otimes B\covV B' + I_h\otimes \covN$.
 \end{propo}
 The proof of Proposition \ref{propo2} is provided in the Appendix. 
@@ -673,7 +668,7 @@ The proof of Proposition \ref{propo2} is provided in the Appendix.
 In block-wise representation, the following relation holds for the
 covariance in Proposition \ref{propo2}: 
 \begin{align*}
-	\bm{\Sigma}&=
+	\Sigma&=
 	\begin{pmatrix}
 	\covN & &\\
 	& \ddots &\\
@@ -740,6 +735,7 @@ The proof of Proposition \ref{propo2} is provided in the Appendix.
 
 
 \subsection{An Example of EIBV using Temperature and Salinity}
+\label{Sec:UnivarEx}
 
 In this section, we calculate EPs and the Bernoulli variance for a few bivariate
 Gaussian distributions to illustrate the concepts articulated above.
@@ -789,7 +785,7 @@ EIBV, Temperature data only & 0.151 & 0.138 & 0.123 & 0.137 & 0.114 & 0.093 \\
 Table \ref{tab:sim_rhoab} (bottom two rows) shows results of expected
 Bernoulli variance calculations. This is presented for a design
 gathering both data types, and for a design with
-temperature measurements alone. Both data are modeled by $(Y_1,Y_2)^t=(Z_1,Z_2)^t+N(0,0.5^2\bI)$, while
+temperature measurements alone. Both data are modeled by $(Y_1,Y_2)^t=(Z_1,Z_2)^t+N(0,0.5^2I_2)$, while
 $Y_2=Z_2+N(0,0.5^2)$ when only temperature is measured.  For this
 illustration, Table \ref{tab:sim_rhoab} shows that the expected
 Bernoulli variance gets lower with larger standard deviations
@@ -833,7 +829,7 @@ that build on the notion of EIBV.
 \subsection{Optimal Sequential Design}
 \label{Optdes}
 
-An adaptive AUV survey is split into many stages. The selection on where to sample is made with restriction to the waypoint graph and defined by the nearest grid nodes in the domain $\mathcal{M}_g$.
+An adaptive AUV survey is split into many stages. The selection on where to sample is made with restriction to the triangular waypoint graph and defined by its nearest grid nodes.
 
 Let $d^{j,s}$ denote design
 number $j$ at stage $s$ of a sequential survey. If this design is
@@ -842,9 +838,9 @@ We further let
 $\mathcal{Y}^{s-1} =\{(d^{j,1}, \by_{d^{j,1}}),\ldots, (d^{j,s}, \by_{d^{j,s}}) \}$ denote
 the set of all data gathered until stage $s-1$ according to selected design $d^{j,1},\ldots,d^{j,s}$. 
 This defines the AUV position at the stage $s$. 
-The data further defines the conditional GP  with mean $\bbm^{s-1}(\x)=E(\gp[u]|\mathcal{Y}^{s-1})$ from
+The data further defines the conditional GP  with mean $\bbm^{s-1}(\x)=E(\gp[\x]|\mathcal{Y}^{s-1})$ from
 Eq. (\ref{eq:cokrig})
-and (cross) covariance matrix $\bSigma^{s-1}=\mbox{Var}(\gp[u]|\mathcal{Y}^{s-1})$ from Eq. (\ref{eq:krig:cov}).
+and (cross) covariance matrix $\Sigma^{s-1}=\mbox{Var}(\gp[\x]|\mathcal{Y}^{s-1})$ from Eq. (\ref{eq:krig:cov}).
 
 At the next stage, we choose where measurements $\by_{d^{j,s}}$ should be gathered with
 design $d^{j,s}$. For the triangularized waypoint graph that we use in our AUV application, there are six possible directions for $j$, and we must evaluate the design criterion for all these. 
@@ -884,11 +880,11 @@ Instead, we outline heuristic strategies.
 
 The simplest heuristic for adaptive sampling is to choose the next
 sampling location based on current probabilities. One reduces the largest levels of uncertainty by selecting the design $j$ with $P(Z(\x_j) \in T)$ closest to $0.5$.
-For our situation with temperature and salinity this {\it{naive}} strategy then
-selects the design according to:
+For our situation with temperature and salinity variables, this {\it{naive}} strategy selects the stage $s$ sampling design according to:
 \begin{eqnarray}\label{critNaive}
-    d^{*,s} &=& \mbox{argmin}_{j} |P(Z_1(\x_j) \leq t_1, Z_2(\x_j) \leq t_2 | \mathcal{Y}^{s-1})-0.5|. \nonumber
+    d^{*,s} &=& \mbox{argmin}_{j} |P(Z_1(\x_j) \leq t_1, Z_2(\x_j) \leq t_2 | \mathcal{Y}^{s-1})-0.5|, \nonumber
 \end{eqnarray}
+where $j$ is indexing all neighboring locations on the waypoint graph.
 
 This strategy does not account for the uncertainty in the GP variables, but is instead applicable only if one design (node) has EPs closer to
 $0.5$ (see Table \ref{tab:sim_rhoab}, line two). Additionally, this strategy does not
@@ -907,7 +903,7 @@ offer beyond the first stage.
 Based on the currently available data $\mathcal{Y}^{s-1}$, we
 fit an updated GP model. Focusing on the EIBV criterion, at the next stage $s$, the selected design is:
 \begin{eqnarray}\label{critSEQ}
-    d^{*,s} &=& \mbox{argmin}_{j} \left\{ \sum_{\x \in \mathcal{M}_g} E_{\by_{d^{j,s}}|\mathcal{Y}^{s-1}} \left( p(\x;\mathcal{Y}^{j,s})\left( 1-p(\x;\mathcal{Y}^{j,s})\right) \right) \Delta, \right\} \\
+    d^{*,s} &=& \mbox{argmin}_{j} \left\{ \int_{\mathcal{M}} E_{\by_{d^{j,s}}|\mathcal{Y}^{s-1}} \left( p(\x;\mathcal{Y}^{j,s})\left( 1-p(\x;\mathcal{Y}^{j,s})\right) \right) d\mes(u), \right\} \\
     p(\x;\mathcal{Y}^{j,s}) &=& P(Z_u \in T |\by_{d^{j,s}},\mathcal{Y}^{s-1}). \nonumber
 \end{eqnarray}
 
@@ -917,7 +913,7 @@ the expectation is conditional to this data. A similar closed-form calculation
 for EIBV is hence applicable in Eq. (\ref{critSEQ}) using the
 updated GP model from stage $s-1$. Once the data is collected for the
 best design at stage $s$, the GP model is updated again. The mean $\bbm^{s}$ and
-covariance matrix $\bSigma^{s}$ are used to compute the next design at
+covariance matrix $\Sigma^{s}$ are used to compute the next design at
 stage $s+1$, and so on.
 
 Even though this myopic strategy is non-anticipative, it still gives a
@@ -934,12 +930,12 @@ subsequent trajectory.
 We now extend the myopic strategy to a look-ahead strategy, which is
 optimal when one can gather only two more stages of measurements. In
 addition to the next stage of measurements $\by^{j,s}$, this
-look-ahead strategy, anticipates the subsequent design $j_2$ with
+look-ahead strategy, anticipates the subsequent design indexed $j_2$ with
 data $\by^{j_2,s+1}$ when choosing the current design $d^{j,s}$.  The
 selected design is:
 \begin{eqnarray}\label{critLA}
-    d^{*,s} &=& \mbox{argmin}_{j} \left\{ E_{\by_{d^{j,s}}|\mathcal{Y}^{s-1}} \left[ \mbox{argmin}_{j_2}  V_{j_2} \right] \right\}, \nonumber \\
-V_{j_2} & = & \sum_{\x \in \mathcal{M}_g} E_{\by_{d^{j_2,s+1}}|\mathcal{Y}^{j,s}} \left( p(\x;\mathcal{Y}^{j,s+1})\left( 1-p(\x;\mathcal{Y}^{j,s+1})\right) \right) \Delta, \nonumber \\
+    d^{*,s} &=& \mbox{argmin}_{j} \left\{ E_{\by_{d^{j,s}}|\mathcal{Y}^{s-1}} \left[ \mbox{argmin}_{j_2}  V_{j_2} \right] \right\}, \\
+V_{j_2} & = & \int_{\mathcal{M}} E_{\by_{d^{j_2,s+1}}|\mathcal{Y}^{j,s}} \left( p(\x;\mathcal{Y}^{j,s+1})\left( 1-p(\x;\mathcal{Y}^{j,s+1})\right) \right) d\mes(u), \nonumber \\
     p(\x;\mathcal{Y}^{j,s+1}) &=& P(Z(\x) \in T |\by_{d^{j_2,s+1}},\mathcal{Y}^{j,s}). \nonumber
 \end{eqnarray}
 Here, $\mathcal{Y}^{j,s}=\{\by_{d^{j,s}},\mathcal{Y}^{s-1}\}$ and
@@ -954,12 +950,12 @@ Section \ref{sec:ESEP}.
 
 Even though the strategy looks at two sampling stages, it is only used to find
 the current best design. When data are collected, the GP model is
-updated, and the mean $\bbm^{s}$ and covariance matrix $\bSigma^{s}$ are
+updated, and the mean $\bbm^{s}$ and covariance matrix $\Sigma^{s}$ are
 used to compute the next design at stage $s+1$, now anticipating what
 stage $s+2$ could offer, and so on.
 This look-ahead approach is much more computationally demanding than
 the myopic strategy, so for practical implementation, we prune paths
-in the evaluation of Eq. (\ref{critLA}). This means that we use the myopic
+in the evaluation of Eq. \eqref{critLA}. This means that we use the myopic
 strategy to rank the three best designs following the first stage alone, and
 for each of these preferred designs, we undertake the look-ahead calculations.
 
@@ -1282,7 +1278,7 @@ temp. only         &  11.67 &   \textbf{22.82} &       21.98 &         18.16 &  
 basecase           &  24.71 &   33.45 &       32.25 &         26.71 &        30.62 &          \textbf{33.54}\\
         \bottomrule
         \end{tabular}}
-      \caption{Simulation results for the final mean explained variance $\bR^{2}=100*(1-(\bSigma_{posterior}/\bSigma_{initial}))$).}
+      \caption{Simulation results for the final mean explained variance $\bR^{2}=100*(1-(\Sigma_{posterior}/\Sigma_{initial}))$).}
     \label{tab:sim_res_r2}
 \end{table}
 
