@@ -76,7 +76,27 @@ Switzerland.
 
 \begin{abstract}
 
-  Improving and optimizing oceanographic sampling is a crucial task for marine science and maritime management. Faced with limited resources to understand processes in the water-column, the combination of statistics and autonomous robotics provides new opportunities for experimental designs. In this work we develop methods for efficient spatial sampling applied to the mapping of coastal processes by providing informative descriptions of spatial characteristics of ocean phenomena. Specifically, we define a design criterion based on improved characterization of the uncertainty in the excursions of vector-valued Gaussian random fields, and derive tractable expressions for the expected Bernoulli variance reduction in such a framework. We demonstrate how this criterion can be used to prioritize sampling efforts at locations that are ambiguous, making exploration more effective. We use simulations to study the properties of methods and to compare them with state-of-the-art approaches, followed by results from field deployments with an autonomous underwater vehicle as part of a case study mapping the boundary of a river plume. The results demonstrate the potential of combining statistical methods and robotic platforms to effectively inform and execute data-driven environmental sampling.
+  Improving and optimizing oceanographic sampling is a crucial task
+  for marine science and maritime management. Faced with limited
+  resources to understand processes in the water-column, the
+  combination of statistics and autonomous robotics provides new
+  opportunities for experimental design. In this work we develop
+  methods for efficient spatial sampling applied to the mapping of
+  coastal ocean processes by providing informative descriptions of
+  spatial characteristics of ocean phenomena. Specifically, we define
+  a design
+  criterion based on improved characterization of the uncertainty in
+  the excursions of vector-valued Gaussian random fields, and derive
+  tractable expressions for the expected Bernoulli variance reduction
+  in such a framework. We demonstrate how this criterion can be used
+  to prioritize sampling efforts at locations that are ambiguous,
+  making exploration more effective. We use simulations to study the
+  properties of methods and to compare them with state-of-the-art
+  approaches, followed by results from field deployments with an
+  autonomous underwater vehicle (AUV) as part of a study mapping the
+  boundary of a river plume. The results demonstrate the potential of
+  combining statistical methods and robotic platforms to effectively
+  inform and execute data-driven environmental sampling.
   
 %Motivated by the challenges related to efficient allocation of sampling resources in environmental sensing, the combination of Excursion Probabilities and Gaussian process modeling is explored for autonomous robotic sampling of ocean features; enabling information driven measures  sampling efforts to high-interest regions. These regions are usually characterized by gradients of measurable environmental variables, e.g., temperature or salinity gradients, on which EPs subsequently can be used...Correlation among samples and multivariate requirements are typical in environmental studies.
 
@@ -87,6 +107,7 @@ Switzerland.
 \kwd{Excursion Sets}
 \kwd{Gaussian Processes}
 \kwd{Experimental Design}
+\kwd{Autonomous robots}
 \kwd{Adaptive Information Gathering}
 \end{keyword}
 
@@ -94,29 +115,149 @@ Switzerland.
 
 \section{Introduction}
 
-Monitoring the world's oceans has gained increased importance in 
-light of the changing climate and increasing anthropogenic impact. A
-central problem for understanding these factors is the lack of
-representative data with sufficient resolution. Most of this
-\emph{undersampling} can be attributed to the large spatio-temporal
-variations on which ocean processes transpire, prompting the need for
-effective means of sampling. By \emph{sampling}, we refer to the design of observational strategies in the spatial domain, where the use autonomous robotic platforms can be combined with statistical methods to pursue measurements with high scientific relevance. This combination, of statistical tools and robotic platforms, constitute a methodological basis for addressing the problem of efficient sampling of the ocean, which is at the core of this the paper. 
+Monitoring the world's oceans has gained increased importance in light
+of the changing climate and increasing anthropogenic impact. A central
+problem for understanding these factors is the lack of representative
+data with sufficient resolution. Most of this \emph{undersampling} can
+be attributed to the large spatio-temporal variations in which ocean
+processes transpire, prompting the need for effective means of
+sampling. By \emph{sampling}, we refer to the design of observational
+strategies in the spatial domain, where the use autonomous robotic
+platforms can be combined with statistical methods to pursue
+measurements with high scientific relevance. This combination, of
+statistical tools and robotic platforms, constitute a methodological
+basis for addressing the problem of efficient sampling of the ocean,
+which is at the core of this work.
 
-There are several obstacles when doing sampling with autonomous platforms in the ocean. First, full numerical ocean models based on complex differential equations cannot provide accurate results for online operations because the onboard computers lack the computational power required. Hence statistical proxy models of the environment must be used. For our purpose, we rely on Gaussian process (GP) representations of the ocean variables of interest. Second, with undersampling issues one must usually plan for active learning during the operation, where a relevant criterion is used to extract the most valuable designs. The acquired in-situ information must then be assimilated into the statistical model onboard the platform, so that it can be used to re-compute the sampling criterion and in this way inform decisions on where to sample next. We use a criterion focusing on the prediction of excursion sets (ESs) for the multivariate spatial processes of interest. Third, the number of sampling designs is enormous, creating a trade-off between optimization and computability. One must often compromise in both development and practical operations, and we will rely on short-horizon optimization routines for sequential designs among nearest neighbors points in a spatial grid (waypoint graph).
+There are several challenges with sampling with autonomous platforms.
+\kc{You seem to jump the gun in stating a challenge without
+  connecting it to the sampling problem. Introduce a sentence as to
+  why models (as a proxy) are important for \emph{understanding} ocean
+  processes} First, full numerical ocean models based on complex
+differential equations cannot be run onboard a marine robot with
+limited computational capacity.
+% provide accurate results for online
+% operations because the onboard computers lack the computational power
+% required.
+Hence statistical proxy models of the environment must be
+used. For our purpose, we rely on Gaussian process (GP)
+representations of the ocean variables of interest.\kc{Sorry....but
+  this makes no sense whatsoever. What is the connection of you using
+  a GP with sampling? You need to make a case first as to the
+  viability of using GP in a marine robot first as a potential viable
+  option, before you state why you want to use a GP}. Second, with
+undersampling issues \kc{what issues? If there are issues, you state
+  them first and then suggest solutions.} one must usually plan for
+active learning during the operation, where a relevant criterion is
+used to extract the most valuable designs. The acquired in-situ
+information must then be assimilated into the statistical model
+onboard the platform, so that it can be used to re-compute the
+sampling criterion and in this way inform decisions on where to sample
+next. We use a criterion focusing on the prediction of excursion sets
+(ESs) for the multivariate spatial processes of interest. Third, the
+number of sampling designs is enormous, creating a trade-off between
+optimization and computability. One must often compromise in both
+development and practical operations, and we will rely on
+short-horizon optimization routines for sequential designs among
+nearest neighbors points in a spatial grid (waypoint graph).
 
-The imperfect understanding of causality coupled with the underlying fundamental uncertainty of the ocean implies that we need to obtain more measurements and use statistical models and methods to determine what and how phenomena form, to increase the quality of predictive statements. With this in mind, we design AUV sampling strategies for reducing the spatially-integrated Bernoulli variance (IBV) in the ES indicator variables. Recent work on ESs and associated excursion probabilities (EPs) connected to spatial statistics include \cite{french2013spatio,bolin2015excursion,french2016credible}. Our focus is on uncertainty characterization and how this is influenced by sampling. In this sense, our work is similar to \cite{bect2012,chevalier2014fast,azzimonti2016quantifying} who describe analytical results for the IBV for univariate processes. A major contribution of our work is to derive closed-form results for this design criteria for situations where the underlying model is based on multivariate GPs. Another contribution is that we embed this approach in a sequential strategy to produce sampling algorithms, and apply this to a real-world scenario of autonomously sampling temperature and salinity variables using an autonomous underwater vehicle (AUV), with the intention of understanding the between the ocean and a river plume. 
+\kc{The para above needs a rewrite to me. It starts off by stating
+  there are challenges. But then jumps to models without stating the
+  connection with sampling, and then jumps into learning without
+  stating why learning is important. Typically the English in formal
+  text starts with a statement which is supported or clarified. In the
+  two cases above, the connections are simply not obvious. If this was
+  there in the first version of the m/s submitted, I'm not sure why
+  the reviewers didn't catch it. This is not just a stylistic issue;
+  it has to do with making sense and bring the reader/reviewer along.}
 
-Motivating examples relevant for ESs of multivariate processes are abundant. In medicine, doctors do not rely solely on a single symptom but must see several combined effects before making a diagnosis. In our context of environmental sampling applications, the salinity and temperature excursions of a river plume can similarly help characterize the underlying oceanographic and bio-geochemical processes \citep{hopkins2013detection,Pinto2018}, where sampling should be aimed at mapping relevant parts of the domain to reduce uncertainty in the temperature and salinity ES. Unlike what has been done in previous plume exploration studies, we emphasize the links to spatial statistical modeling and targeted multivariate sampling criteria for sequential sampling. 
+\kc{Second, I don't see a motivation for GPs here and as I read
+  further into the text. Even for stats folks, are GPs the ``best''
+  ways to go? Are they obviously the tools one would use in
+  environmental sampling? And even if they are, I think we ought to
+  make the case for it strongly and generally, so this paper is
+  actually accessible and understandable to those not in the Spatial
+  Stats field. I would suggest adding a short para on GPs and why
+  they're important -- i.e. motivate the use of GPs early, so we can
+  freely make attributions to them later, as in the next section, for
+  example.} 
 
-The remainder of this paper is organized as follows: Section \ref{sec:bg} provides select background on ocean sampling; Section \ref{sec:ESEP} defines ESs, EPs, and the design criteria of IBV for vector-valued GPs; Section \ref{sec:heuristics} builds on these assumptions when deriving the sequential design criteria for adaptive sampling; Section \ref{sec:simulations} discusses properties of the methods in simulation studies. Section \ref{sec:case_study} demonstrates the methodology used in field work characterizing a river plume; and Section \ref{sec:concl_disc} contains a summary and a discussion of future work.
 
-\section{Background on Ocean Processes and Observations}\label{sec:bg}
+The imperfect understanding of causality coupled with the underlying
+fundamental uncertainty of the ocean implies that we need to make a
+large number of measurements. In addition, the use statistical models
+and methods to determine what and how phenomena form, is one way to
+increase the quality of predictive power aiding our understanding of
+upper water-column processes. 
+
+With this in mind, we have designed AUV sampling strategies for
+reducing the spatially-integrated Bernoulli variance (IBV) in the ES
+indicator variables. Recent work on ESs and associated excursion
+probabilities (EPs) connected to spatial statistics include
+\cite{french2013spatio,bolin2015excursion,french2016credible}. Our
+focus is on uncertainty characterization and how this is influenced by
+sampling. In this sense, our work is similar to
+\cite{bect2012,chevalier2014fast,azzimonti2016quantifying} who
+describe analytical results for the IBV for univariate processes.
+
+A major contribution of our work is to derive closed-form results for
+this design criteria for situations where the underlying model is
+based on multivariate GPs. Another contribution is that we embed this
+approach in a sequential strategy to produce sampling algorithms, and
+apply this to a real-world scenario of autonomously sampling
+temperature and salinity gradients using an AUV, with the intention of
+characterizing the variability of oceanic and riverine waters in
+typical mixed coastal environments.
+
+Motivating examples relevant for ESs of multivariate processes are
+abundant. In medicine, doctors do not rely solely on a single symptom
+but must see several combined effects before making a diagnosis. In
+our context of environmental sampling, the salinity and temperature
+excursions of a river plume can similarly help characterize the
+underlying bio-geochemical processes
+\citep{hopkins2013detection,Pinto2018}, where sampling can be aimed
+towards reducing uncertainty in the temperature and salinity ES.
+Unlike what has been done in previous plume exploration studies, we
+emphasize the links to spatial statistical modeling and targeted
+multivariate sampling criteria for sequential sampling.
+
+The remainder of this paper is organized as follows: Section
+\ref{sec:bg} provides select background on ocean sampling. Section
+\ref{sec:ESEP} defines ESs, EPs, and the design criteria of IBV for
+vector-valued GPs. Section \ref{sec:heuristics} builds on these
+assumptions when deriving the sequential design criteria for adaptive
+sampling. Section \ref{sec:simulations} discusses properties of the
+methods in simulation studies. Section \ref{sec:case_study}
+demonstrates the methodology used in field work characterizing a river
+plume and finally, Section \ref{sec:concl_disc} contains a summary and
+a discussion of future work.
+
+\section{Ocean Processes and Observation}
+\label{sec:bg}
 
 Central to understanding the changes taking place in the upper
-water-column is knowledge of the biophysical interaction driven by
-an agglomeration of physical forcings (e.g. wind, topography, bathymetry, tidal influences, etc.) and incipient micro-biology driven by planktonic and coastal anthropogenic input, such as pollution and agricultural runoff transported into the ocean by rivers and streams. These often result in a range of ecosystem-related phenomena such as blooms and plumes, with direct and indirect effects on society.
+water-column is knowledge of the bio-geophysical interaction driven by
+an agglomeration of physical forcings (e.g. wind, topography,
+bathymetry, tidal influences, etc.) and incipient micro-biology driven
+by planktonic and coastal anthropogenic input, such as pollution and
+agricultural runoff transported into the ocean by rivers and streams.
+These often result in a range of ecosystem-related phenomena such as
+blooms and plumes, with direct and indirect effects on society. \kc{we
+  should look for a citation here. Check with John Ryan}
 
-Traditional data collection to understand such phenomena at sea has typically been based on static buoys, floats, or ship-based methods, with significant logistical limitations that directly impact coverage and sampling resolution. Modern methods using satellite remote-sensing provide large-scale coverage but have limited resolution, are limited to sensing the surface, and are impacted by cloud cover. Numerical ocean models similarly find it challenging to provide detail at smaller scale \citep{Lermusiaux:2006}.  The advent of mobile robotic platforms \citep{Bellingham07} has resulted in significant contributions to environmental monitoring and sampling. In particular, AUVs have advanced the state of in-situ sampling, and made robotics an integral part of ocean observation, filling parts of the undersampling gap (See Fig. \ref{fig:envir1}). 
+Traditional data collection to understand such phenomena at sea has
+typically been based on static buoys, floats, or ship-based methods,
+with significant logistical limitations that directly impact coverage
+and sampling resolution. Modern methods using satellite remote-sensing
+provide large-scale coverage but have limited resolution, are limited
+to sensing the surface, and are impacted by cloud cover. Numerical
+ocean models similarly find it challenging to provide detail at fine
+scale \citep{Lermusiaux:2006}. The advent of mobile robotic platforms
+\citep{Bellingham07} has resulted in significant contributions to
+environmental monitoring and sampling. In particular, AUVs have
+advanced the state of in-situ sampling, and made robotics an integral
+part of ocean observation, filling parts of the undersampling gap
+\cite{rudnick03,rudnick18}(See Fig. \ref{fig:envir1}).
 
 %Walter Munk referred to the 20\textsuperscript{th} century
 %as the \emph{century of undersampling} \citep{munk2002}, pointing out
@@ -138,51 +279,141 @@ Traditional data collection to understand such phenomena at sea has typically be
   \hfill
   \subfigure[Frontal patterns off of the Nidelva river, Trondheim, Norway.]{\includegraphics[width =
     0.49\textwidth]{Figures/river_proccess.pdf}\label{fig:nidelven}}
-  \caption{\ref{fig:envir1} Traditional ocean observation based on
-    ship-based sampling has recently been augmented by autonomous robotic vehicles. % and their interactions. 
-    AUV platforms are an integral part of this network being able to reason and make decisions for efficient onboard adaptive sampling. % using the sense-plan-act control approach to autonomous control.
+  \caption{\ref{fig:envir1} Traditional ocean observation based on 
+    ship-based sampling has been augmented by autonomous
+    robotic vehicles. % and their interactions.  
+    AUV platforms are an integral part of this network being able to
+    reason and make decisions for efficient onboard adaptive sampling.
+    % using the sense-plan-act control approach to autonomous control. 
     \ref{fig:nidelven} The interaction of river and ocean creates
     processes that are challenging to map, where the combination of
     statistics and robotics can play a vital role in enabling more
-    effective observation practices.}
-\label{fig:envir}
-\end{figure}
+    effective oceanographic observation.\kc{The inset ``AUV robot''
+      looks very tacky and ad-hoc; might be best to remove it. Why not
+      add a subfigure of an AUV instead and not lump it into a figure
+      which is already quite busy? It can't hurt. Change ``ships'' to
+      ``Ship'', remove the aerial drone, since we didn't use it and
+      don't plan to in this work.}}
+  \label{fig:envir} \end{figure}
 
-The AUVs considered here operate at $1$-$3$ m/s in the upper water column, where they are free to move in six degrees of freedom (6 DOF). The in-water operation time capacity depends on survey speed, payload sensors and navigation. Generally this amounts to 8-24 hrs. operation for smaller crafts, and 24-48 hrs. for larger crafts. AUVs have limited computational capacity, as they typically use single-board computers (SBCs), like the Raspberry Pi or a multicore GPU NVIDIA Jetson TX1 (quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared cache, and 4 GB of 1600 MHz DRAM) to do computation. 
+The AUVs considered here powered untethered platforms that operate at
+$1$-$3$ m/s in the upper water column, where they are free to move in
+six degrees of freedom (6 DOF). The in-water operation time capability
+depends on survey speed, payload sensors and navigation; typically
+this amounts to 8-48 hrs. AUVs typically use single-board computers
+(SBCs), like the Raspberry Pi or a multicore GPU NVIDIA Jetson TX1
+(quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared cache, and 4
+GB of 1600 MHz DRAM) for computation onboard.
 
-Surveys with AUVs are usually limited to observations along fixed transects that are pre-scripted in mission plans created manually by a human operator. The mission can be specified operating on a scale of hundreds of meters to tens of kilometers depending on the scientific context. Faced with limited coverage capacity, a more effective approach is to instead use onboard algorithms to continuously evaluate, update, and refine future sampling locations (sense-plan-act cycle in Fig. \ref{fig:envir1}), making the information gathering \emph{adaptive} \citep{das11b,Das2015,fossuminformation,fossum18b}. This usually occurs on a spatial grid, called a waypoint graph. In doing so, the space of sampling opportunities is still limited by the waypoint graph, but the AUV has flexibility to modify its path at each waypoint based on what has been measured onboard \citep{py10,Rajan12,Rajan12b}.
+Surveys with AUVs are usually limited to observations along fixed
+transects that are pre-scripted in mission plans created manually by a
+human operator. The mission can be specified operating on a scale of
+hundreds of meters to tens of kilometers depending on the scientific
+context. Faced with limited coverage capacity, a more effective
+approach is to instead use onboard algorithms to continuously
+evaluate, update, and refine future sampling locations (sense-plan-act
+cycle in Fig. \ref{fig:envir1}), making the information gathering
+\emph{adaptive} \citep{das11b,Das2015,fossuminformation,fossum18b}.
+% This usually occurs on a spatial grid, called a waypoint graph. 
+In doing so, the space of sampling opportunities is still limited by
+the waypoint graph, but the AUV has flexibility to modify its path at
+each waypoint based on in-situ sensing and measurements onboard
+\citep{py10,Rajan12,Rajan12b}.
 
-The application that is of focus in this work is towards spatial characterization of a frontal system generated by river plumes. Fig. \ref{fig:nidelven} shows the survey area (Nidelva, Norway) where cold freshwater enters from the river, creating a strong gradient in both temperature and salinity. Because of the local topography and the Coreolis force %\citep{coriolis1835memoire} 
-the cold fresh water tends to flow near
-land to the east. Depending on the river discharge, tidal effects, wind, and temperature differences, this boundary often gets distorted. Initial knowledge about the location and evolution of these but the locations of these features are highly uncertain, making deterministic planning challenging. 
+We focus on spatial characterization of a frontal system generated by
+river plumes. Fig. \ref{fig:nidelven} shows the survey area in
+Trondheim, Norway, where cold freshwater enters from the river,
+creating a strong gradient in both temperature and salinity. Because
+of the local topography and the Coriolis force the cold fresh water
+tends to flow to the east. Depending on the river discharge, tidal
+effects, wind, and temperature differences, this boundary often gets
+distorted. Initial knowledge about the location and evolution of these
+features are highly uncertain, making deterministic planning
+challenging.
 
-Adaptive in-situ AUV sampling of an evolving frontal feature has been explored in \cite{fronts11,Zhang2012,Pinto2018,costa19}. These approaches typically use a reactive-adaptive scheme, whereby exploration does not rely on a statistical model of the environment, but rather adapts based on closing the sensing and actuation loop. Myopic sampling, i.e. stage-wise selection of the path (on the waypoint graph), has been used for surveys \citep{singh2009efficient,Binney2013} that focus largely on reducing predictive variance or entropy. These criteria are widely adopted in the statistics literature on spatio-temporal design as well \cite{bueso1998state,zidek2019monitoring}, but variance and entropy reduction are independent of the actual data realizations under the assumptions of GP models, so limited decision flexibility is created for sequential designs. The use of data-driven adaptive criteria was introduced to include more targeted sampling of regions of scientific interest in \cite{Low2009} and \cite{fossuminformation}. In this paper, with a focus on mapping the river plume by rewarding the designs that improve the classification of ES in temperature and salinity.
+Adaptive in-situ AUV sampling of an evolving frontal feature has been
+explored in \cite{fronts11,Zhang2012,Pinto2018,costa19}. These
+approaches typically use a reactive-adaptive scheme, whereby
+exploration does not rely on a statistical model of the environment,
+but rather adaptation is based on closing the sensing and actuation
+loop. Myopic sampling, i.e. stage-wise selection of the path (on the
+waypoint graph), has been used for surveys
+\citep{singh2009efficient,Binney2013} that focus largely on reducing
+predictive variance or entropy. These criteria are widely adopted in
+the statistics literature on spatio-temporal design as well
+\cite{bueso1998state,zidek2019monitoring}, but variance and entropy
+reduction are independent of the actual data realizations under the
+assumptions of GP models, so limited decisional flexibility is created
+for sequential designs \kc{should this be, ``...so it has limited
+  decisional flexibility''?}. The use of data-driven adaptive criteria
+was introduced to include more targeted sampling of regions of
+scientific interest in \cite{Low2009} and \cite{fossuminformation}. In
+this paper, we focus on mapping the river plume by rewarding designs
+that improve the classification of ES in temperature and salinity.
 
 
 \section{Quantifying uncertainty on Excursion Sets implicitly defined by Gaussian processes}
 \label{sec:ESEP}
 
+\kc{Typically, I have been told in the past, it is bad form to start a section and
+  then a subsection right away. I sort of see it, so, it might be good to
+  provide a 1-2 sentence introduction here perhaps?}
+
 \subsection{Excursion sets and Integrated Bernoulli variance}
 \label{ES}
 
-Our objective is to leverage statistical tools onboard autonomous vehicles to characterize a river
-plume, focusing on spatial separation of cold freshwater from the
-river and warmer saline waters of the fjord. The characterization of uncertainties on the ES is a useful
-goal of this experimental sampling.
+Our objective is to leverage statistical tools onboard an autonomous
+robotic platform to characterize a river plume, focusing on spatial
+separation of cold freshwater from a river and warmer saline waters
+of a fjord. The characterization of uncertainties on the ES is a
+useful goal of this sampling strategy.
 
-In order to formalize the problem in mathematical terms,
-let us consider a multivariate (i.e., vector-valued) Gaussian random field $(\gp[\x])_{\x \in \mathcal{M}}$, where $\mathcal{M}$ is an arbitrary set (typically in geostatistical studies, a subset of interest of the ambient Euclidean space or of a sphere therein) and the dimensionality of the output $\no \geq 1$ is arbitrary. Assume furthermore that the set of interest is characterized in terms of a subset of values of the variables, say $\T \subset \R^{\no}$, and denote the corresponding set of index points by 
+In order to formalize the problem in mathematical terms, let us
+consider a multivariate (i.e., vector-valued) Gaussian random field
+$(\gp[\x])_{\x \in \mathcal{M}}$, where $\mathcal{M}$ is an arbitrary
+set (typically in geostatistical studies, a subset of interest of the
+ambient Euclidean space or of a sphere therein \kc{is this obvious to
+  the readership why a sphere? It isn't for me certainly.}) and the
+dimensionality of the output $\no \geq 1$ is arbitrary \kc{Is the
+  definition of such a 'p' and its dimensionality, obvious? This to me
+  springs out of nowhere.}. Assume furthermore that the set of interest
+is characterized in terms of a subset of values of the variables, say
+$\T \subset \R^{\no}$, and denote the corresponding set of index
+points by
 $$
 \es=\gp^{-1}(\T)=\{\x \in \mathcal{M}: \gp[\x] \in \T\}.
 $$
-Our goal here is to develop approaches to quantify and improve the characterization of uncertainties on such sets in the context of multivariate random fields. 
+Our goal here is to develop approaches to quantify and improve the
+characterization of uncertainties on such sets \kc{$\es$?} in the
+context of multivariate random fields.
 
-While some aspects of the developed
-approaches do not call for a specific form of $\T$, we will often stick for
-simplicity to the case of orthants ($\T=(-\infty, t_1] \times \dots \times (-\infty, t_{\no}]$ where $t_1,\dots, t_{\no} \in \R$) as this will allow efficiently calculating several key quantities. Note that changing some $\leq$ inequalities to $\geq$ ones would lead to immediate adaptations. In the application specific properties following the orthant assumption come into play: We let $t_1$ be a threshold for temperature and $t_2$ a threshold for salinity. The set of index point then defines $\mbox{ES} = \{\x \in D : \gp[\x,1] \leq t_1,\gp[\x,2]  \leq t_2\}$. The associated EPs are $p(\x) = P(\gp[\x,1] \leq t_1,\gp[\x,2]  \leq t_2)$, $\x \in \mathcal{M}$. 
+While some aspects of the developed approaches do not call for a
+specific form of $\T$, we will often stick for simplicity to the case
+of orthants
+($\T=(-\infty, t_1] \times \dots \times (-\infty, t_{\no}]$ where
+$t_1,\dots, t_{\no} \in \R$) as this will allow efficient calculation
+of several key quantities. Note that changing some $\leq$ inequalities
+to $\geq$ ones would lead to immediate adaptations. In the application
+specific properties following the orthant assumption come into play
+\kc{This last phrase doesn't parse; is it ``..., the following
+  orthant....''?}: We let $t_1$ be a threshold for temperature and
+$t_2$ a threshold for salinity \kc{Might be easier to remember with
+  symbols 't' and 's' in some
+  form.}. The set of index point then defines
+$\mbox{ES} = \{\x \in D : \gp[\x,1] \leq t_1,\gp[\x,2] \leq t_2\}$.
+The associated EPs are
+$p(\x) = P(\gp[\x,1] \leq t_1,\gp[\x,2] \leq t_2)$,
+$\x \in \mathcal{M}$.
 
-For statistical generality, we will however keep the abstract notation with $\T$ and general $\es$ for most of the derivations. Note that assuming that $\gp$ has continuous trajectories (almost surely) and $T$ to be closed, then $\es$ can be cast as a Random Closed Set \citep{Molchanov2005,adler2009random}. %In what follows, we will express various quantities related to $\es$ in terms of $\gp$'s moments both for general and orthant $T$'s. 
-Let us in particular consider a locally finite (Borel) measure $\mes$ on $D$ and investigate the probability distribution of $\mes(\es)$ through its moments. 
+For statistical generality, we will however keep the abstract notation
+with $\T$ and general $\es$ \kc{Again, previous phrase doesn't parse.}
+for most of the derivations. Note that assuming that $\gp$ has
+continuous trajectories (almost surely) and $T$ to be closed, then
+$\es$ can be cast as a Random Closed Set
+\citep{Molchanov2005,adler2009random}. %In what follows, we will express various quantities related to $\es$ in terms of $\gp$'s moments both for general and orthant $T$'s.
+Let us in particular consider a locally finite (Borel) measure $\mes$
+on $D$ and investigate the probability distribution of $\mes(\es)$
+through its moments.
 
 \medskip 
 
@@ -190,22 +421,20 @@ Let us in particular consider a locally finite (Borel) measure $\mes$ on $D$ and
 \begin{propo}
 	\label{propo1}
 	%Under technical conditions to be precised, $\mu(\es)$ possesses moments or arbitrary order and these can be expressed for any $r\geq 1$ as
-	For a measurable random field $\gp$ and a locally finite measure $\mes$ on $\mathcal{M}$, $\mes(\es)$ is a random variable and for any $r\geq 1$, 
-	\begin{equation*}
-	\begin{split}
-	\mathbb{E}[\mes(\es)^r]
-	&=\int_{\mathcal{M}^{r}} \jointExcuProb 
-	\productMeasure
-	,
-	\end{split}
-	\end{equation*}	
+	For a measurable random field $\gp$ and a locally finite
+        measure $\mes$ on $\mathcal{M}$, $\mes(\es)$ is a random
+        variable and for any $r\geq 1$, \begin{equation*}
+          \begin{split} \mathbb{E}[\mes(\es)^r]
+            &=\int_{\mathcal{M}^{r}} \jointExcuProb \productMeasure ,
+          \end{split} \end{equation*}
 	
 	where the product measure is denoted as
 	$\nu^{\otimes}:=\bigotimes_{i=1}^r \nu$. 
 	%Note that we will use boldface to denote concatenated variables. % TO RELOCATE
 	Here $\gp$ is defined on $\mathcal{M}$, and for
 	$\bm{u}=\left(u^{(1)}, ..., u^{(r)}\right)\in \mathcal{M}^r$, $\gp[\bm{u}]=\left(\gp[u^{(1)}], ...,
-	\gp[u^{(r)}]\right)\in \mathbb{R}^{\no r}$.
+	\gp[u^{(r)}]\right)\in \mathbb{R}^{\no r}$.\kc{Is $\no r$ a
+        product of the $\no$ from above? Is that obvious?}
 	\medskip
 	
 	In the particular case where $\gp$ is a multivariate Gaussian random field 
@@ -246,7 +475,7 @@ Let us in particular consider a locally finite (Borel) measure $\mes$ on $D$ and
 	In the particular orthant case with $\T=(-\infty, t_1] \times \dots \times (-\infty, t_{r}]$,
 	the latter probability directly writes in terms of the multivariate Gaussian
 	cumulative distribution, % with mean $\meanUU$ and covariance matrix $\covUU$,
-	this time by the way without requiring $\covUU$ %the latter 
+	this time without requiring $\covUU$ %the latter 
 	to be non-singular: 
 	\begin{equation*}
 	\begin{split}
@@ -263,7 +492,9 @@ Let us in particular consider a locally finite (Borel) measure $\mes$ on $D$ and
 \end{propo}
 
 Proposition~\ref{propo1} enables one to calculate centered moments of $\mes(\es)$. 
-The excursion measure variance $\emv = \operatorname{Var}[\mes(\es)]$ is probably the most relevant of them for the considered purposes. We have
+The excursion measure variance $\emv = \operatorname{Var}[\mes(\es)]$
+is probably the most relevant of these for our purposes. We
+have 
 \begin{equation*}
 \begin{split}
 \emv
@@ -273,11 +504,10 @@ d\mes^{\otimes}(u, v)\\
 &-\left( \int_{D} \mathbb{P}\left(\gp[u]\in T\right) d\mes(u) \right)^2,
 \end{split}
 \end{equation*} 
-which boils down in the excursion/sojourn case where $\T=(-\infty, t_1] \times
-\dots \times (-\infty, t_{\no}]$ to 
-\begin{equation*}
-\begin{split}
-\emv
+which evaluates in the excursion/sojourn case where
+$\T=(-\infty, t_1] \times \dots \times (-\infty, t_{\no}]$ to
+\begin{equation*} \begin{split}
+  \emv
 %\operatorname{Var}[\mes(\es)]
 &=\int_{D^2} 
 \varPhi_{2\no}
@@ -292,7 +522,10 @@ which boils down in the excursion/sojourn case where $\T=(-\infty, t_1] \times
 &-\left( \int_{D} \varPhi_{\no}\left(\bt;\bmu(u), \bK(u)\right) d\mes(u) \right)^2.
 \end{split}
 \end{equation*}
-This quantity requires to work out an integral over $D^2$. In contrast, the Integrated Bernoulli Variance (IBV) of \cite{Bect.etal} involves solely an integral on $\mathcal{M}$ and can be expanded in our present setting as follows
+This quantity requires  an integral over $D^2$. In
+contrast, the Integrated Bernoulli Variance (IBV) of \cite{Bect.etal}
+involves solely an integral on $\mathcal{M}$ and can be expanded in
+our present setting as follows 
 \begin{equation}\label{IBV}
 \begin{split}
 \operatorname{IBV} %(\es) %;\mes)
@@ -309,30 +542,68 @@ d\mes(u) \\
 
 \subsection{Expected Integrated Bernoulli Variance and Sampling Designs}
 
-With limited resources, the goal is to construct informative sampling designs. For our situation, data are gathered by an AUV that measure temperature and salinity at chosen locations on a defined waypoint graph covering the domain of interest. This discretized grid foster reliable navigation and mission performance. The waypoints further enable a structure to the design problem in the sense that sampling flexibility is limited to operation on the graph. This gives lots of sampling opportunities, and it is important to spend the sampling efforts wisely. We focus on sampling designs that reduce the expected integrated Bernoulli variance (EIBV). Note that this sampling can be done in a static manner where the survey design is pre-planned, or in an adaptive setting. For the latter case, data can be processed sequentially, and the updated model is then used to design and select the
-next waypoint graph to visit for this stage of data gathering, which are again used to update the model, and so on (Section
-\ref{sec:heuristics}). We next describe the data modeling assumptions for one stage and develop design criteria of semi-analytical forms relying on integrals of multivariate Gaussian cumulative distribution functions, we will appeal to some key intermediate results presented next. 
+Our goal is to construct informative sampling designs, given limited
+resources \kc{information?}. In our domain, data is gathered by an AUV
+that can measure temperature and salinity at chosen locations on a
+defined waypoint graph. Such a discretized grid fosters reliable
+navigation and mission performance. The waypoints further enable a
+structure to the design problem in that, that sampling flexibility is
+limited to operation on the graph. % This gives lots of sampling
+% opportunities, and it is important to spend the sampling efforts
+% wisely.
+We focus on sampling designs that reduce the expected integrated
+Bernoulli variance (EIBV). Note that this sampling can be done in a
+static manner where the survey design is pre-planned, or in an
+adaptive setting. For the latter case, data can be processed
+sequentially and the updated model is then used to design and select
+the next waypoint graph to visit, which in turn are used again to
+update the model, and so on (Section \ref{sec:heuristics}). We next
+describe the data modeling assumptions for one stage and develop
+design criteria of semi-analytical forms relying on integrals of
+multivariate Gaussian cumulative distribution functions; we will
+appeal to some key intermediate results presented next.
 
-We let $d \in \mathcal{D}$ denote a sampling design, with $q$ sampling locations $\bu_d=\left(u_d^{(1)},\ldots, u_d^{(q)}\right)$. The measurement model is defined by
+We let $d \in \mathcal{D}$ denote a sampling design, with $q$ sampling 
+locations $\bu_d=\left(u_d^{(1)},\ldots, u_d^{(q)}\right)$. The
+measurement model is defined by 
 \begin{equation}\label{eq:meas}
     \bY_d=\bG_d \bz(\bu_d) + \epsilon(\bu_d), \hspace{3mm} \epsilon(\bu_d) \sim N(0,\bR_d).
 \end{equation}
-Here, $\bz(\bu_d)$ is the size $pq$ vector of GP variables at the sampling locations, $\bG_d$ is the design matrix which in principle allows for observing subsets of the vector-valued field at some of the $q$ locations (i.e. the matrix has fewer rows than columns). If the additive error has independent elements, the covariance matrix $\bR_d$ is diagonal. In our setting temperature and salinity measurements are extracted from different sensors, so the independence assumption between variables is not unrealistic, but this is not necessarily the case for other kinds of processed measurements on the AUV. It is further common in geostatistics to assume spatially independent measurement errors, and we also do so. But our methodology for constructing sampling designs does not rely on these independence assumptions. 
+Here, $\bz(\bu_d)$ is the size $pq$ vector of GP variables at the
+sampling locations, $\bG_d$ is the design matrix which in principle
+allows for observing subsets of the vector-valued field at some of the
+$q$ locations (i.e. the matrix has fewer rows than columns). If the
+additive error has independent elements, the covariance matrix $\bR_d$
+is diagonal. In our setting temperature and salinity measurements are
+extracted from different sensors, so the independence assumption
+between variables is not unrealistic, but this is not necessarily the
+case for other kinds of measurements on the AUV. It is further common
+in geostatistics to assume spatially independent measurement errors,
+and we also do so. But our methodology for constructing sampling
+designs does not rely on these independence assumptions.
 
-For a given design $d$ the evaluation is based on the expected information contained in the data to influence the criterion.  
+For a given design $d$ the evaluation is based on the expected
+information contained in the data to influence the criterion.   
 Considering the EIBV criteria, we have
 \begin{equation}\label{eq:eibv}
     \mbox{EIBV} (d)= E_{\bY(\bu_d)} \int_{M}
 \mathbb{P}\left(\gp[\uu]\in T|\by(\bu_d) \right)(1-\mathbb{P}\left(\gp[\uu]\in T |\by(\bu_d)\right))
 d\mes(u),
 \end{equation}
-where the expectation is over the planned data.  The optimal design for an AUV survey is then
+where the expectation is over the planned data.  The optimal design
+for an AUV survey is then 
 \begin{equation}\label{crit}
     d^* = \mbox{argmin}_{d \in \mathcal{D}} \mbox{EIBV}(d).
 \end{equation}
-For another criterion using random moments of random sets similar expectations would be required, but as we will see, the EIBV has a closed-form expression which is relatively fast to compute and it is hence useful for onboard design selection on AUVs.
+For another criterion using random moments of random sets similar
+expectations would be required, but as we will see, the EIBV has a
+closed-form expression which is relatively fast to compute and hence
+useful for onboard design selection.
 
-Assuming now that $q$ observations are available, one wishes to predict $\gp[\bu]$, the multivariate Kriging equations holds with size $p$ vector of conditional means: 
+Assuming now that $q$ observations are available, one wishes to
+predict $\gp[\bu]$, the multivariate Kriging equations holds with size
+$p$ vector of conditional means \kc{This last sentence doesn't parse.
+  Are they two separate statements?}:  
 \begin{equation}\label{eq:cokrig}
 \bbm(\x)=\bmu(\x)+\blambda(\x,\bu_d)^T \left( \by_d-\bG_d \bmu(\bu_d)\right),
 \end{equation}
