@@ -289,9 +289,8 @@ part of ocean observation, filling parts of the undersampling gap
     processes that are challenging to map, where the combination of
     statistics and robotics can play a vital role in enabling more
     effective oceanographic observation.\kc{The inset ``AUV robot''
-      looks very tacky and ad-hoc; might be best to remove it. Why not
-      add a subfigure of an AUV instead and not lump it into a figure
-      which is already quite busy? It can't hurt. Change ``ships'' to
+      looks very tacky and ad-hoc; might be best to remove it. Change
+      ``ships'' to
       ``Ship'', remove the aerial drone, since we didn't use it and
       don't plan to in this work.}}
   \label{fig:envir} \end{figure}
@@ -607,24 +606,43 @@ $p$ vector of conditional means \kc{This last sentence doesn't parse.
 \begin{equation}\label{eq:cokrig}
 \bbm(\x)=\bmu(\x)+\blambda(\x,\bu_d)^T \left( \by_d-\bG_d \bmu(\bu_d)\right),
 \end{equation}
-where $\bmu$ is size $p$ unconditional mean function of $Z$, $\by_d$ is the realized vector of observed responses, and $\blambda(\x,\bu_d)=\bK^{-1}_y(\bu_d,\bu_d) \bk(\bu_d, \bu)$. Here, the data covariance is $K_y=\mbox{Cov}(\bY_d,\bY_d)=\bG_d\bK(\bu_d,\bu_d)\bG_d^T+\bR_d$ and the cross-covariance is $\mbox{Cov}(\bY_d,Z(\x)) \bk(\bu_d, \x)=$, assuming the measurement error is independent of the GP.  The Kriging (cross-)covariance function can also be expressed in the same vein via $p \times p$ matrix
+where $\bmu$ is size $p$ unconditional mean function of $Z$, $\by_d$
+is the realized vector of observed responses, and
+$\blambda(\x,\bu_d)=\bK^{-1}_y(\bu_d,\bu_d) \bk(\bu_d, \bu)$. Here,
+the data covariance is
+$K_y=\mbox{Cov}(\bY_d,\bY_d)=\bG_d\bK(\bu_d,\bu_d)\bG_d^T+\bR_d$ and
+the cross-covariance is $\mbox{Cov}(\bY_d,Z(\x)) \bk(\bu_d, \x)=$,
+\kc{There is a dangling '='. Is this legit?} assuming the measurement
+error is independent of the GP.  The Kriging 
+(cross-)covariance function can also be expressed in the same vein via
+a $p \times p$ matrix 
 \begin{equation}\label{eq:krig:cov}
 \bSigma(\x,\x')=\bK(\x,\x')-\blambda(\x,\bu_d)^T \bK_y(\bu_d, \bu_d) \lambda(\x,\bu_d).
 \end{equation}
 
-Equations \eqref{eq:cokrig} and \eqref{eq:krig:cov} are used to provide informative, updated statements about sets of interest. 
-For our case with temperature and salinity, the conditional EPs, given measurements $\by_d$, can then be computed from 
+Equations \eqref{eq:cokrig} and \eqref{eq:krig:cov} are used to
+provide informative, updated statements about sets of interest. For
+our case with temperature and salinity, the conditional EPs, given
+measurements $\by_d$, can then be computed from
 \begin{eqnarray}\label{eq:post_ep}
  p(\x;\by) &=& P(Z_1(\x) \leq t_1, Z_{2}(\x) \leq t_2 |\by(\bu_d)),  \nonumber \\
  &=& \Phi_2 ((t_1,t_2)^T-\bmu(\x)-\blambda(\x,\bu_d)^T \left( \by(\bu_d)-\bG_d \bmu(\bu_d)\right);0_2, \bSigma(\bu,\bu)). 
 \end{eqnarray}
 
-A critical element in the derivation of a closed-form for the EIBV is that the
-conditional mean in Eq. \eqref{eq:cokrig} is a linear (affine) function of
-the data $\by_d$ and the covariance is not a function of the data. This in turn means that the probabilities in expression \eqref{eq:post_ep} involve inequality statements for linear combinations of Gaussian variables. 
-Related closed-form solutions have been noted in similar contexts \citep{bhattacharjya2013value, chevalier2014fast,stroh}, but not generalized to our situation with random sets for vector-valued GPs.
-Notably, the mean in equation \eqref{eq:cokrig}, is in the form of $\ba+\bB \bV$, where $\bV \sim N(0_q, \bK_y (\bu_d,\bu_d))$, $\ba=(t_1,t_2)^t-\bmu(\bu)-\blambda(\bu,\bu_d)^T \bG_d \bmu(\bu_d)$ and $\bB=\blambda(\bu,\bu_d)^T$.
-The following then applies to give a closed-form solution to EIBV calculation in this case. 
+A critical element in the derivation of a closed-form for the EIBV is
+that the conditional mean in Eq. \eqref{eq:cokrig} is a linear
+(affine) function of the data $\by_d$ and the covariance is not a
+function of the data. This in turn means that the probabilities in
+\eqref{eq:post_ep} involve inequality statements for linear
+combinations of Gaussian variables. Related closed-form solutions have
+been noted in similar contexts \citep{bhattacharjya2013value,
+  chevalier2014fast,stroh}, but not generalized to our situation with
+random sets for vector-valued GPs. Notably, the mean in equation
+\eqref{eq:cokrig}, is in the form of $\ba+\bB \bV$, where
+$\bV \sim N(0_q, \bK_y (\bu_d,\bu_d))$,
+$\ba=(t_1,t_2)^t-\bmu(\bu)-\blambda(\bu,\bu_d)^T \bG_d \bmu(\bu_d)$
+and $\bB=\blambda(\bu,\bu_d)^T$. The following then applies to give a
+closed-form solution to EIBV calculation in this case.
 
 \begin{propo}
 	\label{propo2}
@@ -652,7 +670,8 @@ The following then applies to give a closed-form solution to EIBV calculation in
 \end{propo}
 The proof of Proposition \ref{propo2} is provided in the Appendix. 
 
-In block-wise representation, the following relation holds for the covariance in Proposition \ref{propo2}:
+In block-wise representation, the following relation holds for the
+covariance in Proposition \ref{propo2}: 
 \begin{align*}
 	\bm{\Sigma}&=
 	\begin{pmatrix}
@@ -667,9 +686,15 @@ In block-wise representation, the following relation holds for the covariance in
 	B\covV B' & \dots & B\covV B'\\
 	\end{pmatrix}.
 \end{align*}
-The calculation of the multivariate Gaussian cumulative distribution is done effectively using code such as that of \cite{genz2009computation}.
+The calculation of the multivariate Gaussian cumulative distribution
+is done effectively using code such as that of
+\cite{genz2009computation}. 
 
-In the more general case, for instance that of volumes of random sets, the criterion will include couplings  with different locations and the result must be generalized. For the case of multivariate monomials in orthant probabilities with thresholds affine in a common Gaussian vector. 
+In the more general case, for instance that of volumes of random sets,
+the criterion will include couplings with different locations and the
+result must be generalized. For the case of multivariate monomials in
+orthant probabilities with thresholds affine in a common Gaussian
+vector \kc{This sentence is dangling. Doesn't have a conclusion.}.
 %Namely, for monomials of degree $k$, we have.
 
 \begin{propo}%[\textcolor{red}{Notation in progress, to be reviewed/revised}]
