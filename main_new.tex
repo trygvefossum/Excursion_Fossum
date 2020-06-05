@@ -945,30 +945,33 @@ $s$, the selected design is:
 
 Note that this strategy gives a sequential conditional version of
 expression (\ref{eq:eibv}). Now $\mathcal{Y}^{s-1}$ is available, and
-the expectation is conditional to this data. A similar closed-form calculation
-for EIBV is hence applicable in Eq.
-\eqref{critSEQ} using the
-updated GP model from stage $s-1$. Once the data is collected for the
-best design at stage $s$, the GP model is updated again. The mean $\bbm^{s}$ and
-covariance matrix $\Sigma^{s}$ are used to compute the next design at
-stage $s+1$, and so on.
+the expectation is conditional to this data. A similar closed-form
+calculation for EIBV is hence applicable in Eq.  \eqref{critSEQ}
+\kc{Strangely in my TeX compilation this points to the earlier
+  definition of $d^{*,s}$. Seems like some index is messed up in the
+  sources; all indexes should perhaps be checked?} using the updated
+GP model from stage $s-1$. Once the data is collected for the best
+\kc{??}  design at stage $s$, the GP model is updated again. The mean
+$\bbm^{s}$ and covariance matrix $\Sigma^{s}$ are used to compute the
+next design at stage $s+1$, and so on.
 
 Even though this myopic strategy is non-anticipative, it still gives a
 reasonable approach for creating designs in many
-applications. Moreover, it is easily implemented onboard an AUV,
-using an efficient approach for data updating the GP model and the
-calculation of the closed-form EIBV expressions for each
-subsequent trajectory.
+applications. Moreover, it is easily implemented, in our case, onboard
+an AUV, using an efficient data update of the GP model and the
+calculation of the closed-form EIBV expressions for each subsequent
+trajectory.
 
 
 \subsection{Look-ahead Trajectory Planning}
 \label{sec:LA}
 
 We now extend the myopic strategy to a look-ahead strategy, which is
-optimal when one can gather only two more stages of measurements. In
-addition to the next stage of measurements $\by^{j,s}$, this
-look-ahead strategy, anticipates the subsequent design indexed $j_2$ with
-data $\by^{j_2,s+1}$ when choosing the current design $d^{j,s}$.  The
+optimal when one can gather only two more stages of
+measurements. \kc{How can you be sure of this?} In addition to the
+next stage of measurements $\by^{j,s}$, this look-ahead strategy,
+anticipates the subsequent design indexed $j_2$ with data
+$\by^{j_2,s+1}$ when choosing the current design $d^{j,s}$.  The
 selected design is:
 \begin{eqnarray}\label{critLA}
     d^{*,s} &=& \mbox{argmin}_{j} \left\{ E_{\by_{d^{j,s}}|\mathcal{Y}^{s-1}} \left( \mbox{argmin}_{j_2}  V_{j_2} \right) \right\}, \\
@@ -976,14 +979,15 @@ V_{j_2} & = & \int_{\mathcal{M}} E_{\by_{d^{j_2,s+1}}|\mathcal{Y}^{j,s}} \left( 
     p(\x;\mathcal{Y}^{j,s+1}) &=& P(Z(\x) \in T |\by_{d^{j_2,s+1}},\mathcal{Y}^{j,s}). \nonumber
 \end{eqnarray}
 Here, $\mathcal{Y}^{j,s}=\{\by_{d^{j,s}},\mathcal{Y}^{s-1}\}$ and
-$\mathcal{Y}^{j,s+1}=\{\by_{d^{j_2,s+1}},\mathcal{Y}^{j,s}\}$ represent
-the sets of data variables, and the expectations are calculated with respect to
-the conditional densities given data at that stage, meaning we have two levels of intermixed minimizations and integrals.
-We solve the
-first expectation by Monte Carlo sampling of data $\by_{d^{j,s}}$ from its
-conditional distribution. For each of these data samples, the second expectation
-is solved using the closed-form expressions for EIBV from
-Section \ref{sec:ESEP}.
+$\mathcal{Y}^{j,s+1}=\{\by_{d^{j_2,s+1}},\mathcal{Y}^{j,s}\}$
+represent the sets of data variables, and the expectations are
+calculated with respect to the conditional densities given data at
+that stage, implying that we have two levels of intermixed
+minimizations and integrals.  We solve the first expectation by Monte
+Carlo sampling of data $\by_{d^{j,s}}$ from its conditional
+distribution. For each of these data samples, the second expectation
+is solved using the closed-form expressions for EIBV from Section
+\ref{sec:ESEP}.
 
 Even though the strategy looks at two sampling stages, it is only used to find
 the current best design. When data are collected, the GP model is
@@ -999,9 +1003,9 @@ for each of these preferred designs, we undertake the look-ahead calculations.
 \section{Simulation study}
 \label{sec:simulations}
 
-We now study the properties of
-the different static and sequential survey designs in a realistic
-simulated case that emulates the spatial properties of a river plume interacting with coastal water. 
+We now study the properties of the different static and sequential
+survey designs in a realistic case that emulates the spatial
+properties of a river plume interacting with coastal water.
 
 \subsection{Modeling}
 
@@ -1020,13 +1024,17 @@ Z_2(\x) \end{bmatrix}
 \end{bmatrix}
 \right).
 \end{equation}
-We specify the mean by 
-$\mu_{1}(\x)=5.8 + 0.065 u_{\mbox{West}}$ and
-$\mu_{2}(\x)=29 + 0.1 u_{\mbox{West}}$, which means that the expected levels of both temperature and salinity increase linearly in the western direction.
-This situation
-mimics that of a river mouth opening from the south, with the water masses pulled to the east by the Coriolis force. 
-The variances are set to $\sigma_1=0.25$ and $\sigma_2=0.6$, while the correlation is $0.6$. 
-The spatial correlation is of separable Matern type (see e.g. \cite{Cressie:11}) so that
+We specify the mean by $\mu_{1}(\x)=5.8 + 0.065 u_{\mbox{West}}$ and
+$\mu_{2}(\x)=29 + 0.1 u_{\mbox{West}}$, which means that the expected
+levels of both temperature and salinity increase linearly in the
+western direction.  This situation mimics that of a river mouth
+opening from the south, with the water masses pulled to the east by
+the Coriolis force \kc{This seems overly specific to the Nidelva use
+  case. Can it be generalized, after all that is the overall intent of
+  this manuscript?}.  The variances are set to $\sigma_1=0.25$ and
+$\sigma_2=0.6$, while the correlation is $0.6$.  The spatial
+correlation is of separable Matern type (see e.g. \cite{Cressie:11})
+so that
 \begin{equation}\label{v}
 \small
 \mbox{Corr} 
@@ -1045,22 +1053,34 @@ The spatial correlation is of separable Matern type (see e.g. \cite{Cressie:11})
 0.6  & 1
 \end{bmatrix}(1+\phi h)\exp (-\phi h),
 \end{equation}
-where $h=\sqrt{||\x-\x'||^2}$ and $\phi=0.3$ indicates an effective correlation range of about $1200$ m. 
+where $h=\sqrt{||\x-\x'||^2}$ and $\phi=0.3$ indicates an effective
+correlation range of about $1200$ m.
 
-In the accompanying Python code, these modeling assumptions can be generalized to anisotropic covariance and changing variance levels across the spatial domain. One can hence easily run the code to see if different models result in other sampling designs. Anisotropy and non-stationary variance are both relevant for the setting with river plumes, but in practice this requires more parameters to be specified. With extensive data and prior knowledge, one could also possibly fit and estimate parameters of more complex multivariate spatial covariance functions
-\citep{gneiting2010matern,genton2015cross}, but that is outside the scope of the current paper.
+In the accompanying Python code, these modeling assumptions can be
+generalized to anisotropic covariance and changing variance levels
+across the spatial domain. One can hence, easily run the code to see
+if different models result in other sampling designs. Anisotropy and
+non-stationary variance are both relevant for the setting with river
+plumes, but in practice this requires more parameters to be
+specified. With extensive data and prior knowledge, one could also
+possibly fit and estimate parameters of more complex multivariate
+spatial covariance functions
+\citep{gneiting2010matern,genton2015cross}, but that is outside the
+scope of the current paper.
 
 We discretize the spatial domain $\mathcal{M}$ to a set of $n$ grid
-locations $\mathcal{M}_g = \{\x_i, i=1,\ldots,n \}$, where each cell
-has area $\Delta$; the same grid is used for the waypoint graph setting the
-possible design locations. The EIBV is approximated by sums over all grid cells. 
+locations $\mathcal{M}_g = \{\x_i, i=1,\ldots,n \}$, \kc{is the index
+  correct? TeX shows it as u or g for $\mathcal{M}$} where each cell
+has area $\Delta$; the same grid is used for the waypoint graph for
+possible design locations. The EIBV is approximated by sums over all
+grid cells.
 
 One realization of the random fields representing salinity and
 temperature is shown in Fig. \ref{fig:true_temp} and
-\ref{fig:true_sal}. The true ES is a realization from this model as shown
-in Fig. \ref{fig:ESet}.
+\ref{fig:true_sal}. The true ES is a realization from this model as
+shown in Fig. \ref{fig:ESet}.
 
-\begin{figure}[!ht]
+\begin{figure}[!h]
   \centering
   \subfigure[Simulated temperature.]{\includegraphics[height = 0.40\textwidth]{Figures/sim/true_temp.pdf}\label{fig:true_temp}}
   \hfill
@@ -1070,14 +1090,16 @@ in Fig. \ref{fig:ESet}.
   \hfill
   \subfigure[Excursion probabilities given collected data using the
   `static\_north" strategy.]{\includegraphics[height = 0.40\textwidth]{Figures/sim/es_ts_posterior.pdf}\label{fig:Eprob}}
-  \caption{\ref{fig:true_temp} and \ref{fig:true_sal} show
-    a realisation of the simulated temperature and salinity fields. The associated ES is in \ref{fig:ESet}, while 
-    \ref{fig:Eprob} shows the estimated EPs after
-    performing data collection along the static N-S survey line.} 
+  \caption{\ref{fig:true_temp} and \ref{fig:true_sal} show a
+    realization of the simulated temperature and salinity fields. The
+    associated ES is in \ref{fig:ESet}, while \ref{fig:Eprob} shows
+    the estimated EPs after performing data collection along the
+    static N-S survey line.}
 \label{fig:realisations}
 \end{figure}
 
-\subsection{Static and Sequential Sampling Designs}\label{sec:sampling_designs}
+\subsection{Static and Sequential Sampling Designs}
+\label{sec:sampling_designs}
 
 %Three different designs are considered as indicated in Figure \ref{fig:stat_design}. 
 %\begin{figure}[h!]
@@ -1090,24 +1112,30 @@ in Fig. \ref{fig:ESet}.
 We compare three different static designs denoted
 \textit{static\_north}, \textit{static\_east}, and
 \textit{static\_zigzag} with the three described sequential approaches
-\textit{naive}, \textit{myopic}, and \textit{look-ahead}. The static sampling paths are pre-determined and cannot be altered and represent the pre-planned strategies used in most current AUV
-operational survey designs.
+\textit{naive}, \textit{myopic}, and \textit{look-ahead}. The static
+sampling paths are pre-determined and cannot be altered and represent
+the pre-planned strategies used in most current AUV operational survey
+designs.
 
-For a fixed survey length, a closed-form expression for the EIBV is available as in Eq. \eqref{eq:eibv}. However, for the sequential approaches this is not the
-case. For comparison the properties are therefore evaluated using
-Monte Carlo sampling over several replicates of realizations from the model while conducting simulated sequential surveys for each
-one. Fig. \ref{fig:Eprob} shows the conditional EP, given data
-gathered along the north-south survey lines in these displays. In the
-Monte Carlo replicates, such results are repeatedly computed to
-approximate the EIBV. We also compare predictive performance
-measured by root mean square error (RMSE) for temperature and salinity
-estimates as well as also the variance reduction in these two variables. It is
-important to note that the objective function used by the agent is
-focused on reducing the EIBV, but we nevertheless expect that
-we will achieve good predictive performance for criteria such as RMSE
-as well. Another non-statistical criteria that is important for
-practical purposes is the computational time needed for the strategy,
-as this will impact the performance for an embedded system.
+For a fixed survey length, a closed-form expression for the EIBV is
+available as in Eq. \eqref{eq:eibv}. However, for the sequential
+approaches this is not the case. For comparison the properties are
+therefore evaluated using Monte Carlo sampling over several replicates
+of realizations from the model while conducting simulated sequential
+surveys for each one. Fig. \ref{fig:Eprob} shows the conditional EP,
+given data gathered along the north-south survey lines in these
+displays. In the Monte Carlo replicates, such results are repeatedly
+computed to approximate the EIBV. We also compare predictive
+performance measured by root mean square error (RMSE) for temperature
+and salinity estimates as well as also the variance reduction in these
+two variables. It is important to note that the objective function
+used by the agent \kc{First of 'agent'. Define it or change it
+  to 'robot'? Note further uses below.} is focused on reducing the
+EIBV, but we nevertheless expect that we will achieve good predictive
+performance for criteria such as RMSE as well. Another non-statistical
+criteria that is important for practical purposes is the computational
+time needed for the strategy, as this will impact the performance for
+an embedded system.
 
 %\begin{figure}[h!]
 %\centering
@@ -1132,11 +1160,12 @@ trajectory choices over the $31\times31$ grid used to discretize the GP.
 
 Each strategy is conducted on an equilateral grid as shown in
 Fig. \ref{fig:wp_graph}. The sequential sampling agent starts at the
-center East-West coordinate at the southern end of the domain (node
-53). The AUV moves along edges in the waypoint graph while the vehicle
-gathers measurements. The data is assimilated into the GP model before
-an evaluation of the next node to sample is conducted at the end of
-the edge.
+center East-West coordinate at the southern end of the domain (node 53
+\kc{Maybe color this node differently and modify the caption?}). The
+AUV moves along edges in the waypoint graph while the vehicle makes
+measurements. The data is assimilated into the GP model before an
+evaluation of the next node to sample is conducted at the end of the
+edge.
 
 \subsection{Simulation Results}
 
@@ -1160,9 +1189,12 @@ the path is parallel to the boundary between the water masses.
   \hfill 
   \subfigure[Explained variance $\bR^{2}$.]{\label{fig:avg_r2}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_R2.pdf}}
   \hfill 
-  \subfigure[Time used to do inference.]{\label{fig:avg_time}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_Time.pdf}}
+  \subfigure[Computational time for inferencing.\kc{I see only 
+    lines associated with 4 variables showing in the graph. Where is
+    static\_north and static\_east?}]{\label{fig:avg_time}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_Time.pdf}} 
 \caption{Simulation results from 100 replicate simulations for 10
-  sampling choices/stages on the grid.} 
+  sampling choices/stages on the grid. \kc{Vertical lines show large
+    variation in replicate results.}}  
 \label{fig:sim_results}
 \end{figure}
 
@@ -1188,7 +1220,14 @@ vertical lines. Nevertheless, the ordering of strategies is similar.
   \subfigure[Static]{\includegraphics[height = 0.46\textwidth]{Figures/sim/route_static.pdf}\label{fig:route_static}}
   \hfill
   \caption{The overlaid route choices (strategies), superimposed on
-    the 100 replicate surveys with 10 sampling choices/stages.}
+    the 100 replicate surveys with 10 sampling choices/stages. \kc{I
+      would reorder these figurs above based on the order the material
+      was discussed -- Static, naive, myopic and then Look-ahead. Also
+      do you really need a key associated with each subfigure, given
+      the caption? An abridged analysis as in the text, might also be
+      in order here in the caption. Also refer to
+      Fig. \ref{fig:realisations} as the reference, where the
+      temp/salinity fields are shown.}}
 \label{fig:route_choices}
 \end{figure}
 
@@ -1197,11 +1236,11 @@ Fig. \ref{fig:avg_time} shows the computational effort: the
 \textit{myopic} strategy is slower. The \textit{look-ahead} is even
 slower, reaching levels that are nearly impractical for execution on a
 vehicle. Some pruning of the graph is performed to improve the
-computational speed, such as ruling out repeated visitations and
+performance, such as ruling out repeated visitations and
 back-and-forth routes. Some of the intermediate results are also
 stored for longer planning horizons. Further pruning of branches or
-inclusion of other heuristics could be included to make the strategy
-faster. Then again, the inclusion of heuristics is likely a
+inclusion of other heuristics could be included for better
+performance. Then again, the inclusion of heuristics is likely a
 contributing factor for the \textit{look-ahead} strategy failing to
 outperform the \textit{myopic} strategy.
 
@@ -1211,14 +1250,32 @@ of the sequential schemes and static designs are shown. The
 domain because it is too focused on the probabilities near $0.5$. The
 \textit{myopic} strategy covers a wider domain than the naive or
 look-ahead. There are several reasons for this. First, a greedy
-approach will tend to put more emphasis on promising locations close to the
-agent, which may lead away from the centre. Second, as the agent
-evaluates the impact of locations further away (look-ahead) where
-assimilated data has less predictive power, the GP model (which
+approach will tend to put more emphasis on promising locations close
+to the agent, which may lead away from the centre. Second, as the
+agent evaluates the impact of locations further away (look-ahead)
+where assimilated data has less predictive power, the GP model (which
 is centered here) will act to restrict paths deviating from the
 central zone.
 
-We studied the sensitivity of the results by modifying the input parameters to have different correlations between temperature and salinity, standard deviations, and spatial correlation range.  In all runs,  the \textit{myopic} and \textit{look-ahead} strategies perform the best in terms of realized IBV, and much better than \textit{naive}. The \textit{look-ahead} strategy seems to be substantially better than the \textit{myopic} only for very small initial standard deviation or very large spatial correlation range. The \textit{static\_north} design continues to be the best static design for IBV, while \textit{static\_zigzag} is the best design for the other predictive performance measures, especially so with large spatial correlation range. We also ran simulation studies with only temperature data, and for realistic correlation levels between temperature and salinity the IBV results are not much worse when only temperature data are available. In addition to the comparison made in Table \ref{tab:sim_rhoab}, the current setting includes spatial correlation and this likely reduces the additional influence of having bivariate data. However, it seems that having temperature data alone does a substantially worse job in terms of explained variance
+We studied the sensitivity of the results by modifying the input
+parameters to have different correlations between temperature and
+salinity, standard deviations, and spatial correlation range.  In all
+runs, the \textit{myopic} and \textit{look-ahead} strategies perform
+the best in terms of realized IBV, and much better than
+\textit{naive}. The \textit{look-ahead} strategy seems to be
+substantially better than the \textit{myopic} design only for very
+small initial standard deviation or very large spatial correlation
+range. \textit{static\_north} continues to be the best static design
+for IBV, while \textit{static\_zigzag} is the best design for the
+other predictive performance measures, especially so with large
+spatial correlation range. We also ran simulation studies with only
+temperature data, and for realistic correlation levels between
+temperature and salinity, the IBV results are not much worse when only
+temperature data are available. In addition to the comparison made in
+Table \ref{tab:sim_rhoab}, the current setting includes spatial
+correlation and this likely reduces the additional influence of having
+bivariate data. However, it seems that having temperature data alone
+does a substantially worse job in terms of explained variance
 
 \begin{comment}
 \subsection{Performance Metrics}
@@ -1336,13 +1393,16 @@ eastern shore as noted in Fig. \ref{fig:nidelven}.
 
 \subsection{Model Specification}
 \label{sec:exp_modeling}
+
 The statistical model parameters were specified based on a short
-preliminary survey where the AUV made an initial transect to determine the trends in environmental conditions and correlation structures. Based on the
-initial data, the trend parameters were estimated by linear
-regression, where both temperature and salinity are assumed to
-increase linearly, going west from the river mouth. Next, the
-residuals from the regression analysis were analyzed to study the fit
-of the GP model and to specify the covariance parameters.
+preliminary survey where the AUV made an initial transect to determine
+the trends in environmental conditions and correlation
+structures. Based on the initial data, the trend parameters were
+estimated by linear regression, where both temperature and salinity
+are assumed to increase linearly, going west from the river
+mouth. Next, the residuals from the regression analysis were analyzed
+to study the fit of the GP model and to specify the covariance
+parameters.
 
 %\begin{figure}[!h] 
 % \centering 
@@ -1432,7 +1492,9 @@ Threshold sal. & $18.0$ g/kg & $(S_{ocean}-S_{river})/2+S_{river}$\\
 \end{tabular}
 \caption{Model and threshold parameters from an initial AUV
   survey. Observations were taken across the front while crossing from
-  fresh, cold river water to saline and warmer ocean waters.}
+  fresh, cold river water to saline and warmer ocean waters. \kc{Might
+  be good to expand the terms and not have abbreviations in the table
+  above; there's plenty of space.}}
 \label{tab:experiment_param}
 \end{table}
 
@@ -1449,8 +1511,8 @@ measurements. %The accuracy of the CTD instrument is $\pm 0.0003$ S/m (conductiv
 The sampling agent was built on top of the autonomous agent framework
 Teleo-Reactive EXecutive (\textit{T-REX})
 \citep{py10,Rajan12,Rajan12b}, running an instance of the
-\textit{myopic} strategy from Section \ref{sec:myopic} to
-control the AUV and decide between sampling locations.
+\textit{myopic} strategy from Section \ref{sec:myopic} to control the
+AUV and decide between sampling locations.
 
 \begin{figure}[!h] 
 \centering 
@@ -1468,21 +1530,21 @@ strategy to evaluate the different design criteria (see
 Eq. \eqref{critSEQ}). The waypoint-and-path combination that is
 expected to reduce the IBV the most is selected, and upon arrival this
 procedure is then repeated. At each stage, it takes the AUV about 30
-seconds to evaluate the EIBV for all the possible
-waypoint-and-path alternatives.
+seconds to evaluate the EIBV for all the possible waypoint-and-path
+alternatives.
 
 The AUV was set to start in the south-center part of the waypoint
-graph, with the previously outlined GP model of the environment (Section \ref{sec:exp_modeling}). A
-survey was set to take approximately 40 minutes, visiting 15 waypoints
-on the grid, with the AUV running near the surface to capture the
-plume. On its path from one waypoint to the next, the AUV gathered
-data regularly, and the GP model assimilated temperature and salinity
-data with an update frequency of 30 seconds, giving about three updates
-per stage.
+graph, with the previously outlined GP model of the environment
+(Section \ref{sec:exp_modeling}). A survey was set to take
+approximately 40 minutes, visiting 15 waypoints on the grid, with the
+AUV running near the surface to capture the plume. On its path from
+one waypoint to the next, the AUV gathered data regularly, and the GP
+model assimilated temperature and salinity data with an update
+frequency of 30 seconds, giving about three updates per stage.
 
 \begin{figure*}[!h]
 \centering
-\subfigure[Survey map]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/alt_map.eps}\label{fig:map}}
+\subfigure[AUV survey area]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/alt_map.eps}\label{fig:map}}
 \hspace{0.3cm}
 \subfigure[Temperature tracks]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/auv.pdf}\label{fig:res_both}}
 
@@ -1492,46 +1554,51 @@ per stage.
 
 %\subfigure[ES for Survey 1]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/ep_1.pdf}\label{fig:res3}}\hspace{0.4cm}
 %\subfigure[ES for Survey 2]{\includegraphics[height=0.41\textwidth]{Figures/field-trials/ep_4.pdf}\label{fig:res4}}
-\caption{Results from mapping the Nidelva river. \ref{fig:map} Show an
-  overview of the survey area overlaid with the AUV path in black and
-  dashed line. Note the shaded region indicating the usual frontal
-  region. \ref{fig:res_both} Presents the collected temperature data
-  as colored trails. Note waypoint 5 (WP5) which indicate where the
-  two surveys deviate. \ref{fig:res1} and \ref{fig:res2} Shows the
-  collected salinity data (as a colored trail) overlaid on the final
-  EP, which indicate the AUVs statistical impression of the front. For
-  both missions the temperature and salinity data correspond with the
-  EP front indication.}
+\caption{Results from mapping the Nidelva river, Trondheim, Norway
+  over two survey missions. \ref{fig:map} shows an overview of the
+  survey area overlaid with the AUV path in black and dashed
+  line. Note the shaded region indicating a typical frontal
+  region. \ref{fig:res_both} shows the collected temperature data as
+  colored trails. Note waypoint 5 (WP5) which indicates where the two
+  surveys diverge. \ref{fig:res1} and \ref{fig:res2} shows the
+  collected salinity data overlaid on the final EP, which indicate the
+  AUVs statistical impression of the front. For both missions the
+  temperature and salinity data correspond with an indication of the
+  EP front. \kc{Might want to indicate when the surveys (dates) were
+    conducted so people can understand the variability in the EP with
+    respect to time.}}
 \label{fig:results}
 \end{figure*}
 
 \subsection{Results}
 
-Two missions, Surveys 1 and 2, were run successively from 11:00 AM to
+Two surveys missions (1 and 2), were run successively from 11:00 AM to
 01:00 PM, with a short break in between. The resulting path of the
 selected waypoints are shown in the map in Fig. \ref{fig:map}, both
 within the expected frontal region (shaded pink). The recorded
 temperatures are shown as colored trails in Fig. \ref{fig:res_both},
-clearly indicating the temperature difference between fjord and river
-waters. The salinity data are then shown separately, overlaid with the
-estimated EP for each survey in Fig. \ref{fig:res1} and
+clearly indicating the temperature difference between fjord and
+riverine waters. The salinity data are then shown separately, overlaid
+with the estimated EP for each survey in Fig. \ref{fig:res1} and
 \ref{fig:res2}.
 
 Both surveys successfully estimated and navigated the separation zone,
 crossing the frontal boundary multiple times. As conditions changed
-slightly between the two deployments, the resulting path (after
-waypoint 5) is shown to deviate. Survey 1 continued northwards,
-tracking the north-eastern part of the front, while Survey 2 turned
-west, mapping the south-western part.
+slightly between the two surveys, the resulting path (after waypoint
+5) is shown to deviate. Survey 1 continued northwards, tracking the
+north-eastern portion of the front, while Survey 2 turned west,
+mapping the south-western region.
 
-The final predictions of the front location, represented by conditional EPs in
-Fig. \ref{fig:res1} and \ref{fig:res2} as dashed lines, correspond
-with one another. In both surveys they yield a picture of the front being a bit to the west in the southern parts of the domain and gradually bending off toward the north east. The amount of exploration done by Survey 1
-is greater than Survey 2. In Survey 1, the AUV obtained more detail by
-going north from waypoint 5, while Survey 2, coming close to the survey area borders
-in the south-western corner, obtained a poorer understanding of the
-northern parts. A look-ahead strategy might identify and
-discourage such choices.
+The final predictions of the front location, represented by
+conditional EPs in Fig. \ref{fig:res1} and \ref{fig:res2} as dashed
+lines, correspond with one another. In both surveys they yield a
+picture of the front being to the west in the southern portions of the
+region and gradually bending off toward the north east. The amount of
+exploration done by Survey 1 is greater than Survey 2. In Survey 1,
+the AUV obtained more detail by going north from waypoint 5, while
+Survey 2, coming close to the survey area borders in the south-western
+corner, obtained a poorer understanding of the northern parts. A
+look-ahead strategy might identify and discourage such choices.
 
 %\begin{figure}[!h] 
 % \centering 
@@ -1549,17 +1616,18 @@ applications. We show how observation practices can gain efficiency
 and accuracy from the development of statistical techniques to achieve
 more effective spatial monitoring. We further demonstrate the
 opportunities available for real-time multivariable spatial
-data-gathering and analysis onboard autonomous sensing platforms,
-which statisticians can exploit to create general-purpose toolkits for
+data-gathering and analysis onboard autonomous platforms, which
+statisticians can exploit to create general-purpose toolkits for
 similar applications.
 
 In particular, we derive and show results for characterizing phenomena
-connected to the properties of water masses. The characterization of uncertainties in random sets is extended with new results for the EIBV uncertainty
-reduction achieved by the spatial sampling design. This is provided in closed-form for the situation with a static
-design, and then extended to the adaptive situation. The sequential
-derivations provide new insights into efficient applications of
-adaptive sampling, as demonstrated in our application of these models
-with an autonomous vehicle in Trondheim fjord.
+connected to the properties of water masses. The characterization of
+uncertainties in random sets is extended with new results for the EIBV
+uncertainty reduction achieved by spatial sampling design. This is
+provided in closed-form for the situation with a static design, and
+then extended to the adaptive situation. The sequential derivations
+provide new insights into efficient applications of adaptive sampling,
+as demonstrated in our application.
 
 The study did not consider any temporal effects, which would be
 relevant on a larger time scale. We consider the extension to
@@ -1568,34 +1636,43 @@ advection-diffusion equations could be useful in this kind of modeling
 \citep{sigrist2015stochastic}. For more complex oceanographic
 phenomena, the methods will need to be extended to non-Gaussian
 phenomena, possibly feature-based mixtures of GPs which could still be
-run onboard and augmented by dynamical models.
+run onboard and augmented by dynamical models. \kc{How about talking
+  about removing any grids or waypoints altogether?}
 
-The spatial-statistical design criterion, building on random sets is relevant
-in our setting with different water mass properties, and we show mathematical generality beyond the EIBV which is convenient to implement for onboard planning. Such criteria could also
-be useful in other oceanographic settings as for algal-blooms or
-open water fronts. Of course, other criteria are also relevant for, possibly hybrid criteria or multi-attribute criteria that could balance goals of exploration and exploitation in this situation. One further has cases where there is a clear downstream
-decision-making, for instance managers and regulators that must make difficult decisions related to fish farming, other marine resources
-operations, or environmental projects. Value of information analysis
-(VOI) \citep{Eidsvik:15} could be used in a similar vein as the IBV in
-the current paper, as both analytic methods explore when, where and
-which information is likely to result in improved decision-making.
+The spatial-statistical design criterion, building on random sets is
+relevant in our setting with different water properties, and we show
+mathematical generality beyond the EIBV which is convenient to
+implement for onboard robotic planning. Such criteria could also be
+useful in other oceanographic settings as for algal-blooms, anoxic
+zones or open water fronts \cite{costa19}. Of course, other criteria
+are also relevant for instance, hybrid or multi-attribute criteria
+that could balance goals of exploration and exploitation in this
+situation. Equally, such techniques have significant use cases in
+downstream decision-making, with policy makers and regulators who need
+to make difficult decisions related to fish farming, other marine
+resource operations. Value of information analysis (VOI)
+\citep{Eidsvik:15} could be used in a similar vein as the IBV in the
+current work, as both analytic methods explore when, where and which
+information is likely to result in improved decision-making.
 
-While more effort could be spent on approximating the look-ahead stages
-in the adaptive designs, it is perhaps more interesting to explore the
-additional flexibility that can be gained by having two or more AUVs
-co-temporally exploring a spatial or spatio-temporal domain together
-\citep{ferreira2019advancing}. Such an approach would enable
+While more effort could be spent on approximating the look-ahead
+stages in the adaptive designs, it is perhaps more interesting to
+explore the additional flexibility that can be gained by having
+multiple AUVs co-temporally exploring a spatial or spatio-temporal
+domain \citep{ferreira2019advancing}. Such an approach would enable
 concurrent sampling in different parts of the space, or opportunities
 to move in parallel to best capture the excursion set.
 
 \section*{Acknowledgements}
 
-TOF and KR acknowledge support from the Centre for Autonomous Marine
+TOF acknowledges support from the Centre for Autonomous Marine
 Operations and Systems
 (AMOS)\footnote{\url{https://www.ntnu.edu/amos}}, Center of
 Excellence, project number 223254, and the Applied Underwater Robotics
-Labortatory (AURLab). JE and KR acknowledges support from Norwegian research
-council, project number 305445. CT and DG acknowledges support from the Swiss National Science Foundation, project number 178858.
+Labortatory (AURLab). JE and KR acknowledge support from Norwegian
+research council (RCN), project number 305445. CT and DG acknowledge
+support from the Swiss National Science Foundation, project number
+178858.
 
 %\begin{supplement}
 %\sname{Supplement A}\label{suppA}
