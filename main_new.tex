@@ -40,9 +40,12 @@
 
 \begin{frontmatter}
 
-% "Title of the paper"
-\title{Autonomous Oceanographic Sampling Designs using Excursion Sets for Multivariate Gaussian random fields}
-\runtitle{Excursion Probabilities for Informative Sampling}
+% "New Title of the paper"
+\title{Autonomous Oceanographic Data Collection via Uncertainty Reduction for  Excursion Sets of Vector-valued Random Fields} 
+\runtitle{Autonomous Oceanographic Uncertainty Reduction}
+
+% "Former Title of the paper" (DG 08.06.2020)
+%\title{Autonomous Oceanographic Sampling Designs using Excursion Sets for Multivariate Gaussian random fields} \runtitle{Excursion Probabilities for Informative Sampling}
 
 \begin{aug}
 \author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{t1,t2}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
@@ -53,7 +56,9 @@
 \author{\fnms{Kanna} \snm{Rajan}\thanksref{t5}. \ead[label=e5]{kanna.rajan@fe.up.pt}}
 
 \affiliation[t1]{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU), Trondheim, Norway.} 
-\affiliation[t2]{Centre for Autonomous Marine Operations and Systems (AMOS).}
+\affiliation[t2]{Centre for Autonomous Marine Operations and Systems, NTNU.}
+% (AMOS).} Is the acronym needed now that this affiliation appears once only?
+% Added NTNU, though. 
 \affiliation[t3]{Institute of Mathematical Statistics and Actuarial Science, University of Bern, Switzerland.}
 \affiliation[t4]{Department of Mathematical Sciences, NTNU.}
 \affiliation[t5]{Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
@@ -112,8 +117,52 @@ Switzerland.
 \end{keyword}
 
 \end{frontmatter}
+\section{Wannabe new introduction structure}
 
-\section{Introduction}
+NB: The subsections are used as a temporary instrument to highlight the proposed structure and should probably be abolished upon convergence to a stable version.
+
+\subsection{Oceanic data collection and spatial design of experiments}
+
+\begin{itemize}
+    \item Oceanic data collection as a timely and crucial challenge 
+    \item Uneasy to measure state variables varying continuously across space
+    \item Some lend themselves well to random field modelling 
+    \item Where to make measurements is a question related to experimental design
+    \item Yet with AUVs measurements ought to be made along a trajectory 
+    \item Furthermore, in several problems such as mapping Fjord versus ocean water, the goal is to reduce uncertainties on regions implicitly defined by several state variables such as temperature and salinity. 
+    \item Besides this, AUV are able to revise their trajectory after intermediate measurements, calling for experimental design strategies that are adaptive and ideally also account for multiple steps ahead. 
+    \item All this in the framework where several responses are modelled within a vector-valued random field framework and under observation noise calls for sophisticated design criteria and computational strategies for their optimization. 
+    \item Here we aim to leverage recent progress in sequential design of computer experiments and adapt them to the specifics of guiding AUV measurements for parcimoniously distinguishing fjord from ocean waters. 
+    \item While our problem involves multivariate observational responses to be observed along a continuous trajectory, our approach will take substantial advantage of existing work in the field of excursion set estimation mainly dedicated to computer experiments in the scalar-valued case, and where space exploration can be performed without constraints regarding the distance between successive design points. 
+    \item Let us briefly review random field modelling and recent advances in sequential design of experiments before detailing further our proposed approach and outline.  
+\end{itemize}
+
+\subsection{Random field modelling and sequential design of experiments}
+
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\subsection{Proposed approach in a nutshell}
+
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\subsection{Outline of the paper and its appendices / supplemental material}
+
+\begin{itemize}
+    \item 
+\end{itemize}
+
+%\subsection{}
+
+%\begin{itemize}
+%    \item 
+%\end{itemize}
+
+
+\section{Former Introduction (Before 08.06.2020)}
 
 Monitoring the world's oceans has gained increased importance in light
 of the changing climate and increasing anthropogenic impact. A central
