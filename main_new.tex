@@ -41,8 +41,8 @@
 \begin{frontmatter}
 
 % "New Title of the paper"
-\title{Autonomous Oceanographic Data Collection via Uncertainty Reduction for  Excursion Sets of Vector-valued Random Fields} 
-\runtitle{Autonomous Oceanographic Uncertainty Reduction}
+\title{Autonomous Oceanographic Data Collection towards Estimating Excursion Sets of Vector-valued Random Fields} 
+\runtitle{Autonomous Oceanographic Data Collection}
 
 % "Former Title of the paper" (DG 08.06.2020)
 %\title{Autonomous Oceanographic Sampling Designs using Excursion Sets for Multivariate Gaussian random fields} \runtitle{Excursion Probabilities for Informative Sampling}
@@ -51,14 +51,12 @@
 \author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{t1,t2}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
 \author{\fnms{Cédric} \snm{Travelletti}\thanksref{t3}, \corref{} \ead[label=e2]{cedric.travelletti@stat.unibe.ch}}
 \author{\fnms{Jo} \snm{Eidsvik}\thanksref{t4}, \ead[label=e3]{jo.eidsvik@ntnu.no}}
-\author{\fnms{David} \snm{Ginsbourger}\thanksref{t3}, \ead[label=e4]{david.ginsbourger@idiap.ch}}
+\author{\fnms{David} \snm{Ginsbourger}\thanksref{t3}, \ead[label=e4]{david.ginsbourger@stat.unibe.ch}}
 \and
 \author{\fnms{Kanna} \snm{Rajan}\thanksref{t5}. \ead[label=e5]{kanna.rajan@fe.up.pt}}
 
 \affiliation[t1]{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU), Trondheim, Norway.} 
 \affiliation[t2]{Centre for Autonomous Marine Operations and Systems, NTNU.}
-% (AMOS).} Is the acronym needed now that this affiliation appears once only?
-% Added NTNU, though. 
 \affiliation[t3]{Institute of Mathematical Statistics and Actuarial Science, University of Bern, Switzerland.}
 \affiliation[t4]{Department of Mathematical Sciences, NTNU.}
 \affiliation[t5]{Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
@@ -117,37 +115,193 @@ Switzerland.
 \end{keyword}
 
 \end{frontmatter}
-\section{Wannabe new introduction structure}
+\section{Introduction}
 
-NB: The subsections are used as a temporary instrument to highlight the proposed structure and should probably be abolished upon convergence to a stable version.
+%NB: The subsections are used as a temporary instrument to highlight the proposed structure and should probably be abolished upon convergence to a stable version.
 
 \subsection{Oceanic data collection and spatial design of experiments}
 
-\begin{itemize}
-    \item Oceanic data collection as a timely and crucial challenge 
-    \item Uneasy to measure state variables varying continuously across space
-    \item Some lend themselves well to random field modelling 
-    \item Where to make measurements is a question related to experimental design
-    \item Yet with AUVs measurements ought to be made along a trajectory 
-    \item Furthermore, in several problems such as mapping Fjord versus ocean water, the goal is to reduce uncertainties on regions implicitly defined by several state variables such as temperature and salinity. 
-    \item Besides this, AUV are able to revise their trajectory after intermediate measurements, calling for experimental design strategies that are adaptive and ideally also account for multiple steps ahead. 
-    \item All this in the framework where several responses are modelled within a vector-valued random field framework and under observation noise calls for sophisticated design criteria and computational strategies for their optimization. 
-    \item Here we aim to leverage recent progress in sequential design of computer experiments and adapt them to the specifics of guiding AUV measurements for parcimoniously distinguishing fjord from ocean waters. 
-    \item While our problem involves multivariate observational responses to be observed along a continuous trajectory, our approach will take substantial advantage of existing work in the field of excursion set estimation mainly dedicated to computer experiments in the scalar-valued case, and where space exploration can be performed without constraints regarding the distance between successive design points. 
-    \item Let us briefly review random field modelling and recent advances in sequential design of experiments before detailing further our proposed approach and outline.  
-\end{itemize}
+%\textcolor{blue}{NB: I started to match previously listed thoughts/ideas with pieces of the former intro. Will do more asap. Also, Section 3 I find excellent (and more precise than the intro) and start thinking that some bits might end up in the newer intro (while some others could land in a later section).}
 
-\subsection{Random field modelling and sequential design of experiments}
+
+Monitoring the world's oceans has gained increased importance in light of the changing climate and increasing anthropogenic impact. 
+\begin{comment} % TO BE RE-INSERTED LATER IN THE ETXT?
+A central problem for understanding these factors is the lack of representative data with sufficient resolution. Most of this \emph{undersampling} can be attributed to the large spatio-temporal variations in which ocean processes transpire, prompting the need for effective means of sampling. By \emph{sampling}, we refer to the design of observational strategies in the spatial domain, where the use autonomous robotic platforms can be combined with statistical methods to pursue measurements with high scientific relevance. This combination, of statistical tools and robotic platforms, constitute a methodological basis for addressing the problem of efficient sampling of the ocean, which is at the core of this work.
+\end{comment}
+Central to understanding the changes taking place in the upper
+water-column is knowledge of the bio-geophysical interaction driven by
+an agglomeration of physical forcings (e.g. wind, topography,
+bathymetry, tidal influences, etc.) and incipient micro-biology driven
+by planktonic and coastal anthropogenic input, such as pollution and
+agricultural runoff transported into the ocean by rivers and streams.
+These often result in a range of ecosystem-related phenomena such as
+blooms and plumes, with direct and indirect effects on society. \kc{we
+  should look for a citation here. Check with John Ryan}
+ One of the bottlenecks in the study of such phenomena lies however in the lack of obervational data with sufficient resolution. Most of this \emph{undersampling} can be attributed to the large spatio-temporal variations in which ocean processes transpire, prompting the need for effective means of data collection. Based on collected data and sometimes also of prior knowledge, models from spatial statistics can be used to make predictions of the state variables under consideration over regions of interest. In case of multiple continuous state variables being jointly studied relying on spatially scattered data, vector-valued random field models and associated prediction approaches such as co-Kriging (REFs) can be considered nowadays as part of the standard statistical toolkit in oceanographic research and beyond. %applications and beyond.  
+ %By \emph{sampling}, we refer to the design of observational strategies in the spatial domain, where the use autonomous robotic platforms can be combined with statistical methods to pursue measurements with high scientific relevance. This combination, of statistical tools and robotic platforms, constitute a methodological basis for addressing the problem of efficient sampling of the ocean, which is at the core of this work.
+  
+
+
+Traditional data collection to understand natural and artificial phenomena at sea has typically been based on static buoys, floats, or ship-based methods,
+with significant logistical limitations that directly impact coverage
+and sampling resolution. Modern methods using satellite remote-sensing
+provide large-scale coverage but have limited resolution, are limited
+to sensing the surface, and are impacted by cloud cover. Numerical
+ocean models similarly find it challenging to provide detail at fine
+scale \citep{Lermusiaux:2006}, and also come with computation costs that can be practically limiting. 
+%limiting computing resources, no time for hard-core ocean model Navier-Stokes, hence GPs and approximations, etc.
+%
+\begin{figure}[!h] 
+  \centering 
+  \subfigure[Illustration of an ocean sensing network and the sense-plan-act control methodology.]{\includegraphics[width =
+    0.49\textwidth]{Figures/envir2.pdf}\label{fig:envir1}}
+  \hfill
+  \subfigure[Frontal patterns off of the Nidelva river, Trondheim, Norway.]{\includegraphics[width =
+    0.49\textwidth]{Figures/river_proccess.pdf}\label{fig:nidelven}}
+  \caption{\ref{fig:envir1} Traditional ocean observation based on 
+    ship-based sampling has been augmented by autonomous
+    robotic vehicles. % and their interactions.  
+    AUV platforms are an integral part of this network being able to
+    reason and make decisions for efficient onboard adaptive sampling.
+    % using the sense-plan-act control approach to autonomous control. 
+    \ref{fig:nidelven} The interaction of river and ocean creates
+    processes that are challenging to map, where the combination of
+    statistics and robotics can play a vital role in enabling more
+    effective oceanographic observation.\kc{The inset ``AUV robot''
+      looks very tacky and ad-hoc; might be best to remove it. Change
+      ``ships'' to
+      ``Ship'', remove the aerial drone, since we didn't use it and
+      don't plan to in this work.}}
+  \label{fig:envir} \end{figure}
+%
+\begin{comment} % Somehow redundant with the parag following below
+Mobile robotic platforms \citep{Bellingham07} have contributed significantly to environmental monitoring and sampling. In particular, AUVs have advanced the state of in-situ sampling, and made robotics an integral part of ocean observation, filling parts of the undersampling gap \cite{rudnick03,rudnick18} (See Fig. \ref{fig:envir1}).
+\end{comment}
+%
+The advent of robust mobile robotic platforms \citep{Bellingham07} has
+resulted in significant contributions to environmental monitoring and
+sampling in the ocean. In particular, autonomous underwater vehicles (AUVs) have advanced the state of data collection and consequently have made robotics an integral part of ocean observation; %our 
+previous work by some of the authors of the present paper have contributed to this effort \citep{das11b,Das2015,fossuminformation,fossum18b}. 
+
+
+As full numerical ocean models based on complex differential equations cannot be run onboard a marine robot with limited computational capacity, statistical models relying on collected data and random field assumptions appear quite relevant as means to guide AUV data collection trajectories. Our main research angle in the present work is to extend sequential design strategies from the world of spatial statistics and computer experiments to frameworks featuring both vector-valued observational data and experimental designs that may be constrained by the nature of measurement paths.      
+\\
+
+Surveys with AUVs are usually limited to observations along fixed
+transects that are pre-scripted in mission plans created manually by a
+human operator. Missions can be specified operating on a scale of
+hundreds of meters to tens of kilometers depending on the scientific
+context. Faced with limited coverage capacity, a more effective
+approach is to instead use onboard algorithms to continuously
+evaluate, update, and refine future sampling locations (sense-plan-act
+cycle in Fig. \ref{fig:envir1}), making the information gathering
+\emph{adaptive} \citep{das11b,Das2015,fossuminformation,fossum18b}.
+% This usually occurs on a spatial grid, called a waypoint graph. 
+In doing so, the space of sampling opportunities is still limited by
+the so-called waypoint graph, a discretization of the search domain, but the AUV has flexibility to modify its path at each waypoint based on in-situ sensing and measurements onboard \citep{py10,Rajan12,Rajan12b}.\\
+
+The work presented here is primarily inspired by a cast study 
+%application where an AUV is used to measure both temperature and salinity in 
+pertaining to the spatial characterization of a frontal system generated by
+river plumes. Fig. \ref{fig:nidelven} shows the survey area in
+Trondheim, Norway, where cold freshwater enters from the river,
+creating a strong gradient in both temperature and salinity. Because
+of the local topography and the Coriolis force the cold fresh water
+tends to flow to the east. Depending on the river discharge, tidal
+effects, wind, and temperature differences, this boundary often gets
+distorted. Initial knowledge about the location and evolution of these
+features are highly uncertain, making deterministic planning
+challenging. Here the goal is to use AUV measurements towards a better identification of freshwater versus oceanic water, with the help of a vector-valued random field model for both temperature and salinity. As we will present in the next sections, some of the original contributions inspired by this specific problem are actually applicable to further settings and application areas. \\
+
+The questions tackled here hence pertain to the broader area of spatial data collection and experimental design, yet with the particularity of estimating some regions of the domain, mostly excursion sets, being implicitly defined by a scarcely observed vector-valued random field. 
+%because of limited resources to sample the large oceanographic domains, one must plan for active learning during the operation, where a relevant criterion is used to extract the most valuable designs. The acquired in-situ information must then be assimilated into the statistical model onboard the platform, so that it can be used to re-compute the sampling criterion and in this way inform decisions on where to sample next. \\
+Moreover, given constraints on AUV movements and the fact that surveya rely by design in such a framework on successive measurements spread along a trajectory, addressing corresponding design problems calls for particular sequential strategies, possibly also accounting for the finiteness of resources by anticipating multiple steps ahead thereby improving over myopic strategies. \\
+
+Here we aim to leverage and extent recent progress in uncertainty quantification and reduction for excursion sets of Gaussian random fields in order to address vector-valued observational cases under constrained design such as in the motivating application of designing AUV trajectories to better distinguish between freshwater from ocean waters by relying on temperature and salinity measurements. %approach will take substantial advantage of existing work in the field of excursion set estimation mainly dedicated to computer experiments in the scalar-valued case, and where space exploration can be performed without constraints regarding the distance between successive design points. 
+Original contributions compared to recent related work in the framework of scalar-valued computer experiments include: 
+\begin{itemize}
+    \item Extension of two important Sequential Uncertainty Reduction criteria of (REFs) to homotopic or heterotopic vector-valued settings,
+    \item Investigation of myopic and multiple-step ahead batch-sequential strategies for optimizing trajectories with respect to such criteria,
+    \item Replicable experiments with synthetic test cases and original data sets with accompagnying codes 
+\end{itemize}
+Let us briefly review random field modelling and recent advances in targetd sequential design of experiments based on Gaussian Processes before detailing further existing literature tackling the considered problems, our proposed approach, as well as outlining the rest of the paper.  
+
+
+\subsection{Random field modelling and targeted sequential design of experiments}
 
 \begin{itemize}
     \item 
 \end{itemize}
 
-\subsection{Proposed approach in a nutshell}
+% From earlier version; to be relocated?
+%Hence statistical proxy models of the environment must be used. For our purpose, we rely on Gaussian process (GP) representations of the ocean variables of interest because they are computationally convenient and yet provide enough flexibility to realistically model the spatial variability and dependence, and the correlation between multiple processes. 
+\subsection{Related work and proposed approach in a nutshell}
 
 \begin{itemize}
     \item 
 \end{itemize}
+
+\textcolor{blue}{We might want to re-use some of the following (from earlier version):}
+
+A major contribution of our work is to derive closed-form results for
+this design criteria for situations where the underlying model is
+based on multivariate GPs. Another contribution is that we embed this
+approach in a sequential strategy to produce sampling algorithms, and
+apply this to a real-world scenario of autonomously sampling
+temperature and salinity gradients using an AUV, with the intention of
+characterizing the variability of oceanic and riverine waters in
+typical mixed coastal environments.
+
+Motivating examples relevant for ESs of multivariate processes are
+abundant. In medicine, doctors do not rely solely on a single symptom
+but must see several combined effects before making a diagnosis. In
+our context of environmental sampling, the salinity and temperature
+excursions of a river plume can similarly help characterize the
+underlying bio-geochemical processes
+\citep{hopkins2013detection,Pinto2018}, where sampling can be aimed
+towards reducing uncertainty in the temperature and salinity ES.
+Unlike what has been done in previous plume exploration studies, we
+emphasize the links to spatial statistical modeling and targeted
+multivariate sampling criteria for sequential sampling.
+
+Other statistical
+work in the oceanographic domain include \cite{wikle2013modern}
+focusing on hierarchical statistical models; \cite{sahu2008space},
+studying spatio-temporal models for sea surface temperature and
+salinity data; and \cite{mellucci2018oceanic} looking at the
+statistical prediction of features using an underwater glider.
+In this paper the focus is not on statistical modeling, but rather on statistical results and computations for efficient sampling designs. 
+
+We focus on spatial characterization of a frontal system generated by
+river plumes. Fig. \ref{fig:nidelven} shows the survey area in
+Trondheim, Norway, where cold freshwater enters from the river,
+creating a strong gradient in both temperature and salinity. Because
+of the local topography and the Coriolis force the cold fresh water
+tends to flow to the east. Depending on the river discharge, tidal
+effects, wind, and temperature differences, this boundary often gets
+distorted. Initial knowledge about the location and evolution of these
+features are highly uncertain, making deterministic planning
+challenging.
+
+Adaptive in-situ AUV sampling of an evolving frontal feature has been
+explored in \cite{fronts11,Zhang2012,Pinto2018,costa19}. These
+approaches typically use a reactive-adaptive scheme, whereby
+exploration does not rely on a statistical model of the environment,
+but rather adaptation is based on closing the sensing and actuation
+loop. Myopic sampling, i.e. stage-wise selection of the path (on the
+waypoint graph), has been used for surveys
+\citep{singh2009efficient,Binney2013} that focus largely on reducing
+predictive variance or entropy. These criteria are widely adopted in
+the statistics literature on spatio-temporal design as well
+\cite{bueso1998state,zidek2019monitoring}, but variance and entropy
+reduction are independent of the actual data realizations under the
+assumptions of GP models, so it has limited
+decisional flexibility. The use of data-driven adaptive criteria
+was introduced to include more targeted sampling of regions of
+scientific interest in \cite{Low2009} and \cite{fossuminformation}. In
+this paper, we focus on mapping the river plume by rewarding designs
+that improve the classification of ES in temperature and salinity.
+
 
 \subsection{Outline of the paper and its appendices / supplemental material}
 
@@ -155,28 +309,29 @@ NB: The subsections are used as a temporary instrument to highlight the proposed
     \item 
 \end{itemize}
 
+The remainder of this paper is organized as follows: 
+%Section \ref{sec:bg} provides select background on ocean sampling. 
+Section \ref{sec:ESEP} defines ESs, EPs, and the design criteria of IBV for
+vector-valued GPs. Section \ref{sec:heuristics} builds on these
+assumptions when deriving the sequential design criteria for adaptive
+sampling. Section \ref{sec:simulations} discusses properties of the
+methods in simulation studies. Section \ref{sec:case_study}
+demonstrates the methodology used in field work characterizing a river
+plume and finally, Section \ref{sec:concl_disc} contains a summary and
+a discussion of future work.
+
 %\subsection{}
 
 %\begin{itemize}
 %    \item 
 %\end{itemize}
 
-
+\begin{comment}
 \section{Former Introduction (Before 08.06.2020)}
 
 Monitoring the world's oceans has gained increased importance in light
-of the changing climate and increasing anthropogenic impact. A central
-problem for understanding these factors is the lack of representative
-data with sufficient resolution. Most of this \emph{undersampling} can
-be attributed to the large spatio-temporal variations in which ocean
-processes transpire, prompting the need for effective means of
-sampling. By \emph{sampling}, we refer to the design of observational
-strategies in the spatial domain, where the use autonomous robotic
-platforms can be combined with statistical methods to pursue
-measurements with high scientific relevance. This combination, of
-statistical tools and robotic platforms, constitute a methodological
-basis for addressing the problem of efficient sampling of the ocean,
-which is at the core of this work.
+of the changing climate and increasing anthropogenic impact. 
+A central problem for understanding these factors is the lack of representative data with sufficient resolution. Most of this \emph{undersampling} can be attributed to the large spatio-temporal variations in which ocean processes transpire, prompting the need for effective means of sampling. By \emph{sampling}, we refer to the design of observational strategies in the spatial domain, where the use autonomous robotic platforms can be combined with statistical methods to pursue measurements with high scientific relevance. This combination, of statistical tools and robotic platforms, constitute a methodological basis for addressing the problem of efficient sampling of the ocean, which is at the core of this work.
 
 The
 advent of robust mobile robotic platforms \citep{Bellingham07} has
@@ -286,7 +441,9 @@ methods in simulation studies. Section \ref{sec:case_study}
 demonstrates the methodology used in field work characterizing a river
 plume and finally, Section \ref{sec:concl_disc} contains a summary and
 a discussion of future work.
+\end{comment}
 
+\begin{comment}
 \section{Ocean Processes and Observation}
 \label{sec:bg}
 
@@ -349,6 +506,9 @@ part of ocean observation, filling parts of the undersampling gap
       don't plan to in this work.}}
   \label{fig:envir} \end{figure}
 
+\end{comment}
+
+\subsection{To be relocated elsewhere}
 The AUVs considered here are powered untethered platforms, that
 operate at $1$-$3$ m/s in the upper water column, where they are free
 to move in six degrees of freedom (6 DOF). The in-water operation time
@@ -358,6 +518,7 @@ computers (SBCs), like the Raspberry Pi or a multicore GPU NVIDIA
 Jetson TX1 (quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared
 cache, and 4 GB of 1600 MHz DRAM) for computation onboard.
 
+\begin{comment}
 Surveys with AUVs are usually limited to observations along fixed
 transects that are pre-scripted in mission plans created manually by a
 human operator. The mission can be specified operating on a scale of
@@ -372,6 +533,7 @@ In doing so, the space of sampling opportunities is still limited by
 the waypoint graph, but the AUV has flexibility to modify its path at
 each waypoint based on in-situ sensing and measurements onboard
 \citep{py10,Rajan12,Rajan12b}.
+
 
 We focus on spatial characterization of a frontal system generated by
 river plumes. Fig. \ref{fig:nidelven} shows the survey area in
@@ -403,6 +565,7 @@ scientific interest in \cite{Low2009} and \cite{fossuminformation}. In
 this paper, we focus on mapping the river plume by rewarding designs
 that improve the classification of ES in temperature and salinity.
 
+\end{comment}
 
 \section{Quantifying uncertainty on Excursion Sets implicitly defined by Gaussian processes}
 \label{sec:ESEP}
@@ -650,18 +813,14 @@ expectations would be required, but as we will see, the EIBV has a
 closed-form expression which is relatively fast to compute and hence
 useful for onboard design selection.
 
-Assuming now that $q$ observations are available, one wishes to
-predict $\gp[\x]$. The multivariate Kriging equations holds with size
+Assuming now that $q$ observations $\by_d$ made at $\bu_d$ are available, one wishes to predict $\gp[\x]$. The multivariate Kriging equations holds with size
 $p$ vector of conditional means:  
 \begin{equation}\label{eq:cokrig}
 \bbm(\x)=\bmu(\x)+\lambda(\x,\bu_d)^T \left( \by_d-G_d \bmu(\bu_d)\right),
 \end{equation}
-where $\bmu$ is size $p$ unconditional mean function of $Z$, $\by_d$
-is the realized vector of observed responses, and
-$\lambda(\x,\bu_d)=K^{-1}_y k(\bu_d, \bu)$. Here,
-the data covariance is
-$K_y=\mbox{Cov}(\bY_d,\bY_d)=G_d K(\bu_d,\bu_d)G_d^T+R_d$ while
-the cross-covariance is $\mbox{Cov}(\bY_d,Z(\x))=G_d k(\bu_d, \x)$, assuming the measurement
+where
+$\lambda(\x,\bu_d)=K^{-1}_y G_d k(\bu_d, \bu) $ with data covariance
+$K_y=\mbox{Cov}(\bY_d,\bY_d)=G_d K(\bu_d,\bu_d)G_d^T+R_d$ and cross-covariance $\mbox{Cov}(\bY_d,Z(\x))=G_d k(\bu_d, \x)$, assuming the measurement
 error is independent of the random fields.  The Kriging (cross-)covariance function can also be expressed in the same vein via
 a $p \times p$ matrix 
 \begin{equation}\label{eq:krig:cov}
@@ -685,11 +844,11 @@ function of the data. This in turn means that the probabilities in Eq.
 combinations of Gaussian variables. Related closed-form solutions have
 been noted in similar contexts \citep{bhattacharjya2013value,
   chevalier2014fast,stroh}, but not generalized to our situation with
-random sets for vector-valued GPs. Notably, the mean in equation
-\eqref{eq:cokrig}, is in the form of $\ba+B V$, where
+random sets for vector-valued GPs. Notably, the entry in Eq.
+\eqref{eq:post_ep} is in the form of $\ba+B V$, where
 $V \sim N(0_q, K_y (\bu_d,\bu_d))$,
-$\ba=(t_1,t_2)^t-\bmu(\x)+\lambda(\x,\bu_d)^T G_d \bmu(\bu_d)$
-and $B=\lambda(\x,\bu_d)^T$. The following then applies to give a
+$\ba=(t_1,t_2)^t-\bmu(\x)$
+and $B=\lambda(\x,\bu_d)^T$. The following proposition then applies to give a
 closed-form solution to EIBV calculation in this case.
 
 \begin{propo}
@@ -901,16 +1060,16 @@ $\mbox{Var}(\gp[\x]|\mathcal{Y}^{s-1})$. These are efficiently updated in a sequ
 \mu^{s}(\x) &=&\mu^{s-1}(\x)+\lambda^{[s,s]}(\x,\bu_{d^{j,s}})^T (\by_{d^{j,s}}-G_{d^{j,s}} \mu(\x)), \nonumber \\
 k^{s}(\x,\x') &=& k^{s-1}(\x,\x')-\lambda^{[s,s]}(\x,\bu_{d^{j,s}})^T K_{Y_{d^{j,s}}} \lambda^{[s,s]}(\x',\bu_{d^{j,s}}),
 \end{eqnarray}
-where $\lambda^{[s,s]}(\x,\bu_{d^{j,s}})=K^{-1}_{Y_{d^{j,s}}} k(\bu_{d^{j,s}},\x)$ and the data covariance is $K^{-1}_{Y_{d^{j,s}}}=G_{d^{j,s}} K^s(\bu_{d^{j,s}},\bu_{d^{j,s}})G^T_{d^{j,s}}+R_{d^{j,s}}$, with measurement model and design matrix defined as in equation \eqref{eq:meas}
+where $\lambda^{[s,s]}(\x,\bu_{d^{j,s}})=K^{-1}_{Y_{d^{j,s}}} G_{d^{j,s}} k(\bu_{d^{j,s}},\x)$ and the data covariance is $K^{-1}_{Y_{d^{j,s}}}=G_{d^{j,s}} K^s(\bu_{d^{j,s}},\bu_{d^{j,s}})G^T_{d^{j,s}}+R_{d^{j,s}}$, with measurement model as in Eq. \eqref{eq:meas}.
 
 At stage $s$, the robot must then choose design $d^{j,s}$ where measurements $\by_{d^{j,s}}$ should
 be gathered. For the triangularized waypoint
 graph all six possible
 directions must be evaluated to minimize the expected uncertainty of random sets, and in particular the EIBV for our 
 application. We hence focus on choosing designs for data modeled by
-equation \eqref{eq:meas}, to conduct efficient sequential uncertainty
-reduction according to the EIBV criterion.  Notably, compared with the
-static design $d$ in equation \eqref{eq:eibv}, the optimal sequential
+Eq. \eqref{eq:meas}, to conduct efficient sequential uncertainty
+reduction according to the EIBV criterion. Compared with the
+static design $d$ in Eq. \eqref{eq:eibv}, the optimal sequential
 design not only considers the best current design grid point, but also
 how the data gathered at this node could inform future sampling at
 successive stages.
@@ -1017,7 +1176,7 @@ is solved using the closed-form expressions for EIBV using the results from Prop
 
 Even though the strategy looks at two sampling stages, it is only used to find
 the current best design. When data are collected at stage $s$, the GP model is
-updated as in Eqn. \eqref{eq:krigSUR}, and the mean and (cross) covariance are
+updated as in Eq. \eqref{eq:krigSUR}, and the mean and (cross) covariance are
 used to compute the next design for stage $s+1$, now anticipating what
 stage $s+1$ and $s+2$ could offer, and so on.
 This look-ahead approach is much more computationally demanding than
