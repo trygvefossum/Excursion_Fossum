@@ -722,20 +722,23 @@ I think this is an interesting paper. The paper is well written,
 and the authors have motivated the application well. 
 The authors indicate several paths forward for work in this area, which I think pose interesting questions. They may want to elaborate a bit more on those.
 
-\reply: We elaborated on space-time applications \cite{sigrist2015stochastic,richardson2017sparsity}. TO DO: 
-More complex sampling Look-ahead, going further. 3D sampling, requiring more computationally efficient spatial statistical models. 
+\reply: In the revised 'Closing remarks', we elaborate a bit more on space-time modeling including relevant references \cite{sigrist2015stochastic,richardson2017sparsity} and computational approximations required for three-dimensional grid models, on using more complicated criteria for the data collection, and thoughts on approaches for finite horizon optimization in our context with references to approximate dynamic programming \cite{Powell:11}.
+
+In this context we brought up the issue of server communication for the AUV, which could be possible using wifi communication to a mother-ship at waypoints. First, this can enable more advanced modeling and computational routines. Also, this is a currently a hot topic in control engineering, and we believe there will be a need for statistical approaches for designing efficient sampling strategies for multiple robots in spatio-temporal domains. 
 
 \item{\revcom - Minor 1:}\label{r3c2}
 
 I think the equation $V_{m,upd}$ needs a j as a part of that subscript.
 
-\reply: This is changed in revised version.
+\reply: This is changed in the revised version.
 
 \item{\revcom - Major 2:}\label{r3c3}
 
 Figure 4: Why not show excursion probabilities for, say, myopic selection as well?
 
-\reply: We show EPs for myopic selection. Also, the accompanying code provides more cases.
+\reply: In the revised version we show EPs for myopic and look-ahead selection in this display. 
+
+In the accompanying code there are also resources for displaying other outputs if the reader is interested in comparing results with for instance univariate excursion probabilities.
 
 \end{answers}
 
