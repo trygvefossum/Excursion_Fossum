@@ -144,7 +144,7 @@
 \begin{document}
 
 %----------------------------------------------------------------------
-\title{Informative Autonomous Sampling of Oceanographic Variables Using Joint Excursion Sets
+\title{Autonomous oceanographic Sampling Designs Using Excursion Sets for Multivariate Gaussian Random Fields
   \\\vspace{5mm}
  Authors response
   \\\vspace{5mm}
@@ -157,27 +157,28 @@
 
 We are grateful to the reviewers for their comments and
 suggestions. They have all been considered in this revised
-version of this manuscript. We have worked hard on developing both theoretical results, computational resources, and finally on the presentation in the paper. To help us on these efforts, we included Cedric Traveletti as co-author because he has contributed significantly on the revised version of the paper. 
+version of our manuscript. We have worked a lot on developing both theoretical results, computational resources, and on the presentation in the paper. To help us in these efforts, we included Cedric Traveletti as co-author because he has contributed significantly on the revised version of the paper. 
 
-The principal revisions made to the manuscript are as follows and are done to address the main comments by Editors and Reviewers:
+The principal revisions made to the manuscript are as shown in this list, and they are done to address the main comments of Editors and Reviewers:
 
-\begin{enumerate}
-\item The motivation for excursion sets (ESs) and in particular that of {\bf{multivariate ESs}} has been strengthened. Motivating examples are abundant in medicine where doctors do not solely rely on a single symptom but must see several combined effects before making a diagnosis. Another example is that of photosynthesis where plants and algae produce oxygen only when given enough of every component; light, carbon dioxide and water. Our motivation in this paper is that joint temperature and salinity excursions are proxies for several processes in the oceans. For instance, salmon lice larvae are known to depend on relatively high temperature and high salinities to survive. Salmon lice are parasites to salmon, and the bivariate ES for temperature and salinity is hence important to understand for sustainable activities in salmon fisheries.
+\begin{itemize}
+\item The motivation for excursion sets (ESs), and in particular that of {\bf{multivariate ESs}}, has been strengthened. Motivating examples are abundant in medicine where doctors do not solely rely on a single symptom but must see several combined effects before making a diagnosis. Our motivation in the current paper is that temperature and salinity are proxies for more complex biological variables in the ocean, and in several cases they must be jointly high or low for phenomena to occur. For instance, salmon lice larvae are known to depend on relatively high temperature and high salinity to survive. Salmon lice are parasites to salmon, and the bivariate ES for temperature and salinity is hence important to understand for sustainable activities in salmon fisheries.
 
+In the revised manuscript these aspects are largely rewritten in the Introduction, and partly also in Section 2 on the expected integrated Bernoulli variance (EIBV) and in the Case Study ({\bf{TO DO 6}}). This change addresses some comments of AE, Rev #1 in particular.
 
-In the revised manuscript these aspects are largely rewritten in the Introduction, Background, expected integrated Bernoulli variance (EIBV) and Case Study. This change addresses the comments of AE1, R1 (3,) MORE.
+\item The {\bf{statistical methodological contribution}} have been clarified and improved, including definitions of random sets and ESs, and having more general results than just the EIBV for the bi-variate case of temperature and salinity. The revised version highlights these novel statistical results as a main contribution of the paper. 
 
-In the revised version we motivate more for statisticians, in particular we emphasize the statistical design problem which is sought solved by AUV with its constraints on navigation and computing resources.
+Moreover, we emphasize the statistical design problem which is sought solved by AUV with its constraints on navigation and computing resources.
 
-\item The {\bf{statistical methodological contribution}} have been clarified and improved, including definitions of ESs and having more general results related to the EIBV for vector-valued processes, using marginal (one-location) entries and for volume calculations requiring multiple locations. The revised version highlights these novel statistical results as a main contribution of the paper. 
+In this sense, the revised version should provide ample motivation for statisticians.
 
-In the revised manuscript these aspects are largely rewritten in the main body containing novel results for EIBV for sums of marginal variances as well as for more general results inluding that of volumes of random sets, while the Appendix derives the closed-form results. This change addresses the comments of E2, AE1, R2 (7), R3 (1), MORE.
+In the revised manuscript these aspects are largely rewritten in the Introcuction and in Sect 2 and 3 on the statistical theory. Here, the main body contains the novel results for the expected uncertainty reduction in random sets exemplified by the EIBV, while the Appendix holds the proofs of key results. This change addresses the some comments of Editor, Associate Editor, Rec #2 and Rec #3.
 
-\item We realized that a contribution of the current work is available code for statisticians who could try this themselves or even extend it for their own statistical cases. The computer code could of course also be useful to practitioners having related sampling design problems. The {\bf{simulation results and code}} are thoroughly re-worked. Open-source python code is now provided for all the examples used in the paper and also for simulation studies using more nuanced statistical models (non-stationary and non-isotropic). 
+\item We realized that a contribution of the current work is available code for practioners or statisticians who could try this themselves, or possibly extend it for their own cases. We have hence made a substantial effort in structuring {\bf{computer code for examples}} which are presented on a URL link to go with the paper. This open-source python code is also ready to run on more nuanced statistical models (non-stationary and non-isotropic). 
  
-The simulation study section is largely modified and it contains pointers to the associated open-source code. This change addresses the comments of R1 (2,3),  MORE.
+The simulation study section contains pointers to the associated open-source code. This change addresses the comments of Rev #1 in particular.
 
-\end{enumerate}
+\end{itemize}
 \par \vspace{1em}
 
 
@@ -310,7 +311,7 @@ All changes requested from the editor are listed below and answered on a point-b
 
 General: The inferential problem considered is the paper is that of estimating the “boundary” of a plume. However, the authors never define exactly what a “boundary” is. Such a definition should be provided, as well as some discussion of why determining the location of a boundary is so important. Why is it not sufficient to create a map of predictions (with an accompanying map of prediction error variances) for the variable(s) under study throughout the region of interest (a problem for which there is a huge literature on sampling design)?\par
 
-\reply: The revised version has an entirely new Section 3 which includes general background for random sets and excursion sets. We added references, for instance \cite{adler2000excursion,Molchanov2005}.
+\reply: The revised version has an entirely new Section 2 which includes general background for random sets and excursion sets. We added references, for instance \cite{Adler.Taylor2007} on excursion sets and \cite{Molchanov2005} on random sets.
 
 \vspace{1em}
 
