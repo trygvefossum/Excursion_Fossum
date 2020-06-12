@@ -1,136 +1,18 @@
-Let us in particular consider a locally finite (Borel) measure $\mes$ on $D$ and investigate the probability distribution 
+We now introduce quantities that allow to quantify the uncertainty on the volume of the excursion set $\es$. Let $\mes$ be a 
+(locally finite, Borel) measure  on $\domain$. We want to investigate the probability distribution 
 of $\mes(\es)$ through its moments.
 
 \medskip
 
-%That $\mu(\es)$ is a well-defined random variable follows from
-\begin{propo}
-    \label{propo1}
-%Under technical conditions to be precised, $\mu(\es)$ possesses moments or arbitrary order and these can be expressed for any $r\geq 1$ as
-For a measurable random field $\gp$ and a locally finite measure $\mes$ on $D$, $\mes(\es)$ is a random variable and for 
-any $r\geq 1$,
-\begin{equation*}
-\begin{split}
-\mathbb{E}[\mes(\es)^r]
-&=\int_{D^{r}} \jointExcuProb
-\productMeasure
-,
-\end{split}
-\end{equation*}
-
-where the product measure is denoted as
-$\nu^{\otimes}:=\bigotimes_{i=1}^r \nu$.
-%Note that we will use boldface to denote concatenated variables. % TO RELOCATE
-Here $\gp$ is defined on $D$, and for
-$\bm{u}=\left(u^{(1)}, ..., u^{(r)}\right)\in D^r$, $\gp[\bm{u}]=\left(\gp[u^{(1)}], ...,
-\gp[u^{(r)}]\right)\in \mathbb{R}^{\no r}$.
-\medskip
-
-In the particular case where $\gp$ is a multivariate Gaussian random field
-%and denoting the mean and covariance matrix of $\gp[\bm{u}]$ by $\meanUU\in\mathbb{R}^{p\times r}$ and $\covUU$, respectively,
-we have
-\begin{align*}
-\jointExcuProb = \mathcal{N}_{\no r}(T^r; \meanUU, \covUU),
-\end{align*}
-where $\mathcal{N}_{\no r}(\cdot ; \meanUU, \covUU)$ is the Gaussian measure on $\mathbb{R}^{\no r}$ with mean $\meanUU$ 
-and covariance matrix $\covUU$, respectively defined blockwise by
-%where both are defined blockwise by
-\begin{align*}
-\meanUU&=\begin{pmatrix}\mu(u^{(1)})\\ \vdots\\ \mu(u^{(r)})\end{pmatrix}
-\in \mathbb{R}^{\no r}, \\
-\text{and } \covUU &= \begin{pmatrix}
-\cov(\gp[u^{(1)}], \gp[u^{(1)}]) & \dots & \cov(\gp[u^{(1)}],
-\gp[u^{(r)}])\\
-\vdots & & \vdots\\
-\cov(\gp[u^{(r)}], \gp[u^{(1)}]) & \dots & \cov(\gp[u^{(r)}],
-\gp[u^{(r)}])\\
-\end{pmatrix}\in \mathbb{R}^{pr\times pr},
-\end{align*}
-each of the $r\times r$ blocks of the latter matrix being itself a (cross-)covariance matrix of dimension $\no \times 
-\no$.
-%dimensional Gaussian random vector.
-Assuming further that $\covUU$ is non-singular, the probability of interest can be formulated in terms of the $\no 
-r$-dimensional Gaussian probability density function
-$\varphi_{\no  r}(\cdot;~\meanUU, \covUU)$ as
-%$\varphi_{\no \times r}$ as
-%$\bm{u}\in D^r$ such that $\gp[\bm{u}]$ be non-degenerate, the integrand can be expressed in terms of the $r \times \no$-dimensional Gaussian distribution, namely
-%cumulative distribution function, namely
-\begin{equation*}
-\begin{split}
-&\jointExcuProb
-=
-\int_{T^r} \varphi_{\no  r}\left(\bm{v};
-    ~\meanUU, \covUU\right)
-    \mathrm{d}\bm{v},
-\end{split}
-\end{equation*}
-In the particular orthant case with $\T=(-\infty, t_1] \times \dots \times (-\infty, t_{r}]$,
-the latter probability directly writes in terms of the multivariate Gaussian
-cumulative distribution, % with mean $\meanUU$ and covariance matrix $\covUU$,
-this time by the way without requiring $\covUU$ %the latter
-to be non-singular:
-\begin{equation*}
-\begin{split}
-\jointExcuProb
-&=
-\varPhi_{\no r}\left(\bm{t};~\meanUU, \covUU\right),
-\end{split}
-\end{equation*}
-where we have used the notations
-$t=(t_1,\dots,t_{\no}%,..., t_1, ..., t_p
-)\in\mathbb{R}^{\no}$, $1_{r}=(1,\dots,1)\in \R^{r}$, and
-$\bm{t}=1_{r}\otimes \bm{t}=(t_1,\dots,t_{\no},\dots,t_1,\dots,t_{\no})
-\in \R^{\no r}$.
-\end{propo}
-\begin{proof}
-That $\mes(\es)$ defines indeed a random variable follows from Fubini's theorem
-relying on the joint measurability of
-$(\x, \omega) \to \mathbbm{1}_{\es(\omega)}(\x)$,
-%= \mathbf{1}_{\xi_{\x}(\omega) \in T}$ and Fubini's theorem.
-itself inherited from the assumed measurability for
-$(\x, \omega) \to \gp[\x](\omega)$ and $T$, respectively. From there, following the steps of Robbins' theorem \cite{Robins1944}, we find that
-\begin{equation*}
-\begin{split}
-\mathbb{E}[\mes(\es)^{r}]
-&=\mathbb{E}\left[\left(\int_{D} \mathbbm{1}_{\gp[u] \in T} ~d\mes(u) \right)^{r} \right]
-=\mathbb{E}\left[ \prod_{i=1}^{r} \left(
-        \int_{D} \mathbbm{1}_{\gp[\uu^{(i)}] \in T} ~d\mes(\uu^{(i)})
-\right) \right] \\
-&
-=
-%\mathbb{E}\left[
-%\int_{D^{r}}
-%\prod_{i=1}^{r}
-%\mathbf{1}_{\gp[\uu^{(i)}] \in T}
-%\productMeasure
-%\right]
-%=
-\mathbb{E}\left[
-\int_{D^{r}}
-\mathbbm{1}_{\gp[\uu^{(1)}] \in T,\dots, \gp[\uu^{(r)}]  \in T}
-\productMeasure
-\right]
-%\\
-%&=\int_{D^{r}} \mathbb{E}\left[\mathbf{1}_{\gp[\bm{u}] \in T^r} \right] \productMeasure \\
-%&
-=\int_{D^{r}}
-\jointExcuProb
-\productMeasure.
-\end{split}
-\end{equation*}
-The rest consists in expliciting the probability of $T\times \dots \times T$ under the multivariate Gaussian distribution of
-$\left(\gp[u^{(1)}], \dots,  \gp[u^{(r)}] \right)$.
-\end{proof}
-
-Proposition~\ref{propo1} enables in turn calculating centred moments of $\mes(\es)$.
-The excursion measure variance $\emv = \operatorname{Var}[\mes(\es)]$ is probably the most relevant of them for the considered purposes, and hence writes
+Centred moments may be computed using Proposition~\ref{propo1} developed in the appendix. 
+In particular, it allows to write the excursion measure variance $\emv = \operatorname{Var}[\mes(\es)]$ as an integral of the excursion probability
 \begin{equation*}
 \begin{split}
 \emv
-&=\int_{D^2} \mathbb{P}\left(
+&=\int_{\domain^2} \mathbb{P}\left(
 \gp[u]\in T, \gp[v]\in T \right)
 d\mes^{\otimes}(u, v)\\
-&-\left( \int_{D} \mathbb{P}\left(\gp[u]\in T\right) d\mes(u) \right)^2,
+&-\left( \int_{\domain} \mathbb{P}\left(\gp[u]\in T\right) d\mes(u) \right)^2,
 \end{split}
 \end{equation*}
 which boils down in the excursion/sojourn case where $\T=(-\infty, t_1] \times
@@ -139,7 +21,7 @@ which boils down in the excursion/sojourn case where $\T=(-\infty, t_1] \times
 \begin{split}
 \emv
 %\operatorname{Var}[\mes(\es)]
-&=\int_{D^2}
+&=\int_{\domain^2}
 \varPhi_{2\no}
 \left(
 (\bt, \bt); \mu((u,v)),
@@ -149,20 +31,20 @@ K((u,v),(u,v))
 \mathrm{d}\mes^{\otimes} %\mes
 %\productMeasure
 (u,v)\\
-&-\left( \int_{D} \varPhi_{\no}\left(\bt;\mu(u), K(u)\right) d\mes(u) \right)^2,
+&-\left( \int_{\domain} \varPhi_{\no}\left(\bt;\mu(u), K(u)\right) d\mes(u) \right)^2,
 \end{split}
 \end{equation*}
 %
-Note that like in the case of scalar-valued fields, this quantity requires to work out an integral over $D^2$. In 
+Note that like in the case of scalar-valued fields, this quantity requires to work out an integral over $\domain^2$. In 
 contrast, and still like in the scalar-valued case, the Integrated Bernoulli Variance (IBV) of \cite{Bect.etal} involves 
-solely and integral on $D$ and can be expanded in our present settings as follows
+solely an integral on $\domain$ and can be expanded in our present settings as follows
 \begin{equation*}
 \begin{split}
 \operatorname{IBV} %(\es) %;\mes)
-&=\int_{D}
+&=\int_{\domain}
 \mathbb{P}\left(\gp[\uu]\in T\right)(1-\mathbb{P}\left(\gp[\uu]\in T\right))
 d\mes(u) \\
-&=\int_{D}
+&=\int_{\domain}
 \varPhi_{\no}\left(\bt;\mu(\uu), K(\uu)\right)
 -\left(\varPhi_{\no}\left(\bt;\mu(\uu), K(\uu)\right) \right)^2
 \mathrm{d}\mes(u).
@@ -170,5 +52,3 @@ d\mes(u) \\
 \end{equation*}
 %
 Next we investigate uncertainty reduction criteria related to those indicators.
-In order to be able to calculate them in semi-analytical forms relying on integrals of multivariate Gaussian cumulative 
-distribution functions, we will appeal to some key intermediate results presented next.

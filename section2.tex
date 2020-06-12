@@ -1,7 +1,14 @@
 \section{Quantifying uncertainty on Excursion Sets implicitly defined by Gaussian processes}
 \label{sec:ESEP}
 
-We define the random sets of interest in Section \ref{sec:ES}, while the closed-form expressions for the expected uncertainty reduction are derived in Section \ref{sec:EIBV}. Section \ref{Sec:UnivarEx} provides an instructive bivariate example relevant for sampling in the temperature and salinity application.
+In section \ref{sec:bg_and_notation} we introduce the notation used in the rest of the paper, review (co-)kriging of multivariate gaussian random fields (GRFs) and present update formulae for cokriging.
+Uncertainty quantification (UQ) techniques on excursion sets of GRFs are presented in \ref{sec:set_uq}, in particular the Integrated Bernoulli Variance (IBV) and the excursion measure variance (EMV) are defined \textcolor{red}{and explicit expressions enabling their computation are derived.}
+Section \ref{sec:eibv} turns to the effect of new observations on EMV and IBV. Specifically, the expected effect of the 
+inclusion of a new set of observations on the EMV and IBV are considered and closed-form expressions for the expected 
+uncertainty reduction are derived. Those expression form the backbone of the uncertainty reduction strategies presented in
+Section \ref{sec:heuristics}.
+Finally, Section \ref{Sec:UnivarEx} illustrates the application of the above concepts on a bivariate example relevant for 
+sampling in the temperature and salinity application.
 
 \medskip
 
@@ -10,22 +17,30 @@ robotic platform to characterize a river plume, focusing on spatial
 separation of cold freshwater from a river and warmer saline waters
 of a fjord.
 
-In order to formalize the problem in mathematical terms, let us
-consider a multivariate (i.e., vector-valued) Gaussian random field
-$(\gp[\x])_{\x \in \mathcal{M}}$, where $\mathcal{M}$ is an arbitrary
-set and the dimensionality of the output $\no \geq 1$ is arbitrary.
+The temperature and salinity field over the domain of interest will be modeled as a bivariate gaussian random field. The \textcolor{red}{complement of the} river plume may then be characterized as an \textit{excursion set} of the field, that is, as the region of the domain for which temperature and salinity lie above some specified threshold. Our goal is then to guide the data collection process so as to improve the characterization of this set.
+The methods we develop are fairly general, and not limited to the special case of two-dimensional random fields. Hence, the rest of this section will consider generic excursion sets of gaussian random fields with an arbitrary number of output dimensions.
 
-Assume furthermore that the set of interest
-is characterized in terms of a subset of values of the response variables, say
-$\T \subset \R^{\no}$, and denote the corresponding set of spatial locations by
+\begin{figure}[h!] \centering
+  \includegraphics[width=0.99\textwidth]{Figures/example_excu_1.png}
+  \caption{Realization of a bivariate GRF and excursion set above some threshold. Joint excursion in red, excursion of a single variable in white.}
+\label{example_excu}
+\end{figure}
+
+
+Say we have an underlying phenomenon that is modeled as a $\no$-variate gaussian random field $\gp$ on some domain $\domain$, 
+and we are interested in recovering the set of locations $\es$ in the domain for which the response variables (the components of $\gp$) lie in some set of specified values $\T\subset \mathbb{R}^{\no}$:
 $$
-\es=\gp^{-1}(\T)=\{\x \in \mathcal{M}: \gp[\x] \in \T\}.
+\es:=\gp^{-1}(\T)=\{\x \in \mathcal{M}: \gp[\x] \in \T\}.
 $$
 Our goal here is to develop approaches to quantify and improve the
-characterization of uncertainties on such sets $\es$, in the
-context of multivariate random fields.
+characterization of uncertainties on $\es$. \textcolor{red}{Alread mention how observations are included.}
 
-While some aspects of the developed approaches do not call for a
+If we assume that $\gp$ has
+continuous trajectories (almost surely) and $T$ is closed, then
+$\es$ becomes a Random Closed Set
+\citep{Molchanov2005} and concepts from the theory of random sets will prove useful in characterizing the distribution of the volume of $\es$ under some measure defined on the domain.
+
+\textcolor{red}{Is this really needed?} Note that while some aspects of the developed approaches do not call for a
 specific form of $\T$, we will often stick for simplicity to the case
 of orthants
 ($\T=(-\infty, t_1] \times \dots \times (-\infty, t_{\no}]$ where
@@ -33,39 +48,42 @@ $t_1,\dots, t_{\no} \in \R$) as this will allow efficient calculation
 of several key quantities. Note that changing some $\leq$ inequalities
 to $\geq$ ones would lead to immediate adaptations.
 
-If we assume that $\gp$ has
-continuous trajectories (almost surely) and $T$ is closed, then
-$\es$ becomes a Random Closed Set
-\citep{Molchanov2005}. %In what follows, we will express various quantities related to $\es$ in terms of $\gp$'s moments both for general and orthant $T$'s.
-\textcolor{red}{Peut etre supprimer } In what follows, we will be interested in characterizing the distribution of the volume of the excursion set $\es$ with respect to some (locally finite, Borel) measure $\mes$
-on $D$.
 
-\subsection{Background and Notation}
-\subsubsection{Co-kriging with respect to (batches) of generalized locations}
+\subsection{Background, Notation and Co-Kriging}
+\label{sec:bg_and_notation}
+Given a random field $\gp$ and (noisy) observations of some of its components at some points in the domain, one can predict the value of the field at some unobserved location $s\in \domain$ by using the conditional mean of $\gp[s]$, conditional on the data. This process is called (co-)kriging, and kriging equations precisely tell us how to compute conditional means and covariances conditional on an arbitrary dataset.
+We will here present the most general form of cokriging, where one can include several observations (batch) at a time and 
+observations at a given location $s \in \domain$ may only include a subset of the components of $\gp[s]\in\mathbb{R}^{\no}$ 
+(heterotopic).
 
-To keep things as general as possible, we will consider performing measurements
-in batches, i.e. collecting several observations at a time. Moreover, we assume
-that given a site $s\in D$, one can choose which component(s) of
-$\gp[s]\in\mathbb{R}^{\no}$ one wants to observe.
-%observation of several components at a time being also allowed. 
-Denoting here for  $s\in D$ and $\ell \in \{1\dots,p\}$ the $\ell\text{th}$ component of $\gp[s]$ by $\gp[s,\ell]$ or 
-$\gp[x]$ with $x=(s,\ell)$, we see that $Z$ can actually also be thought of as a scalar-valued Gaussian random field 
-indexed by $D\times \{1\dots,p\}$. This simple change of representation allows in turn revisiting cokriging as kriging 
-in extended index set, and hence enjoying kriging results (such as batched-sequential update formulae, tackled in
-the next section) without unneccesary complications.
-%
-Let us refer to $x=(s,\ell)$ as (generalized) location and use boldface $s, \ell, x$ to denote batches of sites, 
-response indices, and generalized locations, respectively. A batch $\bm{x}=(x_1,\dots, x_q)$ of generalized locations 
-with $x_i=(s_i,\ell_i)$ $(1\ldots i \ldots q)$ is also by a slight abuse oftentimes denoted $\bm{x}=(\bm{s}, \bm{\ell})$ 
-for convenience.
-%
-We will also use concatenation for the field evaluated at a batch of generalized locations
+\subsubsection{Notation}
+In order to work at this level of generality, some notational tricks are needed. Indeed, when considering a new observation, one shall in general specify which component of the field was observed and where it was observed. This leads us to introduce the concept of \textit{generalized location}.
+
+Letting $\gp[s,\ell]$ denote the $\ell\text{-th}$ component of $\gp[s]$, $s\in \domain$ and $\ell \in \{1\dots,p\}$, we will call \textit{generalized location} the couple $x=(s,\ell)$. Given such a generalized location notation $x$,  the notation $\gp[x]$ will be used to denote $\gp[s,\ell]$.
+
+This slight change of notation will allow us to think of $\gp$ as a scalar-valued Gaussian random field 
+indexed by $D\times \{1\dots,p\}$, which will give the co-kriging equations a particularly simple form that parallels the one of univariate kriging. Due to the naturality of the concept of \textit{generalized location}, 
+we will generally use the word \textit{location}, while \textit{spatial location} will be used to stress that we are talking about a point $s \in \domain$. In the following, the letter $x$ will be reserved for generalized locations, while the letters $s$ and $\ell$ will be used for spatial locations and response indices respectively.
+
+It turns out that the inclusion of several observations at a time (a batch) may be handled by the same equations as the 
+one for a single observation, provided some notation adjustments are made. This motivates the following.
+
+
+
+Given a dataset consisting of  $q$ observations at spatial locations $s_i \in \domain$ and response indices $l_i \in \lbrace 1, ..., \no\rbrace$, $i=1, ..., q$, we can concatenate the information needed to specify the dataset by using the notation
+\begin{align*}
+\bm{x}:=(\bm{s}, \bm{\ell}):= (x_1,\dots, x_q),~\text{with }x_i=(s_i,\ell_i).
+\end{align*}
+In general, boldface letters will be used to denote concatenated quantities corresponding to batches of observations. 
+We can then also compactly denote the values of the field at those different locations by
 \begin{align*}
 \gp[\bm{x}]:=
 \left(\gp[s_1,\ell_1], ...,
 \gp[s_q,\ell_{q}]\right) \in \mathbb{R}^{q}.
 \end{align*}
 %
+\subsubsection{Co-Kriging}
+\label{sec:cokriging}
 Assuming now that $n$ batches of observations are available, with respective sizes $q_1,\dots, q_n$, and that one wishes 
 to predict $\gp[\bm{x}]$ for some batch of $q\geq 1$ generalized locations $\bm{x}=(\bm{s}, \bm{\ell})$, the (simple) 
 cokriging mean would then amount to simple kriging with respect to a scalar-valued Gaussian random field indexed by 
@@ -87,7 +105,7 @@ k_{[n]}(\bm{x},\bm{x}')=k(\bm{x},\bm{x}')-\lambda_{[n]}(\bm{x})^T k(\bm{x}_{[n]}
 \subsubsection{Co-kriging update formulae}
 
 Let us now consider the case where co-kriging prediction of $Z$ was made with respect to $n$ batches $\bm{x}_i$ of generalized locations, concatenated again within
-$\bm{x}_n=(\bm{x}_1,\dots, \bm{x}_n)$, and one wishes to update the prediction by incorporating a new vector of observations $\mathbf{z}_{n+1}$ measured at a batch of $q_{n+1} \geq 1$ generalized locations $\bm{x}_{n+1}$.
+$\bm{x}_{[n]}=(\bm{x}_1,\dots, \bm{x}_n)$, and one wishes to update the prediction by incorporating a new vector of observations $\mathbf{z}_{n+1}$ measured at a batch of $q_{n+1} \geq 1$ generalized locations $\bm{x}_{n+1}$.
 %It turns out that the concept of \textit{generalized location} makes the kriging formulae form-invariant across all dimensions. This allows us to directly adapt the 
 Thanks to our representation of co-kriging in terms of simple kriging with respect to generalized locations, a strightforward adaptation of the batch-sequential kriging update formulae from \cite{Chevalier.etal2013a} delivers that
 % 
@@ -111,327 +129,14 @@ vector-valued random fields.
 
 
 
-\subsection{UQ on ES of vector-valued fields with volume moments and friends (focus on VV and IBV)}
+\subsection{Uncertainty Quantification on Excursion Sets of multivariate Gaussian Random Fields}
+\label{sec:set_uq}
 \input{UQonSets}
 
-\medskip 
+\subsection{Expected Integrated Bernoulli Variance and Excursion Measure}
+\label{sec:eibv}
+\input{eibv}
 
-%That $\mu(\es)$ is a well-defined random variable follows from
-\begin{propo}
-	\label{propo1}
-	%Under technical conditions to be precised, $\mu(\es)$ possesses moments or arbitrary order and these can be expressed for any $r\geq 1$ as
-	For a measurable random field $\gp$ and a locally finite
-        measure $\mes$ on $\mathcal{M}$, $\mes(\es)$ is a random
-        variable and for any $r\geq 1$, \begin{equation*}
-          \begin{split} \mathbb{E}[\mes(\es)^r]
-            &=\int_{\mathcal{M}^{r}} \jointExcuProb \productMeasure ,
-          \end{split} \end{equation*}
-	
-	where the product measure is denoted as
-	$\nu^{\otimes}:=\bigotimes_{i=1}^r \nu$. 
-	%Note that we will use boldface to denote concatenated variables. % TO RELOCATE
-	Here $\gp$ is defined on $\mathcal{M}$, and for
-	$\bm{u}=\left(u^{(1)}, ..., u^{(r)}\right)\in \mathcal{M}^r$, $\gp[\bm{u}]=\left(\gp[u^{(1)}], ...,
-	\gp[u^{(r)}]\right)\in \mathbb{R}^{\no r}$.\kc{Is $\no r$ a
-        product of the $\no$ from above? Is that obvious?}
-	\medskip
-	
-	In the particular case where $\gp$ is a multivariate Gaussian random field 
-	%and denoting the mean and covariance matrix of $\gp[\bm{u}]$ by $\meanUU\in\mathbb{R}^{p\times r}$ and $\covUU$, respectively, 
-	we have 
-	\begin{align*}
-	\jointExcuProb = \mathcal{N}_{\no r}(T^r; \meanUU, \covUU),
-	\end{align*}
-	where $\mathcal{N}_{\no r}(\cdot ; \meanUU, \covUU)$ is the Gaussian measure on $\mathbb{R}^{\no r}$ with mean $\meanUU$ and covariance matrix $\covUU$, respectively defined blockwise by  
-	%where both are defined blockwise by 
-	\begin{align*}
-	\meanUU&=\begin{pmatrix}\mu(u^{(1)})\\ \vdots\\ \mu(u^{(r)})\end{pmatrix}
-	\in \mathbb{R}^{\no r}, \\
-	\text{and } \covUU &= \begin{pmatrix}
-	\cov(\gp[u^{(1)}], \gp[u^{(1)}]) & \dots & \cov(\gp[u^{(1)}],
-	\gp[u^{(r)}])\\
-	\vdots & & \vdots\\
-	\cov(\gp[u^{(r)}], \gp[u^{(1)}]) & \dots & \cov(\gp[u^{(r)}],
-	\gp[u^{(r)}])\\
-	\end{pmatrix}\in \mathbb{R}^{pr\times pr},
-	\end{align*}
-	each of the $r\times r$ blocks of the latter matrix being itself a (cross-)covariance matrix of dimension $\no \times \no$. 
-	%dimensional Gaussian random vector. 
-	Assuming further that $\covUU$ is non-singular, the probability of interest can be formulated in terms of the $\no r$-dimensional Gaussian probability density function 
-	$\varphi_{\no  r}(\cdot;~\meanUU, \covUU)$ as 
-	%$\varphi_{\no \times r}$ as
-	%$\bm{u}\in D^r$ such that $\gp[\bm{u}]$ be non-degenerate, the integrand can be expressed in terms of the $r \times \no$-dimensional Gaussian distribution, namely 
-	%cumulative distribution function, namely 
-	\begin{equation*}
-	\begin{split}
-	&\jointExcuProb
-	=
-	\int_{T^r} \varphi_{\no  r}\left(\bm{v};
-	~\meanUU, \covUU\right) 
-	\mathrm{d}\bm{v},
-	\end{split}
-	\end{equation*}
-	In the particular orthant case with $\T=(-\infty, t_1] \times \dots \times (-\infty, t_{r}]$,
-	the latter probability directly writes \kc{What does
-          ``writes'' mean here? Connotes?} in terms of the multivariate Gaussian
-	cumulative distribution, % with mean $\meanUU$ and covariance matrix $\covUU$,
-	this time without requiring $\covUU$ %the latter 
-	to be non-singular: 
-	\begin{equation*}
-	\begin{split}
-	\jointExcuProb 
-	&=
-	\varPhi_{\no r}\left(\bm{t};~\meanUU, \covUU\right),
-	\end{split}
-	\end{equation*}
-	where we have used the notations 
-	$t=(t_1,\dots,t_{\no}%,..., t_1, ..., t_p
-	)\in\mathbb{R}^{\no}$, $1_{r}=(1,\dots,1)\in \R^{r}$, and 
-	$\bm{t}=1_{r}\otimes \bm{t}=(t_1,\dots,t_{\no},\dots,t_1,\dots,t_{\no}) 
-	\in \R^{\no r}$.
-\end{propo}
-
-Proposition~\ref{propo1} enables one to calculate centered moments of $\mes(\es)$. 
-The excursion measure variance $\emv = \operatorname{Var}[\mes(\es)]$
-is probably the most relevant of these for our purposes. We
-have 
-\begin{equation*}
-\begin{split}
-\emv
-&=\int_{\mathcal{M}^2} \mathbb{P}\left(
-\gp[u]\in T, \gp[v]\in T \right) 
-d\mes^{\otimes}(u, v)\\
-&-\left( \int_{\mathcal{M}} \mathbb{P}\left(\gp[u]\in T\right) d\mes(u) \right)^2,
-\end{split}
-\end{equation*} 
-which evaluates in the excursion/sojourn case where
-$\T=(-\infty, t_1] \times \dots \times (-\infty, t_{\no}]$ to
-\begin{equation*} \begin{split}
-  \emv
-%\operatorname{Var}[\mes(\es)]
-&=\int_{\mathcal{M}^2} 
-\varPhi_{2\no}
-\left(
-(\bt, \bt); \bmu((u,v)), 
-K((u,v),(u,v))
-\right) 
-\
-\mathrm{d}\mes^{\otimes} %\mes 
-%\productMeasure 
-(u,v)\\
-&-\left( \int_{\mathcal{M}} \varPhi_{\no}\left(\bt;\bmu(u), K(u)\right) d\mes(u) \right)^2.
-\end{split}
-\end{equation*}
-This quantity requires  an integral over $D^2$. In
-contrast, the Integrated Bernoulli Variance (IBV) of \cite{Bect.etal}
-involves solely an integral on $\mathcal{M}$ and can be expanded in
-our present setting as follows 
-\begin{equation}\label{IBV}
-\begin{split}
-\operatorname{IBV} %(\es) %;\mes)
-&=\int_{\mathcal{M}}
-\mathbb{P}\left(\gp[\uu]\in T\right)(1-\mathbb{P}\left(\gp[\uu]\in T\right))
-d\mes(u) \\
-&=\int_{\mathcal{M}}
-\varPhi_{\no}\left(\bt;\bmu(\uu), K(\uu)\right) 
--\left(\varPhi_{\no}\left(\bt;\bmu(\uu), K(\uu)\right) \right)^2
-\mathrm{d}\mes(u). 
-\end{split}
-\end{equation}
-
-
-\subsection{Expected Integrated Bernoulli Variance and Sampling Designs}
-\label{sec:EIBV}
-
-Our goal is to construct informative sampling designs, given limited
-resources \kc{information?}. In our domain, data is gathered by an AUV
-that can measure temperature and salinity at chosen locations on a
-defined waypoint graph. Such a discretized grid fosters reliable
-navigation and mission performance. The waypoints further enable a
-structure to the design problem in that, that sampling flexibility is
-limited to operation on the graph. % This gives lots of sampling
-% opportunities, and it is important to spend the sampling efforts
-% wisely.
-We focus on sampling designs that reduce the expected integrated
-Bernoulli variance (EIBV). Note that this sampling can be done in a
-static manner where the survey design is pre-planned, or in an
-adaptive setting. For the latter case, data can be processed
-sequentially and the updated model is then used to design and select
-the next waypoint graph to visit, which in turn are used again to
-update the model, and so on (Section \ref{sec:heuristics}). We next
-describe the data modeling assumptions for one stage and develop
-design criteria of semi-analytical forms relying on integrals of
-multivariate Gaussian cumulative distribution functions; we will
-appeal to some key intermediate results presented next.
-
-We denote a design by $d \in \mathcal{D}$, where the concatenation of designs with $q$ sampling locations $\bu_d=\left(u_d^{(1)},\ldots, u_d^{(q)}\right)$ is $\mathcal{D}$. The
-measurement model is defined by 
-\begin{equation}\label{eq:meas}
-    \bY_d=G_d \bz(\bu_d) + \epsilon, \hspace{3mm} \epsilon \sim N(0,R_d).
-\end{equation}
-Here, $\bz(\bu_d)$ is the size $pq$ vector of GP variables at the
-sampling locations, and $G_d$ is the design matrix which in principle
-allows for observing subsets of the vector-valued field at some of the
-$q$ locations (i.e. the matrix has fewer rows than columns). If the
-additive error has independent elements, the covariance matrix $R_d$
-is diagonal. In our setting temperature and salinity measurements are
-extracted from different sensors, so the independence assumption
-between variables is not unrealistic, but this is not necessarily the
-case for other kinds of measurements on the AUV. It is further common
-in geostatistics to assume spatially independent measurement errors,
-and we also do so. But our methodology for constructing sampling
-designs does not rely on these independence assumptions.
-
-For a given design $d$ the evaluation is based on the expected
-information contained in the data to influence the criterion.   
-Considering the EIBV criteria, we have
-\begin{eqnarray}\label{eq:eibv}
-    \mbox{EIBV} (d) &=& E_{\bY_d} \left( \int_{\mathcal{M}}
-p(\x;\by_d)(1-p(\x;\by_d))
-d\mes(u) \right), \nonumber \\
-p(\x;\by_d) &=& \mathbb{P}\left(\gp[\uu]\in T|\bY_d=\by_d \right)
-\end{eqnarray}
-where the expectation is over the planned data.  The optimal design
-for an AUV survey is then 
-\begin{equation}\label{crit}
-    d^* = \mbox{argmin}_{d \in \mathcal{D}} \mbox{EIBV}(d).
-\end{equation}
-For another criterion using random moments of random sets similar
-expectations would be required, but as we will see, the EIBV has a
-closed-form expression which is relatively fast to compute and hence
-useful for onboard design selection.
-
-Assuming now that $q$ observations $\by_d$ made at $\bu_d$ are available, one wishes to predict $\gp[\x]$. The multivariate Kriging equations holds with size
-$p$ vector of conditional means:  
-\begin{equation}\label{eq:cokrig}
-\bbm(\x)=\bmu(\x)+\lambda(\x,\bu_d)^T \left( \by_d-G_d \bmu(\bu_d)\right),
-\end{equation}
-where
-$\lambda(\x,\bu_d)=K^{-1}_y G_d k(\bu_d, \bu) $ with data covariance
-$K_y=\mbox{Cov}(\bY_d,\bY_d)=G_d K(\bu_d,\bu_d)G_d^T+R_d$ and cross-covariance $\mbox{Cov}(\bY_d,Z(\x))=G_d k(\bu_d, \x)$, assuming the measurement
-error is independent of the random fields.  The Kriging (cross-)covariance function can also be expressed in the same vein via
-a $p \times p$ matrix 
-\begin{equation}\label{eq:krig:cov}
-\Sigma(\x,\x')=K(\x,\x')-\lambda(\x,\bu_d)^T K_y(\bu_d, \bu_d) \lambda(\x,\bu_d).
-\end{equation}
-
-Eq. \eqref{eq:cokrig} and \eqref{eq:krig:cov} are used to
-provide informative, updated statements about sets of interest. For
-our case with temperature and salinity, the conditional EPs, given
-measurements $\by_d$, can then be computed from
-\begin{eqnarray}\label{eq:post_ep}
- p(\x;\by_d) &=& P(Z_1(\x) \leq t_1, Z_{2}(\x) \leq t_2 |\bY_d=\by_d),  \nonumber \\
- &=& \Phi_2 ((t_1,t_2)^T-\bbm(\x);0_2, \Sigma(\x,\x)). 
-\end{eqnarray}
-
-A critical element in the derivation of a closed-form for the EIBV is
-that the conditional mean in Eq. \eqref{eq:cokrig} is a linear
-(affine) function of the data $\by_d$ and the covariance is not a
-function of the data. This in turn means that the probabilities in Eq.
-\eqref{eq:post_ep} involve inequality statements for linear
-combinations of Gaussian variables. Related closed-form solutions have
-been noted in similar contexts \citep{bhattacharjya2013value,
-  chevalier2014fast,stroh}, but not generalized to our situation with
-random sets for vector-valued GPs. Notably, the entry in Eq.
-\eqref{eq:post_ep} is in the form of $\ba+B V$, where
-$V \sim N(0_q, K_y (\bu_d,\bu_d))$,
-$\ba=(t_1,t_2)^t-\bmu(\x)$
-and $B=\lambda(\x,\bu_d)^T$. The following proposition then applies to give a
-closed-form solution to EIBV calculation in this case.
-
-\begin{propo}
-	\label{propo2}
-	Let $p, q, h \geq 1$, $a \in \R^p$, $B \in \R^{p\times q}$,
-	and $\covN, \covV$ be two covariance matrices in
-	$\R^{p\times p}$ and $\R^{q\times q}$, respectively.
-	Then, for $V \sim \mathcal{N}_{q}(0_q, \covV)$,
-	\begin{equation*}
-	\mathbb{E}\left[ \varPhi_{p}\left( \ba + BV; 0_p,\covN \right)^h \right]
-	=
-	\varPhi_{ph}
-	\left(
-	\ba
-	;0_{ph},
-	\Sigma
-	\right),
-	\end{equation*}
-	where the vector $\ba \in \R^{p h}$ is defined as 
-	$\ba := 1_h\otimes a = 
-	\left(a, \dots , a
-	\right)'$
-	and the $p h\times p h$ covariance matrix is given by
-	$\Sigma := 
-	1_h 1_h'\otimes B\covV B' + I_h\otimes \covN$.
-\end{propo}
-The proof of Proposition \ref{propo2} is provided in the Appendix. 
-
-In block-wise representation, the following relation holds for the
-covariance in Proposition \ref{propo2}: 
-\begin{align*}
-	\Sigma&=
-	\begin{pmatrix}
-	\covN & &\\
-	& \ddots &\\
-	&   & \covN
-	\end{pmatrix}
-	+
-	\begin{pmatrix}
-	B\covV B' & \dots & B\covV  B'\\
-	\vdots & & \vdots\\
-	B\covV B' & \dots & B\covV B'\\
-	\end{pmatrix}.
-\end{align*}
-The calculation of the multivariate Gaussian cumulative distribution
-is done effectively using code such as that of
-\cite{genz2009computation}. 
-
-In the more general case, for instance that of volumes of random sets,
-the criterion will include couplings with different locations and the
-result must be generalized. For the case of multivariate monomials in
-orthant probabilities with thresholds affine in a common Gaussian
-vector \kc{This sentence is dangling. Doesn't have a conclusion.}.
-%Namely, for monomials of degree $k$, we have.
-
-\begin{propo}%[\textcolor{red}{Notation in progress, to be reviewed/revised}]
-	\label{propo3}
-	Let $g, p, q\geq 1$, $h_{1},\dots, h_{g}\geq 1$ with $H=\sum_{i=1}^g h_i$, $a_{i} \in \R^{p}$, $B_{i}\in \R^{p \times q}$, and covariance matrices $\covN_i \in \R^{p \times p}$ $(1\leq i \leq g)$. Then, for any covariance matrix $\covV \in \R^{q\times q}$ and $V\sim\mathcal{N}_{q}(0_q,\covV)$, 
-	%	Let $g$ and $k$ be integers, and consider a $g$-terms monomial of degree $k$
-	%	\[
-	%	    \prod_{i=1}^{g} \varPhi_{p}\left(a_i + B_{i}V; \Sigma_{i}
-	%	    \right)^{h_i},
-	%    \]
-	%    where $\sum_{i=1}^g h_i = k$, each $a_i$, $B_i$ and $\Sigma_i$ is as in
-	%    \cref{propo2} and $V$ is a $q$-dimensional Gaussian vector distributed as
-	%    $V\sim\mathcal{N}(0,\covV)$.
-	%
-	% Then the expectation of the monomial is given by
-	\begin{equation}
-	\mathbb{E}\left[ \prod_{i=1}^{g} \varPhi_{p}\left(a_i + B_{i}V;0_p, \covN_{i} \right)^{h_i} \right]
-	=
-	\varPhi_{p H}
-	\left(
-	\bm{a}
-	;0_{pH},
-	\mathbf{\Sigma}
-	\right),
-	\end{equation}
-	with $\bm{a}=(1_{h_1}\otimes a_1, \dots, 1_{h_g}\otimes a_{g}) \in \R^{p H}$
-	and $\mathbf{\Sigma}\in \R^{p H \times p H}$ is defined blockwise by $(\Sigma_{i,j})_{i,j \in \{1,\dots, g\}}$ where, for any $i,j \in \{1,\dots, g\}$, %the blocks are given by 
-	\begin{equation}
-	\Sigma_{i,j}=
-	(1_{h_{i}}1_{h_{j}}')\otimes (B_{i}\Sigma_{V} B_{j}') + \delta_{i,j}(I_{h_{i}}\otimes \covN_{i}) \in \R^{p h_{i} \times p h_{j}}.
-	\end{equation}
-	%with $\bm{a}=\sum_{j=1}^g \mathbf{1}_{J_{j}} \otimes a_j \in \R^{p \times k}$ 
-	%where $J_{j}=\{\sum_{i=1}^{j-1}h_i + 1, \dots, \sum_{i=1}^{j}h_i\}$,
-	%$\mathbf{1}_{I_{j}}$ denotes the vector of $\R^{k}$ with components equal to $1$ for indices in $I_{j}$ and $0$ else ($1\leq j \leq g$), 
-	%and $\mathbf{\Sigma}\in \R^{p k \times p k}$ is defined blockwise by 
-	%\begin{equation}
-	%\mathbf{\Sigma}_{\widetilde{J}_{j_{1}},\widetilde{J}_{j_{2}}}=
-	%(\mathbf{1}_{h_{j_1}}\mathbf{1}_{h_{j_2}}')\otimes (B_{j_{1}}\Sigma_{V} B_{j_2}') + \delta_{j_{1},j_{2}}(I_{j_{1}}\otimes \Sigma_{j_{1}}),
-	%\end{equation}
-	%where $\widetilde{J}_{j}=\{p\sum_{i=1}^{j-1}h_i + 1, \dots, p\sum_{i=1}^{j}h_i\}$ ($1\leq j \leq g$).
-\end{propo}
-The proof of Proposition \ref{propo2} is provided in the Appendix. 
 
 
 \subsection{An Example of EIBV using Temperature and Salinity}
@@ -440,6 +145,14 @@ The proof of Proposition \ref{propo2} is provided in the Appendix.
 % In this section, 
 We calculate EPs and the Bernoulli variance for a few bivariate
 Gaussian distributions for temperature and salinity to illustrate the concepts articulated above. The parameter inputs are made up, but they are in a realistic range as we have in the simulation study and real-world example below. The thresholds are set equal to the mean; $\mu_1=t_1=5^o C$ for temperature and  $\mu_2=t_2=30$ mg/l for salinity, and we play with the temperature and salinity correlation and variances to study the effect on the EP and expected Bernoulli variance. 
+
+
+\begin{figure}[h!] \centering
+  \includegraphics[width=0.99\textwidth]{Figures/ebvs.png}
+  \caption{Expected Bernoulli variance for observation of first, second, or both components.}
+\label{illus_bivarDens}
+\end{figure}
+
 
 Fig. \ref{illus_bivarDens} shows contour plots of three different
 densities with increasing correlation $\gamma$ between temperature and

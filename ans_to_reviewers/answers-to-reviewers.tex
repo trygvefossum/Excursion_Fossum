@@ -56,7 +56,7 @@
 \newcommand{\bY}{ {\boldsymbol Y} }
 \newcommand{\bz}{ {\boldsymbol z} }
 \newcommand{\bZ}{ {\boldsymbol Z} }
-\newcommand{\vc}[1]{\mbox{\boldmath $#1$}}
+\newcommand{\vc}[1]{\mbox{\boldmath $1$}}
 \newcommand{\balph}{ {\boldsymbol \alpha} }
 \newcommand{\balpha}{ {\boldsymbol \alpha} }
 \newcommand{\bbet}{ {\boldsymbol \beta} }
@@ -133,10 +133,10 @@
 \newlist{answers}{enumerate}{10}
 \setlist[answers]{leftmargin=*, label=\arabic{reviewer}.\arabic*}
 
-\newcommand{\edcomment}[1]{{\color{green}{\{Editor: #1\}}}}
-\newcommand{\frevcomment}[1]{{\color{blue}{\{Rev 1: #1\}}}}
-\newcommand{\srevcomment}[1]{{\color{red}{\{Rev 2: #1\}}}}
-\newcommand{\trevcomment}[1]{{\color{violet}{\{Rev 3: #1\}}}}
+\newcommand{\edcomment}[1]{{\color{green}{\{Editor: 1\}}}}
+\newcommand{\frevcomment}[1]{{\color{blue}{\{Rev 1: 1\}}}}
+\newcommand{\srevcomment}[1]{{\color{red}{\{Rev 2: 1\}}}}
+\newcommand{\trevcomment}[1]{{\color{violet}{\{Rev 3: 1\}}}}
 
 \usepackage{amsthm,amsmath,natbib}
 \RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
@@ -164,19 +164,20 @@ The principal revisions made to the manuscript are as shown in this list, and th
 \begin{itemize}
 \item The motivation for excursion sets (ESs), and in particular that of {\bf{multivariate ESs}}, has been strengthened. Motivating examples are abundant in medicine where doctors do not solely rely on a single symptom but must see several combined effects before making a diagnosis. Our motivation in the current paper is that temperature and salinity are proxies for more complex biological variables in the ocean, and in several cases they must be jointly high or low for phenomena to occur. For instance, salmon lice larvae are known to depend on relatively high temperature and high salinity to survive. Salmon lice are parasites to salmon, and the bivariate ES for temperature and salinity is hence important to understand for sustainable activities in salmon fisheries.
 
-In the revised manuscript these aspects are largely rewritten in the Introduction, and partly also in Section 2 on the expected integrated Bernoulli variance (EIBV) and in the Case Study ({\bf{TO DO 6}}). This change addresses some comments of AE, Rev #1 in particular.
+In the revised manuscript these aspects are largely rewritten in the Introduction, and partly also in Section 2 on the expected integrated Bernoulli variance (EIBV) and partly in the Case Study ({\bf{TO DO 6 AGAIN}}). This change addresses some key comments of AE, Rev 1 in particular.
 
 \item The {\bf{statistical methodological contribution}} have been clarified and improved, including definitions of random sets and ESs, and having more general results than just the EIBV for the bi-variate case of temperature and salinity. The revised version highlights these novel statistical results as a main contribution of the paper. 
 
 Moreover, we emphasize the statistical design problem which is sought solved by AUV with its constraints on navigation and computing resources.
 
-In this sense, the revised version should provide ample motivation for statisticians.
+In this sense, the revised version should provide ample motivation for statisticians, while still maintaining strong links to the application for illustrating concepts.
 
-In the revised manuscript these aspects are largely rewritten in the Introcuction and in Sect 2 and 3 on the statistical theory. Here, the main body contains the novel results for the expected uncertainty reduction in random sets exemplified by the EIBV, while the Appendix holds the proofs of key results. This change addresses the some comments of Editor, Associate Editor, Rec #2 and Rec #3.
+In the revised manuscript these aspects are largely rewritten in the Introduction, in Sect 2 and 3, and on future work in the Closing remarks. The main body contains the novel statistical results for the expected uncertainty reduction in random sets exemplified by the EIBV, while the Appendix holds the proofs of key results. This change addresses the some comments of Editor, Associate Editor, Rev 1, Rev 2 and Rev 3.
 
-\item We realized that a contribution of the current work is available code for practioners or statisticians who could try this themselves, or possibly extend it for their own cases. We have hence made a substantial effort in structuring {\bf{computer code for examples}} which are presented on a URL link to go with the paper. This open-source python code is also ready to run on more nuanced statistical models (non-stationary and non-isotropic). 
+\item We realized that a contribution of the current work is available code for practitioners or statisticians who could try this themselves, or possibly extend it for their own cases. We have hence made a substantial effort in structuring {\bf{computer code for examples}} which are presented on a URL link. (\url{https://cedrictravelletti.github.io/Submarine/} )
+ to go with the paper. This open-source python code is also ready to run on more nuanced statistical models (non-stationary and non-isotropic). 
  
-The simulation study section contains pointers to the associated open-source code. This change addresses the comments of Rev #1 in particular.
+The simulation study section contains pointers to the associated open-source code. This change addresses the comments of Rev 1 and Rev 2 in particular.
 
 \end{itemize}
 \par \vspace{1em}
@@ -311,7 +312,7 @@ All changes requested from the editor are listed below and answered on a point-b
 
 General: The inferential problem considered is the paper is that of estimating the “boundary” of a plume. However, the authors never define exactly what a “boundary” is. Such a definition should be provided, as well as some discussion of why determining the location of a boundary is so important. Why is it not sufficient to create a map of predictions (with an accompanying map of prediction error variances) for the variable(s) under study throughout the region of interest (a problem for which there is a huge literature on sampling design)?\par
 
-\reply: The revised version has an entirely new Section 2 which includes general background for random sets and excursion sets. We added references, for instance \cite{Adler.Taylor2007} on excursion sets and \cite{Molchanov2005} on random sets.
+\reply: The revised version has an entirely new Section 2 which includes general background for random sets and excursion sets. We added references, for instance \cite{adler2009random} on excursion sets and \cite{Molchanov2005} on random sets.
 
 \vspace{1em}
 
@@ -332,7 +333,7 @@ In the open-source that is now available, we implement non-stationary and non-is
 
 Page 9, second paragraph of Section 4.2: It has been assumed here that the measurement errors for temperature and salinity at any given location are uncorrelated. Is this a reasonable assumption? This could easily be checked by taking replicate measurements at each site.\par
 
-\reply: The assumptions are conditionally independent measurements of salinity and temperature. We believe this is realistic as they are gathered from different sensors. We added a comment about this not necessarily being the case with other data that are extracted and processed by combining sensors. In the latent Gaussian random field, the variables are dependent. 
+\reply: The assumption is that salinity and temperature are conditionally independent measurements. (In the latent Gaussian random field, the variables are dependent.) We believe this conditional independence assumption is realistic as the measurements are gathered from different sensors. We added a comment about this not necessarily being the case with other data that are extracted and processed by combining sensors. Then assumptions can be tested in a lab under idealized conditions. But it is difficult to do so for the AUV in the changing oceans. 
 
 \vspace{1em}
 
@@ -397,7 +398,7 @@ to-last line of Page 12.
 \item Page 9, three lines after (10): I presume that all off-diagonal elements of R are zeros, but this
 should be stated explicitly.
 
-\reply: We have changed the statement on page 9 to: ``$\bR$ contains zeroes except on the diagonal entries, which are set to $r^2_T$ and $r^2_S$, holding the measurement error variances of temperature and salinity observations."
+\reply: We have changed the statement on page 9 to: ``$\bR$ contains zeroes except on the diagonal entries, which are set to $r^2_1$ and $r^2_2$, holding the measurement error variances of temperature and salinity observations."
 
 %\item[1.2.3]\label{emc3} 
 \item Page 19, fourth line from bottom: Change ``as also" to ``as well as"
@@ -408,7 +409,7 @@ should be stated explicitly.
 \item Page 30, second and third references listed: ``et al." is listed after the authors’ names for each
 of these two references, but actually there are no additional authors beyond the two listed.
 
-\reply: we have made this change to the citations \cite{genton2015cross} and \cite{french2016credible} - page 30.
+\reply: We have made this change to the citations: \cite{genton2015cross} and \cite{french2016credible} - page 30.
 \end{itemize}
 
 
@@ -446,11 +447,11 @@ Overall the paper is remarkably free of a need for editorial improve- ments. I w
 I am not clear about the intended audience for this paper. Or to put it another way, for whom is this paper important? The case study or the
 design methodology? Case studies offer concern specific events deemed of importance e.g. the much–studied O-ring failure long ago on a US rocket launch. Such a case study may then drive the innovation of statistical methods for an analysis of data that were collected because of that case’s importance. More likely the case study was intended as a tutorial on the use of a novel design methodology. In fact the Closing Remarks section points “the opportunities available real-time multivariable spatial data-gathering” that “statistician can exploit”.
 
-\reply: TO DO
+\reply: The motivation for an applied statistical audience is strengthened, while we have maintained strong links to the applications of Robotics, Ocean Science and AI. In particular in the Introduction and in Section 2 are now stronger on motivating multivariate ESs, and highlighting the need for new statistics in these marine robotics applications. See main comments early on in this reply letter. 
 
 However, the user community is pretty tech-savvy nowadays, and that community might well be the primary beneficiary and more motivated than the statisticians to use the tools for sequentially sampling rivers for mapping plumes. That suggests including the relevant code for running the analyses, especially the simulation studies. An alterna- tive journal to a statistical one might be more appropriate from that perspective.
 
-\reply: We have made an open-source repository available for the public. This includes commented code examples for exploration and analysis of the material presented in the paper. The code is optimized for speed to allow fast computation using Pytorch (citation). The code is available here: (TO DO link). 
+\reply: We have made an open-source repository available for the public. This includes commented code examples for exploration and analysis of the material presented in the paper. The code is optimized for speed to allow fast computation using Pytorch (citation). The code is available here: (\url{https://cedrictravelletti.github.io/Submarine/} )
 
 \item{\revcom :}\label{r1c5}
 
@@ -567,7 +568,7 @@ I know very little about the AUVs you discuss, and I suspect many of your reader
 
 \reply: We have added more information about AUVs and their computational capabilities in Section 2.1 (Background on Ocean Processes and Observations) to address this. 
 \begin{quote}
-The AUVs, see Fig. 9, considered here operate at $1$-$3$ m/s in the upper water column, where they are free to move in six degrees of freedom (6 DOF). The in-water operation time capacity depends on survey speed, payload sensors and navigation. Generally this amounts to 8-24 hrs. operation for smaller crafts, and 24-48 hrs. for larger crafts. AUVs have limited computational capacity, as they typically use single-board computers (SBCs), like the Raspberry Pi or a multicore GPU NVIDIA Jetson TX1 (quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared cache, and 4 GB of 1600 MHz DRAM) to do computation. 
+"The AUVs, see Fig. 9, considered here operate at $1$-$3$ m/s in the upper water column, where they are free to move in six degrees of freedom (6 DOF). The in-water operation time capacity depends on survey speed, payload sensors and navigation. Generally this amounts to 8-24 hrs. operation for smaller crafts, and 24-48 hrs. for larger crafts. AUVs have limited computational capacity, as they typically use single-board computers (SBCs), like the Raspberry Pi or a multicore GPU NVIDIA Jetson TX1 (quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared cache, and 4 GB of 1600 MHz DRAM) to do computation. "
 \end{quote}
 \vspace{1em}
 
@@ -686,7 +687,8 @@ the simulated AUV moves back and forth across the excursion set.
 
 While the context does not allow full reproducibility of the paper results, no implementation details are provided. What software was used to perform the bulk of analysis? Are there scripts available that can be adapted by others for similar purposes? Please provide resources for the practical implementation of the methodology discussed in the paper.
 
-\reply: Code is improved in the revision and provided for open-source usage: LINK 
+\reply: Code is improved in the revision and provided for open-source usage (\url{https://cedrictravelletti.github.io/Submarine/} )
+ 
 
 \item{\revcom: Minor comments}\label{r2cminor}
 
@@ -737,9 +739,10 @@ I think the equation $V_{m,upd}$ needs a j as a part of that subscript.
 
 Figure 4: Why not show excursion probabilities for, say, myopic selection as well?
 
-\reply: In the revised version we show EPs for a static survey line, myopic and look-ahead selection in three displays. 
+\reply: In the revised version we show EPs for a static survey line, myopic and look-ahead selection in three displays. (This is in the new Figure 3.)
 
-In the accompanying code there are also resources for displaying other outputs if the reader is interested in comparing results with for instance univariate excursion probabilities.
+In the accompanying code (\url{https://cedrictravelletti.github.io/Submarine/} )
+there are also resources for displaying other outputs if the reader is interested in comparing results with for instance univariate excursion probabilities.
 
 \end{answers}
 

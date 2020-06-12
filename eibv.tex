@@ -1,0 +1,98 @@
+This section is devoted to computing the expected effect of the inclusion of new observations on the $\emv$ and $\ibv$ of the excursion set $\es$. Let us consider the same setting as in Section \ref{sec:cokriging} where $n$ batches of measurements have already been performed, and let 
+$\currentExp{.}$ and $\currentProba{.}$ denote conditional expectation
+and probability conditional on the first $n$ batches of observations, respectively. We want to co pute the effect of the inclusion of a new set of observations at $\bm{x}_{n+1}$ on the $\emv$ and $\ibv$.
+
+For uncertainty functional such as $\ibv$ and $\emv$, we use a similar indexing system
+with respect to a sequence of batch, and further indicate when applicable the new batch
+of generalized location between parentheses; e.g., $\emv_{[n+1]}(\bm{x})$ denotes the value
+of $\emv$ (a random variable, seen from ``step'' $n$, i.e. when knowing $Z$ solely at
+the $n$ first generalized location batches) when adding observations at $\bm{x}$ to those
+already available at step $n$.
+
+\begin{propo}
+\label{propo_eibv}
+Let $\eibv_{[n]}(\bm{x})=\currentExp{\ibv_{[n+1]}(\bm{x})}$ (where $\bm{x}$ plays
+the role of $\bm{x}_{n+1}$) be the expected effect of adding an observation a $\bm{x}$ on the IBV.
+Then we have
+\begin{equation}
+\begin{split}
+\eibv_{[n]}(\bm{x})
+&=\int_{D} \varPhi_{\no}\left(\bt;~\currentMean{\uu}, \currentCov{u, u}\right) d\mes(u)\\
+&-\int_{D} \varPhi_{2\no}
+\left(
+\left(
+\begin{matrix}
+\bt-\currentMean{u}\\
+\bt-\currentMean{u}
+\end{matrix}
+\right);
+\mathbf{\Sigma}_{[n]}(\uu)
+\right)
+d\mes(u),
+\end{split}
+\end{equation}
+where the matrix $\mathbf{\Sigma}_{[n]}(\uu)$ is defined as
+\begin{equation*}
+\begin{split}
+\mathbf{\Sigma}_{[n]}(\uu)&=
+\left(
+\begin{matrix}
+\currentCov{u, u} & \currentCov{u, u}-\futureCov{u, u}\\
+\currentCov{u, u}-\futureCov{u, u} & \currentCov{u, u}
+\end{matrix}
+%\begin{matrix}
+%\currentCov{u, u} & \Delta_{[n]}(\uu)\\
+%\Delta_{[n]}(\uu) & \currentCov{u, u}
+%\end{matrix}
+\right).\\
+\end{split}
+\end{equation*}
+\end{propo}
+
+As for the expected excursion measure variance, a similar result may be derived.
+\begin{propo}
+\label{propo_emv}
+
+\begin{equation*}
+\begin{split}
+\eemv_{[n]}(\bm{x})
+&=\int_{D^2} 
+\varPhi_{2\no}
+\left(
+(\bt, \bt); \mu((u,v)), 
+K((u,v),(u,v))
+\right) 
+\
+\mathrm{d}\mes^{\otimes} %\mes 
+%\productMeasure 
+(u,v)\\
+&-\currentExp{
+    \varPhi_{\no}\left(a_1+B_1 V; C_1\right)
+    \varPhi_{\no}\left(a_2+B_2 V; C_2\right)
+},
+\end{split}
+\end{equation*}
+
+with $V=\gp[\bm{x}_{n+1}]-\currentMean{\bm{x}_{n+1}} \sim \mathcal{N}(0_{q_{n+1}},k_{[n]}(\bm{x}_{n+1},\bm{x}_{n+1}))$ and $a_1=\bt-\currentMean{\uu}$,
+$B_1=-\lambda_{[n+1,n+1]}(\uu)^T$, $a_2=\bt-\currentMean{\vv}$, $B_2=-\lambda_{[n+1,n+1]}(\vv)^T$.
+
+This integrand finally boils down to an evaluation of the $2\no$-dimensional Gaussian CDF by
+Proposition~\ref{propo3}. Details are omitted here for brevity as we did not implement further
+this criterion that requires numerical integration over $\domain^2$.
+\end{propo}
+
+
+Note that the calculation of the multivariate Gaussian cumulative distribution
+may be done effectively using code such as that of
+\cite{genz2009computation}. 
+
+\textcolor{red}{Do we really want to keep this?}
+A critical element in the derivation of a closed-form for the EIBV is
+that the conditional mean in the cokriging equations is a linear
+(affine) function of the data $\by_d$ and the covariance is not a
+function of the data. This in turn means that the probabilities in Eq.
+\eqref{eq:post_ep} involve inequality statements for linear
+combinations of Gaussian variables. Related closed-form solutions have
+been noted in similar contexts \citep{bhattacharjya2013value,
+  chevalier2014fast,stroh}, but not generalized to our situation with
+random sets for vector-valued GPs.

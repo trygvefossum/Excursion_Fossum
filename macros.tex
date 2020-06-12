@@ -3,6 +3,10 @@
 \usepackage{bm}
 \usepackage{bbm}
 
+% ----------------------------
+% Domain, outputs and GP.
+% ----------------------------
+
 \newcommand{\dl}{\mathrm{d}\lambda}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\x}{u}
@@ -18,15 +22,28 @@
 \newcommand{\mes}{\nu}
 % \newcommand{\gp}{\xi}
 \newcommand{\no}{p}
+\newcommand{\domain}{\mathcal{M}}
 \newcommand{\eps}{\varepsilon}
 \newcommand{\sigeps}{\Sigma_{\eps}}
 \newcommand{\cov}{\operatorname{Cov}}
 \newcommand{\norm}{\mathcal{N}}
+
+% Field value at x. Can either switch between parenthesis or subscripting.
+% If no argument provided, then will just print xi.
+\newcommand{\gp}[1][]{
+    \ifthenelse{\isempty{#1}}
+    {Z}
+    {Z_{#1}}
+}
+
+% ----------------------------
+% THEOREMS
+% ----------------------------
 \newtheorem{propo}{Proposition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{remark}{Remark}
 \newtheorem*{remark*}{Remark}
-
+% ----------------------------
 
 \DeclareMathOperator*{\argmin}{\arg\!\min}
 
@@ -39,14 +56,6 @@
 % Product measure.
 \newcommand{\productMeasure}{
 \mathrm{d}\nu^{\otimes}\left(\bm{u}\right)}
-
-% Field value at x. Can either switch between parenthesis or subscripting.
-% If no argument provided, then will just print xi.
-\newcommand{\gp}[1][]{
-    \ifthenelse{\isempty{#1}}
-    {Z}
-    {Z_{#1}}
-}
 
 % Misc. covariance matrices
 \newcommand{\covV}{C_{V}}

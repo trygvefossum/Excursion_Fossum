@@ -564,7 +564,11 @@ that improve the classification of ES in temperature and salinity.
 
 \end{comment}
 
+
+
 \input{section2}
+
+
 
 \begin{comment}
 \section{Quantifying uncertainty on Excursion Sets implicitly defined by Gaussian processes}
@@ -1888,172 +1892,8 @@ support from the Swiss National Science Foundation, project number
 
 
 \section*{Appendix}
+\input{appendix}
 
-
-Proof of Proposition \ref{propo1}:
-
-\begin{proof}
-	That $\mes(\es)$ defines indeed a random variable follows from Fubini's theorem 
-	relying on the joint measurability of 
-	$(\x, \omega) \to \mathbbm{1}_{\es(\omega)}(\x)$, 
-	%= \mathbf{1}_{\xi_{\x}(\omega) \in T}$ and Fubini's theorem.  
-	itself inherited from the assumed measurability for  
-	$(\x, \omega) \to \gp[\x](\omega)$ and $T$, respectively. From there, following the steps of Robbins' theorem \cite{Robins1944}, we find that 
-	\begin{equation*}
-	\begin{split}
-	\mathbb{E}[\mes(\es)^{r}]
-	&=\mathbb{E}\left[\left(\int_{D} \mathbbm{1}_{\gp[u] \in T} ~d\mes(u) \right)^{r} \right]
-	=\mathbb{E}\left[ \prod_{i=1}^{r} \left(
-	\int_{D} \mathbbm{1}_{\gp[\uu^{(i)}] \in T} ~d\mes(\uu^{(i)}) 
-	\right) \right] \\
-	&
-	=
-	%\mathbb{E}\left[
-	%\int_{D^{r}}
-	%\prod_{i=1}^{r}
-	%\mathbf{1}_{\gp[\uu^{(i)}] \in T}
-	%\productMeasure
-	%\right]
-	%=
-	\mathbb{E}\left[
-	\int_{D^{r}}
-	\mathbbm{1}_{\gp[\uu^{(1)}] \in T,\dots, \gp[\uu^{(r)}]  \in T}
-	\productMeasure
-	\right]
-	%\\
-	%&=\int_{D^{r}} \mathbb{E}\left[\mathbf{1}_{\gp[\bm{u}] \in T^r} \right] \productMeasure \\
-	%&
-	=\int_{D^{r}}
-	\jointExcuProb 
-	\productMeasure.
-	\end{split}
-	\end{equation*}   
-	The rest consists in expliciting the probability of $T\times \dots \times T$ under the multivariate Gaussian distribution of  
-	$\left(\gp[u^{(1)}], \dots,  \gp[u^{(r)}] \right)$. 
-\end{proof}
-
-Proof of Proposition \ref{propo2}:
-
-\begin{proof}
-	By definition of $\Phi_{p}$, for $N\sim \mathcal{N}_{p}(0_{p},\covN)$, 
-	$$
-	\mathbb{P}(N\leq a + BV | V)
-	=
-	\varPhi_{p}\left( a + BV; \covN \right).
-	$$
-	Now for $\varPhi_{p}\left( a + BV; \covN \right)^h$, provided that the probability space is sufficiently large to accomodate $h$ independent Gaussian random vectors $N_i\sim \mathcal{N}_{p}(0,\covN)$ (which is silently assumed here), using the former equality delivers 
-	$$
-	\varPhi_{p}\left( a + BV; \covN \right)^h
-	=
-	\prod_{i=1}^h \mathbb{P}(N_i\leq a + BV | V).
-	$$
-	Now by independence of the $N_i$'s we obtain the joint conditional probability 
-	$$
-	\prod_{i=1}^h \mathbb{P}(N_i\leq a + BV | V)
-	=
-	\mathbb{P}(N_1\leq a + BV, \dots, N_h\leq a + BV| V),
-	$$
-	whereof, by virtue of the law of total expectation, 
-	\begin{equation*}
-	\begin{split}
-	\mathbb{E}\left[ \varPhi_{p}\left( a + BV; \covN \right)^h \right]
-	&=\mathbb{E}\left[\mathbb{P}(N_1\leq a + BV, \dots, N_h\leq a + BV| V)\right]\\
-	&=\mathbb{P}(N_1\leq a + BV, \dots, N_h\leq a + BV)\\
-	&=\mathbb{P}(W_1 \leq a, \dots, W_h\leq a)\\
-	&=\varPhi_{ph}
-	\left(
-	1_{h} \otimes a
-	;
-	(1_{h}1_{h}')\otimes (B\Sigma_{V} B') + 
-	I_{h}\otimes \covN
-	\right),
-	\end{split}
-	\end{equation*}
-	where $\mathbf{W}=(W_1,\dots,W_h)$ with $W_i=N_i- BV \ (1\leq i \leq h)$
-	and the last line follows $\mathbf{W}$ forming a Gaussian vector (by global independence of the $N_i$'s and $V$) and from the definition of $\varPhi_{p h}$. The covariance matrix $\mathbf{\Sigma}$ of $\mathbf{W}$ is obtained by noting that $\operatorname{cov}(W_i,W_j)=B \covV B' + \delta_{ij} \covN \ 
-	(i,j \in \{1,\dots,h\})$.
-	%the latter concatenated Gaussian vector is obtained by straightfoward calculation. 
-\end{proof}
-
-
-Proof of Proposition \ref{propo3}.
-
-\begin{remark}
-	%    Note that the vector $\bm{a}$ is obtained by stacking $h_i$ times each $a_i$
-	%\begin{equation*}
-	%\bm{a} = \begin{pmatrix}
-	%    \bm{a}_1\\ \vdots\\ \bm{a}_g\end{pmatrix},~
-	%\bm{a}_i =
-	%\begin{pmatrix}
-	%    a_i\\ \vdots\\ a_i\end{pmatrix}
-	%\in\mathbb{R}^{l\times h_i}\end{equation*}
-	%and the covariance matrix is obtained by similar stacking
-	Using blockwise representation for the blocks themselves delivers %$\bm{\Sigma}$ can be expressed as follows
-	\begin{equation*}
-	%    \bm{\Sigma} = \begin{pmatrix}
-	%        \Sigma_{11} & & \Sigma_{1g}\\
-	%        & \ddots &\\
-	%        \Sigma_{g1}&   & \Sigma_{gg}
-	%\end{pmatrix},~
-	\Sigma_{ij} =
-	\begin{pmatrix}
-	B_i\Sigma_{V} B_j' & \dots & B_i\Sigma_{V} B_j'\\
-	\vdots & & \vdots\\
-	B_i\Sigma_{V} B_j' & \dots & B_i\Sigma_{V} B_j'\\
-	\end{pmatrix}
-	+
-	\delta_{ij}
-	\begin{pmatrix}
-	\covN_i & &\\
-	& \ddots &\\
-	&   & \covN_i
-	\end{pmatrix}%\in\mathbb{R}^{lh_i\times lh_j}
-	\end{equation*}
-	Here each $\Sigma_{ij}$ is made of $h_i$ times $h_j$
-	(vertically/horizontally) $p \times p$ sub-blocks, hence possesses $ph_i$ lines and $ph_j$ columns.
-\end{remark}
-
-%Proof TODO along with notation polish. 
-
-\begin{proof}
-	The proof relies (again) heavily on the fact that, by definition of $\Phi_{p}$, for any covariance matrix $\covN \in \R^{p \times p}$, $a\in \R^p$, $B\in \R^{p \times q}$, and $N\sim \mathcal{N}_{p}(0_{p},\covN)$, 
-	$$
-	\mathbb{P}(N\leq a + BV | V)
-	=
-	\varPhi_{p}\left( a + BV; \covN \right).
-	$$
-	In particular, for globally independent $N_{i,j} \sim \mathcal{N}_{p}(0_{p},\covN_i)$ $(1\leq j \leq h_i, 1\leq i \leq g)$, 
-	\begin{equation*}
-	\begin{split}
-	\prod_{i=1}^{g} \varPhi_{p}\left(a_i + B_{i}V; \covN_{i} \right)^{h_i}
-	&=
-	\prod_{i=1}^{g}
-	\prod_{j=1}^{h_{i}}
-	\mathbb{P}(N_{i,j}\leq a_i + B_i V | V)\\
-	&=\mathbb{P}(N_{1,1}\leq a_1 + B_1 V, \dots, N_{g,h_{g}}\leq a_g + B_g V | V),
-	\end{split} 
-	\end{equation*}
-	so that, by the law of total expectation, 
-	\begin{equation*}
-	\begin{split}
-	\mathbb{E}\left[ \prod_{i=1}^{g} \varPhi_{p}\left(a_i + B_{i}V; \covN_{i} \right)^{h_i} \right]
-	=
-	\mathbb{P}(W_{1} \leq 1_{h_{1}} \otimes a_1, \dots, W_{g} \leq 1_{h_{g}} \otimes a_g)
-	\end{split}
-	\end{equation*}
-	where 
-	$W_{1}=(N_{1,1}- B_1 V, \dots, N_{1,h_{1}}- B_1 V), 
-	W_{2}=(N_{2,1}- B_2 V, \dots, N_{2,h_{2}}- B_2 V), 
-	\dots, W_{g}=(N_{g,1}- B_g V, \dots, N_{g,h_{g}}- B_g V)$. Noting that $\mathbf{W}=(W_1,\dots, W_g)$ is a centred $p H$-dimensional Gaussian random vector, we finally obtain that 
-	\begin{equation*}
-	\begin{split}
-	\mathbb{E}\left[ \prod_{i=1}^{g} \varPhi_{p}\left(a_i + B_{i}V; \covN_{i} \right)^{h_i} \right]
-	=
-	\varPhi_{p H}\left(\bm{a};\mathbf{\Sigma}\right),
-	\end{split}
-	\end{equation*}
-	with $\bm{a}=(1_{h_{1}} \otimes a_1, \dots, 1_{h_{g}} \otimes a_g)$ and $\bm{\Sigma}=(\operatorname{cov}(W_i,W_j))_{i,j \in \{1,\dots, g\}}$.
-\end{proof}
 
 
 % AOS,AOAS: If there are supplements please fill:
