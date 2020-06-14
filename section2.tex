@@ -146,14 +146,6 @@ vector-valued random fields.
 We calculate EPs and the Bernoulli variance for a few bivariate
 Gaussian distributions for temperature and salinity to illustrate the concepts articulated above. The parameter inputs are made up, but they are in a realistic range as we have in the simulation study and real-world example below. The thresholds are set equal to the mean; $\mu_1=t_1=5^o C$ for temperature and  $\mu_2=t_2=30$ mg/l for salinity, and we play with the temperature and salinity correlation and variances to study the effect on the EP and expected Bernoulli variance. 
 
-
-\begin{figure}[h!] \centering
-  \includegraphics[width=0.99\textwidth]{Figures/ebvs.png}
-  \caption{Expected Bernoulli variance for observation of first, second, or both components.}
-\label{illus_bivarDens}
-\end{figure}
-
-
 Fig. \ref{illus_bivarDens} shows contour plots of three different
 densities with increasing correlation $\gamma$ between temperature and
 salinity. 
@@ -215,19 +207,13 @@ likely show dependence in the spatial dimension. This in turn will
 impact the design criteria when we evaluate the information measure by
 integrating over several locations (Section \ref{sec:simulations}).
 
-%\subsection{Expected classification criteria}
 
-%{\bf{I have not done anything here - skip this, I think}}.
 
-%Rather than minimizing expected variance one can aim at minimizing the classification probability of the excursion set: 
-%$\min [p,(1-p) ]$, see e.g. \cite{lilleborge2016information}. 
 
-%Again, since the conditional mean is a linear in the data, we only have to look at the %relevant linear combination via $\bm_{\xi}=E(\bxi)$.
-%See also \cite{bhattacharjya2013value}.
+\begin{figure}[h!] \centering
+  \includegraphics[width=0.99\textwidth]{Figures/ebvs.png}
+  \caption{Expected Bernoulli variance for observation of first, second, or both components.}
+\label{illus_bivarDens}
+\end{figure}
 
-%\begin{equation}
-%E(\min \{ p,(1-p)\})=\int \min P(\xi_1 \leq t, \xi_2 \leq s),[1-P(\xi_1 \leq t, \xi_2 \leq s)] p(E(\bxi)=) dE(\bxi)=,
-%\end{equation}
-%for the complementary probabilities, this is again evaluated by the corner regions for the block, and $\Phi_4()$ evaluations are required.
 
-%In the end, this result is integrated over the spatial domain $x \in X$.
