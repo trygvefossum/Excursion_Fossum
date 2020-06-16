@@ -1189,105 +1189,10 @@ the myopic strategy, so for practical implementation onboard the AUV this is rea
 strategy to rank the three best designs following the first stage alone, and
 for each of these preferred designs, we undertake the look-ahead calculations.
 
-\section{Simulation study}
+\subsection{Simulation study}
 \label{sec:simulations}
 
-We now study the properties of the different static and sequential
-survey designs in a realistic case that emulates the spatial
-properties of a river plume interacting with coastal water.
-
-\subsection{Modeling}
-
-A GP model is used to represent the bivariate random fields of
-temperature and salinity. At location $\x \in \mathcal{M}$, the
-bivariate distribution is:
-\begin{equation}\label{gp_bar}
-\begin{bmatrix}Z_1(\x) \\
-Z_2(\x) \end{bmatrix}
-\sim N \left( 
-\begin{bmatrix} \mu_{1}(\x)\\
-\mu_{2}(\x)
-\end{bmatrix},\begin{bmatrix}
-\sigma_{1}^2 & \sigma_{1} \sigma_2 \gamma \\
-\sigma_{1} \sigma_2 \gamma  & \sigma_{2}^2 
-\end{bmatrix}
-\right).
-\end{equation}
-We specify the mean by $\mu_{1}(\x)=5.8 + 0.065 u_{\mbox{West}}$ and
-$\mu_{2}(\x)=29 + 0.1 u_{\mbox{West}}$, which means that the expected
-levels of both temperature and salinity increase linearly in the
-western direction.  This situation mimics that of a river mouth
-opening from the south, with the water masses pulled to the east by
-the Coriolis force \kc{This seems overly specific to the Nidelva use
-  case. Can it be generalized, after all that is the overall intent of
-  this manuscript?}.  The variances are set to $\sigma_1=0.25$ and
-$\sigma_2=0.6$, while the correlation is $0.6$.  The spatial
-correlation is of separable Matern type (see e.g. \cite{Cressie:11})
-so that
-\begin{equation}\label{v}
-\small
-\mbox{Corr} 
-\left(
-\begin{bmatrix}
-    Z_1(\x) \\
-    Z_2(\x) 
-    \end{bmatrix},
-    \begin{bmatrix}
-    Z_1(\x') \\
-    Z_2(\x') 
-    \end{bmatrix}
-    \right)
-    = \begin{bmatrix}
-1 & 0.6  \\
-0.6  & 1
-\end{bmatrix}(1+\phi h)\exp (-\phi h),
-\end{equation}
-where $h=\sqrt{||\x-\x'||^2}$ and $\phi=0.3$ indicates an effective
-correlation range of about $1200$ m.
-
-In the accompanying Python code, these modeling assumptions can be
-generalized to anisotropic covariance and changing variance levels
-across the spatial domain. One can hence, easily run the code to see
-if different models result in other sampling designs. Anisotropy and
-non-stationary variance are both relevant for the setting with river
-plumes, but in practice this requires more parameters to be
-specified. With extensive data and prior knowledge, one could also
-possibly fit and estimate parameters of more complex multivariate
-spatial covariance functions
-\citep{gneiting2010matern,genton2015cross}, but that is outside the
-scope of the current paper.
-
-We discretize the spatial domain $\mathcal{M}$ to a set of $n$ grid
-locations $\mathcal{M}_g = \{\x_i, i=1,\ldots,n \}$, \kc{is the index
-  correct? TeX shows it as u or g for $\mathcal{M}$} where each cell
-has area $\Delta$; the same grid is used for the waypoint graph for
-possible design locations. The EIBV is approximated by sums over all
-grid cells.
-
-One realization of the random fields representing salinity and
-temperature is shown in Fig. \ref{fig:true_temp} and
-\ref{fig:true_sal}. The true ES is a realization from this model as
-shown in Fig. \ref{fig:ESet}.
-
-\begin{figure}[!h]
-  \centering
-  \subfigure[Simulated temperature.]{\includegraphics[height = 0.40\textwidth]{Figures/sim/true_temp.pdf}\label{fig:true_temp}}
-  \hfill
-  \subfigure[Simulated salinity.]{\includegraphics[height = 0.40\textwidth]{Figures/sim/true_sal.pdf}\label{fig:true_sal}}
-  \hfill
-  \subfigure[Excursion set given the realization of temperature and salinity.]{\includegraphics[height = 0.40\textwidth]{Figures/sim/es_ts_true.pdf}\label{fig:ESet}}
-  \hfill
-  \subfigure[Excursion probabilities given collected data using the
-  `static\_north" strategy.]{\includegraphics[height = 0.40\textwidth]{Figures/sim/es_ts_posterior.pdf}\label{fig:Eprob}}
-  \caption{\ref{fig:true_temp} and \ref{fig:true_sal} show a
-    realization of the simulated temperature and salinity fields. The
-    associated ES is in \ref{fig:ESet}, while \ref{fig:Eprob} shows
-    the estimated EPs after performing data collection along the
-    static N-S survey line.}
-\label{fig:realisations}
-\end{figure}
-
-\subsection{Static and Sequential Sampling Designs}
+\susubsection{Static and Sequential Sampling Designs}
 \label{sec:sampling_designs}
 
 %Three different designs are considered as indicated in Figure \ref{fig:stat_design}. 
@@ -1398,27 +1303,6 @@ interesting data may draw the path into twists and turns. There is
 relatively large variety in the replicate results as indicated by the
 vertical lines. Nevertheless, the ordering of strategies is similar.
 
-\begin{figure}[!b]
-  \centering
-  \subfigure[Look-ahead]{\includegraphics[height = 0.46\textwidth]{Figures/sim/route_look-ahead.pdf}\label{fig:avg_look-ahead}}
-  \hfill
-  \subfigure[Myopic]{\includegraphics[height = 0.46\textwidth]{Figures/sim/route_myopic.pdf}\label{fig:avg_myopic}}
-  \hfill
-  \subfigure[Naive]{\includegraphics[height = 0.46\textwidth]{Figures/sim/route_naive.pdf}\label{fig:route_naive}}
-  \hfill
-  \subfigure[Static]{\includegraphics[height = 0.46\textwidth]{Figures/sim/route_static.pdf}\label{fig:route_static}}
-  \hfill
-  \caption{The overlaid route choices (strategies), superimposed on
-    the 100 replicate surveys with 10 sampling choices/stages. \kc{I
-      would reorder these figurs above based on the order the material
-      was discussed -- Static, naive, myopic and then Look-ahead. Also
-      do you really need a key associated with each subfigure, given
-      the caption? An abridged analysis as in the text, might also be
-      in order here in the caption. Also refer to
-      Fig. \ref{fig:realisations} as the reference, where the
-      temp/salinity fields are shown.}}
-\label{fig:route_choices}
-\end{figure}
 
 Fig. \ref{fig:avg_time} shows the computational effort: the
 \textit{naive} strategy is on par with the static designs, while the
