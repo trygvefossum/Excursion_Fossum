@@ -51,43 +51,43 @@ to $\geq$ ones would lead to immediate adaptations.
 
 \subsection{Background, Notation and Co-Kriging}
 \label{sec:bg_and_notation}
-Given a random field $\gp$ and (noisy) observations of some of its components at some points in the domain, one can predict the value of the field at some unobserved location $s\in \domain$ by using the conditional mean of $\gp[s]$, conditional on the data. This process is called (co-)kriging, and kriging equations precisely tell us how to compute conditional means and covariances conditional on an arbitrary dataset.
+Given a random field $\gp$ and (noisy) observations of some of its components at some points in the domain, one can predict the value of the field at some unobserved location $\spatloc\in \domain$ by using the conditional mean of $\gp[\spatloc]$, conditional on the data. This process is called (co-)kriging, and kriging equations precisely tell us how to compute conditional means and covariances conditional on an arbitrary dataset.
 We will here present the most general form of cokriging, where one can include several observations (batch) at a time and 
-observations at a given location $s \in \domain$ may only include a subset of the components of $\gp[s]\in\mathbb{R}^{\no}$ 
+observations at a given location $s \in \domain$ may only include a subset of the components of $\gp[\spatloc]\in\mathbb{R}^{\no}$ 
 (heterotopic).
 
 \subsubsection{Notation}
 In order to work at this level of generality, some notational tricks are needed. Indeed, when considering a new observation, one shall in general specify which component of the field was observed and where it was observed. This leads us to introduce the concept of \textit{generalized location}.
 
-Letting $\gp[s,\ell]$ denote the $\ell\text{-th}$ component of $\gp[s]$, $s\in \domain$ and $\ell \in \{1\dots,p\}$, we will call \textit{generalized location} the couple $x=(s,\ell)$. Given such a generalized location notation $x$,  the notation $\gp[x]$ will be used to denote $\gp[s,\ell]$.
+Letting $\gp[\spatloc,\ell]$ denote the $\ell\text{-th}$ component of $\gp[\spatloc]$, $\spatloc\in \domain$ and $\ell \in \{1\dots,p\}$, we will call \textit{generalized location} the couple $x=(\spatloc,\ell)$. Given such a generalized location notation $x$,  the notation $\gp[x]$ will be used to denote $\gp[\spatloc,\ell]$.
 
 This slight change of notation will allow us to think of $\gp$ as a scalar-valued Gaussian random field 
 indexed by $D\times \{1\dots,p\}$, which will give the co-kriging equations a particularly simple form that parallels the one of univariate kriging. Due to the naturality of the concept of \textit{generalized location}, 
-we will generally use the word \textit{location}, while \textit{spatial location} will be used to stress that we are talking about a point $s \in \domain$. In the following, the letter $x$ will be reserved for generalized locations, while the letters $s$ and $\ell$ will be used for spatial locations and response indices respectively.
+we will generally use the word \textit{location}, while \textit{spatial location} will be used to stress that we are talking about a point $\spatloc \in \domain$. In the following, the letter $x$ will be reserved for generalized locations, while the letters $\spatloc$ and $\ell$ will be used for spatial locations and response indices respectively.
 
 It turns out that the inclusion of several observations at a time (a batch) may be handled by the same equations as the 
 one for a single observation, provided some notation adjustments are made. This motivates the following.
 
 
 
-Given a dataset consisting of  $q$ observations at spatial locations $s_i \in \domain$ and response indices $l_i \in \lbrace 1, ..., \no\rbrace$, $i=1, ..., q$, we can concatenate the information needed to specify the dataset by using the notation
+Given a dataset consisting of  $q$ observations at spatial locations $\spatloc_i \in \domain$ and response indices $l_i \in \lbrace 1, ..., \no\rbrace$, $i=1, ..., q$, we can concatenate the information needed to specify the dataset by using the notation
 \begin{align*}
-\bm{x}:=(\bm{s}, \bm{\ell}):= (x_1,\dots, x_q),~\text{with }x_i=(s_i,\ell_i).
+\bm{x}:=(\bm{\spatloc}, \bm{\ell}):= (x_1,\dots, x_q),~\text{with }x_i=(\spatloc_i,\ell_i).
 \end{align*}
 In general, boldface letters will be used to denote concatenated quantities corresponding to batches of observations. 
 We can then also compactly denote the values of the field at those different locations by
 \begin{align*}
 \gp[\bm{x}]:=
-\left(\gp[s_1,\ell_1], ...,
-\gp[s_q,\ell_{q}]\right) \in \mathbb{R}^{q}.
+\left(\gp[\spatloc_1,\ell_1], ...,
+\gp[\spatloc_q,\ell_{q}]\right) \in \mathbb{R}^{q}.
 \end{align*}
 %
 \subsubsection{Co-Kriging}
 \label{sec:cokriging}
 Assuming now that $n$ batches of observations are available, with respective sizes $q_1,\dots, q_n$, and that one wishes 
-to predict $\gp[\bm{x}]$ for some batch of $q\geq 1$ generalized locations $\bm{x}=(\bm{s}, \bm{\ell})$, the (simple) 
+to predict $\gp[\bm{x}]$ for some batch of $q\geq 1$ generalized locations $\bm{x}=(\bm{\spatloc}, \bm{\ell})$, the (simple) 
 cokriging mean would then amount to simple kriging with respect to a scalar-valued Gaussian random field indexed by 
-$D\times \{1\dots,p\}$ and with covariance kernel $k(\bm{x}, \bm{x}')=K(\bm{s}, \bm{s}')_{\ell, \ell'}$, that is:
+$D\times \{1\dots,p\}$ and with covariance kernel $k(\bm{x}, \bm{x}')=K(\bm{\spatloc}, \bm{\spatloc}')_{\ell, \ell'}$, that is:
 %
 \begin{equation}
 \mu_{[n]}(\bm{x})=\mu(\bm{x})+\lambda_{[n]}(\bm{x})^T (\mathbf{z}_{[n]}-\mu(\bm{x})),
