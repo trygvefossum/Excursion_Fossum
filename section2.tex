@@ -137,14 +137,16 @@ vector-valued random fields.
 \label{sec:eibv}
 \input{eibv}
 
-
-
-\subsection{An Example of EIBV using Temperature and Salinity}
+\subsection{Expected Bernoulli Variance on a two dimensional Example}
 \label{Sec:UnivarEx}
+We illustrate the EBV associated to different designs on a simple bivariate example. The example mimics our river plume application and hence the first and second component of the random field will be called \textit{temperature} and \textit{salinity} for illustrative purpose. Effects of the hyperparameters of the GRF prior on the excursion probabilities will also be studied. For simplicity, we begin with a \textit{pointwise} example, considering a single bivariate gaussian distribution (no spatiality).
 
-% In this section, 
-We calculate EPs and the Bernoulli variance for a few bivariate
-Gaussian distributions for temperature and salinity to illustrate the concepts articulated above. The parameter inputs are made up, but they are in a realistic range as we have in the simulation study and real-world example below. The thresholds are set equal to the mean; $\mu_1=t_1=5^o C$ for temperature and  $\mu_2=t_2=30$ mg/l for salinity, and we play with the temperature and salinity correlation and variances to study the effect on the EP and expected Bernoulli variance. 
+\subsubsection{A pointwise study}
+Say we want to study the excursion probability of a bivariate gaussian, where the excursion set is defined as
+\[
+\Gamma := \lbrace \spatloc \in \domain: Z_{\spatloc, 1} \geq t_1, Z_{\spatloc, 2}\geq t_2\rbrace
+\]
+and the thresholds are set equal to the mean; $\mu_1=t_1=5^o C$ for temperature and  $\mu_2=t_2=30$ mg/l for salinity, and we play with the temperature and salinity correlation and variances to study the effect on the EP and expected Bernoulli variance.
 
 Fig. \ref{illus_bivarDens} shows contour plots of three different
 densities with increasing correlation $\gamma$ between temperature and
@@ -207,13 +209,66 @@ likely show dependence in the spatial dimension. This in turn will
 impact the design criteria when we evaluate the information measure by
 integrating over several locations (Section \ref{sec:simulations}).
 
+\subsubsection{Including Spatiality}
+INTRODUCTORY SENTENCE.
+The class of GRF model we will consider in the article will generally have a linear trend
+\begin{align*}
+\mu(s)=\mathbb{E}\left[\begin{pmatrix}
+Z_{s, 1}\\ Z_{s, 2}
+\end{pmatrix}\right] &= \beta_0 + \beta_1 s
+\end{align*}
+with $\beta_0$ a two dimensional vector and $\beta_1$ a $2\times 2$ matrix. We will only consider covariance models of separable type
+\begin{align*}
+\textrm{Cov}\left(Z_{s, i}, Z_{u, j}\right) &= k(s, u) \gamma(i, j),~ \gamma(i, j) = \begin{cases} \sigma_l^2,~ i=j\\
+   \gamma_0 \sigma_i \sigma_j,~i\neq j
+        \end{cases}
+\end{align*}
+where $k(., .)$ is one of the traditional spatial covariance kernel (exponential, Mat\'{e}rn, ...) and $\gamma$ defines the cross-covariance structure.
 
+In the accompanying Python code, these modeling assumptions can be
+generalized to anisotropic covariance and changing variance levels
+across the spatial domain. One can hence, easily run the code to see
+if different models result in other sampling designs. Anisotropy and
+non-stationary variance are both relevant for the setting with river
+plumes, but in practice this requires more parameters to be
+specified. With extensive data and prior knowledge, one could also
+possibly fit and estimate parameters of more complex multivariate
+spatial covariance functions
+\citep{gneiting2010matern,genton2015cross}, but that is outside the
+scope of the current paper.
 
+In the rest of this section, we will consider a GRF with mean and covariance structure as above and parameters
+\begin{align*}
+\beta_0 = \begin{pmatrix}
+5.8\\ 24.0
+\end{pmatrix}, ~ \beta_1 = \begin{pmatrix}
+0.0 & -4.0\\
+0.0 & -3.8
+\end{pmatrix},~ \sigma_1 = \sigma_2 = 2.25, ~ \gamma_0 = 0.2
+\end{align*}
+and the spatial covariance is given by a Mat\'{e}rn 3/2 kernel with unit variance and range parameter $\lambda=0.5$.
+One realization of this GRF is shown in Fig. \ref{example_excu}.
+
+We now study how the expected Bernoulli variance eq.\ref{eq:eibv} associated to data collection at a point changes if only one of the two components of the field is observed. We first draw a realization of the GRF defined above and use it as ground-truth to mimick the real data-collection process. A first data collection step is performed at the location in green, and the data is used to update the GRF model. The expected Bernoulli variance reduction (at each grid point) that would result from observing only one component, or both at the next grid point upwards is then computed an shown in Fig.\ref{fig:ebv_comp}.
 
 \begin{figure}[h!] \centering
-  \includegraphics[width=0.99\textwidth]{Figures/ebvs.png}
-  \caption{Expected Bernoulli variance for observation of first, second, or both components.}
-\label{illus_bivarDens}
+  \includegraphics[width=0.99\textwidth]{Figures/ebv_comp.png}
+  \caption{Pointwise Bernoulli variance reduction for observation of a single or both components of the random field at one location. Data collection locations in green. True excursion set in red. Places where only one response is above threshold are depicted in pink}
+\label{fig:ebv_comp}
 \end{figure}
 
+Note that plotting the Bernoulli variance reduction at each point might also be used to compare different data collection plans. For example, Fig. \ref{fig:ebv_comp} shows the expected Bernoulli variance reduction associated to a data collection plan along a straight upwards line (static north) and the one associated to a straight horizontal line (static east). Both expectations are computed according to the a priori distribution of the GRF (i.e. no observations have been included yet).
 
+\begin{figure}[h!] \centering
+  \includegraphics[width=0.99\textwidth]{Figures/ebv_north_vs_east.png}
+  \caption{Pointwise Bernoulli variance reduction for two different observation plans. Data collection locations in green. True excursion set is in red. Places where only one response is above threshold are depicted in pink.}
+\label{fig:ebv_north_vs_east}
+\end{figure}
+
+\begin{remark}
+In all the above examples, the spatial domain $\domain$ has been discretized to a set of $n$ grid
+locations $\mathcal{M}_g = \{\x_i, i=1,\ldots,n \}$, where each cell
+has area $\Delta$; the same grid is used for the waypoint graph for
+possible design locations. The EIBV is approximated by sums over all
+grid cells.
+\end{remark}
