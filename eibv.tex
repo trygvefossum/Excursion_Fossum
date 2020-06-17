@@ -9,6 +9,31 @@ of $\emv$ (a random variable, seen from ``step'' $n$, i.e. when knowing $Z$ sole
 the $n$ first generalized location batches) when adding observations at $\bm{x}$ to those
 already available at step $n$.
 
+\textcolor{red}{C.T.: This doesn't work, we cannot be that short on the definition of EIBV, it is highly unclear. I suggest we go for the following notation:
+$$\operatorname{IBV}(\bm{x}; \bm{y})
+$$ denotes the IBV under the current law of the field, conditioned on observing $\bm{y}$ at $\bm{x}$ (generalized, possibly batch observation). Then
+$$
+\operatorname{EIBV}(\bm{x}):=\mathbb{E}_{\bm{Y}}\left[\textrb{IBV}(\bm{x}; \bm{Y})\right]
+$$
+where $\bm{Y}$ is distributed according to the current law of $Z_{\bm{x}}$.}
+
+\textcolor{red}{
+The philosophy is the following: EIBV and EEMV are functionals of a probability distribution. Then, if not mentioned explicitly, the probability distribution will be taken to be the current law of the field. (This notation is highly efficient).}
+
+
+
+\textcolor{red}{When one want to consider several steps, one can use $\textrm{IBV}_{n}(\bm{x}; \bm{y})$ to denote the fact that the starting point (starting probability distribution) is the law of the field at the $n$-th step $\mathbb{P}_n$ to which conditioning on $\bm{y}$ at $\bm{x}$ is added.}
+
+\textcolor{red}{For a rigorous definition
+$$
+\operatorname{IBV}(\bm{x}; \bm{y}):=\int_{\domain}
+\mathbb{P}\left(\gp[\uu]\in T\mid Z_{\bm{x}}=\bm{y}\right)(1-\mathbb{P}\left(\gp[\uu]\in T \mid Z_{\bm{x}}=\bm{y}\right))
+d\mes(u) \\
+$$
+where $\mathbb{P}$ denotes the current law of the field.}
+
+
+
 \begin{propo}
 \label{propo_eibv}
 Let $\eibv_{[n]}(\bm{x})=\currentExp{\ibv_{[n+1]}(\bm{x})}$ (where $\bm{x}$ plays
