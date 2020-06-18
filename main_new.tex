@@ -325,637 +325,390 @@ methods in simulation studies. Section \ref{sec:case_study}
 demonstrates the methodology used in field work characterizing a river
 plume and finally, Section \ref{sec:concl_disc} contains a summary and
 a discussion of future work.
-
-%\subsection{}
-
-%\begin{itemize}
-%    \item 
-%\end{itemize}
-
-\begin{comment}
-\section{Former Introduction (Before 08.06.2020)}
-
-Monitoring the world's oceans has gained increased importance in light
-of the changing climate and increasing anthropogenic impact. 
-A central problem for understanding these factors is the lack of representative data with sufficient resolution. Most of this \emph{undersampling} can be attributed to the large spatio-temporal variations in which ocean processes transpire, prompting the need for effective means of sampling. By \emph{sampling}, we refer to the design of observational strategies in the spatial domain, where the use autonomous robotic platforms can be combined with statistical methods to pursue measurements with high scientific relevance. This combination, of statistical tools and robotic platforms, constitute a methodological basis for addressing the problem of efficient sampling of the ocean, which is at the core of this work.
-
-The
-advent of robust mobile robotic platforms \citep{Bellingham07} has
-resulted in significant contributions to environmental monitoring and
-sampling in the ocean. In particular, autonomous underwater vehicles (AUVs), have
-advanced the state of sampling and consequently have made robotics an
-integral part of ocean observation; our previous work has contributed
-to this effort \citep{das11b,Das2015,fossuminformation,fossum18b}. 
-
-The potential that lies in using information-based sampling methods, which we
-highlight in this paper, is to do efficient environmental sampling and
-overcome common challenges as discussed next. First, full numerical ocean models based on complex
-differential equations cannot be run onboard a marine robot with
-limited computational capacity.
-% provide accurate results for online
-% operations because the onboard computers lack the computational power
-% required.
-Hence statistical proxy models of the environment must be used. For our purpose, we rely on Gaussian process (GP)
-representations of the ocean variables of interest because they are computationally convenient and yet provide enough flexibility to realistically model the spatial variability and dependence, and the correlation between multiple processes. Second, because of limited resources to sample the large oceanographic domains, one must plan for
-active learning during the operation, where a relevant criterion is
-used to extract the most valuable designs. The acquired in-situ
-information must then be assimilated into the statistical model
-onboard the platform, so that it can be used to re-compute the
-sampling criterion and in this way inform decisions on where to sample
-next. We use a criterion focusing on the prediction of excursion sets
-(ESs) for the multivariate spatial processes of interest. Third, the
-number of sampling designs is enormous, creating a trade-off between
-optimization and computability. One must often compromise in both
-development and practical operations, and we will rely on
-short-horizon optimization routines for sequential designs among
-nearest neighbors points in a spatial grid (waypoint graph).
-
-\kc{The para above needs a rewrite to me. It starts off by stating
-  there are challenges. But then jumps to models without stating the
-  connection with sampling, and then jumps into learning without
-  stating why learning is important. Typically the English in formal
-  text starts with a statement which is supported or clarified. In the
-  two cases above, the connections are simply not obvious. If this was
-  there in the first version of the m/s submitted, I'm not sure why
-  the reviewers didn't catch it. This is not just a stylistic issue;
-  it has to do with making sense and bring the reader/reviewer along.}
-
-\kc{Second, I don't see a motivation for GPs here and as I read
-  further into the text. Even for stats folks, are GPs the ``best''
-  ways to go? Are they obviously the tools one would use in
-  environmental sampling? And even if they are, I think we ought to
-  make the case for it strongly and generally, so this paper is
-  actually accessible and understandable to those not in the Spatial
-  Stats field. I would suggest adding a short para on GPs and why
-  they're important -- i.e. motivate the use of GPs early, so we can
-  freely make attributions to them later, as in the next section, for
-  example.} 
-
-The imperfect understanding of causality coupled with the underlying
-fundamental uncertainty of the ocean implies that we need to make a
-large number of measurements. In addition, the use statistical models
-and methods to determine what and how phenomena form, is one way to
-increase the quality of predictive power aiding our understanding of
-upper water-column processes. 
-
-With this in mind, we design AUV sampling strategies for reducing the spatially-integrated Bernoulli variance (IBV) in the ES
-indicator variables. 
-ES of random fields are thoroughly presented in \citep{adler2009random}. Recent work on ESs and associated excursion
-probabilities (EPs) connected to spatial statistics include
-\cite{french2013spatio,bolin2015excursion,french2016credible}. Our
-focus is on uncertainty characterization and how this is influenced by
-sampling. In this sense, our work is similar to
-\cite{bect2012,chevalier2014fast,azzimonti2016quantifying} who
-describe analytical results for the IBV for univariate processes.
-
-A major contribution of our work is to derive closed-form results for
-this design criteria for situations where the underlying model is
-based on multivariate GPs. Another contribution is that we embed this
-approach in a sequential strategy to produce sampling algorithms, and
-apply this to a real-world scenario of autonomously sampling
-temperature and salinity gradients using an AUV, with the intention of
-characterizing the variability of oceanic and riverine waters in
-typical mixed coastal environments.
-
-Motivating examples relevant for ESs of multivariate processes are
-abundant. In medicine, doctors do not rely solely on a single symptom
-but must see several combined effects before making a diagnosis. In
-our context of environmental sampling, the salinity and temperature
-excursions of a river plume can similarly help characterize the
-underlying bio-geochemical processes
-\citep{hopkins2013detection,Pinto2018}, where sampling can be aimed
-towards reducing uncertainty in the temperature and salinity ES.
-Unlike what has been done in previous plume exploration studies, we
-emphasize the links to spatial statistical modeling and targeted
-multivariate sampling criteria for sequential sampling.
-
-Other statistical
-work in the oceanographic domain include \cite{wikle2013modern}
-focusing on hierarchical statistical models; \cite{sahu2008space},
-studying spatio-temporal models for sea surface temperature and
-salinity data; and \cite{mellucci2018oceanic} looking at the
-statistical prediction of features using an underwater glider.
-In this paper the focus is not on statistical modeling, but rather on statistical results and computations for efficient sampling designs. 
-
-The remainder of this paper is organized as follows: Section
-\ref{sec:bg} provides select background on ocean sampling. Section
-\ref{sec:ESEP} defines ESs, EPs, and the design criteria of IBV for
-vector-valued GPs. Section \ref{sec:heuristics} builds on these
-assumptions when deriving the sequential design criteria for adaptive
-sampling. Section \ref{sec:simulations} discusses properties of the
-methods in simulation studies. Section \ref{sec:case_study}
-demonstrates the methodology used in field work characterizing a river
-plume and finally, Section \ref{sec:concl_disc} contains a summary and
-a discussion of future work.
-\end{comment}
-
-\begin{comment}
-\section{Ocean Processes and Observation}
-\label{sec:bg}
-
-Central to understanding the changes taking place in the upper
-water-column is knowledge of the bio-geophysical interaction driven by
-an agglomeration of physical forcings (e.g. wind, topography,
-bathymetry, tidal influences, etc.) and incipient micro-biology driven
-by planktonic and coastal anthropogenic input, such as pollution and
-agricultural runoff transported into the ocean by rivers and streams.
-These often result in a range of ecosystem-related phenomena such as
-blooms and plumes, with direct and indirect effects on society. \kc{we
-  should look for a citation here. Check with John Ryan}
-
-Traditional data collection to understand such phenomena at sea has
-typically been based on static buoys, floats, or ship-based methods,
-with significant logistical limitations that directly impact coverage
-and sampling resolution. Modern methods using satellite remote-sensing
-provide large-scale coverage but have limited resolution, are limited
-to sensing the surface, and are impacted by cloud cover. Numerical
-ocean models similarly find it challenging to provide detail at fine
-scale \citep{Lermusiaux:2006}. Mobile robotic platforms
-\citep{Bellingham07} have contributed significantly to environmental monitoring and sampling. In particular, AUVs have
-advanced the state of in-situ sampling, and made robotics an integral
-part of ocean observation, filling parts of the undersampling gap
-\cite{rudnick03,rudnick18}(See Fig. \ref{fig:envir1}).
-
-%Walter Munk referred to the 20\textsuperscript{th} century
-%as the \emph{century of undersampling} \citep{munk2002}, pointing out
-%a lack of sufficient sampling resolution in time and space as a
-%critical issue for characterizing ocean phenomena. Even today,
-%policymakers struggle with limited observability of severe
-%environmental problems; a prominent example is the recent (May 2018)
-%outbreak of harmful algal blooms in Northern Norway\footnote{Report
-%  from the Institute of Marine Research: https://bit.ly/2KZGJfI}, with
-%losses exceeding 12 million tons of salmon valued at \$80 million
-%(Norwegian Directorate of Fisheries). This is a case in point of how
-%adequate sampling efforts could have provided a more accurate
-%assessment and early warning of changing environmental conditions.
-
-\begin{figure}[!h] 
-  \centering 
-  \subfigure[Illustration of an ocean sensing network and the sense-plan-act control methodology.]{\includegraphics[width =
-    0.49\textwidth]{Figures/envir.pdf}\label{fig:envir1}}
-  \hfill
-  \subfigure[Frontal patterns off of the Nidelva river, Trondheim, Norway.]{\includegraphics[width =
-    0.49\textwidth]{Figures/river_proccess.pdf}\label{fig:nidelven}}
-  \caption{\ref{fig:envir1} Traditional ocean observation based on 
-    ship-based sampling has been augmented by autonomous
-    robotic vehicles. % and their interactions.  
-    AUV platforms are an integral part of this network being able to
-    reason and make decisions for efficient onboard adaptive sampling.
-    % using the sense-plan-act control approach to autonomous control. 
-    \ref{fig:nidelven} The interaction of river and ocean creates
-    processes that are challenging to map, where the combination of
-    statistics and robotics can play a vital role in enabling more
-    effective oceanographic observation.\kc{The inset ``AUV robot''
-      looks very tacky and ad-hoc; might be best to remove it. Change
-      ``ships'' to
-      ``Ship'', remove the aerial drone, since we didn't use it and
-      don't plan to in this work.}}
-  \label{fig:envir} \end{figure}
-
-\end{comment}
-
-
-\begin{comment}
-Surveys with AUVs are usually limited to observations along fixed
-transects that are pre-scripted in mission plans created manually by a
-human operator. The mission can be specified operating on a scale of
-hundreds of meters to tens of kilometers depending on the scientific
-context. Faced with limited coverage capacity, a more effective
-approach is to instead use onboard algorithms to continuously
-evaluate, update, and refine future sampling locations (sense-plan-act
-cycle in Fig. \ref{fig:envir1}), making the information gathering
-\emph{adaptive} \citep{das11b,Das2015,fossuminformation,fossum18b}.
-% This usually occurs on a spatial grid, called a waypoint graph. 
-In doing so, the space of sampling opportunities is still limited by
-the waypoint graph, but the AUV has flexibility to modify its path at
-each waypoint based on in-situ sensing and measurements onboard
-\citep{py10,Rajan12,Rajan12b}.
-
-
-We focus on spatial characterization of a frontal system generated by
-river plumes. Fig. \ref{fig:nidelven} shows the survey area in
-Trondheim, Norway, where cold freshwater enters from the river,
-creating a strong gradient in both temperature and salinity. Because
-of the local topography and the Coriolis force the cold fresh water
-tends to flow to the east. Depending on the river discharge, tidal
-effects, wind, and temperature differences, this boundary often gets
-distorted. Initial knowledge about the location and evolution of these
-features are highly uncertain, making deterministic planning
-challenging.
-
-Adaptive in-situ AUV sampling of an evolving frontal feature has been
-explored in \cite{fronts11,Zhang2012,Pinto2018,costa19}. These
-approaches typically use a reactive-adaptive scheme, whereby
-exploration does not rely on a statistical model of the environment,
-but rather adaptation is based on closing the sensing and actuation
-loop. Myopic sampling, i.e. stage-wise selection of the path (on the
-waypoint graph), has been used for surveys
-\citep{singh2009efficient,Binney2013} that focus largely on reducing
-predictive variance or entropy. These criteria are widely adopted in
-the statistics literature on spatio-temporal design as well
-\cite{bueso1998state,zidek2019monitoring}, but variance and entropy
-reduction are independent of the actual data realizations under the
-assumptions of GP models, so it has limited
-decisional flexibility. The use of data-driven adaptive criteria
-was introduced to include more targeted sampling of regions of
-scientific interest in \cite{Low2009} and \cite{fossuminformation}. In
-this paper, we focus on mapping the river plume by rewarding designs
-that improve the classification of ES in temperature and salinity.
-
-\end{comment}
+%\input{section2}
 
 
 
-\input{section2}
 
 
-
-\begin{comment}
 \section{Quantifying uncertainty on Excursion Sets implicitly defined by Gaussian processes}
 \label{sec:ESEP}
 
-We define the random sets of interest in Section \ref{sec:ES}, while the closed-form expressions for the expected uncertainty reduction are derived in Section \ref{sec:EIBV}. Section \ref{Sec:UnivarEx} provides an instructive bivariate example relevant for sampling in the temperature and salinity application.
+In section \ref{sec:bg_and_notation} we introduce the notation used in the rest of the paper, review (co-)kriging of multivariate gaussian random fields (GRFs) and present update formulae for cokriging.
+Uncertainty quantification (UQ) techniques on excursion sets of GRFs are presented in \ref{sec:set_uq}, in particular the Integrated Bernoulli Variance (IBV) and the excursion measure variance (EMV) are defined and semi-analytical expressions easing their computation and optimization are derived.
+Section \ref{sec:eibv} turns to the  effect of new observations on EMV and IBV. Specifically, the expected effect of the inclusion of a new set of observations on the EMV and IBV are considered and further semi-analytical expressions for the expected 
+uncertainty reduction are derived. The resulting formulae form the backbone of the uncertainty reduction strategies presented in Section \ref{sec:heuristics}.
+Finally, Section \ref{Sec:UnivarEx} illustrates the application of the above concepts on a bivariate example relevant for sampling in the temperature and salinity application.
 
-\subsection{Excursion sets and Integrated Bernoulli variance}
-\label{sec:ES}
+\begin{comment}
+\medskip
 
-Our objective is to leverage statistical tools onboard an autonomous
-robotic platform to characterize a river plume, focusing on spatial
-separation of cold freshwater from a river and warmer saline waters
-of a fjord. The characterization of uncertainties on the ES is a
-useful goal of this sampling strategy.
+%Our objective is to leverage statistical tools onboard an autonomous robotic platform to characterize a river plume, focusing on spatial separation of cold freshwater from a river and warmer saline waters of a fjord.
 
-In order to formalize the problem in mathematical terms, let us
-consider a multivariate (i.e., vector-valued) Gaussian random field
-$(\gp[\x])_{\x \in \mathcal{M}}$, where $\mathcal{M}$ is an arbitrary
-set (typically in geostatistical studies, a geographical subset of interest) and the
-dimensionality of the output $\no \geq 1$ is arbitrary. We have $\no = 2$ in the example with temperature and salinity in the river plume. 
+The temperature and salinity field over the domain of interest will be modeled as a bivariate gaussian random field. The \textcolor{red}{complement of the} river plume may then be characterized as an \textit{excursion set} of the field, that is, as the region of the domain for which temperature and salinity lie above some specified threshold. Our goal is then to guide the data collection process so as to improve the characterization of this set.
+The methods we develop are fairly general, and not limited to the special case of two-dimensional random fields. Hence, the rest of this section will consider generic excursion sets of gaussian random fields with an arbitrary number of output dimensions.
 
-Assume furthermore that the set of interest
-is characterized in terms of a subset of values of the variables, say
-$\T \subset \R^{\no}$, and denote the corresponding set of index
-points by
+\begin{figure}[h!] \centering
+  \includegraphics[width=0.99\textwidth]{Figures/example_excu_1.png}
+  \caption{Realization of a bivariate GRF and excursion set above some threshold. Joint excursion in red, excursion of a single variable in white.}
+\label{example_excu}
+\end{figure}
+
+
+Say we have an underlying phenomenon that is modeled as a $\no$-variate gaussian random field $\gp$ on some domain $\domain$, 
+and we are interested in recovering the set of locations $\es$ in the domain for which the response variables (the components of $\gp$) lie in some set of specified values $\T\subset \mathbb{R}^{\no}$:
 $$
-\es=\gp^{-1}(\T)=\{\x \in \mathcal{M}: \gp[\x] \in \T\}.
+\es:=\gp^{-1}(\T)=\{\x \in \mathcal{M}: \gp[\x] \in \T\}.
 $$
 Our goal here is to develop approaches to quantify and improve the
-characterization of uncertainties on such sets $\es$, in the
-context of multivariate random fields.
+characterization of uncertainties on $\es$. \textcolor{red}{Alread mention how observations are included.}
 
-While some aspects of the developed approaches do not call for a
+If we assume that $\gp$ has
+continuous trajectories (almost surely) and $T$ is closed, then
+$\es$ becomes a Random Closed Set
+\citep{Molchanov2005} and concepts from the theory of random sets will prove useful in characterizing the distribution of the volume of $\es$ under some measure defined on the domain.
+
+\textcolor{red}{Is this really needed?} Note that while some aspects of the developed approaches do not call for a
 specific form of $\T$, we will often stick for simplicity to the case
 of orthants
 ($\T=(-\infty, t_1] \times \dots \times (-\infty, t_{\no}]$ where
 $t_1,\dots, t_{\no} \in \R$) as this will allow efficient calculation
 of several key quantities. Note that changing some $\leq$ inequalities
-to $\geq$ ones would lead to immediate adaptations. In the application
-specific properties following the orthant assumption come into play
-\kc{This last phrase doesn't parse; is it ``..., the following
-  orthant....''?}: We let $t_1$ be a threshold for temperature and
-$t_2$ a threshold for salinity \kc{Might be easier to remember with
-  symbols 't' and 's' in some
-  form.}. The set of index point then defines
-$\mbox{ES} = \{\x \in D : \gp[\x,1] \leq t_1,\gp[\x,2] \leq t_2\}$.
-The associated EPs are
-$p(\x) = P(\gp[\x,1] \leq t_1,\gp[\x,2] \leq t_2)$,
-$\x \in \mathcal{M}$.
+to $\geq$ ones would lead to immediate adaptations.
 
-For statistical generality, we will however keep the abstract notation
-with $\T$ and general $\es$ \kc{Again, previous phrase doesn't parse.}
-for most of the derivations. Note that assuming that $\gp$ has
-continuous trajectories (almost surely) and $T$ to be closed, then
-$\es$ can be cast as a Random Closed Set
-\citep{Molchanov2005}. %In what follows, we will express various quantities related to $\es$ in terms of $\gp$'s moments both for general and orthant $T$'s.
-Let us in particular consider a locally finite (Borel) measure $\mes$
-on $D$ and investigate the probability distribution of $\mes(\es)$
-through its moments.
+\end{comment}
+\subsection{Background, Notation and Co-Kriging}
+\label{sec:bg_and_notation}
 
-\medskip 
+Throughout the rest of the article, we denote by $\gp$ a vector-valued random field indexed by some arbitrary domain $\domain$, and assume values of the field at any fixed location $\x \in \domain$, denoted $\gp[\x]$, to be a $\no$-variate random vector ($\no\geq 2$). In our leading river plume characterization application, $\domain$ is a prescribed domain in the fjord of Trondheim (for the purpose of our AUV application, a discretization of a $2$-dimensional domain at fixed depth is considered), while $\no=2$ and the two responses of interest stand for temperature and salinity. A bivariate gaussian random field model is assumed for $\gp$, see the two first panels of Figure~\ref{example_excu} for an illustration of a realization of such a vector-valued model (RK NOTATION). The right panel of this figure represents a by-product of interest derived from these realizations, namely regions i) in red, where both temperature and salinity are high (i.e., exceeding respective thresholds), standing for ocean water ii) in blue, where both temperature and salinity are low, standing for riverine water, and iii) in white, where one variable is above and the other below their respective thresholds, standing for mixed waters. 
 
-%That $\mu(\es)$ is a well-defined random variable follows from
-\begin{propo}
-	\label{propo1}
-	%Under technical conditions to be precised, $\mu(\es)$ possesses moments or arbitrary order and these can be expressed for any $r\geq 1$ as
-	For a measurable random field $\gp$ and a locally finite
-        measure $\mes$ on $\mathcal{M}$, $\mes(\es)$ is a random
-        variable and for any $r\geq 1$, \begin{equation*}
-          \begin{split} \mathbb{E}[\mes(\es)^r]
-            &=\int_{\mathcal{M}^{r}} \jointExcuProb \productMeasure ,
-          \end{split} \end{equation*}
-	
-	where the product measure is denoted as
-	$\nu^{\otimes}:=\bigotimes_{i=1}^r \nu$. 
-	%Note that we will use boldface to denote concatenated variables. % TO RELOCATE
-	Here $\gp$ is defined on $\mathcal{M}$, and for
-	$\bm{u}=\left(u^{(1)}, ..., u^{(r)}\right)\in \mathcal{M}^r$, $\gp[\bm{u}]=\left(\gp[u^{(1)}], ...,
-	\gp[u^{(r)}]\right)\in \mathbb{R}^{\no r}$.\kc{Is $\no r$ a
-        product of the $\no$ from above? Is that obvious?}
-	\medskip
-	
-	In the particular case where $\gp$ is a multivariate Gaussian random field 
-	%and denoting the mean and covariance matrix of $\gp[\bm{u}]$ by $\meanUU\in\mathbb{R}^{p\times r}$ and $\covUU$, respectively, 
-	we have 
-	\begin{align*}
-	\jointExcuProb = \mathcal{N}_{\no r}(T^r; \meanUU, \covUU),
-	\end{align*}
-	where $\mathcal{N}_{\no r}(\cdot ; \meanUU, \covUU)$ is the Gaussian measure on $\mathbb{R}^{\no r}$ with mean $\meanUU$ and covariance matrix $\covUU$, respectively defined blockwise by  
-	%where both are defined blockwise by 
-	\begin{align*}
-	\meanUU&=\begin{pmatrix}\mu(u^{(1)})\\ \vdots\\ \mu(u^{(r)})\end{pmatrix}
-	\in \mathbb{R}^{\no r}, \\
-	\text{and } \covUU &= \begin{pmatrix}
-	\cov(\gp[u^{(1)}], \gp[u^{(1)}]) & \dots & \cov(\gp[u^{(1)}],
-	\gp[u^{(r)}])\\
-	\vdots & & \vdots\\
-	\cov(\gp[u^{(r)}], \gp[u^{(1)}]) & \dots & \cov(\gp[u^{(r)}],
-	\gp[u^{(r)}])\\
-	\end{pmatrix}\in \mathbb{R}^{pr\times pr},
-	\end{align*}
-	each of the $r\times r$ blocks of the latter matrix being itself a (cross-)covariance matrix of dimension $\no \times \no$. 
-	%dimensional Gaussian random vector. 
-	Assuming further that $\covUU$ is non-singular, the probability of interest can be formulated in terms of the $\no r$-dimensional Gaussian probability density function 
-	$\varphi_{\no  r}(\cdot;~\meanUU, \covUU)$ as 
-	%$\varphi_{\no \times r}$ as
-	%$\bm{u}\in D^r$ such that $\gp[\bm{u}]$ be non-degenerate, the integrand can be expressed in terms of the $r \times \no$-dimensional Gaussian distribution, namely 
-	%cumulative distribution function, namely 
-	\begin{equation*}
-	\begin{split}
-	&\jointExcuProb
-	=
-	\int_{T^r} \varphi_{\no  r}\left(\bm{v};
-	~\meanUU, \covUU\right) 
-	\mathrm{d}\bm{v},
-	\end{split}
-	\end{equation*}
-	In the particular orthant case with $\T=(-\infty, t_1] \times \dots \times (-\infty, t_{r}]$,
-	the latter probability directly writes \kc{What does
-          ``writes'' mean here? Connotes?} in terms of the multivariate Gaussian
-	cumulative distribution, % with mean $\meanUU$ and covariance matrix $\covUU$,
-	this time without requiring $\covUU$ %the latter 
-	to be non-singular: 
-	\begin{equation*}
-	\begin{split}
-	\jointExcuProb 
-	&=
-	\varPhi_{\no r}\left(\bm{t};~\meanUU, \covUU\right),
-	\end{split}
-	\end{equation*}
-	where we have used the notations 
-	$t=(t_1,\dots,t_{\no}%,..., t_1, ..., t_p
-	)\in\mathbb{R}^{\no}$, $1_{r}=(1,\dots,1)\in \R^{r}$, and 
-	$\bm{t}=1_{r}\otimes \bm{t}=(t_1,\dots,t_{\no},\dots,t_1,\dots,t_{\no}) 
-	\in \R^{\no r}$.
-\end{propo}
+\begin{figure}[h!] \centering
+  \includegraphics[width=0.99\textwidth]{Figures/example_excu_1.png}
+  \caption{Realization of a bivariate GRF and excursion set above some threshold. Joint excursion in red, excursion of a single variable in white.}
+\label{example_excu}
+\end{figure}
 
-Proposition~\ref{propo1} enables one to calculate centered moments of $\mes(\es)$. 
-The excursion measure variance $\emv = \operatorname{Var}[\mes(\es)]$
-is probably the most relevant of these for our purposes. We
-have 
+%The methods we develop are fairly general, and not limited to the special case of two-dimensional random fields. Hence, the rest of this section will consider generic excursion sets of gaussian random fields with an arbitrary number of output dimensions.
+% Say we have an underlying phenomenon that is modeled as a $\no$-variate gaussian random field $\gp$ on some domain $\domain$, 
+Coming back to the more general settings of a $\no$-variate random field, 
+we are interested in recovering the set of locations $\es$ in the domain for which the response variables (the components of $\gp$) lie in some set of specified values $\T\subset \mathbb{R}^{\no}$, in other words \textit{the pre-image of $T$ by $\gp$}:
+$$
+\es:=\gp^{-1}(\T)=\{\x \in \mathcal{M}: \gp[\x] \in \T\}.
+$$
+%
+%Our goal here is to develop approaches to quantify and improve the
+%characterization of uncertainties on $\es$. \textcolor{red}{Alread mention how observations are included.}
+
+If we assume that $\gp$ has
+continuous trajectories (almost surely) and $T$ is closed, then
+$\es$ becomes a Random Closed Set
+\citep{Molchanov2005} and concepts from the theory of random sets will prove useful in characterizing the distribution of the volume of $\es$ under some measure defined on the domain.
+%\textcolor{red}{Is this really needed?} 
+Note that while some aspects of the developed approaches do not call for a
+specific form of $\T$, we will often stick for simplicity to the case
+of orthants
+($\T=(-\infty, t_1] \times \dots \times (-\infty, t_{\no}]$ where
+$t_1,\dots, t_{\no} \in \R$) as this will allow efficient calculation
+of several key quantities. Note that changing some $\leq$ inequalities
+to $\geq$ ones would lead to immediate adaptations.
+
+\medskip
+
+%\subsubsection{Notation}
+%In order to work at this level of generality, some notational tricks are needed. Indeed, when considering a new observation, one shall in general specify which component of the field was observed and where it was observed. This leads us to introduce the concept of \textit{generalized location}.
+
+Letting $\gp[\spatloc,\ell]$ denote the $\ell\text{-th}$ component of $\gp[\spatloc]$, $\spatloc\in \domain$ and $\ell \in \{1\dots,p\}$, we will call \textit{generalized location} the couple $x=(\spatloc,\ell)$. 
+%Given such a generalized location notation $x$,  
+The notation $\gp[x]$ will be used to denote $\gp[\spatloc,\ell]$ 
+and
+%
+%This slight change of notation 
+will allow us to think of $\gp$ as a scalar-valued Gaussian random field 
+indexed by $D\times \{1\dots,p\}$, which will give the co-kriging equations a particularly simple form that parallels the one of univariate kriging. Due to the naturality of the concept of \textit{generalized location}, 
+we will generally use the word \textit{location}, while \textit{spatial location} will be used to stress that we are talking about a point $\spatloc \in \domain$. In the following, the letter $x$ will be reserved for generalized locations, while the letters $\spatloc$ and $\ell$ will be used for spatial locations and response indices respectively.
+
+It turns out that the inclusion of several observations at a time (a batch) may be handled by the same equations as the 
+one for a single observation, provided some notation adjustments are made. This motivates the following.
+
+
+
+Given a dataset consisting of  $q$ observations at spatial locations $\spatloc_i \in \domain$ and response indices $l_i \in \lbrace 1, ..., \no\rbrace$, $i=1, ..., q$, we can concatenate the information needed to specify the dataset by using the notation
+\begin{align*}
+\bm{x}:=(\bm{\spatloc}, \bm{\ell}):= (x_1,\dots, x_q),~\text{with }x_i=(\spatloc_i,\ell_i).
+\end{align*}
+In general, boldface letters will be used to denote concatenated quantities corresponding to batches of observations. 
+We can then also compactly denote the values of the field at those different locations by
+\begin{align*}
+\gp[\bm{x}]:=
+\left(\gp[\spatloc_1,\ell_1], ...,
+\gp[\spatloc_q,\ell_{q}]\right) \in \mathbb{R}^{q}.
+\end{align*}
+%
+
+
+Given a random field $\gp$ and (noisy) observations of some of its components at some points in the domain, one can predict the value of the field at some unobserved location $\spatloc\in \domain$ by using the conditional mean of $\gp[\spatloc]$, conditional on the data. This process is called (co-)kriging, and kriging equations precisely tell us how to compute conditional means and covariances conditional on an arbitrary dataset.
+We will here present the most general form of cokriging, where one can include several observations (batch) at a time and 
+observations at a given location $s \in \domain$ may only include a subset of the components of $\gp[\spatloc]\in\mathbb{R}^{\no}$ 
+(heterotopic).
+
+\subsubsection{Co-Kriging}
+\label{sec:cokriging}
+Assuming now that $n$ batches of observations are available, with respective sizes $q_1,\dots, q_n$, and that one wishes 
+to predict $\gp[\bm{x}]$ for some batch of $q\geq 1$ generalized locations $\bm{x}=(\bm{\spatloc}, \bm{\ell})$, the (simple) 
+cokriging mean would then amount to simple kriging with respect to a scalar-valued Gaussian random field indexed by 
+$D\times \{1\dots,p\}$ and with covariance kernel $k(\bm{x}, \bm{x}')=K(\bm{\spatloc}, \bm{\spatloc}')_{\ell, \ell'}$, that is:
+%
+\begin{equation}
+\mu_{[n]}(\bm{x})=\mu(\bm{x})+\lambda_{[n]}(\bm{x})^T (\mathbf{z}_{[n]}-\mu(\bm{x})),
+\end{equation}
+where $\mu$ is $Z$'s initial mean function, $\mathbf{z}_{[n]}$ stands for the ($\sum_{i=1}^n q_i$)-dimensional vector of 
+observed responses of $Z$ at all considered generalized locations, and $\lambda_{[n]}(\bm{x})$ is a vector of weights 
+equal to $k(\bm{x}_{[n]}, \bm{x}_{[n]})^{-1} k(\bm{x}_{[n]}, \bm{x})$ with $\bm{x}_{[n]}=(\bm{x}_1,\dots, \bm{x}_n)$, 
+$k(\bm{x}_{[n]}, \bm{x}_{[n]})$ being assumed non-singular throughout the presentation. The co-kriging %(conditional) 
+residual (cross-)covariance function (with respect to batches of generalized locations) can also be expressed in the same vein via
+%
+\begin{equation}
+k_{[n]}(\bm{x},\bm{x}')=k(\bm{x},\bm{x}')-\lambda_{[n]}(\bm{x})^T k(\bm{x}_{[n]}, \bm{x}_{[n]}) \lambda_{{[n]}}(\bm{x}').
+\end{equation}
+
+\subsubsection{Co-kriging update formulae}
+
+Let us now consider the case where co-kriging prediction of $Z$ was made with respect to $n$ batches $\bm{x}_i$ of generalized locations, concatenated again within
+$\bm{x}_{[n]}=(\bm{x}_1,\dots, \bm{x}_n)$, and one wishes to update the prediction by incorporating a new vector of observations $\mathbf{z}_{n+1}$ measured at a batch of $q_{n+1} \geq 1$ generalized locations $\bm{x}_{n+1}$.
+%It turns out that the concept of \textit{generalized location} makes the kriging formulae form-invariant across all dimensions. This allows us to directly adapt the 
+Thanks to our representation of co-kriging in terms of simple kriging with respect to generalized locations, a strightforward adaptation of the batch-sequential kriging update formulae from \cite{Chevalier.etal2013a} delivers that
+% 
+\begin{equation}
+\mu_{[n+1]}(\bm{x})=\mu_{[n]}(\bm{x})+\lambda_{[n+1,n+1]}(\bm{x})^T (\mathbf{z}_{n+1}-\mu(\bm{x}_{n+1})),
+\end{equation}
+where $\lambda_{[n+1,n+1]}(\bm{x})$ denotes the $q_{n+1}$-dimensional sub-vector extracted from
+$\lambda_{[n+1]}(\bm{x})$ that corresponds to the kriging weigths associated with the last $q_{n+1}$ responses when 
+predicting at $\bm{x}$ relying on all measurements until batch $(n+1)$.
+%\text{th}$ batch.
+%, i.e. those from the $(n+1)\text{th}$ batch of measurements conducted at $\bm{x}_{n+1}$.
+Similarly, the updated co-kriging residual (cross-)covariance function then writes
+\begin{equation}
+k_{[n+1]}(\bm{x},\bm{x}')=k_{[n]}(\bm{x},\bm{x}')-\lambda_{[n+1,n+1]}(\bm{x})^T k_{[n]}(\bm{x}_{[n]}, \bm{x}_{[n]}) \lambda_{{[n+1,n+1]}}(\bm{x}').
+\end{equation}
+%\medskip
+%
+Let us remark that, as noted in \cite{Chevalier2015} in the case of scalar-valued fields, these update formulae naturally 
+extend to Universal Kriging in second-order settings and apply without Gaussian assumption. We will now see how the latter formulae are instrumental in deriving semi-analytical formulae for stepwise uncertainty reduction criteria for 
+vector-valued random fields.
+
+
+
+
+
+
+\subsection{Uncertainty Quantification on Excursion Sets of multivariate Gaussian Random Fields}
+\label{sec:set_uq}
+We now introduce quantities that allow to quantify the uncertainty on the volume of the excursion set $\es$. Let $\mes$ be a 
+(locally finite, Borel) measure  on $\domain$. We want to investigate the probability distribution 
+of $\mes(\es)$ through its moments.
+
+\medskip
+
+Centred moments may be computed using Proposition~\ref{propo1} developed in the appendix. 
+In particular, it allows to write the excursion measure variance $\emv = \operatorname{Var}[\mes(\es)]$ as an integral of the excursion probability
 \begin{equation*}
 \begin{split}
 \emv
-&=\int_{\mathcal{M}^2} \mathbb{P}\left(
-\gp[u]\in T, \gp[v]\in T \right) 
+&=\int_{\domain^2} \mathbb{P}\left(
+\gp[u]\in T, \gp[v]\in T \right)
 d\mes^{\otimes}(u, v)\\
-&-\left( \int_{\mathcal{M}} \mathbb{P}\left(\gp[u]\in T\right) d\mes(u) \right)^2,
+&-\left( \int_{\domain} \mathbb{P}\left(\gp[u]\in T\right) d\mes(u) \right)^2,
 \end{split}
-\end{equation*} 
-which evaluates in the excursion/sojourn case where
-$\T=(-\infty, t_1] \times \dots \times (-\infty, t_{\no}]$ to
-\begin{equation*} \begin{split}
-  \emv
+\end{equation*}
+which boils down in the excursion/sojourn case where $\T=(-\infty, t_1] \times
+\dots \times (-\infty, t_{\no}]$ to
+\begin{equation*}
+\begin{split}
+\emv
 %\operatorname{Var}[\mes(\es)]
-&=\int_{\mathcal{M}^2} 
+&=\int_{\domain^2}
 \varPhi_{2\no}
 \left(
-(\bt, \bt); \bmu((u,v)), 
+(\bt, \bt); \mu((u,v)),
+K((u,v),(u,v))
+\right)
+\
+\mathrm{d}\mes^{\otimes} %\mes
+%\productMeasure
+(u,v)\\
+&-\left( \int_{\domain} \varPhi_{\no}\left(\bt;\mu(u), K(u)\right) d\mes(u) \right)^2,
+\end{split}
+\end{equation*}
+%
+Note that like in the case of scalar-valued fields, this quantity requires to work out an integral over $\domain^2$. In 
+contrast, and still like in the scalar-valued case, the Integrated Bernoulli Variance (IBV) of \cite{Bect.etal} involves 
+solely an integral on $\domain$ and can be expanded in our present settings as follows
+\begin{equation*}
+\begin{split}
+\operatorname{IBV} %(\es) %;\mes)
+&=\int_{\domain}
+\mathbb{P}\left(\gp[\uu]\in T\right)(1-\mathbb{P}\left(\gp[\uu]\in T\right))
+d\mes(u) \\
+&=\int_{\domain}
+\varPhi_{\no}\left(\bt;\mu(\uu), K(\uu)\right)
+-\left(\varPhi_{\no}\left(\bt;\mu(\uu), K(\uu)\right) \right)^2
+\mathrm{d}\mes(u).
+\end{split}
+\end{equation*}
+%
+Next we investigate uncertainty reduction criteria related to those indicators.
+
+
+
+
+
+
+\subsection{Expected Integrated Bernoulli Variance and Excursion Measure}
+\label{sec:eibv}
+This section is devoted to computing the expected effect of the inclusion of new observations on the $\emv$ and $\ibv$ of the excursion set $\es$. Let us consider the same setting as in Section \ref{sec:cokriging} where $n$ batches of measurements have already been performed, and let 
+$\currentExp{.}$ and $\currentProba{.}$ denote conditional expectation
+and probability conditional on the first $n$ batches of observations, respectively. We want to co pute the effect of the inclusion of a new set of observations at $\bm{x}_{n+1}$ on the $\emv$ and $\ibv$.
+
+For uncertainty functional such as $\ibv$ and $\emv$, we use a similar indexing system
+with respect to a sequence of batch, and further indicate when applicable the new batch
+of generalized location between parentheses; e.g., $\emv_{[n+1]}(\bm{x})$ denotes the value
+of $\emv$ (a random variable, seen from ``step'' $n$, i.e. when knowing $Z$ solely at
+the $n$ first generalized location batches) when adding observations at $\bm{x}$ to those
+already available at step $n$.
+
+\textcolor{red}{C.T.: This doesn't work, we cannot be that short on the definition of EIBV, it is highly unclear. I suggest we go for the following notation:
+$$\operatorname{IBV}(\bm{x}; \bm{y})
+$$ denotes the IBV under the current law of the field, conditioned on observing $\bm{y}$ at $\bm{x}$ (generalized, possibly batch observation). Then
+$$
+\operatorname{EIBV}(\bm{x}):=\mathbb{E}_{\bm{Y}}\left[\textrb{IBV}(\bm{x}; \bm{Y})\right]
+$$
+where $\bm{Y}$ is distributed according to the current law of $Z_{\bm{x}}$.}
+
+\textcolor{red}{
+The philosophy is the following: EIBV and EEMV are functionals of a probability distribution. Then, if not mentioned explicitly, the probability distribution will be taken to be the current law of the field. (This notation is highly efficient).}
+
+
+
+\textcolor{red}{When one want to consider several steps, one can use $\textrm{IBV}_{n}(\bm{x}; \bm{y})$ to denote the fact that the starting point (starting probability distribution) is the law of the field at the $n$-th step $\mathbb{P}_n$ to which conditioning on $\bm{y}$ at $\bm{x}$ is added.}
+
+\textcolor{red}{For a rigorous definition
+$$
+\operatorname{IBV}(\bm{x}; \bm{y}):=\int_{\domain}
+\mathbb{P}\left(\gp[\uu]\in T\mid Z_{\bm{x}}=\bm{y}\right)(1-\mathbb{P}\left(\gp[\uu]\in T \mid Z_{\bm{x}}=\bm{y}\right))
+d\mes(u) \\
+$$
+where $\mathbb{P}$ denotes the current law of the field.}
+
+
+
+\begin{propo}
+\label{propo_eibv}
+Let $\eibv_{[n]}(\bm{x})=\currentExp{\ibv_{[n+1]}(\bm{x})}$ (where $\bm{x}$ plays
+the role of $\bm{x}_{n+1}$) be the expected effect of adding an observation a $\bm{x}$ on the IBV.
+Then we have
+\begin{equation}
+\begin{split}
+\eibv_{[n]}(\bm{x})
+&=\int_{D} \varPhi_{\no}\left(\bt;~\currentMean{\uu}, \currentCov{u, u}\right) d\mes(u)\\
+&-\int_{D} \varPhi_{2\no}
+\left(
+\left(
+\begin{matrix}
+\bt-\currentMean{u}\\
+\bt-\currentMean{u}
+\end{matrix}
+\right);
+\mathbf{\Sigma}_{[n]}(\uu)
+\right)
+d\mes(u),
+\end{split}
+\end{equation}
+where the matrix $\mathbf{\Sigma}_{[n]}(\uu)$ is defined as
+\begin{equation*}
+\begin{split}
+\mathbf{\Sigma}_{[n]}(\uu)&=
+\left(
+\begin{matrix}
+\currentCov{u, u} & \currentCov{u, u}-\futureCov{u, u}\\
+\currentCov{u, u}-\futureCov{u, u} & \currentCov{u, u}
+\end{matrix}
+%\begin{matrix}
+%\currentCov{u, u} & \Delta_{[n]}(\uu)\\
+%\Delta_{[n]}(\uu) & \currentCov{u, u}
+%\end{matrix}
+\right).\\
+\end{split}
+\end{equation*}
+\end{propo}
+
+As for the expected excursion measure variance, a similar result may be derived.
+\begin{propo}
+\label{propo_emv}
+
+\begin{equation*}
+\begin{split}
+\eemv_{[n]}(\bm{x})
+&=\int_{D^2} 
+\varPhi_{2\no}
+\left(
+(\bt, \bt); \mu((u,v)), 
 K((u,v),(u,v))
 \right) 
 \
 \mathrm{d}\mes^{\otimes} %\mes 
 %\productMeasure 
 (u,v)\\
-&-\left( \int_{\mathcal{M}} \varPhi_{\no}\left(\bt;\bmu(u), K(u)\right) d\mes(u) \right)^2.
+&-\currentExp{
+    \varPhi_{\no}\left(a_1+B_1 V; C_1\right)
+    \varPhi_{\no}\left(a_2+B_2 V; C_2\right)
+},
 \end{split}
 \end{equation*}
-This quantity requires  an integral over $D^2$. In
-contrast, the Integrated Bernoulli Variance (IBV) of \cite{Bect.etal}
-involves solely an integral on $\mathcal{M}$ and can be expanded in
-our present setting as follows 
-\begin{equation}\label{IBV}
-\begin{split}
-\operatorname{IBV} %(\es) %;\mes)
-&=\int_{\mathcal{M}}
-\mathbb{P}\left(\gp[\uu]\in T\right)(1-\mathbb{P}\left(\gp[\uu]\in T\right))
-d\mes(u) \\
-&=\int_{\mathcal{M}}
-\varPhi_{\no}\left(\bt;\bmu(\uu), K(\uu)\right) 
--\left(\varPhi_{\no}\left(\bt;\bmu(\uu), K(\uu)\right) \right)^2
-\mathrm{d}\mes(u). 
-\end{split}
-\end{equation}
+
+with $V=\gp[\bm{x}_{n+1}]-\currentMean{\bm{x}_{n+1}} \sim \mathcal{N}(0_{q_{n+1}},k_{[n]}(\bm{x}_{n+1},\bm{x}_{n+1}))$ and $a_1=\bt-\currentMean{\uu}$,
+$B_1=-\lambda_{[n+1,n+1]}(\uu)^T$, $a_2=\bt-\currentMean{\vv}$, $B_2=-\lambda_{[n+1,n+1]}(\vv)^T$.
+
+This integrand finally boils down to an evaluation of the $2\no$-dimensional Gaussian CDF by
+Proposition~\ref{propo3}. Details are omitted here for brevity as we did not implement further
+this criterion that requires numerical integration over $\domain^2$.
+\end{propo}
 
 
-\subsection{Expected Integrated Bernoulli Variance and Sampling Designs}
-\label{sec:EIBV}
+Note that the calculation of the multivariate Gaussian cumulative distribution
+may be done effectively using code such as that of
+\cite{genz2009computation}. 
 
-Our goal is to construct informative sampling designs, given limited
-resources \kc{information?}. In our domain, data is gathered by an AUV
-that can measure temperature and salinity at chosen locations on a
-defined waypoint graph. Such a discretized grid fosters reliable
-navigation and mission performance. The waypoints further enable a
-structure to the design problem in that, that sampling flexibility is
-limited to operation on the graph. % This gives lots of sampling
-% opportunities, and it is important to spend the sampling efforts
-% wisely.
-We focus on sampling designs that reduce the expected integrated
-Bernoulli variance (EIBV). Note that this sampling can be done in a
-static manner where the survey design is pre-planned, or in an
-adaptive setting. For the latter case, data can be processed
-sequentially and the updated model is then used to design and select
-the next waypoint graph to visit, which in turn are used again to
-update the model, and so on (Section \ref{sec:heuristics}). We next
-describe the data modeling assumptions for one stage and develop
-design criteria of semi-analytical forms relying on integrals of
-multivariate Gaussian cumulative distribution functions; we will
-appeal to some key intermediate results presented next.
-
-We denote a design by $d \in \mathcal{D}$, where the concatenation of designs with $q$ sampling locations $\bu_d=\left(u_d^{(1)},\ldots, u_d^{(q)}\right)$ is $\mathcal{D}$. The
-measurement model is defined by 
-\begin{equation}\label{eq:meas}
-    \bY_d=G_d \bz(\bu_d) + \epsilon, \hspace{3mm} \epsilon \sim N(0,R_d).
-\end{equation}
-Here, $\bz(\bu_d)$ is the size $pq$ vector of GP variables at the
-sampling locations, and $G_d$ is the design matrix which in principle
-allows for observing subsets of the vector-valued field at some of the
-$q$ locations (i.e. the matrix has fewer rows than columns). If the
-additive error has independent elements, the covariance matrix $R_d$
-is diagonal. In our setting temperature and salinity measurements are
-extracted from different sensors, so the independence assumption
-between variables is not unrealistic, but this is not necessarily the
-case for other kinds of measurements on the AUV. It is further common
-in geostatistics to assume spatially independent measurement errors,
-and we also do so. But our methodology for constructing sampling
-designs does not rely on these independence assumptions.
-
-For a given design $d$ the evaluation is based on the expected
-information contained in the data to influence the criterion.   
-Considering the EIBV criteria, we have
-\begin{eqnarray}\label{eq:eibv}
-    \mbox{EIBV} (d) &=& E_{\bY_d} \left( \int_{\mathcal{M}}
-p(\x;\by_d)(1-p(\x;\by_d))
-d\mes(u) \right), \nonumber \\
-p(\x;\by_d) &=& \mathbb{P}\left(\gp[\uu]\in T|\bY_d=\by_d \right)
-\end{eqnarray}
-where the expectation is over the planned data.  The optimal design
-for an AUV survey is then 
-\begin{equation}\label{crit}
-    d^* = \mbox{argmin}_{d \in \mathcal{D}} \mbox{EIBV}(d).
-\end{equation}
-For another criterion using random moments of random sets similar
-expectations would be required, but as we will see, the EIBV has a
-closed-form expression which is relatively fast to compute and hence
-useful for onboard design selection.
-
-Assuming now that $q$ observations $\by_d$ made at $\bu_d$ are available, one wishes to predict $\gp[\x]$. The multivariate Kriging equations holds with size
-$p$ vector of conditional means:  
-\begin{equation}\label{eq:cokrig}
-\bbm(\x)=\bmu(\x)+\lambda(\x,\bu_d)^T \left( \by_d-G_d \bmu(\bu_d)\right),
-\end{equation}
-where
-$\lambda(\x,\bu_d)=K^{-1}_y G_d k(\bu_d, \bu) $ with data covariance
-$K_y=\mbox{Cov}(\bY_d,\bY_d)=G_d K(\bu_d,\bu_d)G_d^T+R_d$ and cross-covariance $\mbox{Cov}(\bY_d,Z(\x))=G_d k(\bu_d, \x)$, assuming the measurement
-error is independent of the random fields.  The Kriging (cross-)covariance function can also be expressed in the same vein via
-a $p \times p$ matrix 
-\begin{equation}\label{eq:krig:cov}
-\Sigma(\x,\x')=K(\x,\x')-\lambda(\x,\bu_d)^T K_y(\bu_d, \bu_d) \lambda(\x,\bu_d).
-\end{equation}
-
-Eq. \eqref{eq:cokrig} and \eqref{eq:krig:cov} are used to
-provide informative, updated statements about sets of interest. For
-our case with temperature and salinity, the conditional EPs, given
-measurements $\by_d$, can then be computed from
-\begin{eqnarray}\label{eq:post_ep}
- p(\x;\by_d) &=& P(Z_1(\x) \leq t_1, Z_{2}(\x) \leq t_2 |\bY_d=\by_d),  \nonumber \\
- &=& \Phi_2 ((t_1,t_2)^T-\bbm(\x);0_2, \Sigma(\x,\x)). 
-\end{eqnarray}
-
+\textcolor{red}{Do we really want to keep this?}
 A critical element in the derivation of a closed-form for the EIBV is
-that the conditional mean in Eq. \eqref{eq:cokrig} is a linear
+that the conditional mean in the cokriging equations is a linear
 (affine) function of the data $\by_d$ and the covariance is not a
 function of the data. This in turn means that the probabilities in Eq.
 \eqref{eq:post_ep} involve inequality statements for linear
 combinations of Gaussian variables. Related closed-form solutions have
 been noted in similar contexts \citep{bhattacharjya2013value,
   chevalier2014fast,stroh}, but not generalized to our situation with
-random sets for vector-valued GPs. Notably, the entry in Eq.
-\eqref{eq:post_ep} is in the form of $\ba+B V$, where
-$V \sim N(0_q, K_y (\bu_d,\bu_d))$,
-$\ba=(t_1,t_2)^t-\bmu(\x)$
-and $B=\lambda(\x,\bu_d)^T$. The following proposition then applies to give a
-closed-form solution to EIBV calculation in this case.
-
-\begin{propo}
-	\label{propo2}
-	Let $p, q, h \geq 1$, $a \in \R^p$, $B \in \R^{p\times q}$,
-	and $\covN, \covV$ be two covariance matrices in
-	$\R^{p\times p}$ and $\R^{q\times q}$, respectively.
-	Then, for $V \sim \mathcal{N}_{q}(0_q, \covV)$,
-	\begin{equation*}
-	\mathbb{E}\left[ \varPhi_{p}\left( \ba + BV; 0_p,\covN \right)^h \right]
-	=
-	\varPhi_{ph}
-	\left(
-	\ba
-	;0_{ph},
-	\Sigma
-	\right),
-	\end{equation*}
-	where the vector $\ba \in \R^{p h}$ is defined as 
-	$\ba := 1_h\otimes a = 
-	\left(a, \dots , a
-	\right)'$
-	and the $p h\times p h$ covariance matrix is given by
-	$\Sigma := 
-	1_h 1_h'\otimes B\covV B' + I_h\otimes \covN$.
-\end{propo}
-The proof of Proposition \ref{propo2} is provided in the Appendix. 
-
-In block-wise representation, the following relation holds for the
-covariance in Proposition \ref{propo2}: 
-\begin{align*}
-	\Sigma&=
-	\begin{pmatrix}
-	\covN & &\\
-	& \ddots &\\
-	&   & \covN
-	\end{pmatrix}
-	+
-	\begin{pmatrix}
-	B\covV B' & \dots & B\covV  B'\\
-	\vdots & & \vdots\\
-	B\covV B' & \dots & B\covV B'\\
-	\end{pmatrix}.
-\end{align*}
-The calculation of the multivariate Gaussian cumulative distribution
-is done effectively using code such as that of
-\cite{genz2009computation}. 
-
-In the more general case, for instance that of volumes of random sets,
-the criterion will include couplings with different locations and the
-result must be generalized. For the case of multivariate monomials in
-orthant probabilities with thresholds affine in a common Gaussian
-vector \kc{This sentence is dangling. Doesn't have a conclusion.}.
-%Namely, for monomials of degree $k$, we have.
-
-\begin{propo}%[\textcolor{red}{Notation in progress, to be reviewed/revised}]
-	\label{propo3}
-	Let $g, p, q\geq 1$, $h_{1},\dots, h_{g}\geq 1$ with $H=\sum_{i=1}^g h_i$, $a_{i} \in \R^{p}$, $B_{i}\in \R^{p \times q}$, and covariance matrices $\covN_i \in \R^{p \times p}$ $(1\leq i \leq g)$. Then, for any covariance matrix $\covV \in \R^{q\times q}$ and $V\sim\mathcal{N}_{q}(0_q,\covV)$, 
-	%	Let $g$ and $k$ be integers, and consider a $g$-terms monomial of degree $k$
-	%	\[
-	%	    \prod_{i=1}^{g} \varPhi_{p}\left(a_i + B_{i}V; \Sigma_{i}
-	%	    \right)^{h_i},
-	%    \]
-	%    where $\sum_{i=1}^g h_i = k$, each $a_i$, $B_i$ and $\Sigma_i$ is as in
-	%    \cref{propo2} and $V$ is a $q$-dimensional Gaussian vector distributed as
-	%    $V\sim\mathcal{N}(0,\covV)$.
-	%
-	% Then the expectation of the monomial is given by
-	\begin{equation}
-	\mathbb{E}\left[ \prod_{i=1}^{g} \varPhi_{p}\left(a_i + B_{i}V;0_p, \covN_{i} \right)^{h_i} \right]
-	=
-	\varPhi_{p H}
-	\left(
-	\bm{a}
-	;0_{pH},
-	\mathbf{\Sigma}
-	\right),
-	\end{equation}
-	with $\bm{a}=(1_{h_1}\otimes a_1, \dots, 1_{h_g}\otimes a_{g}) \in \R^{p H}$
-	and $\mathbf{\Sigma}\in \R^{p H \times p H}$ is defined blockwise by $(\Sigma_{i,j})_{i,j \in \{1,\dots, g\}}$ where, for any $i,j \in \{1,\dots, g\}$, %the blocks are given by 
-	\begin{equation}
-	\Sigma_{i,j}=
-	(1_{h_{i}}1_{h_{j}}')\otimes (B_{i}\Sigma_{V} B_{j}') + \delta_{i,j}(I_{h_{i}}\otimes \covN_{i}) \in \R^{p h_{i} \times p h_{j}}.
-	\end{equation}
-	%with $\bm{a}=\sum_{j=1}^g \mathbf{1}_{J_{j}} \otimes a_j \in \R^{p \times k}$ 
-	%where $J_{j}=\{\sum_{i=1}^{j-1}h_i + 1, \dots, \sum_{i=1}^{j}h_i\}$,
-	%$\mathbf{1}_{I_{j}}$ denotes the vector of $\R^{k}$ with components equal to $1$ for indices in $I_{j}$ and $0$ else ($1\leq j \leq g$), 
-	%and $\mathbf{\Sigma}\in \R^{p k \times p k}$ is defined blockwise by 
-	%\begin{equation}
-	%\mathbf{\Sigma}_{\widetilde{J}_{j_{1}},\widetilde{J}_{j_{2}}}=
-	%(\mathbf{1}_{h_{j_1}}\mathbf{1}_{h_{j_2}}')\otimes (B_{j_{1}}\Sigma_{V} B_{j_2}') + \delta_{j_{1},j_{2}}(I_{j_{1}}\otimes \Sigma_{j_{1}}),
-	%\end{equation}
-	%where $\widetilde{J}_{j}=\{p\sum_{i=1}^{j-1}h_i + 1, \dots, p\sum_{i=1}^{j}h_i\}$ ($1\leq j \leq g$).
-\end{propo}
-The proof of Proposition \ref{propo2} is provided in the Appendix. 
+random sets for vector-valued GPs.
 
 
-\subsection{An Example of EIBV using Temperature and Salinity}
+
+
+
+
+
+
+
+
+
+\subsection{Expected Bernoulli Variance on a two dimensional Example}
 \label{Sec:UnivarEx}
+We illustrate the EBV associated to different designs on a simple bivariate example. The example mimics our river plume application and hence the first and second component of the random field will be called \textit{temperature} and \textit{salinity} for illustrative purpose. Effects of the hyperparameters of the GRF prior on the excursion probabilities will also be studied. For simplicity, we begin with a \textit{pointwise} example, considering a single bivariate gaussian distribution (no spatiality).
 
-% In this section, 
-We calculate EPs and the Bernoulli variance for a few bivariate
-Gaussian distributions for temperature and salinity to illustrate the concepts articulated above. The parameter inputs are made up, but they are in a realistic range as we have in the simulation study and real-world example below. The thresholds are set equal to the mean; $\mu_1=t_1=5^o C$ for temperature and  $\mu_2=t_2=30$ mg/l for salinity, and we play with the temperature and salinity correlation and variances to study the effect on the EP and expected Bernoulli variance. 
+\subsubsection{A pointwise study}
+Say we want to study the excursion probability of a bivariate gaussian, where the excursion set is defined as
+\[
+\Gamma := \lbrace \spatloc \in \domain: Z_{\spatloc, 1} \geq t_1, Z_{\spatloc, 2}\geq t_2\rbrace
+\]
+and the thresholds are set equal to the mean; $\mu_1=t_1=5^o C$ for temperature and  $\mu_2=t_2=30$ mg/l for salinity, and we play with the temperature and salinity correlation and variances to study the effect on the EP and expected Bernoulli variance.
 
 Fig. \ref{illus_bivarDens} shows contour plots of three different
 densities with increasing correlation $\gamma$ between temperature and
@@ -1018,438 +771,77 @@ likely show dependence in the spatial dimension. This in turn will
 impact the design criteria when we evaluate the information measure by
 integrating over several locations (Section \ref{sec:simulations}).
 
-%\subsection{Expected classification criteria}
+\subsubsection{Including Spatiality}
+INTRODUCTORY SENTENCE.
+The class of GRF model we will consider in the article will generally have a linear trend
+\begin{align*}
+\mu(s)=\mathbb{E}\left[\begin{pmatrix}
+Z_{s, 1}\\ Z_{s, 2}
+\end{pmatrix}\right] &= \beta_0 + \beta_1 s
+\end{align*}
+with $\beta_0$ a two dimensional vector and $\beta_1$ a $2\times 2$ matrix. We will only consider covariance models of separable type
+\begin{align*}
+\textrm{Cov}\left(Z_{s, i}, Z_{u, j}\right) &= k(s, u) \gamma(i, j),~ \gamma(i, j) = \begin{cases} \sigma_l^2,~ i=j\\
+   \gamma_0 \sigma_i \sigma_j,~i\neq j
+        \end{cases}
+\end{align*}
+where $k(., .)$ is one of the traditional spatial covariance kernel (exponential, Mat\'{e}rn, ...) and $\gamma$ defines the cross-covariance structure.
 
-%{\bf{I have not done anything here - skip this, I think}}.
+In the accompanying Python code, these modeling assumptions can be
+generalized to anisotropic covariance and changing variance levels
+across the spatial domain. One can hence, easily run the code to see
+if different models result in other sampling designs. Anisotropy and
+non-stationary variance are both relevant for the setting with river
+plumes, but in practice this requires more parameters to be
+specified. With extensive data and prior knowledge, one could also
+possibly fit and estimate parameters of more complex multivariate
+spatial covariance functions
+\citep{gneiting2010matern,genton2015cross}, but that is outside the
+scope of the current paper.
 
-%Rather than minimizing expected variance one can aim at minimizing the classification probability of the excursion set: 
-%$\min [p,(1-p) ]$, see e.g. \cite{lilleborge2016information}. 
+In the rest of this section, we will consider a GRF with mean and covariance structure as above and parameters
+\begin{align*}
+\beta_0 = \begin{pmatrix}
+5.8\\ 24.0
+\end{pmatrix}, ~ \beta_1 = \begin{pmatrix}
+0.0 & -4.0\\
+0.0 & -3.8
+\end{pmatrix},~ \sigma_1 = \sigma_2 = 2.25, ~ \gamma_0 = 0.2
+\end{align*}
+and the spatial covariance is given by a Mat\'{e}rn 3/2 kernel with unit variance and range parameter $\lambda=0.5$.
+One realization of this GRF is shown in Fig. \ref{example_excu}.
 
-%Again, since the conditional mean is a linear in the data, we only have to look at the %relevant linear combination via $\bm_{\xi}=E(\bxi)$.
-%See also \cite{bhattacharjya2013value}.
+We now study how the expected Bernoulli variance eq.\ref{eq:eibv} associated to data collection at a point changes if only one of the two components of the field is observed. We first draw a realization of the GRF defined above and use it as ground-truth to mimick the real data-collection process. A first data collection step is performed at the location in green, and the data is used to update the GRF model. The expected Bernoulli variance reduction (at each grid point) that would result from observing only one component, or both at the next grid point upwards is then computed an shown in Fig.\ref{fig:ebv_comp}.
 
-%\begin{equation}
-%E(\min \{ p,(1-p)\})=\int \min P(\xi_1 \leq t, \xi_2 \leq s),[1-P(\xi_1 \leq t, \xi_2 \leq s)] p(E(\bxi)=) dE(\bxi)=,
-%\end{equation}
-%for the complementary probabilities, this is again evaluated by the corner regions for the block, and $\Phi_4()$ evaluations are required.
-
-%In the end, this result is integrated over the spatial domain $x \in X$.
-\end{comment}
-
-\section{Sequential designs and heuristic path planning}\label{sec:heuristics}
-
-An important concept underlying this work is the potential of robotic
-sampling to adapt survey plans based on data and statistical methods
-in accordance with the sense-plan-act control loop
-(Fig. \ref{fig:envir1}). We now present a few adaptive strategies for
-robotic sampling that build on the notion of EIBV.
-
-\subsection{Optimal Sequential Design}
-\label{Optdes}
-
-Our adaptive AUV survey is split into many stages. The selection on
-where to sample is constrained by a triangular waypoint graph and
-defined by its nearest grid nodes.
-
-Let $d^{j,s}$ denote design number $j$ at stage $s$ of a sequential
-survey. For the AUV sampling situation, the choice of design entails a commitment to one of many possible navigation directions on the waypoint graph. Once the choice has been made, the AUV steers in the chosen direction and this entails sampling locations $\bu_{d^{j,s}}$ and data $\by_{d^{j,s}}$ is gathered.  We let
-$\mathcal{Y}^{s-1} =\{(d^{*,1}, \by_{d^{*,1}}),\ldots, (d^{*,s-1},
-\by_{d^{*,s-1}}) \}$ denote the set of all data gathered until stage
-$s-1$ according to selected design $d^{*,1},\ldots,d^{*,s-1}$.  
-
-The design and data define
-the conditional GP with mean
-$E(\gp[\x]|\mathcal{Y}^{s-1})$ and (cross) covariance matrix
-$\mbox{Var}(\gp[\x]|\mathcal{Y}^{s-1})$. These are efficiently updated in a sequential manner keeping track of the mean and covariance kernel of the GP over the stages. As extensions of Eq. \eqref{eq:cokrig} and \eqref{eq:krig:cov}, we have
-\begin{eqnarray}\label{eq:krigSUR}
-\mu^{s}(\x) &=&\mu^{s-1}(\x)+\lambda^{[s,s]}(\x,\bu_{d^{j,s}})^T (\by_{d^{j,s}}-G_{d^{j,s}} \mu(\x)), \nonumber \\
-k^{s}(\x,\x') &=& k^{s-1}(\x,\x')-\lambda^{[s,s]}(\x,\bu_{d^{j,s}})^T K_{Y_{d^{j,s}}} \lambda^{[s,s]}(\x',\bu_{d^{j,s}}),
-\end{eqnarray}
-where $\lambda^{[s,s]}(\x,\bu_{d^{j,s}})=K^{-1}_{Y_{d^{j,s}}} G_{d^{j,s}} k(\bu_{d^{j,s}},\x)$ and the data covariance is $K^{-1}_{Y_{d^{j,s}}}=G_{d^{j,s}} K^s(\bu_{d^{j,s}},\bu_{d^{j,s}})G^T_{d^{j,s}}+R_{d^{j,s}}$, with measurement model as in Eq. \eqref{eq:meas}.
-
-At stage $s$, the robot must then choose design $d^{j,s}$ where measurements $\by_{d^{j,s}}$ should
-be gathered. For the triangularized waypoint
-graph all six possible
-directions must be evaluated to minimize the expected uncertainty of random sets, and in particular the EIBV for our 
-application. We hence focus on choosing designs for data modeled by
-Eq. \eqref{eq:meas}, to conduct efficient sequential uncertainty
-reduction according to the EIBV criterion. Compared with the
-static design $d$ in Eq. \eqref{eq:eibv}, the optimal sequential
-design not only considers the best current design grid point, but also
-how the data gathered at this node could inform future sampling at
-successive stages.
-
-%The optimal path
-%selection situation is depicted in Fig. %\ref{fig:PathSelOpt},
-%\begin{figure}[b!]
-%\centering
-%\includegraphics[width=0.85\textwidth]{Figures/sequent_select.pdf}
-%\caption{Optimal sequential path selection.}\label{fig:PathSelOpt}
-%\end{figure}
-%where design choices are indicated by squares while %data realizations are indicated by circles. 
-%terms this optimal design is defined as
-%\begin{equation}\label{opt_crit}
-%    \bd^* = \mbox{argmin}_{d^{j,1}} \left\{ \int_{\by^{j,1}} \mbox{argmin}_{d^{j,2}} \left\{ \int_{\by^{j,2}} \ldots \pi(\by^{j,2}|\by^{j,1}) d\by^{j,2} \right\} \pi(\by^{j,1}) d \by^{j,1} \right\},
-%\end{equation}
-%where $\ldots$ represents the expected variance reduction in the ES under the continued optimal design, which will depend on the data at earlier stages. 
-The mathematical expression for the optimal design involves a series
-of intermixed maximizations over designs and integrals over data. In
-practice, the optimal solution is intractable because of the enormous
-growth over stages (see e.g. \cite{sucar2015probabilistic} and
-\cite{powell2016perspectives}).  Instead, we outline heuristic
-strategies.
-
-
-%The derived closed-form solutions for the EIBV are still important building blocks when constructing the sampling designs, as they will be used to score the different adaptive designs. % Efficient
-% calculation is important for using adaptive survey designs with
-% robotic platforms.
- 
-\subsection{A Naive Sampling Strategy}
-\label{naive}
-
-The simplest heuristic for adaptive sampling is to choose the next
-sampling location based on current probabilities. One reduces the
-largest levels of uncertainty by selecting the design $j$ with
-$P(Z(\x_j) \in T)$ closest to $0.5$.  With temperature and salinity
-variables, this {\it{naive}} strategy selects the stage $s$ sampling
-design according to:
-\begin{eqnarray}\label{critNaive}
-    d^{*,s} &=& \mbox{argmin}_{j} |P(Z_1(\x_j) \leq t_1, Z_2(\x_j) \leq t_2 | \mathcal{Y}^{s-1})-0.5|, \nonumber
-\end{eqnarray}
-where $j$ is indexing all neighboring locations on the waypoint graph.
-
-This strategy does not account for the uncertainty in the GP
-variables, but is instead applicable only if one design (node) has EPs
-closer to $0.5$ (see Table \ref{tab:sim_rhoab}, row
-two). Additionally, this strategy does not account for spatial
-correlation. This strategy lacks memory of where it has been and where
-the uncertainty has been reduced, and therefore susceptible to local
-minima.
-
-\subsection{Myopic Path Planning}
-\label{sec:myopic}
-
-The myopic (greedy) strategy which we present here is optimal if we
-imagine taking only one more stage of measurements. This selection
-strategy is based on expected uncertainty reduction, but it is a
-heuristic because there is no anticipation of what the subsequent
-designs might offer beyond the first stage.
-
-Based on the currently available data $\mathcal{Y}^{s-1}$, we fit an
-updated GP model. Focusing on the EIBV criterion, at the next stage
-$s$, the selected design is:
-\begin{eqnarray}\label{critSEQ}
-    d^{*,s} &=& \mbox{argmin}_{j} \left\{ \int_{\mathcal{M}} E_{\by_{d^{j,s}}|\mathcal{Y}^{s-1}} \left( p(\x;\mathcal{Y}^{j,s})\left( 1-p(\x;\mathcal{Y}^{j,s})\right) \right) d\mes(u), \right\} \\
-    p(\x;\mathcal{Y}^{j,s}) &=& P(Z_u \in T |\by_{d^{j,s}},\mathcal{Y}^{s-1}). \nonumber
-\end{eqnarray}
-
-Note that this strategy gives a sequential conditional version of
-expression (\ref{eq:eibv}). Now $\mathcal{Y}^{s-1}$ is available, and
-the expectation is conditional to this data. A similar closed-form
-calculation for EIBV is hence applicable in Eq.  \eqref{critSEQ} using the updated
-GP model from stage $s-1$ as defined via Eq. \eqref{eq:krigSUR} in the results from Proposition \ref{propo2}. Once the data are collected for the best design $d^{*s}$ at stage $s$, the GP model is updated again. The mean and covariance are used to compute the next design at stage $s+1$, and so on.
-
-Even though this myopic strategy is non-anticipative, it still gives a
-reasonable approach for creating designs in many
-applications. Moreover, it is easily implemented, in our case, onboard
-an AUV, using an efficient data update of the GP model and the
-calculation of the closed-form EIBV expressions for each subsequent
-trajectory.
-
-
-\subsection{Look-ahead Trajectory Planning}
-\label{sec:LA}
-
-We now extend the myopic strategy to a look-ahead strategy. We consider two stages of
-measurements, and the strategy is then optimal in the sense that it accounts consistently for the expectations and minimizations in these two stages, but still without including any planning beyond those two steps. In addition to the
-next stage of measurements $\by^{j,s}$, this look-ahead strategy anticipates the subsequent design indexed $j_2$ with data
-$\by^{j_2,s+1}$ when choosing the current design $d^{j,s}$. The
-selected design is:
-\begin{eqnarray}\label{critLA}
-    d^{*,s} &=& \mbox{argmin}_{j} \left\{ E_{\by_{d^{j,s}}|\mathcal{Y}^{s-1}} \left( \mbox{argmin}_{j_2}  V_{j_2} \right) \right\}, \\
-V_{j_2} & = & \int_{\mathcal{M}} E_{\by_{d^{j_2,s+1}}|\mathcal{Y}^{j,s}} \left( p(\x;\mathcal{Y}^{j,s+1}) ( 1-p(\x;\mathcal{Y}^{j,s+1}) ) \right) d\mes(u), \nonumber \\
-    p(\x;\mathcal{Y}^{j,s+1}) &=& P(Z(\x) \in T |\by_{d^{j_2,s+1}},\mathcal{Y}^{j,s}). \nonumber
-\end{eqnarray}
-Here, $\mathcal{Y}^{j,s}=\{\by_{d^{j,s}},\mathcal{Y}^{s-1}\}$ and
-$\mathcal{Y}^{j,s+1}=\{\by_{d^{j_2,s+1}},\mathcal{Y}^{j,s}\}$
-represent the sets of data variables, and the expectations are
-calculated with respect to the conditional densities given data at
-that stage.  We solve the first expectation by Monte
-Carlo sampling of data $\by_{d^{j,s}}$ from its conditional
-distribution. For each of these data samples, the second expectation
-is solved using the closed-form expressions for EIBV using the results from Proposition \ref{propo2}, now with conditioning to the first stage data already going into the mean and covariances in Eq. \eqref{eq:krigSUR}. 
-
-Even though the strategy looks at two sampling stages, it is only used to find
-the current best design. When data are collected at stage $s$, the GP model is
-updated as in Eq. \eqref{eq:krigSUR}, and the mean and (cross) covariance are
-used to compute the next design for stage $s+1$, now anticipating what
-stage $s+1$ and $s+2$ could offer, and so on.
-This look-ahead approach is much more computationally demanding than
-the myopic strategy, so for practical implementation onboard the AUV this is reaching the limits allowed for calculation. We conduct some pruning of the least valuable design paths in the evaluation of Eq. \eqref{critLA}, to get a satisfactory computation time below one minute per waypoint. This means that we use the myopic
-strategy to rank the three best designs following the first stage alone, and
-for each of these preferred designs, we undertake the look-ahead calculations.
-
-\subsection{Simulation study}
-\label{sec:simulations}
-
-\susubsection{Static and Sequential Sampling Designs}
-\label{sec:sampling_designs}
-
-%Three different designs are considered as indicated in Figure \ref{fig:stat_design}. 
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[width=0.65\textwidth]{Figures/Des3.eps}
-%\caption{Three different static survey designs plotted on the initial EP.}\label{fig:stat_design}
-%\end{figure}
-%In this display the designs are plotted along with the prior probability contours of the ES for the reference parameter inputs. 
-
-We compare three different static designs denoted
-\textit{static\_north}, \textit{static\_east}, and
-\textit{static\_zigzag} with the three described sequential approaches
-\textit{naive}, \textit{myopic}, and \textit{look-ahead}. The static
-sampling paths are pre-determined and cannot be altered and represent
-the pre-planned strategies used in most current AUV operational survey
-designs.
-
-For a fixed survey length, a closed-form expression for the EIBV is
-available as in Eq. \eqref{eq:eibv}. However, for the sequential
-approaches this is not the case. For comparison the properties are
-therefore evaluated using Monte Carlo sampling over several replicates
-of realizations from the model while conducting simulated sequential
-surveys for each one. Fig. \ref{fig:Eprob} shows the conditional EP,
-given data gathered along the north-south survey lines in these
-displays. In the Monte Carlo replicates, such results are repeatedly
-computed to approximate the EIBV. We also compare predictive
-performance measured by root mean square error (RMSE) for temperature
-and salinity estimates as well as also the variance reduction in these
-two variables. It is important to note that the objective function
-used by the agent \kc{First of 'agent'. Define it or change it
-  to 'robot'? Note further uses below.} is focused on reducing the
-EIBV, but we nevertheless expect that we will achieve good predictive
-performance for criteria such as RMSE as well. Another non-statistical
-criteria that is important for practical purposes is the computational
-time needed for the strategy, as this will impact the performance for
-an embedded system.
-
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[width=0.50\textwidth]{Figures/sim/wp_graph_paper.pdf}
-%\caption{The equilateral waypoint graph used to discretize the
-%  trajectory choices over the $31\times31$ grid used to discretize the GP.}
-%\label{fig:wp_graph}
-%\end{figure}
-
-\begin{figure}[!h] 
-\centering 
-\subfigure[The waypoint graph.]{\includegraphics[width =
-0.49\textwidth]{Figures/sim/wp_graph_paper.pdf}\label{fig:wp_graph_a}}
-\hfill
-\subfigure[The waypoint graph in 3D.]{\includegraphics[width =
-0.49\textwidth]{Figures/sim/wp_graph_3d.pdf}\label{fig:wp_graph_b}}
-\caption{\ref{fig:wp_graph_a} The equilateral waypoint graph used to discretize the
-trajectory choices over the $31\times31$ grid used to discretize the GP.
-\ref{fig:wp_graph_b} The waypoint grid shown in a 3D environment.}
-\label{fig:wp_graph}
+\begin{figure}[h!] \centering
+  \includegraphics[width=0.99\textwidth]{Figures/ebv_comp.png}
+  \caption{Pointwise Bernoulli variance reduction for observation of a single or both components of the random field at one location. Data collection locations in green. True excursion set in red. Places where only one response is above threshold are depicted in pink}
+\label{fig:ebv_comp}
 \end{figure}
 
-Each strategy is conducted on an equilateral grid as shown in
-Fig. \ref{fig:wp_graph}. The sequential sampling agent starts at the
-center East-West coordinate at the southern end of the domain (node 53
-\kc{Maybe color this node differently and modify the caption?}). The
-AUV moves along edges in the waypoint graph while the vehicle makes
-measurements. The data is assimilated into the GP model before an
-evaluation of the next node to sample is conducted at the end of the
-edge.
+Note that plotting the Bernoulli variance reduction at each point might also be used to compare different data collection plans. For example, Fig. \ref{fig:ebv_comp} shows the expected Bernoulli variance reduction associated to a data collection plan along a straight upwards line (static north) and the one associated to a straight horizontal line (static east). Both expectations are computed according to the a priori distribution of the GRF (i.e. no observations have been included yet).
 
-\subsection{Simulation Results}
-
-A total of 100 replicate simulations were conducted with all
-strategies. The results are shown in Fig. \ref{fig:sim_results}, where
-the different criteria are plotted as a function of survey
-distance. Fig. \ref{fig:avg_ev} shows the resulting drop in IBV for
-each of the six strategies. IBV reduction occurs most under the
-\textit{myopic} and \textit{look-ahead} strategies, each performing
-almost equally; this is expected as the two criteria
-(Eq. \eqref{critSEQ} and \eqref{critLA}) are sensitive to differences
-in IBV. The \textit{static\_north} design also does well here because
-the path is parallel to the boundary between the water masses.
-
-\begin{figure}[h!]
-  \centering
-  % \subfigure[Excursion set variance $E_{\by}(p[1-p])$.]{\label{fig:avg_ev}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_EV.pdf}}
-  \subfigure[IBV.]{\label{fig:avg_ev}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_EV.pdf}}
-  \hfill
-  \subfigure[RMSE between estimated field and truth.]{\label{fig:avg_rmse}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_RMSE.pdf}}
-  \hfill 
-  \subfigure[Explained variance $\bR^{2}$.]{\label{fig:avg_r2}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_R2.pdf}}
-  \hfill 
-  \subfigure[Computational time for inferencing.\kc{I see only 
-    lines associated with 4 variables showing in the graph. Where is
-    static\_north and static\_east?}]{\label{fig:avg_time}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_Time.pdf}} 
-\caption{Simulation results from 100 replicate simulations for 10
-  sampling choices/stages on the grid. \kc{Vertical lines show large
-    variation in replicate results.}}  
-\label{fig:sim_results}
+\begin{figure}[h!] \centering
+  \includegraphics[width=0.99\textwidth]{Figures/ebv_north_vs_east.png}
+  \caption{Pointwise Bernoulli variance reduction for two different observation plans. Data collection locations in green. True excursion set is in red. Places where only one response is above threshold are depicted in pink.}
+\label{fig:ebv_north_vs_east}
 \end{figure}
 
-Fig. \ref{fig:avg_rmse} and \ref{fig:avg_r2} show the resulting drop
-in RMSE and increase in explained variance, respectively. Both
-\textit{myopic} and \textit{look-ahead} strategies perform well here,
-but some of the \textit{static\_east} and \textit{static\_zigzag} also
-achieve good results because they are pre-determined to cover large
-parts of the domain without re-visitation. Sequential strategies
-targeting IBV will sometimes not reach similar coverage, as
-interesting data may draw the path into twists and turns. There is
-relatively large variety in the replicate results as indicated by the
-vertical lines. Nevertheless, the ordering of strategies is similar.
+\begin{remark}
+In all the above examples, the spatial domain $\domain$ has been discretized to a set of $n$ grid
+locations $\mathcal{M}_g = \{\x_i, i=1,\ldots,n \}$, where each cell
+has area $\Delta$; the same grid is used for the waypoint graph for
+possible design locations. The EIBV is approximated by sums over all
+grid cells.
+\end{remark}
 
 
-Fig. \ref{fig:avg_time} shows the computational effort: the
-\textit{naive} strategy is on par with the static designs, while the
-\textit{myopic} strategy is slower. The \textit{look-ahead} is even
-slower, reaching levels that are nearly impractical for execution on a
-vehicle. Some pruning of the graph is performed to improve the
-performance, such as ruling out repeated visitations and
-back-and-forth routes. Some of the intermediate results are also
-stored for longer planning horizons. Further pruning of branches or
-inclusion of other heuristics could be included for better
-performance. Then again, the inclusion of heuristics is likely a
-contributing factor for the \textit{look-ahead} strategy failing to
-outperform the \textit{myopic} strategy.
 
-In Fig. \ref{fig:route_choices}, the realized sampling paths for each
-of the sequential schemes and static designs are shown. The
-\textit{naive} strategy often gets stuck in the southern part of the
-domain because it is too focused on the probabilities near $0.5$. The
-\textit{myopic} strategy covers a wider domain than the naive or
-look-ahead. There are several reasons for this. First, a greedy
-approach will tend to put more emphasis on promising locations close
-to the agent, which may lead away from the centre. Second, as the
-agent evaluates the impact of locations further away (look-ahead)
-where assimilated data has less predictive power, the GP model (which
-is centered here) will act to restrict paths deviating from the
-central zone.
 
-We studied the sensitivity of the results by modifying the input
-parameters to have different correlations between temperature and
-salinity, standard deviations, and spatial correlation range.  In all
-runs, the \textit{myopic} and \textit{look-ahead} strategies perform
-the best in terms of realized IBV, and much better than
-\textit{naive}. The \textit{look-ahead} strategy seems to be
-substantially better than the \textit{myopic} design only for very
-small initial standard deviation or very large spatial correlation
-range. \textit{static\_north} continues to be the best static design
-for IBV, while \textit{static\_zigzag} is the best design for the
-other predictive performance measures, especially so with large
-spatial correlation range. We also ran simulation studies with only
-temperature data, and for realistic correlation levels between
-temperature and salinity, the IBV results are not much worse when only
-temperature data are available. In addition to the comparison made in
-Table \ref{tab:sim_rhoab}, the current setting includes spatial
-correlation and this likely reduces the additional influence of having
-bivariate data. However, it seems that having temperature data alone
-does a substantially worse job in terms of explained variance
+\input{section3}
 
-\begin{comment}
-\subsection{Performance Metrics}
 
-The tables below explore the sensitivity of the result to different input correlation values between temperature and salinity measured onboard the AUV, standard deviations, and spatial
-correlations (see table rows). We only compare results at the end of
-each survey. The expected ES variances are shown in Table
-\ref{tab:sim_res_ev}, results of RMSE are in Table
-\ref{tab:sim_res_rmse}, and explained variance is in Table
-\ref{tab:sim_res_r2}. In all runs, both the \textit{myopic} and
-\textit{look-ahead} strategies perform the best in terms of expected
-variance in the ES. The \textit{myopic} strategy
-performs slightly better than the \textit{look-ahead}. Part of the
-reason for this discrepancy can be traced to the act of pruning some
-of the paths for the \textit{look-ahead} strategy. The \textit{static\_north} design is clearly
-better than the other two static designs, the reason being that the
-others do not focus on the areas where the ES is really uncertain
-(centre locations are the most uncertain). By measuring temperature
-alone, the expected variances in the ES are only slightly higher than
-the combined temperature-salinity estimate. This occurs because the
-correlation of $0.6$ means that temperature observations provide
-information about salinity as well. For the other predictive measures,
-\textit{myopic} and \textit{look-ahead} strategies do well, clearly
-beating the \textit{naive} strategy. 
 
-\begin{table}[!h]
-    \centering
-    \scalebox{0.87}{
-    \begin{tabular}{lrrrrrr}
-    \toprule
-    Parameter: $E_{\by}(p[1-p])$ &  naive &  myopic &  look-ahead &  static\_north &  static\_east &  static\_zigzag \\
-    \midrule
-                    \rowcolor{Gray}
-ts. cor. low: 0.2  &  29.65 &   27.08 &       \textbf{26.44} &         32.33 &        40.31 &          36.23 \\
-ts. cor. high: 0.8 &  36.18 &   \textbf{28.42} &       30.30 &         32.99 &        37.18 &          36.04 \\
-                    \rowcolor{Gray}
-std. low: 0.1      &  18.26 &   15.79 &       \textbf{15.35} &         18.89 &        26.65 &          26.10 \\
-std. high: 0.5     &  47.01 &   \textbf{41.31} &       43.15 &         47.92 &        52.63 &          49.71 \\
-                    \rowcolor{Gray}
-cor. low: 0.8      &  44.42 &   \textbf{42.02} &       42.47 &         43.84 &        46.05 &          47.82 \\
-cor. high: 0.2     &  29.73 &   21.09 &       \textbf{20.43} &         27.91 &        37.60 &          34.35 \\
-                    \rowcolor{Gray}
-temp. only         &  38.25 &   29.16 &       \textbf{28.69} &         34.32 &        39.81 &          36.17 \\
-basecase           &  35.21 &   \textbf{28.56} &       28.94 &         33.50 &        39.84 &          39.26 \\
-    \bottomrule
-    \end{tabular}}
-  \caption{Simulation results for the final mean IBV (Eq. \eqref{two_partsK}).}
-    \label{tab:sim_res_ev}
-\end{table}
-\vspace{-0.4cm}
-\begin{table}[!h]
-    \centering
-    \scalebox{0.92}{
-        \begin{tabular}{lrrrrrr}
-        \toprule
-        Parameter: RMSE &  naive &  myopic &  look-ahead &  static\_north &  static\_east &  static\_zigzag \\
-        \midrule
-                \rowcolor{Gray}
-ts. cor. low: 0.2  &   0.63 &    \textbf{0.57} &        0.59 &          0.62 &         0.57 &           0.59 \\
-ts. cor. high: 0.8 &   0.63 &    \textbf{0.59} &        0.61 &          0.64 &         0.60 &           0.60 \\
-                \rowcolor{Gray}
-std. low: 0.1      &   0.39 &    0.37 &        0.38 &          0.38 &         0.40 &           \textbf{0.35} \\
-std. high: 0.5     &   0.85 &    0.82 &        0.84 &          0.82 &         0.83 &           \textbf{0.81} \\  
-                \rowcolor{Gray}
-cor. low: 0.8      &   0.68 &    0.66 &        0.67 &          0.68 &         0.66 &           \textbf{0.65} \\
-cor. high: 0.2     &   0.58 &    0.54 &        0.55 &          0.58 &         0.54 &           \textbf{0.49} \\
-                \rowcolor{Gray}
-temp. only         &   0.65 &    0.63 &        0.62 &          0.65 &         \textbf{0.61} &           0.62 \\
-basecase           &  0.61 &   \textbf{0.56} &       \textbf{0.56} &         0.60 &        0.57 &          0.57 \\
-        \bottomrule
-        \end{tabular}}
-      \caption{Simulation results for the final mean RMSE ($\frac{1}{B} \sum_{b=1}^{B} \sqrt{(\bmu-\tilde{\bmu})^2}$).}
-    \label{tab:sim_res_rmse}
-\end{table}
-\vspace{-0.4cm}
-\begin{table}[!h]
-    \centering
-    \scalebox{0.95}{
-        \begin{tabular}{lrrrrrr}
-        \toprule
-        Parameter: $\bR^{2}$ &  naive &  myopic &  look-ahead &  static\_north &  static\_east &  static\_zigzag \\
-        \midrule
-                        \rowcolor{Gray}
-ts. cor. low: 0.2  &  27.00 &   33.29 &       32.24 &         26.71 &        30.56 &          \textbf{33.50} \\
-ts. cor. high: 0.8 &  23.68 &   \textbf{33.87} &       32.42 &         26.72 &        30.73 &          33.61 \\
-                        \rowcolor{Gray}
-std. low: 0.1      &  25.38 &   30.80 &       30.29 &         26.09 &        28.75 &          \textbf{31.66} \\
-std. high: 0.5     &  26.11 &   34.22 &       32.48 &         26.95 &        31.77 &          \textbf{34.48} \\
-                        \rowcolor{Gray}
-cor. low: 0.8      &   8.80 &   11.50 &       11.23 &          9.56 &        12.31 &          \textbf{12.58} \\
-cor. high: 0.2     &  37.57 &   \textbf{48.68} &       48.11 &         39.61 &        41.98 &          48.04 \\
-                        \rowcolor{Gray}
-temp. only         &  11.67 &   \textbf{22.82} &       21.98 &         18.16 &        20.77 &          22.78 \\
-basecase           &  24.71 &   33.45 &       32.25 &         26.71 &        30.62 &          \textbf{33.54}\\
-        \bottomrule
-        \end{tabular}}
-      \caption{Simulation results for the final mean explained variance $\bR^{2}=100*(1-(\Sigma_{posterior}/\Sigma_{initial}))$).}
-    \label{tab:sim_res_r2}
-\end{table}
-
-\end{comment}
 
 \section{Case Study - Mapping a River Plume}
 \label{sec:case_study}
