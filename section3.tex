@@ -5,35 +5,21 @@ The goal of this section is to present data collection strategies that aim at de
 \subsection{Background}
 As before, let $\gp$ be a $\no$-variate random field on $\domain$. See Section \ref{sec:bg_and_notation} for a recap of the specific notation used to handle mean and covariance function of multivariate random fields.
 
-In a sequential setting, the point of view is that $n$ data collection steps have already been performed and one wants to choose what data to collect next. After each step, the GRF model is updated using the cokriging equations \ref{eq:cokrig_mean} and \ref{eq:cokrig_cov} and we will denote by $\mathbb{P}_n$ the law of the field conditional on the data gathered up to (and including) stage $n$.
+In a sequential setting, the point of view is that $n$ data collection steps have already been performed and one wants to choose what data to collect next. After each step, the GRF model is updated using the cokriging equations \ref{eq:cokrig_mean} and \ref{eq:cokrig_cov} and we will denote by $\mathbb{P}_n$ the law of the field conditional on the data gathered up to (and including) stage $n$. More generally, we will use subscripts to denote quantities conditional on the data available up to stage $\stage$. Hence, $\mu_{\stage}(\cdot)$ and $k_{\stage}(\cdot, \cdot)$ will denote conditional mean and covariance functions conditional on the first $\stage$ data collection stages.
 
 \begin{remark}
 The type of data collected at each stage can be of any type (observation of all components of the field at a single location, observation of some components only but at several locations, ...) since the concept of \textit{generalized location} allows the cokriging equations to handle all those case by putting them on equal footage.
 \end{remark}
 
-Our goal is then to optimally select the next spatial location $\spatloc_{n+1}$ at which to observe the field (all of its component), where the meaning of optimal is yet to be defined. Note that here again, the concept of \textit{generalized location} allows one to consider settings where only one component of the field can be observed at each step and the startegy has to choose the spatial location as well as the component to observe (heterotopic case). In the same fashion, one could consider settings where several observations are allowed at each stage (batch case).
+Our goal is then to optimally select what observations to do next, where the meaning of optimal is yet to be defined. Note that here again, the concept of \textit{generalized location} allows one to consider settings where only one component of the field can be observed at each step and the strategy has to choose the spatial location as well as the component to observe (heterotopic case), or settings where several observations are allowed at each stage (batch case).
 
-We will here restrict ourselves to the case where all components of the field are observed at one spatial location at each stage (isotopic case).
+We will here restrict ourselves to the case where only one spatial location can be chosen at each stage and all components of the field are observed there (isotopic case), leaving the general case for future work.
 
 
 \subsection{Optimal Sequential Design}
 \label{Optdes}
 
-
-
-At stage $s$, the robot must then choose design $d^{j,s}$ where measurements $\by_{d^{j,s}}$ should
-be gathered. For the triangularized waypoint
-graph all six possible
-directions must be evaluated to minimize the expected uncertainty of random sets, and in particular the EIBV for our 
-application. We hence focus on choosing designs for data modeled by
-Eq. \eqref{eq:meas}, to conduct efficient sequential uncertainty
-reduction according to the EIBV criterion. Compared with the
-static design $d$ in Eq. \eqref{eq:eibv}, the optimal sequential
-design not only considers the best current design grid point, but also
-how the data gathered at this node could inform future sampling at
-successive stages.
-
-
+\textcolor{red}{(C.T.) I suspect we need this paragraph so we cite people who have to be cited. How do we want to blend it with the rest? Personally I would get rid of this subsection.}
 The mathematical expression for the optimal design involves a series
 of intermixed maximizations over designs and integrals over data. In
 practice, the optimal solution is intractable because of the enormous
@@ -87,47 +73,33 @@ applications. Moreover, it can be implemented in a way that is not too demanding
 
 We now extend the myopic strategy to a look-ahead strategy. We consider two stages of
 measurements, and the strategy is then optimal in the sense that it accounts consistently for the expectations and minimizations in these two stages, but still without including any planning beyond those two steps.
-\midskip
+
+\medskip
+
 Say we have collected data up to stage $n$. The principle of two-steps lookahead
-strategies is to select the next observation location $\spatloc_{\stage + 1}$ as follows
-  
-  \begin{itemize}
-      \item First, do as if the $\stage + 1$ observation had already been done and say
-          we observed $y_{\stage + 1}$ at $\spatloc_{\stage + 1}$.
-      \item If we were at this stage, then we would choose the next points by
-          minimizing the expected IBV under the current ($\stage + 1$) conditional
-          distribution
-          \[
-              \spatloc_{\stage + 2} = \argmin_{\spatloc \in \candidates}~ \EIBV_{\stage + 1}\left(\spatloc \mid \spatloc_{\stage + 1},
-          y_{\spatloc + 1}\right)
-          \]
-      \item Now the above expression depends on the observed data $y_{\stage + 1}$,
-          whose value we don't know beforehand. What we know is that
-          at step $\stage$ it is distributed according to the conditional distribution
-          $\mathbb{P}_{\stage}$. We can thus replace it by a random variable $Y$
-          following the current conditional law and then average over it.
-  \end{itemize}
-  
-  Let us now try to make the above more precise.
+strategies is to select the next observation location $\spatloc_{\stage + 1}$ that would yield the biggest exepcted decrease in IBV if we were to (optimally) add one more observation after the one at $\spatloc_{\stage + 1}$. In order to formalize this concept, we need to be able to talk about the EIBV in the future (after observation $\stage + 1$ has been made). The definition \ref{def:eibv} of $\currentEIBV$ includes a subscript to stress that expectations are taken with respect the conditional law at stage $n$. We will extend this notion by writing $\currentEIBV(\cdot; u, y)$ to denote EIBV where expectations are taken conditional on the data available at $n$ an on an additional observation $y$ at $u$.
+
   \begin{criterion}[2-steps lookahead]
       The next observation location $\spatloc_{\stage + 1}$ is selected according to
       \begin{align}\label{critLA}
           \spatloc_{\stage + 1} = \argmin_{\spatloc \in \candidates}~ \mathbb{E}_{\stage}\left[\min_{\spatloc' \in
-                  \candidates(\spatloc)} \EIBV_{\stage + 1}\left(\spatloc' \mid \spatloc,
+                  \candidates(\spatloc)} \EIBV_{\stage}\left(\spatloc' ; \spatloc,
       Y\right)\right]
       \end{align}
   where $Y$ is a random variable distributed according to the conditional
   law of $\gp_{\spatloc}$ at step $\stage$ (note it silently depends on the considered point
-  $\spatloc$) and $\EIBV_{\stage +  1}(\spatloc'\mid \spatloc,Y)$ is the
-  expected IBV with the expectation taken according to the conditional law $\mathbb{P}_{\stage}(\cdot\mid
-  \spatloc, Y)$. Note that the dependence of the set of candidates on the current location has been made explicit for the second stage of measurements.
+  $\spatloc$). Here, the dependence of the set of candidates on the current location has been made explicit for the second stage of measurements.
   \end{criterion}
 
 \begin{remark}
 In a practical setting, the first expectation might be computed by Monte
 Carlo sampling of data $Y$ from its conditional
 distribution. For each of these data samples, the second expectation
-is solved using the closed-form expressions for EIBV provided b< Proposition \ref{propo2}, now with conditioning to the first stage data already going into the mean and covariances in Eq. \eqref{eq:krigSUR}. 
+is solved using the closed-form expressions for EIBV provided by Proposition \ref{propo2}, now with conditioning on the first stage data already going into the mean and covariances in Eqs. \eqref{eq:cokrig_mean} and \eqref{eq:cokrig_cov}.
+\end{remark}
+
+\begin{remark}
+All our results have been formulated in a noiseless setting. That is, to us an observation $y$ at $\spatloc$ is a realization of $\gp_{\spatloc$. Generalization to a noisy setting where $y$ is a realization of $\gp_{\spatloc} + \epsilon$ with epsilon some noise process may be performed by including noise covariance matrices where necessary.
 \end{remark}
 
 \subsection{Simulation study}
