@@ -41,7 +41,7 @@
 \begin{frontmatter}
 
 % "New Title of the paper"
-\title{Autonomous Oceanographic Data Collection towards Estimating Excursion Sets of Vector-valued Random Fields} 
+\title{Autonomous Oceanographic Data Collection using Excursion Sets of Vector-valued Gaussian Random Fields} 
 \runtitle{Autonomous Oceanographic Data Collection}
 
 % "Former Title of the paper" (DG 08.06.2020)
@@ -119,8 +119,7 @@ Switzerland.
 
 %NB: The subsections are used as a temporary instrument to highlight the proposed structure and should probably be abolished upon convergence to a stable version.
 
-Motivated by the challenges related to efficient data collection strategies for the vast oceans, the combination of Gaussian process modeling is explored for autonomous robotic sampling of ocean features; enabling information driven measures  sampling efforts to high-interest regions.
-This combination, of statistical tools and robotic platforms, constitute a methodological basis for addressing the problem of efficient sampling of the ocean, which is at the core of this work.
+Motivated by the challenges related to efficient data collection strategies for the vast oceans, the combination of spatial statistics, design of experiments and marine robotics is studied in this paper. The multidisciplinary efforts enable information-driven data collection in regions of high-interest regions.
 
 \subsection{Oceanic data collection and spatial design of experiments}
 
@@ -386,18 +385,16 @@ The notation $\gp[x]$ will be used to denote $\gp[\spatloc,\ell]$
 and
 %
 %This slight change of notation 
-will allow us to think of $\gp$ as a scalar-valued Gaussian random field 
-indexed by $D\times \{1\dots,p\}$, which will give the co-kriging equations a particularly simple form that parallels the one of univariate kriging. Due to the naturality of the concept of \textit{generalized location}, 
-we will generally use the word \textit{location}, while \textit{spatial location} will be used to stress that we are talking about a point $\spatloc \in \domain$. In the following, the letter $x$ will be reserved for generalized locations, while the letters $\spatloc$ and $\ell$ will be used for spatial locations and response indices respectively.
+will allow us to think of $\gp$ as a scalar-valued %Gaussian 
+random field indexed by $D\times \{1\dots,p\}$, which will give the co-kriging equations a particularly simple form that parallels the ones of kriging for the scalar-valued case. 
+%Due to the naturality of the concept of \textit{generalized location},  we will generally use the word \textit{location}, while \textit{spatial location} will be used to stress that we are talking about a point $\spatloc \in \domain$. 
+In the following, the letter $x$ will be reserved for generalized locations, while the letters $\spatloc$ and $\ell$ will be used for \textit{spatial locations} and \textit{response indices}, respectively.
 
 It turns out that the inclusion of several observations at a time (a batch) may be handled by the same equations as the 
-one for a single observation, provided some notation adjustments are made. This motivates the following.
-
-
-
-Given a dataset consisting of  $q$ observations at spatial locations $\spatloc_i \in \domain$ and response indices $l_i \in \lbrace 1, ..., \no\rbrace$, $i=1, ..., q$, we can concatenate the information needed to specify the dataset by using the notation
+one for a single observation, provided some notation adjustments are made. This motivates the following.Given a dataset consisting of  $q$ observations at spatial locations $\spatloc_i \in \domain$ and response indices $\ell_i \in \lbrace 1, ..., \no\rbrace$, $i=1, ..., q$, we can concatenate the information needed to specify the dataset by using the notation
 \begin{align*}
-\bm{x}:=(\bm{\spatloc}, \bm{\ell}):= (x_1,\dots, x_q),~\text{with }x_i=(\spatloc_i,\ell_i).
+\bm{x}:=%(\bm{\spatloc}, \bm{\ell}):= 
+(x_1,\dots, x_q),~\text{with }x_i=(\spatloc_i,\ell_i).
 \end{align*}
 In general, boldface letters will be used to denote concatenated quantities corresponding to batches of observations. 
 We can then also compactly denote the values of the field at those different locations by
@@ -407,23 +404,26 @@ We can then also compactly denote the values of the field at those different loc
 \gp[\spatloc_q,\ell_{q}]\right) \in \mathbb{R}^{q}.
 \end{align*}
 %
-\textcolor{red}{(ADDENDUM, C.T.) In the same fashion, we will use $\mu(\bm{x})$ to denote the $q$-dimensional vector corresponding to the mean at $\bm{x}$ and $k(\bm{x}, \bm{x})$ for the corresponding $q \times q$ covariance matrix.}
+For a second order random field $(Z_{\spatloc})_{\spatloc \in \domain}$ with mean $\mu$ and matrix covariance function $K$, $\mu$ is naturally extended to $\domain \in \lbrace 1, ..., \no\rbrace$ into a function of $x=(\spatloc, \ell)$ and is further straightforwardly vectorized into a function of $\bm{x}$. As for $K$, it induces a covariance kernel $k$ on the set of extended locations via  $k((\spatloc, \ell),(\spatloc', \ell'))=K(\spatloc, \spatloc')_{\ell, \ell'}$. In vectorized/batch form, $k(\bm{x}, \bm{x}')$ then amounts to a matrix with numbers of lines and columns the numbers of generalized locations in the batches $\bm{x}$ in $\bm{x}'$, respectively. Such vectorized quantities will turn out to be quite useful in order to arrive at embarrassingly simple expressions for co-Kriging equations below.  
+%\textcolor{red}{(ADDENDUM, C.T.) In the same fashion, we will use $\mu(\bm{x})$ to denote the $q$-dimensional vector corresponding to the mean at $\bm{x}$ and $k(\bm{x}, \bm{x})$ for the corresponding $q \times q$ covariance matrix.}
 
 
 
-Given a random field $\gp$ and (noisy) observations of some of its components at some points in the domain, one can predict the value of the field at some unobserved location $\spatloc\in \domain$ by using the conditional mean of $\gp[\spatloc]$, conditional on the data. This process is called (co-)kriging, and kriging equations precisely tell us how to compute conditional means and covariances conditional on an arbitrary dataset.
-We will here present the most general form of cokriging, where one can include several observations (batch) at a time and 
+Now given a Gaussian random field $\gp$ and (noisy) observations of some of its components at some points in the domain, one can predict the value of the field at some unobserved location $\spatloc\in \domain$ by using the conditional mean of $\gp[\spatloc]$, conditional on the data. This process is called (co-)kriging, and kriging equations precisely tell us how to compute conditional means and covariances conditional on an arbitrary dataset.
+We will here present a rather general form of cokriging, in the sense that it allows including several observations (batch) at a time and 
 observations at a given location $s \in \domain$ may only include a subset of the components of $\gp[\spatloc]\in\mathbb{R}^{\no}$ 
 (heterotopic).
 
 \subsubsection{Co-Kriging}
 \label{sec:cokriging}
-\textcolor{red}{(C.T.) Why mention batches? We do not care. We have previously available data at $\bm{x}$ and want to predict at $\bm{x}$'. No need to introduce concepts we will never use. Moreover, this presentation suggest that to go from n to n+1 (batch-) observations, we have to condition on the whole $n$ dataset, instead of only including the last step.}
+% Adressed during a discussion on 19.06.2020
+%\textcolor{red}{(C.T.) Why mention batches? We do not care. We have previously available data at $\bm{x}$ and want to predict at $\bm{x}$'. No need to introduce concepts we will never use. Moreover, this presentation suggest that to go from n to n+1 (batch-) observations, we have to condition on the whole $n$ dataset, instead of only including the last step.}
 
-Assuming now that $n$ batches of observations are available, with respective sizes $q_1,\dots, q_n$, and that one wishes 
-to predict $\gp[\bm{x}]$ for some batch of $q\geq 1$ generalized locations $\bm{x}=(\bm{\spatloc}, \bm{\ell})$, the (simple) 
-cokriging mean would then amount to simple kriging with respect to a scalar-valued Gaussian random field indexed by 
-$D\times \{1\dots,p\}$ and with covariance kernel $k(\bm{x}, \bm{x}')=K(\bm{\spatloc}, \bm{\spatloc}')_{\ell, \ell'}$, that is:
+Assuming that $n$ batches of observations are available, with respective sizes $q_1,\dots, q_n$, and that one wishes 
+to predict $\gp[\bm{x}]$ for some batch of $q\geq 1$ generalized locations $\bm{x}$, %\equiv(\bm{\spatloc}, \bm{\ell})$, 
+the (simple) cokriging mean would then amount to simple kriging with respect to a scalar-valued Gaussian random field indexed by 
+$D\times \{1\dots,p\}$:  
+%and with covariance kernel $k(\bm{x}, \bm{x}')=K(\bm{\spatloc}, \bm{\spatloc}')_{\ell, \ell'}$, that is:
 %
 \begin{equation}\label{eq:cokrig_mean}
 \mu_{[n]}(\bm{x})=\mu(\bm{x})+\lambda_{[n]}(\bm{x})^T (\mathbf{z}_{[n]}-\mu(\bm{x})),
@@ -651,14 +651,14 @@ random sets for vector-valued GPs.
 
 \subsection{Expected Bernoulli Variance on a two dimensional Example}
 \label{Sec:UnivarEx}
+
 We illustrate the EBV associated to different designs on a simple bivariate example. The example mimics our river plume application and hence the first and second component of the random field will be called \textit{temperature} and \textit{salinity} for illustrative purpose. Effects of the hyperparameters of the GRF prior on the excursion probabilities will also be studied. For simplicity, we begin with a \textit{pointwise} example, considering a single bivariate gaussian distribution (no spatiality).
 
 \subsubsection{A pointwise study}
-Say we want to study the excursion probability of a bivariate gaussian, where the excursion set is defined as
-\[
-\Gamma := \lbrace \spatloc \in \domain: Z_{\spatloc, 1} \geq t_1, Z_{\spatloc, 2}\geq t_2\rbrace
-\]
-and the thresholds are set equal to the mean; $\mu_1=t_1=5^o C$ for temperature and  $\mu_2=t_2=30$ mg/l for salinity, and we play with the temperature and salinity correlation and variances to study the effect on the EP and expected Bernoulli variance.
+\textcolor{red}{(C.T.) What is EIBV in the table? How can we take an integral here? Also note that if we keep the ellipsoid plots, they should have Z's instead of Xi's}
+
+
+Say we want to study the excursion probability of a bivariate gaussian above some thresholds, where the thresholds are set equal to the mean; $\mu_1=t_1=5^o C$ for temperature and  $\mu_2=t_2=30$ mg/l for salinity, and we play with the temperature and salinity correlation and variances to study the effect on the EP and expected Bernoulli variance.
 
 % To BE COMMENTED (TEMPORARILY?)
 Fig. \ref{illus_bivarDens} shows contour plots of three different
@@ -707,7 +707,7 @@ Table \ref{tab:sim_rhoab} (bottom two rows) shows results of expected
 Bernoulli variance calculations. This is presented for a design
 gathering both data types, and for a design with temperature
 measurements alone. When both data are gathered, the measurement model is
-$(Y_{d,1},Y_{d,2})^t=(Z_1,Z_2)^t+\bepsilon$, with $\bepsilon \sim N(0,0.5^2I_2)$, while $Y_d=Z_1+\epsilon$, $\epsilon \sim N(0,0.5^2)$ when only temperature is measured.
+$(Y_1,Y_2)^t=(Z_1,Z_2)^t+\bepsilon$, with $\bepsilon \sim N(0,0.5^2I_2)$, while $Y_1=Z_1+\epsilon$, $\epsilon \sim N(0,0.5^2)$ when only temperature is measured.
 For this illustration, Table \ref{tab:sim_rhoab} shows that the
 expected Bernoulli variance gets lower with larger standard deviations
 $\sigma_1$ and $\sigma_2$ (right columns). The reduction of Bernoulli
@@ -724,25 +724,23 @@ impact the design criteria when we evaluate the information measure by
 integrating over several locations (Section \ref{sec:simulations}).
 
 \subsubsection{Including Spatiality}
-INTRODUCTORY SENTENCE.
-The class of GRF model we will consider in the article will generally have a linear trend
+We now turn to an example involving a full-fledged gaussian random field (GRF). The class of GRF model we will consider in the article will generally have a linear trend
 \begin{align*}
 \mu(s)=\mathbb{E}\left[\begin{pmatrix}
-Z_{s, 1}\\ Z_{s, 2}
-\end{pmatrix}\right] &= \beta_0 + \beta_1 s
+Z_{\spatloc, 1}\\ Z_{\spatloc, 2}
+\end{pmatrix}\right] &= \beta_0 + \beta_1 \spatloc
 \end{align*}
-with $\beta_0$ a two dimensional vector and $\beta_1$ a $2\times 2$ matrix. We will only consider covariance models of separable type
+with $\beta_0$ a two dimensional vector and $\beta_1$ a $2\times 2$ matrix. In our examples, we will only consider covariance models of separable type
 \begin{align*}
-\textrm{Cov}\left(Z_{s, i}, Z_{u, j}\right) &= k(s, u) \gamma(i, j),~ \gamma(i, j) = \begin{cases} \sigma_l^2,~ i=j\\
+\textrm{Cov}\left(Z_{\spatloc, i}, Z_{v, j}\right) &= k(\spatloc, v) \gamma(i, j),~ \gamma(i, j) = \begin{cases} \sigma_l^2,~ i=j\\
    \gamma_0 \sigma_i \sigma_j,~i\neq j
         \end{cases}
 \end{align*}
 where $k(., .)$ is one of the traditional spatial covariance kernel (exponential, Mat\'{e}rn, ...) and $\gamma$ defines the cross-covariance structure.
 
-In the accompanying Python code, these modeling assumptions can be
+In the accompanying Python code \textcolor{red}{(C.T.) Do we want to brand the code as a child of this project, or to say that we have implemented our experiments using a package that is available online (and not say too much)?}, these modeling assumptions can be
 generalized to anisotropic covariance and changing variance levels
-across the spatial domain. One can hence, easily run the code to see
-if different models result in other sampling designs. Anisotropy and
+across the spatial domain. Anisotropy and
 non-stationary variance are both relevant for the setting with river
 plumes, but in practice this requires more parameters to be
 specified. With extensive data and prior knowledge, one could also
@@ -763,7 +761,7 @@ In the rest of this section, we will consider a GRF with mean and covariance str
 and the spatial covariance is given by a Mat\'{e}rn 3/2 kernel with unit variance and range parameter $\lambda=0.5$.
 One realization of this GRF is shown in Fig. \ref{example_excu}.
 
-We now study how the expected Bernoulli variance eq.\ref{eq:eibv} associated to data collection at a point changes if only one of the two components of the field is observed. We first draw a realization of the GRF defined above and use it as ground-truth to mimick the real data-collection process. A first data collection step is performed at the location in green, and the data is used to update the GRF model. The expected Bernoulli variance reduction (at each grid point) that would result from observing only one component, or both at the next grid point upwards is then computed an shown in Fig.\ref{fig:ebv_comp}.
+We now study how the expected Bernoulli variance eq.\eqref{def:eibv} associated to data collection at a point changes if only one of the two components of the field is observed. We first draw a realization of the GRF defined above and use it as ground-truth to mimick the real data-collection process. A first bunch of observations are done at the locations depicted in grey, and the data is used to update the GRF model. We then consider the green triangle as a potential next observation locations and plot the expected Bernoulli variance reduction (at each grid point) that would result from observing only one component of the field (temperature or salinity), or both at that point, see Fig.\ref{fig:ebv_comp}.
 
 \begin{figure}[h!] \centering
   \includegraphics[width=0.99\textwidth]{Figures/ebv_comp_2.png}
@@ -771,7 +769,7 @@ We now study how the expected Bernoulli variance eq.\ref{eq:eibv} associated to 
 \label{fig:ebv_comp}
 \end{figure}
 
-Note that plotting the Bernoulli variance reduction at each point might also be used to compare different data collection plans. For example, Fig. \ref{fig:ebv_comp} shows the expected Bernoulli variance reduction associated to a data collection plan along a straight upwards line (static north) and the one associated to a straight horizontal line (static east). Both expectations are computed according to the a priori distribution of the GRF (i.e. no observations have been included yet).
+Note that plotting the Bernoulli variance reduction at each point might also be used to compare different data collection plans. For example, Fig. \ref{fig:ebv_north_vs_east} shows the expected Bernoulli variance reduction associated to a data collection plan along a straight upwards line (static north) and the one associated to a straight horizontal line (static east). Both expectations are computed according to the a priori distribution of the GRF (i.e. no observations have been included yet).
 
 \begin{figure}[h!] \centering
   \includegraphics[width=0.99\textwidth]{Figures/ebv_north_vs_east_2.png}
@@ -790,7 +788,285 @@ grid cells.
 
 
 
-\input{section3}
+\section{Sequential designs and heuristic path planning}\label{sec:heuristics}
+
+The goal of this section is to present data collection strategies that aim at decreasing the uncertainty on the target excursion set $\es$.
+
+\subsection{Background}
+As before, let $\gp$ be a $\no$-variate random field on $\domain$. See Section \ref{sec:bg_and_notation} for a recap of the specific notation used to handle mean and covariance function of multivariate random fields.
+
+In a sequential setting, the point of view is that $n$ data collection steps have already been performed and one wants to choose what data to collect next. After each step, the GRF model is updated using the cokriging equations \ref{eq:cokrig_mean} and \ref{eq:cokrig_cov} and we will denote by $\mathbb{P}_n$ the law of the field conditional on the data gathered up to (and including) stage $n$. More generally, we will use subscripts to denote quantities conditional on the data available up to stage $\stage$. Hence, $\mu_{\stage}(\cdot)$ and $k_{\stage}(\cdot, \cdot)$ will denote conditional mean and covariance functions conditional on the first $\stage$ data collection stages.
+
+\begin{remark}
+The type of data collected at each stage can be of any type (observation of all components of the field at a single location, observation of some components only but at several locations, ...) since the concept of \textit{generalized location} allows the cokriging equations to handle all those case by putting them on equal footage.
+\end{remark}
+
+Our goal is then to optimally select what observations to do next, where the meaning of optimal is yet to be defined. Note that here again, the concept of \textit{generalized location} allows one to consider settings where only one component of the field can be observed at each step and the strategy has to choose the spatial location as well as the component to observe (heterotopic case), or settings where several observations are allowed at each stage (batch case).
+
+We will here restrict ourselves to the case where only one spatial location can be chosen at each stage and all components of the field are observed there (isotopic case), leaving the general case for future work.
+
+
+\subsection{Optimal Sequential Design}
+\label{Optdes}
+
+\textcolor{red}{(C.T.) I suspect we need this paragraph so we cite people who have to be cited. How do we want to blend it with the rest? Personally I would get rid of this subsection.}
+The mathematical expression for the optimal design involves a series
+of intermixed maximizations over designs and integrals over data. In
+practice, the optimal solution is intractable because of the enormous
+growth over stages (see e.g. \cite{sucar2015probabilistic} and
+\cite{powell2016perspectives}).  Instead, we outline heuristic
+strategies.
+
+\textcolor{red}{Here introduce the fact that candidate points are always chosen in a set $\candidates$. Mention that we usually only allow a finite set. Mention that in the specific case of robot planning, we have a waypoint graph and we thus usually take $\candidates$ to be the set of current neighbouring nodes. Mention that yes, $\candidates$ normally depends on the current location (this is for robot, in general setting, depends on the location of the last observations), but we silently suppress this dependency for readability. Nevertheless, one should always remember that the current set of candidates depends on the current setting.}
+\subsection{A Naive Sampling Strategy}
+\label{naive}
+
+A very simple heuristic for adaptive sampling is to greedily evaluate $Z$ at the location with current excursion probability closest to $\frac{1}{2}$.While extremely easy to implement, this strategy can lead to spend too many iterations in boundary regions regardless of the the possible effect of sampling at the considered point on the future conditional distribution of $Z$. Working in moderate dimension and having a relatively rough discretization such as the considered waypoint graph can be beneficial by helping not being stuck for too long in poorly informative regions, yet it is not really desirable to be tributary of properties of the domain discretization in order to guarantee a fair amount of exploration.  
+% REFS? 
+
+
+\subsection{Myopic Path Planning}
+\label{sec:myopic}
+
+The myopic (greedy) strategy which we present here is optimal if we
+imagine taking only one more stage of measurements. This selection
+strategy is based on expected uncertainty reduction, but it is a
+heuristic because there is no anticipation of what the subsequent
+designs might offer beyond the first stage.
+
+Based on the currently available data the myopic strategy selects the location that leads to the biggest expected reduction in IBV:
+\begin{criterion}[Myopic]
+The next observation location $\spatloc_{\stage + 1}$ is chosen among the minimizers in $\candidates$ of the criterion:
+\begin{equation}\label{critSEQ}
+     C_{\text{myopic}}(u) = \EIBV_{\stage}\left(\spatloc\right)
+\end{equation}
+\end{criterion}
+
+The expected IBV might be efficiently computed for each candidate points using Proposition \ref{propo2}. Once the best location has been selected, a stage of observation is performed there, the GP model is updated, yielding a conditional law $\mathbb{P}_{\stage + 1}$ and the process is repeated.
+
+Even though this myopic strategy is non-anticipative, it still gives a
+reasonable approach for creating designs in many
+applications. Moreover, it can be implemented in a way that is not too demanding on computational power, making it well-suited for embedding on autonomous mobile survey platform (see Section \ref{sec:case_study} for an example).
+
+
+\subsection{Look-ahead Trajectory Planning}\label{sec:LA}
+
+We now extend the myopic strategy to a look-ahead strategy. We consider two stages of
+measurements, and the strategy is then optimal in the sense that it accounts consistently for the expectations and minimizations in these two stages, but still without including any planning beyond those two steps.
+
+\medskip
+
+Say we have collected data up to stage $n$. The principle of two-steps lookahead
+strategies is to select the next observation location $\spatloc_{\stage + 1}$ that would yield the biggest exepcted decrease in IBV if we were to (optimally) add one more observation after the one at $\spatloc_{\stage + 1}$. In order to formalize this concept, we need to be able to talk about the EIBV in the future (after observation $\stage + 1$ has been made). The definition \ref{def:eibv} of $\currentEIBV$ includes a subscript to stress that expectations are taken with respect the conditional law at stage $n$. We will extend this notion by writing $\currentEIBV(\cdot; u, y)$ to denote EIBV where expectations are taken conditional on the data available at $n$ an on an additional observation $y$ at $u$.
+
+  \begin{criterion}[2-steps lookahead]
+      The next observation location $\spatloc_{\stage + 1}$ is chosen among the minimizers in $\candidates$ of the criterion
+      \begin{align}\label{critLA}
+          C_{\text{2-steps}}(u) &= \mathbb{E}_{\stage}\left[\min_{\spatloc' \in
+                  \candidates(\spatloc)} \EIBV_{\stage}\left(\spatloc' ; \spatloc,
+      Y\right)\right]
+      \end{align}
+  where $Y$ is a random variable distributed according to the conditional
+  law of $\gp_{\spatloc}$ at step $\stage$ (note it silently depends on the considered point
+  $\spatloc$). Here, the dependence of the set of candidates on the current location has been made explicit for the second stage of measurements.
+  \end{criterion}
+
+\begin{remark}
+In a practical setting, the first expectation might be computed by Monte
+Carlo sampling of data $Y$ from its conditional
+distribution. For each of these data samples, the second expectation
+is solved using the closed-form expressions for EIBV provided by Proposition \ref{propo2}, now with conditioning on the first stage data already going into the mean and covariances in Eqs. \eqref{eq:cokrig_mean} and \eqref{eq:cokrig_cov}.
+\end{remark}
+
+\begin{remark}
+All our results have been formulated in a noiseless setting. That is, to us an observation $y$ at $\spatloc$ is a realization of $\gp_{\spatloc$. Generalization to a noisy setting where $y$ is a realization of $\gp_{\spatloc} + \epsilon$ with epsilon some noise process may be performed by including noise covariance matrices where necessary.
+\end{remark}
+
+\subsection{Simulation study}
+\label{sec:simulations}
+
+\susubsection{Static and Sequential Sampling Designs}
+\label{sec:sampling_designs}
+
+%Three different designs are considered as indicated in Figure \ref{fig:stat_design}. 
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=0.65\textwidth]{Figures/Des3.eps}
+%\caption{Three different static survey designs plotted on the initial EP.}\label{fig:stat_design}
+%\end{figure}
+%In this display the designs are plotted along with the prior probability contours of the ES for the reference parameter inputs. 
+
+We compare three different static designs denoted
+\textit{static\_north}, \textit{static\_east}, and
+\textit{static\_zigzag} with the three described sequential approaches
+\textit{naive}, \textit{myopic}, and \textit{look-ahead}. The static
+sampling paths are pre-determined and cannot be altered and represent
+the pre-planned strategies used in most current AUV operational survey
+designs.
+
+For a fixed survey length, a closed-form expression for the EIBV is
+available as in Propositoin \ref{propo_eibv}
+. However, for the sequential
+approaches this is not the case. For comparison the properties are
+therefore evaluated using Monte Carlo sampling over several replicates
+of realizations from the model while conducting simulated sequential
+surveys for each one. We also compare predictive
+performance measured by root mean square error (RMSE) for temperature
+and salinity estimates as well as also the variance reduction in these
+two variables. It is important to note that the objective function
+used by the agent \kc{First of 'agent'. Define it or change it
+  to 'robot'? Note further uses below.} is focused on reducing the
+EIBV, but we nevertheless expect that we will achieve good predictive
+performance for criteria such as RMSE as well. Another non-statistical
+criteria that is important for practical purposes is the computational
+time needed for the strategy, as this will impact the performance for
+an embedded system.
+
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=0.50\textwidth]{Figures/sim/wp_graph_paper.pdf}
+%\caption{The equilateral waypoint graph used to discretize the
+%  trajectory choices over the $31\times31$ grid used to discretize the GP.}
+%\label{fig:wp_graph}
+%\end{figure}
+
+\begin{figure}[!h] 
+\centering 
+\subfigure[The waypoint graph.]{\includegraphics[width =
+0.49\textwidth]{Figures/sim/wp_graph_paper.pdf}\label{fig:wp_graph_a}}
+\hfill
+\subfigure[The waypoint graph in 3D.]{\includegraphics[width =
+0.49\textwidth]{Figures/sim/wp_graph_3d.pdf}\label{fig:wp_graph_b}}
+\caption{\ref{fig:wp_graph_a} The equilateral waypoint graph used to discretize the
+trajectory choices over the $31\times31$ grid used to discretize the GP.
+\ref{fig:wp_graph_b} The waypoint grid shown in a 3D environment.}
+\label{fig:wp_graph}
+\end{figure}
+
+Each strategy is conducted on an equilateral grid as shown in
+Fig. \ref{fig:wp_graph}. The sequential sampling agent starts at the
+center East-West coordinate at the southern end of the domain (node 53
+\kc{Maybe color this node differently and modify the caption?}). The
+AUV moves along edges in the waypoint graph while the vehicle makes
+measurements. The data is assimilated into the GP model before an
+evaluation of the next node to sample is conducted at the end of the
+edge.
+
+\subsection{Simulation Results}
+
+A total of 100 replicate simulations were conducted with all
+strategies. The results are shown in Fig. \ref{fig:sim_results}, where
+the different criteria are plotted as a function of survey
+distance. Fig. \ref{fig:avg_ev} shows the resulting drop in IBV for
+each of the six strategies. IBV reduction occurs most under the
+\textit{myopic} and \textit{look-ahead} strategies, each performing
+almost equally; this is expected as the two criteria
+(Eq. \eqref{critSEQ} and \eqref{critLA}) are sensitive to differences
+in IBV. The \textit{static\_north} design also does well here because
+the path is parallel to the boundary between the water masses.
+
+\begin{figure}[h!]
+  \centering
+  % \subfigure[Excursion set variance $E_{\by}(p[1-p])$.]{\label{fig:avg_ev}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_EV.pdf}}
+  \subfigure[IBV.]{\label{fig:avg_ev}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_EV.pdf}}
+  \hfill
+  \subfigure[RMSE between estimated field and truth.]{\label{fig:avg_rmse}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_RMSE.pdf}}
+  \hfill 
+  \subfigure[Explained variance $\bR^{2}$.]{\label{fig:avg_r2}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_R2.pdf}}
+  \hfill 
+  \subfigure[Computational time for inferencing.\kc{I see only 
+    lines associated with 4 variables showing in the graph. Where is
+    static\_north and static\_east?}]{\label{fig:avg_time}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_Time.pdf}} 
+\caption{Simulation results from 100 replicate simulations for 10
+  sampling choices/stages on the grid. \kc{Vertical lines show large
+    variation in replicate results.}}  
+\label{fig:sim_results}
+\end{figure}
+
+Fig. \ref{fig:avg_rmse} and \ref{fig:avg_r2} show the resulting drop
+in RMSE and increase in explained variance, respectively. Both
+\textit{myopic} and \textit{look-ahead} strategies perform well here,
+but some of the \textit{static\_east} and \textit{static\_zigzag} also
+achieve good results because they are pre-determined to cover large
+parts of the domain without re-visitation. Sequential strategies
+targeting IBV will sometimes not reach similar coverage, as
+interesting data may draw the path into twists and turns. There is
+relatively large variety in the replicate results as indicated by the
+vertical lines. Nevertheless, the ordering of strategies is similar.
+
+
+Fig. \ref{fig:avg_time} shows the computational effort: the
+\textit{naive} strategy is on par with the static designs, while the
+\textit{myopic} strategy is slower. The \textit{look-ahead} is even
+slower, reaching levels that are nearly impractical for execution on a
+vehicle. Some pruning of the graph is performed to improve the
+performance, such as ruling out repeated visitations and
+back-and-forth routes. Some of the intermediate results are also
+stored for longer planning horizons. Further pruning of branches or
+inclusion of other heuristics could be included for better
+performance. Then again, the inclusion of heuristics is likely a
+contributing factor for the \textit{look-ahead} strategy failing to
+outperform the \textit{myopic} strategy.
+
+In Fig. \ref{fig:route_choices}, the realized sampling paths for each
+of the sequential schemes and static designs are shown. The
+\textit{naive} strategy often gets stuck in the southern part of the
+domain because it is too focused on the probabilities near $0.5$. The
+\textit{myopic} strategy covers a wider domain than the naive or
+look-ahead. There are several reasons for this. First, a greedy
+approach will tend to put more emphasis on promising locations close
+to the agent, which may lead away from the centre. Second, as the
+agent evaluates the impact of locations further away (look-ahead)
+where assimilated data has less predictive power, the GP model (which
+is centered here) will act to restrict paths deviating from the
+central zone.
+
+We studied the sensitivity of the results by modifying the input
+parameters to have different correlations between temperature and
+salinity, standard deviations, and spatial correlation range.  In all
+runs, the \textit{myopic} and \textit{look-ahead} strategies perform
+the best in terms of realized IBV, and much better than
+\textit{naive}. The \textit{look-ahead} strategy seems to be
+substantially better than the \textit{myopic} design only for very
+small initial standard deviation or very large spatial correlation
+range. \textit{static\_north} continues to be the best static design
+for IBV, while \textit{static\_zigzag} is the best design for the
+other predictive performance measures, especially so with large
+spatial correlation range. We also ran simulation studies with only
+temperature data, and for realistic correlation levels between
+temperature and salinity, the IBV results are not much worse when only
+temperature data are available. In addition to the comparison made in
+Table \ref{tab:sim_rhoab}, the current setting includes spatial
+correlation and this likely reduces the additional influence of having
+bivariate data. However, it seems that having temperature data alone
+does a substantially worse job in terms of explained variance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

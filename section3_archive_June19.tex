@@ -36,15 +36,9 @@ sampling location $\spatloc_{n+1}$ based on current excursion probabilities. At 
 largest levels of uncertainty by selecting the location $\spatloc_{\stage + 1}$ with
 $P_{\stage}(\gp_{\spatloc_{\stage + 1}} \in T)$ closest to $0.5$..
 
-This strategy does not account for the uncertainty in the GP
-variables, \textcolor{red}{(C.T.: do we need this sentence? does it mean anything?) but is instead applicable only if one design (node) has EPs
-closer to $0.5$ (see Table \ref{tab:sim_rhoab}, row
-two).}
+%This strategy does not account for the uncertainty in the GP variables, \textcolor{red}{(C.T.: do we need this sentence? does it mean anything?) but is instead applicable only if one design (node) has EPs closer to $0.5$ (see Table \ref{tab:sim_rhoab}, row two).}
 
-Additionally, this strategy does not account for spatial
-correlation. This strategy lacks memory of where it has been and where
-the uncertainty has been reduced, and therefore susceptible to local
-minima.
+%Additionally, this strategy does not account for spatial correlation. This strategy lacks memory of where it has been and where the uncertainty has been reduced, and therefore susceptible to local minima.
 
 \subsection{Myopic Path Planning}
 \label{sec:myopic}
@@ -57,8 +51,9 @@ designs might offer beyond the first stage.
 
 Based on the currently available data the myopic strategy selects the location that leads to the biggest expected reduction in IBV:
 \begin{criterion}[Myopic]
+The next observation location $\spatloc_{\stage + 1}$ is chosen among the minimizers in $\candidates$ of the criterion:
 \begin{equation}\label{critSEQ}
-    \spatloc_{\stage + 1} = \argmin_{\spatloc \in \candidates} \EIBV_{\stage}\left(\spatloc\right)
+     C_{\text{myopic}}(u) = \EIBV_{\stage}\left(\spatloc\right)
 \end{equation}
 \end{criterion}
 
@@ -80,9 +75,9 @@ Say we have collected data up to stage $n$. The principle of two-steps lookahead
 strategies is to select the next observation location $\spatloc_{\stage + 1}$ that would yield the biggest exepcted decrease in IBV if we were to (optimally) add one more observation after the one at $\spatloc_{\stage + 1}$. In order to formalize this concept, we need to be able to talk about the EIBV in the future (after observation $\stage + 1$ has been made). The definition \ref{def:eibv} of $\currentEIBV$ includes a subscript to stress that expectations are taken with respect the conditional law at stage $n$. We will extend this notion by writing $\currentEIBV(\cdot; u, y)$ to denote EIBV where expectations are taken conditional on the data available at $n$ an on an additional observation $y$ at $u$.
 
   \begin{criterion}[2-steps lookahead]
-      The next observation location $\spatloc_{\stage + 1}$ is selected according to
+      The next observation location $\spatloc_{\stage + 1}$ is chosen among the minimizers in $\candidates$ of the criterion
       \begin{align}\label{critLA}
-          \spatloc_{\stage + 1} = \argmin_{\spatloc \in \candidates}~ \mathbb{E}_{\stage}\left[\min_{\spatloc' \in
+          C_{\text{2-steps}}(u) &= \mathbb{E}_{\stage}\left[\min_{\spatloc' \in
                   \candidates(\spatloc)} \EIBV_{\stage}\left(\spatloc' ; \spatloc,
       Y\right)\right]
       \end{align}
