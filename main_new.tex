@@ -378,7 +378,7 @@ variable is above and the other below their respective thresholds,
 indicative of mixed waters.
 
 \begin{figure}[h!] \centering
-  \includegraphics[width=0.99\textwidth]{Figures/example_excu_1.png}
+  \includegraphics[width=0.99\textwidth]{Figures/example_excu_4.png}
   \caption{Realization of a bivariate GRF and excursion set above some
     threshold ({\kc{JE: are means around 5 and 30 here, so same as
         later in the example?}} ). Joint excursion in red, excursion
@@ -524,11 +524,16 @@ $\domain\times \{1\dots,p\}$:
 \mu_{[n]}(\bm{x})=\mu(\bm{x})+\lambda_{[n]}(\bm{x})^T (\mathbf{z}_{[n]}-\mu(\bm{x})),
 \end{equation}
 where $\mu$ is $Z$'s initial mean function, $\mathbf{z}_{[n]}$ stands for the ($\sum_{i=1}^n q_i$)-dimensional vector of observed (noisy) responses of $Z$ at all considered generalized locations, and $\lambda_{[n]}(\bm{x})$ is a vector of weights
-equal to $\widetilde{\bm{K}_{[0,n]}}^{-1} k(\bm{x}_{[n]}, \bm{x})$ with $\bm{x}_{[n]}=(\bm{x}_1,\dots, \bm{x}_n)$ and $\widetilde{\bm{K}_{[0,n]}}=k(\bm{x}_{[n]}, \bm{x}_{[n]})+\Delta_{[n]}$, assumed non-singular throughout the presentation, where $\Delta_{[n]}$ stands for the covariance matrix of Gaussian-distributed noise assumed to have affected measurements up to batch $n$. The co-kriging %(conditional) 
+equal to 
+$$\left(k(\bm{x}_{[n]}, \bm{x}_{[n]})+\Delta_{[n]} \right)^{-1} k(\bm{x}_{[n]}, \bm{x})
+$$
+with $\bm{x}_{[n]}=(\bm{x}_1,\dots, \bm{x}_n)$ and where $\Delta_{[n]}$ stands for the covariance matrix of Gaussian-distributed noise assumed to have affected measurements up to batch $n$. The matrix in parenthesis in the above equation will be assumed non-singular throughout the presentation. The co-kriging %(conditional) 
 residual (cross-)covariance function (with respect to batches of generalized locations) can also be expressed in the same vein via
 %
 \begin{equation}\label{eq:cokrig_cov}
-k_{[n]}(\bm{x},\bm{x}')=k(\bm{x},\bm{x}')-\lambda_{[n]}(\bm{x})^T \widetilde{\bm{K}_{[0,n]}} \lambda_{{[n]}}(\bm{x}').
+k_{[n]}(\bm{x},\bm{x}')=k(\bm{x},\bm{x}')-\lambda_{[n]}(\bm{x})^T 
+\left(k(\bm{x}_{[n]}, \bm{x}_{[n]})+\Delta_{[n]} \right)
+\lambda_{{[n]}}(\bm{x}').
 \end{equation}
 
 %\subsubsection{Co-kriging update formulae}
