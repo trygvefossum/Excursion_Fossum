@@ -134,15 +134,21 @@
 \left[#1\right]}
 
 % For mean vectors.
-\newcommand{\currentMean}[1]{\mu_{\stage}
+\newcommand{\currentMean}[1]{\mu_{[\stage]}
 \left(#1\right)}
-\newcommand{\futureMean}[1]{\mu_{[\stage + 1}
+\newcommand{\futureMean}[1]{\mu_{[\stage + 1]}
+\left(#1\right)}
+
+% And covariance function.
+\newcommand{\currentCovFun}[1]{k_{[\stage]}
+\left(#1\right)}
+\newcommand{\futureCovFun}[1]{k_{[\stage + 1]}
 \left(#1\right)}
 
 % And covariance matrices.
-\newcommand{\currentCov}[1]{K_{\stage}
+\newcommand{\currentCov}[1]{K_{[\stage]}
 \left(#1\right)}
-\newcommand{\futureCov}[1]{K_{\stage + 1}
+\newcommand{\futureCov}[1]{K_{[\stage + 1]}
 \left(#1\right)}
 
 

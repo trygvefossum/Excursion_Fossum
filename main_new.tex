@@ -552,15 +552,15 @@ predicting at $\bm{x}$ relying on all measurements until batch $(n+1)$.
 %\text{th}$ batch.
 %, i.e. those from the $(n+1)\text{th}$ batch of measurements conducted at $\bm{x}_{n+1}$.
 Similarly, the updated co-kriging residual (cross-)covariance function then writes
-\begin{equation}\label{eq:varCoK}
-k_{[n+1]}(\bm{x},\bm{x}')=k_{[n]}(\bm{x},\bm{x}')-\lambda_{[n+1,n+1]}(\bm{x})^T 
-\widetilde{\bm{K}_{[n,n+1]}}
+\begin{align}\label{eq:varCoK}
+k_{[n+1]}(\bm{x},\bm{x}') & = k_{[n]}(\bm{x},\bm{x}')\\
+ \nonumber - & \lambda_{[n+1,n+1]}(\bm{x})^T 
+\left(k_{[n]}(\bm{x}_{n+1}, \bm{x}_{n+1})+\Delta_{n+1}\right)
 %k_{[n]}(\bm{x}_{[n]}, \bm{x}_{[n]})
 \lambda_{{[n+1,n+1]}}(\bm{x}'),
-\end{equation}
+\end{align}
 %\medskip
 %
-where $\widetilde{\bm{K}_{[n,n+1]}}=k_{[n]}(\bm{x}_{n+1}, \bm{x}_{n+1})+\Delta_{n+1}$.
 Let us remark that, as noted in \citep{Chevalier2015} in the case of scalar-valued fields, these update formulae naturally 
 extend to Universal Kriging in second-order settings and apply without Gaussian assumption. We will now see how the latter formulae are instrumental in deriving semi-analytical formulae for stepwise uncertainty reduction criteria for 
 vector-valued random fields.
@@ -688,7 +688,7 @@ As for the expected EMV, a similar result may be derived.
 \begin{equation*}
 \begin{split}
 \eemv_{[n]}(\bm{x})
-&=\int_{D^2} 
+&=\int_{\domain^2} 
 \varPhi_{2\no}
 \left(
 (\bt, \bt); \mu((u,v)), 
@@ -698,14 +698,14 @@ K((u,v),(u,v))
 \mathrm{d}\mes^{\otimes} %\mes 
 %\productMeasure 
 (u,v)\\
-&-\currentExp{
-    \varPhi_{\no}\left(a_1+B_1 V; C_1\right)
-    \varPhi_{\no}\left(a_2+B_2 V; C_2\right)
-},
+&-\int_{\domain^2}\currentExp{
+    \varPhi_{\no}\left(a_1+B_1 V; K_{[n+1]}(u)\right)
+    \varPhi_{\no}\left(a_2+B_2 V; K_{[n+1]}(v)\right)
+}\mathrm{d}\mes^{\otimes}(u, v),
 \end{split}
 \end{equation*}
 
-with $V=\gp[\bm{x}_{n+1}]-\currentMean{\bm{x}_{n+1}} \sim \mathcal{N}(0_{q_{n+1}},k_{[n]}(\bm{x}_{n+1},\bm{x}_{n+1}))$ and $a_1=\bt-\currentMean{\uu}$,
+with $V=\gp[\bm{x}]-\currentMean{\bm{x}} \sim \mathcal{N}(0_{q_{n+1}},k_{[n]}(\bm{x},\bm{x}))$ and $a_1=\bt-\currentMean{\uu}$,
 $B_1=-\lambda_{[n+1,n+1]}(\uu)^T$, $a_2=\bt-\currentMean{\vv}$, $B_2=-\lambda_{[n+1,n+1]}(\vv)^T$.
 
 This integrand finally boils down to an evaluation of the $2\no$-dimensional Gaussian CDF by
@@ -833,7 +833,7 @@ One realization of this GRF is shown in Fig. \ref{example_excu}.
 We now study how the expected Bernoulli variance eq.\eqref{def:eibv} associated to data collection at a point changes if only one of the two components of the field is observed. We first draw a realization of the GRF defined above and use it as ground-truth to mimick the real data-collection process. A first bunch of observations are done at the locations depicted in grey, and the data is used to update the GRF model. We then consider the green triangle as a potential next observation locations and plot the expected Bernoulli variance reduction (at each grid point) that would result from observing only one component of the field (temperature or salinity), or both at that point, see Fig.\ref{fig:ebv_comp}.
 
 \begin{figure}[h!] \centering
-  \includegraphics[width=0.99\textwidth]{Figures/ebv_comp_2.png}
+  \includegraphics[width=0.99\textwidth]{Figures/ebv_comp_3.png}
   \caption{Pointwise Bernoulli variance reduction for observation of a single or both components of the random field at one location. Data collection locations in green. True excursion set in red. Places where only one response is above threshold are depicted in pink}
 \label{fig:ebv_comp}
 \end{figure}
@@ -1015,12 +1015,9 @@ the path is parallel to the boundary between the water masses.
   \hfill 
   \subfigure[Explained variance $\bR^{2}$.]{\label{fig:avg_r2}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_R2.pdf}}
   \hfill 
-  \subfigure[Computational time for inferencing.\kc{I see only 
-    lines associated with 4 variables showing in the graph. Where is
-    static\_north and static\_east?}]{\label{fig:avg_time}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_Time.pdf}} 
+  \subfigure[Computational time for inference (some of the lines overlap).]{\label{fig:avg_time}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_Time.pdf}} 
 \caption{Simulation results from 100 replicate simulations for 10
-  sampling choices/stages on the grid. \kc{Vertical lines show large
-    variation in replicate results.}}  
+  sampling choices/stages on the grid. Vertical lines show variation in replicate results.}  
 \label{fig:sim_results}
 \end{figure}
 
