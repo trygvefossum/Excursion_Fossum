@@ -381,24 +381,29 @@ We denote by $\gp$ a vector-valued random field indexed by some
 arbitrary domain $\domain$, and assume values of the field at any
 fixed location $\x \in \domain$, denoted $\gp[\x]$, to be a
 $\no$-variate random vector ($\no\geq 2$). In the river plume
-characterization case, $\domain$ is a prescribed domain in the fjord
-of Trondheim (for the purpose of our AUV application, a discretization
-of a $2$-dimensional domain at fixed depth is considered), and $\no=2$
-with responses of temperature and salinity. A bivariate GRF model is
-assumed for $\gp$. To motivate concepts,
-Figure~\ref{example_excu}(left and middle) shows a realization of such
-a vector-valued GRF on
-$\domain=(0,1)^2$. Figure~\ref{example_excu}(right) represents a
-by-product of interest derived from these realizations, namely regions
-i) in red, where both temperature and salinity are high (i.e.,
-exceeding respective thresholds), indicative of ocean water ii) in
-white, where both temperature and salinity are low, indicative of
-riverine water, and iii) in pink, where one variable is above and the
-other below their respective thresholds, indicative of mixed waters.
+characterization case, $\domain$ is a prescribed domain in
+Trondheimsfjord, Norway (for the purpose of our AUV application, a
+discretization of a $2$-dimensional domain at fixed depth is
+considered), and $\no=2$ with responses of temperature and salinity. A
+bivariate GRF model is assumed for $\gp$. To motivate concepts,
+Fig.~\ref{example_excu} (left and middle \kc{If you split this figure
+  in its parts and add labels, it would be more elegant and precise to
+  explicitly refer to them.}) shows a realization of such a
+vector-valued GRF on $\domain=(0,1)^2$. Fig.~\ref{example_excu} (right
+\kc{See above}) represents a by-product of interest derived from these
+realizations, namely regions i) in red, where both temperature and
+salinity are high (i.e., exceeding respective thresholds), indicative
+of ocean water ii) in white, where both temperature and salinity are
+low, indicative of riverine water, and iii) in pink, where one
+variable is above and the other below their respective thresholds,
+indicative of mixed waters.
 
 \begin{figure}[h!] \centering
   \includegraphics[width=0.99\textwidth]{Figures/example_excu_1.png}
-  \caption{Realization of a bivariate GRF and excursion set above some threshold ({\bf{JE: are means around 5 and 30 here, so same as later in the example?}} ). Joint excursion in red, excursion of a single variable in pink.}
+  \caption{Realization of a bivariate GRF and excursion set above some
+    threshold ({\kc{JE: are means around 5 and 30 here, so same as
+        later in the example?}} ). Joint excursion in red, excursion
+    of a single variable in pink.}
 \label{example_excu}
 \end{figure}
 
@@ -413,10 +418,12 @@ $$
 %Our goal here is to develop approaches to quantify and improve the
 %characterization of uncertainties on $\es$. \textcolor{red}{Alread mention how observations are included.}
 
-If we assume that $\gp$ has
-continuous trajectories (almost surely) and $T$ is closed, then
-$\es$ becomes a Random Closed Set
-\citep{Molchanov2005} and concepts from the theory of random sets will prove useful in characterizing the distribution of the volume of $\es$ under some measure defined on the domain.
+If we assume that $\gp$ has continuous trajectories (almost surely
+\kc{This seems very handwavy; would delete}) and $T$ is closed, then
+$\es$ becomes a Random Closed Set \citep{Molchanov2005} and concepts
+from the theory of random sets will prove useful in characterizing the
+distribution of the volume of $\es$ under some measure defined on the
+domain.
 %\textcolor{red}{Is this really needed?} 
 Note that while some aspects of the developed approaches do not call for a
 specific form of $\T$, we will often stick for simplicity to the case
