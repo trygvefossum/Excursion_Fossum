@@ -41,11 +41,8 @@
 \begin{frontmatter}
 
 % "New Title of the paper"
-\title{Autonomous Oceanographic Data Collection using Excursion Sets of Vector-valued Gaussian Random Fields} 
+\title{Autonomous Oceanographic Data Collection Estimating Excursion Sets of Vector-valued Gaussian Random Fields} 
 \runtitle{Autonomous Oceanographic Data Collection}
-
-% "Former Title of the paper" (DG 08.06.2020)
-%\title{Autonomous Oceanographic Sampling Designs using Excursion Sets for Multivariate Gaussian random fields} \runtitle{Excursion Probabilities for Informative Sampling}
 
 \begin{aug}
 \author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{t1,t2}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
@@ -78,28 +75,10 @@ Switzerland.
 \end{aug}
 
 \begin{abstract}
-
-  Improving and optimizing oceanographic sampling is a crucial task
-  for marine science and maritime resource management. Faced with
-  limited resources in understanding processes in the water-column,
-  the combination of statistics and autonomous systems provide new
-  opportunities for experimental design. In this work we develop
-  methods for efficient spatial sampling applied to the mapping of
-  coastal ocean processes by providing informative descriptions of
-  spatial characteristics of ocean phenomena. Specifically, we define
-  a design criterion based on improved characterization of the
-  uncertainty in the excursions of vector-valued Gaussian random
-  fields, and derive tractable expressions for the expected Bernoulli
-  variance reduction in such a framework. We demonstrate how this
-  criterion can be used to prioritize sampling efforts at locations
-  that are ambiguous, making exploration more effective. We use
-  simulations to study the properties of methods and to compare them
-  with state-of-the-art approaches, followed by results from field
-  deployments with an autonomous underwater vehicle (AUV) as part of a
-  study mapping the boundary of a river plume. The results demonstrate
-  the potential of combining statistical methods and robotic platforms
-  to effectively inform and execute data-driven environmental
-  sampling.
+Improving and optimizing oceanographic sampling is a crucial task for marine science and maritime resource management. Faced with limited resources in understanding processes in the water-column, the combination of statistics and autonomous systems provide new opportunities for experimental design. In this work we develop methods for efficient spatial sampling applied to the mapping of coastal ocean processes by providing informative descriptions of spatial characteristics of ocean phenomena. Specifically, we define a design criterion based on 
+ uncertainty in the excursions of vector-valued Gaussian random
+ fields, and derive tractable expressions for the expected Bernoulli variance reduction in such a framework. We demonstrate how this criterion can be used to prioritize sampling efforts at locations that are ambiguous, making exploration more effective. We use simulations to study the properties of methods and to compare them with state-of-the-art approaches, followed by results from field
+ deployments with an autonomous underwater vehicle (AUV) as part of a study mapping the boundary of a river plume. The results demonstrate the potential of combining statistical methods and robotic platforms to effectively inform and execute data-driven environmental sampling.
   
 %Motivated by the challenges related to efficient allocation of sampling resources in environmental sensing, the combination of Excursion Probabilities and Gaussian process modeling is explored for autonomous robotic sampling of ocean features; enabling information driven measures  sampling efforts to high-interest regions. These regions are usually characterized by gradients of measurable environmental variables, e.g., temperature or salinity gradients, on which EPs subsequently can be used...Correlation among samples and multivariate requirements are typical in environmental studies.
 
@@ -418,12 +397,11 @@ $$
 %Our goal here is to develop approaches to quantify and improve the
 %characterization of uncertainties on $\es$. \textcolor{red}{Alread mention how observations are included.}
 
-If we assume that $\gp$ has continuous trajectories (almost surely
-\kc{This seems very handwavy; would delete}) and $T$ is closed, then
-$\es$ becomes a Random Closed Set \citep{Molchanov2005} and concepts
-from the theory of random sets will prove useful in characterizing the
-distribution of the volume of $\es$ under some measure defined on the
-domain.
+If we assume that $\gp$ has continuous trajectories 
+%(almost surely \kc{This seems very handwavy; would delete}) 
+and $T$ is closed, then
+$\es$ becomes a Random Closed Set \citep{Molchanov2005} and concepts from the theory of random sets will prove useful to study $\es$. 
+%under some measure defined on the domain.
 %\textcolor{red}{Is this really needed?} 
 Note that while some aspects of the developed approaches do not call for a
 specific form of $\T$, we will often stick for simplicity to the case
@@ -438,79 +416,149 @@ to $\geq$ ones would lead to immediate adaptations.
 %\subsubsection{Notation}
 %In order to work at this level of generality, some notational tricks are needed. Indeed, when considering a new observation, one shall in general specify which component of the field was observed and where it was observed. This leads us to introduce the concept of \textit{generalized location}.
 
-Letting $\gp[\spatloc,\ell]$ denote the $\ell\text{-th}$ component of $\gp[\spatloc]$, and $\ell \in \{1\dots,p\}$, we use the term \textit{generalized location} for the couple $x=(\spatloc,\ell)$. 
+Letting $\gp[\spatloc,\ell]$ denote the $\ell\text{-th}$ component of $\gp[\spatloc]$ ($1\leq \ell\leq \no$), we use the term \textit{generalized location} for the couple $x=(\spatloc,\ell)$. 
 %Given such a generalized location notation $x$,  
 The notation $\gp[x]$ will be used to denote $\gp[\spatloc,\ell]$ 
 and
 %
 %This slight change of notation 
-will allow us to think of $\gp$ as a scalar-valued Gaussian random field 
-indexed by $\domain \times \{1\dots,p\}$, {\bf{Jo: I used $\domain$ instead of $D$!}}, which will give the co-kriging equations a particularly simple form that parallels the one of univariate kriging. %Due to the naturality of the concept of \textit{generalized location}, we will generally use the word \textit{location}, while \textit{spatial location} will be used to stress that we are talking about a point $\spatloc \in \domain$. In the following, the letter $x$ will be reserved for generalized locations, while 
+will allow us to think of $\gp$ as a scalar-valued random field indexed by $\domain \times \{1\dots,p\}$, which will give the co-kriging equations a particularly simple form that parallels the one of univariate kriging. %Due to the naturality of the concept of \textit{generalized location}, we will generally use the word \textit{location}, while \textit{spatial location} will be used to stress that we are talking about a point $\spatloc \in \domain$. In the following, the letter $x$ will be reserved for generalized locations, while 
 The letters $\spatloc$ and $\ell$ will be used for spatial locations and response indices respectively.
-
-%It turns out that the inclusion of several observations at a time (a batch) may be handled by the same equations as the one for a single observation, provided some notation adjustments are made. This motivates the following.
-
-Given a dataset consisting of  $q$ observations (a batch) at spatial locations $\spatloc_i \in \domain$ and response indices $l_i \in \lbrace 1, ..., \no\rbrace$, $i=1, ..., q$, we use boldface letters to denote concatenated quantities;
-\begin{align*}
-\bm{x}:=(\bm{\spatloc}, \bm{\ell}):= (x_1,\dots, x_q),~\text{with }x_i=(\spatloc_i,\ell_i).
-\end{align*}
+%
+% Replacement by overlooked revised chunks from June 19th
+%\begin{comment}
+%Given a dataset consisting of  $q$ observations (a batch) at spatial locations $\spatloc_i \in \domain$ and response indices $l_i \in \lbrace 1, ..., \no\rbrace$, $i=1, ..., q$, we use boldface letters to denote concatenated quantities;
+%\begin{align*}
+%\bm{x}:=(\bm{\spatloc}, \bm{\ell}):= (x_1,\dots, x_q),~\text{with }x_i=(\spatloc_i,\ell_i).
+%\end{align*}
 %In general,  corresponding to batches of observations. 
-The field values of batch observations are denoted by
+%The field values of batch observations are denoted by
+%\begin{align*}
+%\gp[\bm{x}]:=
+%\left(\gp[\spatloc_1,\ell_1], ...,
+%\gp[\spatloc_q,\ell_{q}]\right) \in \mathbb{R}^{q}.
+%\end{align*}
+%In the same fashion, $\mu(\bm{x})$ denotes the $q$-dimensional vector corresponding to the mean at $\bm{x}$ and $k(\bm{x}, \bm{x})$ the $q \times q$ covariance matrix.
+
+%Given a random field $\gp$ and (noisy) observations of some of its components at selected points in the domain, one can predict the value of the field at location $\spatloc\in \domain$ by using the conditional mean of $\gp[\spatloc]$ and the associated covariance . This process is called co-Kriging.% , and kriging equations precisely tell us how to compute conditional means and covariances conditional on an arbitrary dataset.
+%We present a general form of cokriging, where observations at locations $s \in \domain$ may only include a subset of the components of $\gp[\spatloc]\in\mathbb{R}^{\no}$ (heterotopic).
+
+
+%Assuming that one wishes 
+%to predict $\gp[\bm{x}]$ at $q\geq 1$ generalized locations $\bm{x}=(\bm{\spatloc}, \bm{\ell})$, 
+%given $n$ batched of observations $\mathbf{z}_{[n]}$ at $\sum_{i=1}^n q_i$ generalized locations $\bm{x}_{[n]}=(\bm{x}_1,\dots, \bm{x}_n)$.
+%The co-Kriging mean then amounts to simple kriging with respect to a scalar-valued GRF indexed by $\domain \times \{1\dots,p\}$: % and with covariance kernel $k(\bm{x}, \bm{x}')=K(\bm{\spatloc}, \bm{\spatloc}')_{\ell, \ell'}$, that is:
+%
+%\begin{equation}\label{eq:cokrig_mean}
+%\mu_{[n]}(\bm{x})=\mu(\bm{x})+\lambda_{[n]}(\bm{x})^T (\mathbf{z}_{[n]}-\mu(\bm{x})),
+%\end{equation}
+%where $\mathbf{z}_{[n]}$ stands for the ($\sum_{i=1}^n q_i$)-dimensional vector of observed responses of $Z$ at all considered generalized locations, and 
+%where $\lambda_{[n]}(\bm{x})=\left[ k(\bm{x}_{[n]}, \bm{x}_{[n]}) + R(\bm{x}_{[n]}, \bm{x}_{[n]}) \right]^{-1} k(\bm{x}_{[n]}, \bm{x})$ is a vector of weights and matrix $R(\bm{x}_{[n]}, \bm{x}_{[n]})$ holds the observation noise covariance at the generalized locations. 
+%$k(\bm{x}_{[n]}, \bm{x}_{[n]})$ being assumed non-singular throughout the presentation. 
+%The associated co-kriging %(conditional) 
+%residual cross-covariance function can be expressed in the same vein via
+%
+%\begin{equation}\label{eq:cokrig_cov}
+%k_{[n]}(\bm{x},\bm{x}')=k(\bm{x},\bm{x}')-\lambda_{[n]}(\bm{x})^T \left[ k(\bm{x}_{[n]}, \bm{x}_{[n]}) + R(\bm{x}_{[n]}, \bm{x}_{[n]}) \right] \lambda_{{[n]}}(\bm{x}').
+%\end{equation}
+
+%\subsubsection{Co-kriging update formulae}
+
+%In our case it is important to update the GRF model efficiently onboard the vehicle after every batch of obervations. Our setting is like that of a spatial Kalman filter with static model parameters, and we provide the co-Kriging equations for this case. Because of our representation of co-kriging in terms of simple kriging with respect to generalized locations, the formulae is a straightforward adaptation of the batch-sequential Kriging update formulae from \cite{Chevalier.etal2013a}. The formulae are instrumental in deriving semi-analytical results for stepwise expected uncertainty reduction criteria for vector-valued random fields in the subsequent sections.
+
+%Given the observations from $n$ batches, one wishes to update the prediction by incorporating a new vector of observations $\mathbf{z}_{n+1}$ measured at a batch of $q_{n+1} \geq 1$ generalized locations $\bm{x}_{n+1}$. The mean update formulae is
+%It turns out that the concept of \textit{generalized location} makes the kriging formulae form-invariant across all dimensions. This allows us to directly adapt the 
+% delivers that
+% 
+%\begin{equation}\label{eq:meanCoK}
+%\mu_{[n+1]}(\bm{x})=\mu_{[n]}(\bm{x})+\lambda_{[n+1,n+1]}(\bm{x})^T (\mathbf{z}_{n+1}-\mu(\bm{x}_{n+1})),
+%\end{equation}
+%where $\lambda_{[n+1,n+1]}(\bm{x})$ denotes the $q_{n+1}$-dimensional sub-vector extracted from
+%$\lambda_{[n+1]}(\bm{x})$ that corresponds to the Kriging weigths associated with the last $q_{n+1}$ responses when 
+%predicting at $\bm{x}$ relying on all measurements until batch $(n+1)$.
+%\text{th}$ batch.
+%, i.e. those from the $(n+1)\text{th}$ batch of measurements conducted at $\bm{x}_{n+1}$.
+%The updated co-Kriging residual cross-covariance function is
+%\begin{eqnarray}\label{eq:varCoK}
+%k_{[n+1]}(\bm{x},\bm{x}') &=& k_{[n]}(\bm{x},\bm{x}') -c(\bm{x},\bm{x}',\bm{x}_{[n]}), \\
+%c(\bm{x},\bm{x}',\bm{x}_{[n]})&=&\lambda_{[n+1,n+1]}(\bm{x})^T \left[k_{[n]}(\bm{x}_{[n]}, \bm{x}_{[n]})+R(\bm{x}_{[n]}, \bm{x}_{[n]}) \right] \lambda_{{[n+1,n+1]}}(\bm{x}'). \nonumber
+%\end{eqnarray}
+%\medskip
+%
+%We remark that, as noted in \cite{Chevalier2015} in the case of scalar-valued fields, these update formulae naturally 
+%extend to Universal Kriging in second-order settings and apply without Gaussian assumption. 
+%\end{comment}
+%
+%It turns out that the inclusion of several observations at a time (a batch) may be handled by the same equations as the 
+%one for a single observation, provided some notation adjustments are made. This motivates the following.
+Furthemore, boldface letters will be used to denote concatenated quantities corresponding to batches of observations.
+Given a dataset consisting of  $q$ observations at spatial locations $\bm{\spatloc}=(\spatloc_1,\dots,\spatloc_q) \in \domain^q$ and response indices $\bm{\ell}=(\ell_1,\dots, \ell_q)\in \lbrace 1, ..., \no\rbrace^q$, %$i=1, ..., q$, 
+we use the concatenated notation
+\begin{align*}
+\bm{x}:=%(\bm{\spatloc}, \bm{\ell}):= 
+(x_1,\dots, x_q),~\text{with }x_i=(\spatloc_i,\ell_i).
+\end{align*}
+We also compactly denote the field values at those different locations by
 \begin{align*}
 \gp[\bm{x}]:=
 \left(\gp[\spatloc_1,\ell_1], ...,
 \gp[\spatloc_q,\ell_{q}]\right) \in \mathbb{R}^{q}.
 \end{align*}
-In the same fashion, $\mu(\bm{x})$ denotes the $q$-dimensional vector corresponding to the mean at $\bm{x}$ and $k(\bm{x}, \bm{x})$ the $q \times q$ covariance matrix.
+%
+For a second order random field $(Z_{\spatloc})_{\spatloc \in \domain}$ with mean $\mu$ and matrix covariance function $K$, $\mu$ is naturally extended to $\domain \in \lbrace 1, ..., \no\rbrace$ into a function of $x=(\spatloc, \ell)$ and is further straightforwardly vectorized into a function of $\bm{x}$. As for $K$, it induces a covariance kernel $k$ on the set of extended locations via  $k((\spatloc, \ell),(\spatloc', \ell'))=K(\spatloc, \spatloc')_{\ell, \ell'}$. In vectorized/batch form, $k(\bm{x}, \bm{x}')$ then amounts to a matrix with numbers of lines and columns the numbers of generalized locations in the batches $\bm{x}$ in $\bm{x}'$, respectively. Such vectorized quantities will turn out to be quite useful in order to arrive at embarrassingly simple expressions for co-Kriging equations below.  
+%\textcolor{red}{(ADDENDUM, C.T.) In the same fashion, we will use $\mu(\bm{x})$ to denote the $q$-dimensional vector corresponding to the mean at $\bm{x}$ and $k(\bm{x}, \bm{x})$ for the corresponding $q \times q$ covariance matrix.}
 
-Given a random field $\gp$ and (noisy) observations of some of its components at selected points in the domain, one can predict the value of the field at location $\spatloc\in \domain$ by using the conditional mean of $\gp[\spatloc]$ and the associated covariance . This process is called co-Kriging.% , and kriging equations precisely tell us how to compute conditional means and covariances conditional on an arbitrary dataset.
-We present a general form of cokriging, where observations at locations $s \in \domain$ may only include a subset of the components of $\gp[\spatloc]\in\mathbb{R}^{\no}$ 
+%\medskip
+
+Now given a GRF $\gp$ and observations of some of its components at some points in the domain, one can predict the value of the field at some unobserved location $\spatloc\in \domain$ by using the conditional mean of $\gp[\spatloc]$, conditional on the data. This coincides with the method called (co-)kriging, and (co-)kriging equations precisely tell us how to compute conditional means and covariances conditional on an arbitrary dataset.
+We will here present a rather general form of cokriging, in the sense that it allows including several observations (batch) at a time and 
+observations at a given location $u \in \domain$ may only include a subset of the components of $\gp[\spatloc]\in\mathbb{R}^{\no}$ 
 (heterotopic).
 
-
-Assuming that one wishes 
-to predict $\gp[\bm{x}]$ at $q\geq 1$ generalized locations $\bm{x}=(\bm{\spatloc}, \bm{\ell})$, 
-given $n$ batched of observations $\mathbf{z}_{[n]}$ at $\sum_{i=1}^n q_i$ generalized locations $\bm{x}_{[n]}=(\bm{x}_1,\dots, \bm{x}_n)$.
-The co-Kriging mean then amounts to simple kriging with respect to a scalar-valued GRF indexed by $\domain \times \{1\dots,p\}$: % and with covariance kernel $k(\bm{x}, \bm{x}')=K(\bm{\spatloc}, \bm{\spatloc}')_{\ell, \ell'}$, that is:
+Assuming that $n$ batches of observations are available, with respective sizes $q_1,\dots, q_n$, and that one wishes 
+to predict $\gp[\bm{x}]$ for some batch of $q\geq 1$ generalized locations $\bm{x}$, %\equiv(\bm{\spatloc}, \bm{\ell})$, 
+the (simple) cokriging mean then amounts to kriging with respect to a scalar-valued GRF indexed by 
+$\domain\times \{1\dots,p\}$:  
 %
 \begin{equation}\label{eq:cokrig_mean}
 \mu_{[n]}(\bm{x})=\mu(\bm{x})+\lambda_{[n]}(\bm{x})^T (\mathbf{z}_{[n]}-\mu(\bm{x})),
 \end{equation}
-%where $\mathbf{z}_{[n]}$ stands for the ($\sum_{i=1}^n q_i$)-dimensional vector of observed responses of $Z$ at all considered generalized locations, and 
-where $\lambda_{[n]}(\bm{x})=\left[ k(\bm{x}_{[n]}, \bm{x}_{[n]}) + R(\bm{x}_{[n]}, \bm{x}_{[n]}) \right]^{-1} k(\bm{x}_{[n]}, \bm{x})$ is a vector of weights and matrix $R(\bm{x}_{[n]}, \bm{x}_{[n]})$ holds the observation noise covariance at the generalized locations. 
-%$k(\bm{x}_{[n]}, \bm{x}_{[n]})$ being assumed non-singular throughout the presentation. 
-The associated co-kriging %(conditional) 
-residual cross-covariance function can be expressed in the same vein via
+where $\mu$ is $Z$'s initial mean function, $\mathbf{z}_{[n]}$ stands for the ($\sum_{i=1}^n q_i$)-dimensional vector of observed (noisy) responses of $Z$ at all considered generalized locations, and $\lambda_{[n]}(\bm{x})$ is a vector of weights
+equal to $\widetilde{\bm{K}_{[0,n]}}^{-1} k(\bm{x}_{[n]}, \bm{x})$ with $\bm{x}_{[n]}=(\bm{x}_1,\dots, \bm{x}_n)$ and $\widetilde{\bm{K}_{[0,n]}}=k(\bm{x}_{[n]}, \bm{x}_{[n]})+\Delta_{[n]}$, assumed non-singular throughout the presentation, where $\Delta_{[n]}$ stands for the covariance matrix of Gaussian-distributed noise assumed to have affected measurements up to batch $n$. The co-kriging %(conditional) 
+residual (cross-)covariance function (with respect to batches of generalized locations) can also be expressed in the same vein via
 %
 \begin{equation}\label{eq:cokrig_cov}
-k_{[n]}(\bm{x},\bm{x}')=k(\bm{x},\bm{x}')-\lambda_{[n]}(\bm{x})^T \left[ k(\bm{x}_{[n]}, \bm{x}_{[n]}) + R(\bm{x}_{[n]}, \bm{x}_{[n]}) \right] \lambda_{{[n]}}(\bm{x}').
+k_{[n]}(\bm{x},\bm{x}')=k(\bm{x},\bm{x}')-\lambda_{[n]}(\bm{x})^T \widetilde{\bm{K}_{[0,n]}} \lambda_{{[n]}}(\bm{x}').
 \end{equation}
 
 %\subsubsection{Co-kriging update formulae}
 
-In our case it is important to update the GRF model efficiently onboard the vehicle after every batch of obervations. Our setting is like that of a spatial Kalman filter with static model parameters, and we provide the co-Kriging equations for this case. Because of our representation of co-kriging in terms of simple kriging with respect to generalized locations, the formulae is a straightforward adaptation of the batch-sequential Kriging update formulae from \cite{Chevalier.etal2013a}. The formulae are instrumental in deriving semi-analytical results for stepwise expected uncertainty reduction criteria for vector-valued random fields in the subsequent sections.
-
-Given the observations from $n$ batches, one wishes to update the prediction by incorporating a new vector of observations $\mathbf{z}_{n+1}$ measured at a batch of $q_{n+1} \geq 1$ generalized locations $\bm{x}_{n+1}$. The mean update formulae is
+Let us now consider the case where co-kriging prediction of $Z$ was made with respect to $n$ batches $\bm{x}_i$ of generalized locations, concatenated again within
+$\bm{x}_{[n]}=(\bm{x}_1,\dots, \bm{x}_n)$, and one wishes to update the prediction by incorporating a new vector of observations $\mathbf{z}_{n+1}$ measured at a batch of $q_{n+1} \geq 1$ generalized locations $\bm{x}_{n+1}$.
 %It turns out that the concept of \textit{generalized location} makes the kriging formulae form-invariant across all dimensions. This allows us to directly adapt the 
-% delivers that
+Thanks to our representation of co-kriging in terms of simple kriging with respect to generalized locations, a strightforward adaptation of the batch-sequential kriging update formulae from \citep{Chevalier.etal2013a} delivers that
 % 
 \begin{equation}\label{eq:meanCoK}
 \mu_{[n+1]}(\bm{x})=\mu_{[n]}(\bm{x})+\lambda_{[n+1,n+1]}(\bm{x})^T (\mathbf{z}_{n+1}-\mu(\bm{x}_{n+1})),
 \end{equation}
 where $\lambda_{[n+1,n+1]}(\bm{x})$ denotes the $q_{n+1}$-dimensional sub-vector extracted from
-$\lambda_{[n+1]}(\bm{x})$ that corresponds to the Kriging weigths associated with the last $q_{n+1}$ responses when 
+$\lambda_{[n+1]}(\bm{x})$ that corresponds to the kriging weigths associated with the last $q_{n+1}$ responses when 
 predicting at $\bm{x}$ relying on all measurements until batch $(n+1)$.
 %\text{th}$ batch.
 %, i.e. those from the $(n+1)\text{th}$ batch of measurements conducted at $\bm{x}_{n+1}$.
-The updated co-Kriging residual cross-covariance function is
-\begin{eqnarray}\label{eq:varCoK}
-k_{[n+1]}(\bm{x},\bm{x}') &=& k_{[n]}(\bm{x},\bm{x}') -c(\bm{x},\bm{x}',\bm{x}_{[n]}), \\
-c(\bm{x},\bm{x}',\bm{x}_{[n]})&=&\lambda_{[n+1,n+1]}(\bm{x})^T \left[k_{[n]}(\bm{x}_{[n]}, \bm{x}_{[n]})+R(\bm{x}_{[n]}, \bm{x}_{[n]}) \right] \lambda_{{[n+1,n+1]}}(\bm{x}'). \nonumber
-\end{eqnarray}
+Similarly, the updated co-kriging residual (cross-)covariance function then writes
+\begin{equation}\label{eq:varCoK}
+k_{[n+1]}(\bm{x},\bm{x}')=k_{[n]}(\bm{x},\bm{x}')-\lambda_{[n+1,n+1]}(\bm{x})^T 
+\widetilde{\bm{K}_{[n,n+1]}}
+%k_{[n]}(\bm{x}_{[n]}, \bm{x}_{[n]})
+\lambda_{{[n+1,n+1]}}(\bm{x}'),
+\end{equation}
 %\medskip
 %
-We remark that, as noted in \cite{Chevalier2015} in the case of scalar-valued fields, these update formulae naturally 
-extend to Universal Kriging in second-order settings and apply without Gaussian assumption. 
+where $\widetilde{\bm{K}_{[n,n+1]}}=k_{[n]}(\bm{x}_{n+1}, \bm{x}_{n+1})+\Delta_{n+1}$.
+Let us remark that, as noted in \citep{Chevalier2015} in the case of scalar-valued fields, these update formulae naturally 
+extend to Universal Kriging in second-order settings and apply without Gaussian assumption. We will now see how the latter formulae are instrumental in deriving semi-analytical formulae for stepwise uncertainty reduction criteria for 
+vector-valued random fields.
 
 
 
@@ -587,7 +635,7 @@ denote the expected IBV under the current law of the field, conditioned on obser
 \begin{equation}\label{def:eibv}
     \currentEIBV(\bm{x}):=\mathbb{E}_{\stage}\left[\mbox{IBV}(\bm{x}; \bm{Y})\right]
 \end{equation}
-where $\bm{Y}$ is distributed according to the current law of $Z_{\bm{x}}$ and with independent noise having covariance matrix $R(\bm{x},\bm{x})$.
+where $\bm{Y}$ is distributed according to the current law of $Z_{\bm{x}}$ and with independent noise having covariance matrix $\Delta_n$.
 
 We next present a result that allows efficient computation of $\EIBV$ as an integral of CDFs of multivariate gaussians. This will prove useful when designing sequential expected uncertainty reduction strategies.
 
@@ -628,8 +676,6 @@ where the matrix $\mathbf{\Sigma}_{[n]}(\uu)$ is defined as
 \end{equation*}
 \end{propo}
 
-{\bf{Jo: Could we get the noise covariance $R$ in here? }}
-
 As for the expected EMV, a similar result may be derived.
 \begin{propo}
 \label{propo_emv}
@@ -666,29 +712,29 @@ We remark that
 Propositions \ref{propo_eibv} and \ref{propo_emv} are twofold generalizations of  results from \cite{chevalier2014fast}: they extend previous results to the multivariate setting and also allow for the inclusion of batch or heterotopic observations through the concept of generalized locations. 
 A key element for the understanding of the propositions is that the conditional co-Kriging means entering in the EPs depend linearly on (batch) observations. The conditional equality expressions thus become linear combinations of Gaussian variables whose mean and covariance are easily calculated. 
 Related closed-form solutions have been noted in similar contexts \citep{bhattacharjya2013value,stroh}, but not generalized to our situation with
-random sets for vector-valued GPs.
+random sets for vector-valued GRFs.
 
-\subsection{EBV for a bivariate example}
+
+\subsection{Expected Bernoulli Variance on a two dimensional Example}
 \label{Sec:UnivarEx}
-We illustrate the EBV associated with different designs on a simple bivariate example that mimics our river plume application. The first and second component of the random field are \textit{temperature} and \textit{salinity}. Effects of the hyperparameters of the GRF prior on the excursion probabilities will also be studied. For simplicity, we begin with a \textit{single-location} example, considering a bivariate Gaussian distribution without any spatial elements.
+
+We illustrate the EBV associated to different designs on a simple bivariate example. The example mimics our river plume application and hence the first and second component of the random field will be called \textit{temperature} and \textit{salinity} for illustrative purpose. Effects of the hyperparameters of the GRF prior on the excursion probabilities will also be studied. For simplicity, we begin with a \textit{pointwise} example, considering a single bivariate gaussian distribution (no spatiality).
 
 \subsubsection{A pointwise study}
-For this bivariate Gaussian, the ES is defined as
-\[
-\Gamma := \lbrace \spatloc \in \domain: Z_{\spatloc, 1} \geq t_1, Z_{\spatloc, 2}\geq t_2\rbrace
-\]
-with thresholds set equal to the mean; $\mu_1=t_1=5^o C$ for temperature and  $\mu_2=t_2=30$ mg/l for salinity. We play with the temperature and salinity correlation and variances to study the effect on the EP and EBV.
+
+
+Say we want to study the excursion probability of a bivariate gaussian above some thresholds, where the thresholds are set equal to the mean; $\mu_1=t_1=5^o C$ for temperature and  $\mu_2=t_2=30$ g/kg for salinity, and we play with the temperature and salinity correlation and variances to study the effect on the EP and expected Bernoulli variance.
 
 % To BE COMMENTED (TEMPORARILY?)
 Fig. \ref{illus_bivarDens} shows contour plots of three different
 densities with increasing correlation $\gamma$ between temperature and
 salinity. 
 \begin{figure}[h!] \centering
-  \includegraphics[width=0.99\textwidth]{Figures/illus_bivarZ.eps}
+  \includegraphics[width=0.99\textwidth]{Figures/illus_bivar.eps}
   \caption{Density contour plots with different correlations between
     temperature and salinity. The densities have unit variance and the
     thresholds are identical to the mean values $5^o C$ and
-    $30 mg/l$. X-axis is temperature and y-axis is salinity.}
+    $30$ g/kg.}
 \label{illus_bivarDens}
 \end{figure}
 The displayed densities have unit standard deviations for both
@@ -699,7 +745,8 @@ standard deviations.
 Table \ref{tab:sim_rhoab} shows the initial EPs and the associated
 Bernoulli variance (second row) for the examples indicated in Fig.
 \ref{illus_bivarDens}. The EPs increase with the correlation as there
-is a strong tendency to have concurrently low temperature and salinity. Note that EPs and Bernoulli variances are the same for standard
+is a strong tendency to have concurrently low temperature and salinity. The Bernoulli variance is similarly large for high
+correlations. EPs and Bernoulli variances are the same for standard
 deviation $1$ or $2$, which implies that high variability in
 temperature and salinity is not captured in the $p(1-p)$ expression.
 
@@ -714,45 +761,50 @@ Correlation $\gamma$ & 0.2 & 0.6 & 0.8 & 0.2 & 0.6 & 0.8 \\
 \hline
 $p$ & 0.28 & 0.35 & 0.40 & 0.28 & 0.35 & 0.40 \\ 
 $p(1-p)$ & 0.20 & 0.23 & 0.24 & 0.20 & 0.23 & 0.24 \\ 
-EBV, Temp and Salinity data & 0.092 & 0.089 & 0.085 & 0.052 & 0.051 & 0.049 \\ 
-EBV, Temperature data only & 0.151 & 0.138 & 0.123 & 0.137 & 0.114 & 0.093 \\ 
+EIBV, Temp and Salinity data & 0.092 & 0.089 & 0.085 & 0.052 & 0.051 & 0.049 \\ 
+EIBV, Temperature data only & 0.151 & 0.138 & 0.123 & 0.137 & 0.114 & 0.093 \\ 
 \hline
 \end{tabular}
 \label{tab:sim_rhoab}
 \end{table}
 
-Table \ref{tab:sim_rhoab} (bottom two rows) shows results of EBV calculations. This is presented for a design
+Table \ref{tab:sim_rhoab} (bottom two rows) shows results of expected
+Bernoulli variance calculations. This is presented for a design
 gathering both data types, and for a design with temperature
 measurements alone. When both data are gathered, the measurement model is
-$(Y_{d,1},Y_{d,2})^t=(Z_1,Z_2)^t+\bepsilon$, with $\bepsilon \sim N(0,0.5^2I_2)$, while $Y_d=Z_1+\epsilon$, $\epsilon \sim N(0,0.5^2)$ when only temperature is measured.
+$(Y_1,Y_2)^t=(Z_1,Z_2)^t+\bepsilon$, with $\bepsilon \sim N(0,0.5^2I_2)$, while $Y_1=Z_1+\epsilon$, $\epsilon \sim N(0,0.5^2)$ when only temperature is measured.
 For this illustration, Table \ref{tab:sim_rhoab} shows that the
-EBV gets lower with larger standard deviations
-$\sigma_1$ and $\sigma_2$ (right columns). The expected reduction of Bernoulli
+expected Bernoulli variance gets lower with larger standard deviations
+$\sigma_1$ and $\sigma_2$ (right columns). The reduction of Bernoulli
 variance is largest for the cases with high correlation
 $\gamma$. Albeit smaller, there is also uncertainty reduction when
 only temperature is measured (bottom row), especially when temperature
 and salinity are highly correlated. When correlation is low
 ($\gamma=0.2$), there is little information about salinity in the
-temperature data, and therefore less uncertainty reduction. 
+temperature data, and therefore less uncertainty reduction. In an
+application with fresh cold water from a river source, the temperature
+and salinity variables will not only be interdependent, but will also
+likely show dependence in the spatial dimension. This in turn will
+impact the design criteria when we evaluate the information measure by
+integrating over several locations (Section \ref{sec:simulations}).
 
-\subsubsection{Including Spatial elements}
-We extend this example to a full-fledged GRF model. 
-The class of GRF model we will consider in the article will generally have a linear trend
+\subsubsection{Including Spatiality}
+We now turn to an example involving a full-fledged gaussian random field (GRF). The class of GRF model we will consider in the article will generally have a linear trend
 \begin{align*}
 \mu(s)=\mathbb{E}\left[\begin{pmatrix}
-Z_{s, 1}\\ Z_{s, 2}
-\end{pmatrix}\right] &= \beta_0 + \beta_1 s
+Z_{\spatloc, 1}\\ Z_{\spatloc, 2}
+\end{pmatrix}\right] &= \beta_0 + \beta_1 \spatloc
 \end{align*}
-with $\beta_0$ a two dimensional vector and $\beta_1$ a $2\times 2$ matrix. We will only consider covariance models of separable type
+with $\beta_0$ a two dimensional vector and $\beta_1$ a $2\times 2$ matrix. In our examples, we will only consider covariance models of separable type
 \begin{align*}
-\textrm{Cov}\left(Z_{s, i}, Z_{u, j}\right) &= k(s, u) \gamma(i, j),~ \gamma(i, j) = \begin{cases} \sigma_i^2,~ i=j\\
-   \gamma_0 \sigma_i \sigma_j,~i\neq j,
+\textrm{Cov}\left(Z_{\spatloc, i}, Z_{v, j}\right) &= k(\spatloc, v) \gamma(i, j),~ \gamma(i, j) = \begin{cases} \sigma_l^2,~ i=j\\
+   \gamma_0 \sigma_i \sigma_j,~i\neq j
         \end{cases}
 \end{align*}
-where $k(., .)$ is specified as a Mat\'{e}rn covariance kernel in the spatial domain, i.e. $(1+\phi h) \exp(-\phi h)$ where $h$ is the Euclidean distance between locations $u$ and $u'$, and $\gamma$ defines the cross-covariance structure. In the accompanying Python code ({\bf{give URL here, or only in bullet point list in Introduction}}, these modeling assumptions can be
-generalized to anisotropic covariance and changing variance levels
-across the spatial domain. One can hence, easily run the code to see
-if different models result in other sampling designs. Anisotropy and
+where $k(., .)$ is one of the traditional spatial covariance kernel (exponential, Mat\'{e}rn, ...) and $\gamma$ defines the cross-covariance structure.
+
+In the accompanying Python examples taking place within the MESLAS toolbox (URL), these modeling assumptions can be
+generalized to anisotropic covariance and changing variance levels across the spatial domain. Anisotropy and
 non-stationary variance are both relevant for the setting with river
 plumes, but in practice this requires more parameters to be
 specified. With extensive data and prior knowledge, one could also
@@ -770,31 +822,32 @@ In the rest of this section, we will consider a GRF with mean and covariance str
 0.0 & -3.8
 \end{pmatrix},~ \sigma_1 = \sigma_2 = 2.25, ~ \gamma_0 = 0.2
 \end{align*}
-and the spatial covariance is given by a Mat\'{e}rn 3/2 kernel with unit variance and range parameter $\phi=0.5$. {\bf{Jo: Is this the decay parameter in formulae above, or are you trying to calculate some kind of effective spatial range?}}
+and the spatial covariance is given by a Mat\'{e}rn 3/2 kernel with unit variance and range parameter $\lambda=0.5$.
 One realization of this GRF is shown in Fig. \ref{example_excu}.
 
-We now study how the EBV associated with data collection at a point changes if only one of the two components of the field is observed. We first draw a realization of the GRF defined above and use it as ground-truth to mimic the real data-collection process. A first data collection step is performed at the location in green, and the data is used to update the GRF model. The EBV reduction (at each grid point) that would result from observing only one component, or both at the next grid point upwards is then computed an shown in Fig.\ref{fig:ebv_comp}.
+We now study how the expected Bernoulli variance eq.\eqref{def:eibv} associated to data collection at a point changes if only one of the two components of the field is observed. We first draw a realization of the GRF defined above and use it as ground-truth to mimick the real data-collection process. A first bunch of observations are done at the locations depicted in grey, and the data is used to update the GRF model. We then consider the green triangle as a potential next observation locations and plot the expected Bernoulli variance reduction (at each grid point) that would result from observing only one component of the field (temperature or salinity), or both at that point, see Fig.\ref{fig:ebv_comp}.
 
 \begin{figure}[h!] \centering
   \includegraphics[width=0.99\textwidth]{Figures/ebv_comp_2.png}
-  \caption{Pointwise Bernoulli variance reduction for observation of a single or both components of the random field at one location. Data collection locations in green. {\bf{Jo: left display not explained.}} Places where only one response is above threshold are depicted in pink}
+  \caption{Pointwise Bernoulli variance reduction for observation of a single or both components of the random field at one location. Data collection locations in green. True excursion set in red. Places where only one response is above threshold are depicted in pink}
 \label{fig:ebv_comp}
 \end{figure}
 
-Note that plotting the Bernoulli variance reduction at each point might also be used to compare different pre-scripted data collection plans. For example, Fig. \ref{fig:ebv_comp} shows the EBV reduction associated to a data collection plan along a straight upwards line (static north) and the one associated to a straight horizontal line (static east). Such calculations for pre-planned surveys are done in just a single batch.
+Note that plotting the Bernoulli variance reduction at each point might also be used to compare different data collection plans. For example, Fig. \ref{fig:ebv_north_vs_east} shows the expected Bernoulli variance reduction associated to a data collection plan along a straight upwards line (static north) and the one associated to a straight horizontal line (static east). Both expectations are computed according to the a priori distribution of the GRF (i.e. no observations have been included yet).
 
 \begin{figure}[h!] \centering
   \includegraphics[width=0.99\textwidth]{Figures/ebv_north_vs_east_2.png}
-  \caption{Pointwise Bernoulli variance reduction for two different observation plans. Data collection locations in green. True ES is in red (left). Places where only one response is above threshold are depicted in pink. {\bf{Jo: is the left display wrong?}}}
+  \caption{Pointwise Bernoulli variance reduction for two different observation plans. Data collection locations in green. True excursion set is in red. Places where only one response is above threshold are depicted in pink.}
 \label{fig:ebv_north_vs_east}
 \end{figure}
 
-In all examples, the spatial domain $\domain$ is discretized to a set of $N$ grid
+%\begin{remark}
+In all the computed examples, the spatial domain $\domain$ has been discretized to a set of $N$ grid
 locations $\mathcal{M}_g = \{\x_i, i=1,\ldots,N \}$, where each cell
-has area $\Delta$; the same grid as used for the waypoint graph for
+has area $\delta$; the same grid is used for the waypoint graph for
 possible design locations. The EIBV is approximated by sums over all
 grid cells.
-
+%\end{remark}
 
 
 \section{Sequential designs and heuristic path planning}\label{sec:heuristics}
@@ -1042,12 +1095,8 @@ eastern shore as noted in Fig. \ref{fig:nidelven}.
 The statistical model parameters were specified based on a short
 preliminary survey where the AUV made an initial transect to determine
 the trends in environmental conditions and correlation
-structures. Based on the initial data, the trend parameters were
-estimated by linear regression, where both temperature and salinity
-are assumed to increase linearly, going west from the river
-mouth. Next, the residuals from the regression analysis were analyzed
-to study the fit of the GP model and to specify the covariance
-parameters.
+structures. Based on the initial data, the mean was specified by linear regression, where both temperature and salinity
+were assumed to increase with the west location. Next, the residuals from the regression analysis were analyzed to specify the covariance parameters of the GRF model.
 
 %\begin{figure}[!h] 
 % \centering 
@@ -1081,23 +1130,20 @@ Fig. \ref{fig:parest} summarizes diagnostic plots of this
 analysis. Fig. \ref{fig:parest_a} shows a cross-plot of temperature
 and salinity residuals after the westerly trends in both salinity and
 temperature are subtracted from the data. This scatter-plot of joint
-residuals indicates larger variability in salinity than in
+residuals indicates larger variability in salinity than
 temperature, and a positive correlation ($0.5$) between the two
 variables. Based on the fitted bivariate Gaussian model (ellipses in
 Fig. \ref{fig:parest_a}), we can compute the modeled quadratic form of
 the residuals, and if the model is adequate they should be
 approximately $\chi^2_2$ distributed. Fig. \ref{fig:parest_b} shows
-the empirical cumulative distribution function (CDF) of these
+the empirical CDF of these
 quadratic forms (solid) together with the theoretical CDF of the
 $\chi^2_2$ distribution. The modeled and theoretical curves are very
 similar, which indicates that the Gaussian model fits reasonably
-well. Even though there appears to be some clustering in both
-Fig. \ref{fig:parest_a} and \ref{fig:parest_b}, the bivariate
-diagnostic plots look reasonable and justify a Gaussian
-model. Fig. \ref{fig:parest_c} shows the empirical variogram of the
+well. Fig. \ref{fig:parest_c} shows the empirical variogram of the
 scaled residuals for temperature and salinity. The decay is similar
 for the two, and seems to be negligible after about $150$ m.
-
+The working assumption of a separable covariance function is hence not unreasonable.
 
 Based on the analysis in Fig. \ref{fig:parest}, the resulting
 parameters are given in Table \ref{tab:experiment_param}. The
@@ -1106,8 +1152,7 @@ west boundaries of the domain as seen in the preliminary transect
 data, and the thresholds are intermediate values. These parameter
 values were then used in field trials where we explored the
 algorithm's ability to characterize the river plume front separating
-the river and fjord water masses, providing a spatial map of this
-boundary.
+the river and fjord water masses.
 
 %Mapping the spatial extent of a frontal zones is an important problem for studying many bio-physical interactions in the ocean. The frontal zone is determined by the boundary where plumes of sediments, nutrients, and possibly pollutants spreading from the river outlet meet and interact with adjacent coastal water. Due to the lower density the plumes spread on the surface, creating a front with an sharp gradient in both temperature and salinity. 
 
@@ -1118,56 +1163,44 @@ boundary.
 Parameter & Value & Source\\
 \midrule
 \rowcolor{Gray}
-Cross correlation temp. and sal. & 0.5 & AUV observations\\
-Temp. variance &  0.20 & AUV observations (variogram)\\
+Cross correlation temperature and salinity & 0.5 & AUV observations\\
+Temperature variance &  0.20 & AUV observations (variogram)\\
 \rowcolor{Gray}
-Sal. variance &  5.76 & AUV observations (variogram)\\
-Corr. range  & 0.15 km & AUV observations (variogram)\\
+Salinity variance &  5.76 & AUV observations (variogram)\\
+Correlation range  & 0.15 km & AUV observations (variogram)\\
 \rowcolor{Gray}
-River temp. $T_{river}$ & $10.0\,^{\circ}\mathrm{C}$ & AUV observations\\
-Ocean temp. $T_{ocean}$ & $11.0\,^{\circ}\mathrm{C}$ & AUV observations\\
+River temperature  & $10.0\,^{\circ}\mathrm{C}$ & AUV observations\\
+Ocean temperature $T_{ocean}$ & $11.0\,^{\circ}\mathrm{C}$ & AUV observations\\
 \rowcolor{Gray}
-River sal. $S_{river}$ & $14.0$ g/kg & AUV observations\\
-Ocean sal. $S_{ocean}$ & $22.0$ g/kg & AUV observations\\
+River salinity $S_{river}$ & $14.0$ g/kg & AUV observations\\
+Ocean salinity $S_{ocean}$ & $22.0$ g/kg & AUV observations\\
 \rowcolor{Gray}
-Threshold temp. & $10.5\,^{\circ}\mathrm{C}$ & $(T_{ocean}-T_{river})/2+T_{river}$\\
-Threshold sal. & $18.0$ g/kg & $(S_{ocean}-S_{river})/2+S_{river}$\\
+Threshold in temperature & $10.5\,^{\circ}\mathrm{C}$ & User specified \\
+Threshold in salinity & $18.0$ g/kg & User specified \\
 \rowcolor{Gray}
 \bottomrule
 \end{tabular}
 \caption{Model and threshold parameters from an initial AUV
   survey. Observations were taken across the front while crossing from
-  fresh, cold river water to saline and warmer ocean waters. \kc{Might
-  be good to expand the terms and not have abbreviations in the table
-  above; there's plenty of space.}}
+  fresh, cold river water to saline and warmer ocean waters.}
 \label{tab:experiment_param}
 \end{table}
 
 
 \subsection{Experimental Setup}
 
-The sampling locations were distributed over an equilateral grid, as
-shown in the grey-colored lattice in Fig. \ref{fig:map}. The robotic
-platform consisted of a Light AUV \citep{sousa2012lauv}
+A Light AUV \citep{sousa2012lauv}
 (Fig. \ref{fig:lauv}) equipped with a 16 Hz Seabird Fastcat-49
-conductivity, temperature, and depth (CTD) sensor providing
-temperature and salinity
-measurements. %The accuracy of the CTD instrument is $\pm 0.0003$ S/m (conductivity) and $\pm0.002\,^{\circ}\mathrm{C}$ (temperature).
-The sampling agent was built on top of the autonomous agent framework
-Teleo-Reactive EXecutive (\textit{T-REX})
-\citep{py10,Rajan12,Rajan12b}, running an instance of the
-\textit{myopic} strategy from Section \ref{sec:myopic} to 
-control the
-AUV and decide between sampling locations.
+conductivity, temperature, and depth (CTD) sensor was used to provide
+salinity and temperature measurements. We assume that the measurements are conditionally independent because the salinity is extracted from the conductivity instrument which is different from the temperature instrument. We specify variance $0.25^2$ for both errors, which is based on a middle ground between the nugget effect in the empirical variogram and the sensor specifications.
 
-\textcolor{blue}{TO BE MERGED WITH THE PARA ABOVE? The AUVs considered here are powered untethered platforms, that
-operate at $1$-$3$ m/s in the upper water column, where they are free
-to move in six degrees of freedom (6 DOF). The in-water operation time
-capability depends on survey speed, payload sensors and navigation;
-typically this amounts to 8-48 hrs. AUVs typically use single-board
-computers (SBCs), like the Raspberry Pi or a multicore GPU NVIDIA
+The AUV is a powered untethered platform that
+operates at $1$-$3$ m/s in the upper water column. The AUV uses a multicore GPU NVIDIA
 Jetson TX1 (quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared
-cache, and 4 GB of 1600 MHz DRAM) for computation onboard.}
+cache, and 4 GB of 1600 MHz DRAM) for computation onboard.
+The sampling algorithm was built on top of the autonomous agent framework
+Teleo-Reactive EXecutive (\textit{T-REX})
+\citep{py10,Rajan12,Rajan12b}.
 
 \begin{figure}[!h] 
 \centering 
@@ -1178,24 +1211,17 @@ cache, and 4 GB of 1600 MHz DRAM) for computation onboard.}
 \label{fig:lauv}
 \end{figure} 
 
-The sampling strategy was designed around the concept of visiting
-waypoints sequentially. Arriving at a desired waypoint with new
-measurements and an updated model, the AUV triggers the myopic
-strategy to evaluate the different design criteria (see
-Eq. \eqref{critSEQ}). The waypoint-and-path combination that is
-expected to reduce the IBV the most is selected, and upon arrival this
-procedure is then repeated. At each stage, it takes the AUV about 30
-seconds to evaluate the EIBV for all the possible waypoint-and-path
+The AUV was running a
+\textit{myopic} strategy to decide between sampling locations on the waypoint graph distributed over an equilateral grid, as shown in the grey-colored lattice in Fig. \ref{fig:map}. 
+At each stage, it takes the AUV about 30
+seconds to evaluate the EIBV for all the possible waypoint
 alternatives.
-
 The AUV was set to start in the south-center part of the waypoint
-graph, with the previously outlined GP model of the environment
-(Section \ref{sec:exp_modeling}). A survey was set to take
+graph. A survey was set to take
 approximately 40 minutes, visiting 15 waypoints on the grid, with the
 AUV running near the surface to capture the plume. On its path from
-one waypoint to the next, the AUV gathered data regularly, and the GP
-model assimilated temperature and salinity data with an update
-frequency of 30 seconds, giving about three updates per stage.
+one waypoint to the next, the AUV collected data with an update
+frequency of 30 seconds, giving three measurements per batch in the updates at each stage. 
 
 \begin{figure*}[!h]
 \centering
@@ -1219,16 +1245,13 @@ frequency of 30 seconds, giving about three updates per stage.
   collected salinity data overlaid on the final EP, which indicate the
   AUVs statistical impression of the front. For both missions the
   temperature and salinity data correspond with an indication of the
-  EP front. \kc{Might want to indicate when the surveys (dates) were
-    conducted so people can understand the variability in the EP with
-    respect to time.}}
+  EP front. About 2 hours time separated the two runs.}
 \label{fig:results}
 \end{figure*}
 
 \subsection{Results}
 
-Two surveys missions (1 and 2), were run successively from 11:00 AM to
-01:00 PM, with a short break in between. The resulting path of the
+Two survey missions (1 and 2), were run successively, with a short break in between. The resulting path of the
 selected waypoints are shown in the map in Fig. \ref{fig:map}, both
 within the expected frontal region (shaded pink). The recorded
 temperatures are shown as colored trails in Fig. \ref{fig:res_both},
@@ -1249,20 +1272,11 @@ conditional EPs in Fig. \ref{fig:res1} and \ref{fig:res2} as dashed
 lines, correspond with one another. In both surveys they yield a
 picture of the front being to the west in the southern portions of the
 region and gradually bending off toward the north east. The amount of
-exploration done by Survey 1 is greater than Survey 2. In Survey 1,
-the AUV obtained more detail by going north from waypoint 5, while
-Survey 2, coming close to the survey area borders in the south-western
-corner, obtained a poorer understanding of the northern parts. A
-look-ahead strategy might identify and discourage such choices.
+exploration done by Survey 1 which turned north is greater than Survey 2 which was coming close to the survey area borders in the south-western
+corner.
 
-%\begin{figure}[!h] 
-% \centering 
-%\includegraphics[width=0.48\textwidth]{Figures/envir_ocean.pdf}
-%\caption{Ocean observation is moving away from %single-ship sampling
-%towards more collaborative networked operations in %order to resolve
-%the numerous processes and their interaction.} %\label{fig:envir}
-%\end{figure}
-%\newpage
+
+
 \section{Closing remarks}\label{sec:concl_disc}
 
 This work builds on a multidisciplinary effort combining statistical
