@@ -85,7 +85,7 @@ Switzerland.
   spatial characteristics of ocean phenomena. Specifically, we define
   a design criterion based on uncertainty in the excursions of
   vector-valued Gaussian random fields, and derive tractable
-  expressions for the expected Bernoulli variance reduction in such a
+  expressions for the expected integrated Bernoulli variance reduction in such a
   framework. We demonstrate how this criterion can be used to
   prioritize sampling efforts at locations that are ambiguous, making
   exploration more effective. We use simulations to study the
@@ -775,10 +775,10 @@ solutions have been noted in similar contexts
 situation with random sets for vector-valued GRFs.
 
 
-\subsection{Expected Bernoulli Variance on a two dimensional Example}
+\subsection{Expected Bernoulli variance for a two dimensional Example}
 \label{Sec:UnivarEx}
 
-We illustrate the EBV associated with different designs on a simple
+We illustrate the expected Bernoulli variance (EBV) associated with different designs on a simple
 bivariate example. This mimics our river plume application and hence
 the first and second component of the random field will be called
 \textit{temperature} and \textit{salinity}. We begin
@@ -790,7 +790,7 @@ Say we want to study the excursion probability of a bivariate Gaussian
 above some threshold, where the thresholds are set equal to the mean;
 $\mu_1=t_1=5^o C$ for temperature and $\mu_2=t_2=30$ g/kg for
 salinity, and we play with the temperature and salinity correlation
-and variances to study the effect on the EP and expected Bernoulli variance.
+and variances to study the effect on the EP and EBV.
 
 \begin{figure}[!b] 
 \centering
@@ -813,11 +813,11 @@ Bernoulli variance (second row) for the examples indicated in
 Fig.~\ref{illus_bivarDens}. The EPs increase with the correlation as
 there is a strong tendency to have jointly low or high temperature and
 salinity. The Bernoulli variance is similarly larger for high
-correlations. EPs and Bernoulli variances are the same for standard
-deviation $1$ or $2$, which implies that high variability in
+correlations. EPs and Bernoulli variances are the same for temperature and salinity standard
+deviations $\sigma_1$ and $\sigma_2$, which implies that high variability in
 temperature and salinity is not captured in the $p(1-p)$ expression.
 
-\begin{table}[!t] \centering \caption{EP and Bernoulli variance for different correlations and variances (top rows), and expected Bernoulli variances for both temperature and salinity data, and only temperature data (bottom rows).}
+\begin{table}[!t] \centering \caption{EP and Bernoulli variance for different correlations and variances (top rows), and EBVs for both temperature and salinity data, and only temperature data (bottom rows).}
   \begin{tabular}{c|ccc|ccc}
  &\multicolumn{3}{c}{$\sigma_1=\sigma_2=1$} & \multicolumn{3}{c}{$\sigma_1=\sigma_2=2$} \\
 \hline
@@ -832,16 +832,15 @@ EBV, Temperature only & 0.151 & 0.138 & 0.123 & 0.137 & 0.114 & 0.093 \\
 \label{tab:sim_rhoab}
 \end{table}
 The bottom two rows of Table \ref{tab:sim_rhoab} show 
-expected Bernoulli variance results. This is presented for a design gathering
+EBV results. This is presented for a design gathering
 both data types, and for a design with temperature measurements
 alone. When both data are gathered, the measurement model is
 $(Y_1,Y_2)^t=(Z_1,Z_2)^t+\bepsilon$, with
 $\bepsilon \sim N(0,0.5^2I_2)$, while $Y_1=Z_1+\epsilon$,
 $\epsilon \sim N(0,0.5^2)$ when only temperature is measured.  For
 this illustration, Table \ref{tab:sim_rhoab} shows that the expected
-Bernoulli variance gets lower with larger standard deviations
-$\sigma_1$ and $\sigma_2$. The expected reduction of Bernoulli variance is
-largest for the cases with high correlation $\gamma$. Albeit smaller,
+Bernoulli variance gets smaller with larger standard deviations. The expected reduction of Bernoulli variance is
+further largest for the cases with high correlation $\gamma$. Albeit smaller,
 there is also uncertainty reduction when only temperature is measured
 (bottom row), especially when temperature and salinity are highly
 correlated. When correlation is low ($\gamma=0.2$), there is little
@@ -852,12 +851,11 @@ uncertainty reduction.
 
 \subsubsection{Including Spatiality}
 
-We now turn to an example involving a full-fledged gaussian random
-field (GRF). The class of GRF model we consider have a linear trend
+We now turn to an example involving a full-fledged GRF. We consider a linear trend
 \begin{align*}
 \mu(s)=\mathbb{E}\left[\begin{pmatrix}
 Z_{\spatloc, 1}\\ Z_{\spatloc, 2}
-\end{pmatrix}\right] &= \beta_0 + \beta_1 \spatloc
+\end{pmatrix}\right] &= \beta_0 + \beta_1 \spatloc,
 \end{align*}
 with $\beta_0$ a two dimensional vector and $\beta_1$ a $2\times 2$ matrix. In our examples, we only consider separable covariance models;
 \begin{align*}
@@ -865,21 +863,17 @@ with $\beta_0$ a two dimensional vector and $\beta_1$ a $2\times 2$ matrix. In o
    \gamma \sigma_i \sigma_j,~i\neq j,
         \end{cases}
 \end{align*}
-where $k(., .)$ is one of the traditional spatial covariance kernel
-(exponential, Mat\'{e}rn, etc.) and $\gamma$ defines the
-cross-covariance structure. 
+where an isotropic Mat\'{e}rn 3/2 kernel $(1+\eta h)\exp (-\eta h)$ is used, for Euclidean distance $h$.
 In the accompanying Python
 examples taking place within the MESLAS toolbox~\footnote{\url{https://github.com/CedricTravelletti/MESLAS}}, these
 modeling assumptions can however be relaxed to anisotropic covariance and
-changing variance levels across the spatial domain. Anisotropy and
-non-stationary variance are both relevant for the setting with river
-plumes, but in practice this requires more parameters to be
-specified. With extensive satellite data or prior knowledge from high-resolution ocean models, one could also possibly fit more complex multivariate
+changing variance levels across the spatial domain. Both extensions are relevant for the setting with river
+plumes, but in practice this requires more parameters to be specified. With extensive satellite data or prior knowledge from high-resolution ocean models, one could also possibly fit more complex multivariate
 spatial covariance functions
 \citep{gneiting2010matern,genton2015cross}, but that is outside the
 scope of the current paper.
 
-In the rest of this section, we will consider a GRF with mean and
+In the rest of this section, we consider a GRF with mean and
 covariance structure as above and parameters
 \begin{align*}
 \beta_0 = \begin{pmatrix}
@@ -887,20 +881,19 @@ covariance structure as above and parameters
 \end{pmatrix}, ~ \beta_1 = \begin{pmatrix}
 0.0 & -4.0\\
 0.0 & -3.8
-\end{pmatrix},~ \sigma_1 = \sigma_2 = 2.25, ~ \gamma_0 = 0.2
+\end{pmatrix},~ \sigma_1 = 2.5,~ \sigma_2 = 2.25, ~ \gamma = 0.2,
 \end{align*}
-and the spatial covariance has unit variance and a Mat\'{e}rn 3/2 kernel, $(1+\eta h)\exp (-\eta h)$, for Euclidean distance $h$ and decay parameter $\eta=0.5$.
+and kernel parameter $\eta=3.5$.
 One realization of this GRF is shown in Fig.~\ref{example_excu}.
 
-We now study how the expected Bernoulli variance eq.\eqref{def:eibv}
+We now study how the EBV [Eqn.\eqref{def:eibv}]
 associated with data collection at a point changes if only one of the
 two components of the field is observed. We first draw a realization
 of the GRF defined above and use it as ground-truth to mimic the real
 data-collection process. A first set of observations are done at the
 locations depicted in grey (see Fig.~\ref{fig:ebv_comp}), and the data
 is used to update the GRF model. We then consider the green triangle
-as a potential next observation location and plot the expected
-Bernoulli variance reduction (at each grid point/nodes in the the waypoint graph) that would result from observing only one component of the field (temperature or salinity), or both at that point.
+as a potential next observation location and plot the EBV reduction (at each grid node in the waypoint graph) that would result from observing only one component of the field (temperature or salinity), or both at that point.
 
 \begin{figure}[!b] 
 \centering 
@@ -923,11 +916,9 @@ height=0.22\textwidth,keepaspectratio]{Figures/ebv_comp_both.png}\label{fig:ebv_
 
 
 
-Note that plotting the Bernoulli variance reduction at each point
+Note that plotting the EBV reduction at each point
 might also be used to compare different data collection plans. For
-example, Fig. \ref{fig:ebv_north_vs_east} shows the expected Bernoulli
-variance reduction associated with a data collection plan along a
-vertical line (static north) and one associated with a horizontal
+example, Fig. \ref{fig:ebv_north_vs_east} shows the EBV reduction associated with a data collection plan along a vertical line (static north) and one associated with a horizontal
 (static east). Both expectations are computed according to the
 a-priori distribution of the GRF (i.e. no observations have been
 included yet).
@@ -941,7 +932,7 @@ height=0.25\textwidth,keepaspectratio]{Figures/ebv_static_excu.png}\label{fig:eb
 height=0.26\textwidth,keepaspectratio]{Figures/ebv_static_north.png}\label{fig:ebv_static_north}}
 \subfigure[Static east design.]{\includegraphics[
 height=0.26\textwidth,keepaspectratio]{Figures/ebv_static_east.png}\label{fig:ebv_static_east}}
-  \caption{Pointwise Bernoulli variance reduction for two different observation plans. The prior excursion probability is shown in \ref{fig:ebv_static_excu}. EBV reduction for each design shown in \ref{fig:ebv_static_north} and \ref{fig:ebv_static_east}.}
+  \caption{Pointwise Bernoulli variance reduction for two different observation plans. The prior EP is shown in \ref{fig:ebv_static_excu}. EBV reduction for each design shown in \ref{fig:ebv_static_north} and \ref{fig:ebv_static_east}.}
 \label{fig:ebv_north_vs_east}
 \end{figure}
 

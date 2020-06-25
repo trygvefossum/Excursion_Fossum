@@ -28,10 +28,16 @@
 
 % EIBV, IBV and stuff.
 \newcommand{\EIBV}{\operatorname{EIBV}}
-\newcommand{\currentEIBV}{\operatorname{EIBV}_{\stage}}
+\newcommand{\currentEIBV}{\operatorname{EIBV}_{[\stage]}}
 
 \newcommand{\IBV}{\operatorname{IBV}}
-\newcommand{\currentIBV}{\operatorname{IBV}_{\stage}}
+\newcommand{\currentIBV}{\operatorname{IBV}_{[\stage]}}
+
+\newcommand{\EEMVV}{\operatorname{EEMV}}
+\newcommand{\currentEEMV}{\operatorname{EEMV}_{[\stage]}}
+
+\newcommand{\IBV}{\operatorname{EMV}}
+\newcommand{\currentEMV}{\operatorname{EMV}_{[\stage]}}
 
 
 \newtheorem*{criterion}{Criterion}
@@ -121,16 +127,16 @@
 % SEQUENTIAL
 % ----------
 % Probability distribution now (after 1 conditioning).
-\newcommand{\currentProba}[1]{\mathbb{P}_{\stage}
+\newcommand{\currentProba}[1]{\mathbb{P}_{[\stage]}
 \left(#1\right)}
 % Probability distribution in the future (after 2 conditioning).
-\newcommand{\futureProba}[1]{\mathbb{P}_{\stage + 1}
+\newcommand{\futureProba}[1]{\mathbb{P}_{[\stage + 1]}
 \left(#1\right)}
 
 % Same for expectations.
-\newcommand{\currentExp}[1]{\mathbb{E}_{\stage}
+\newcommand{\currentExp}[1]{\mathbb{E}_{[\stage]}
 \left[#1\right]}
-\newcommand{\futureExp}[1]{\mathbb{E}_{\stage + 1}
+\newcommand{\futureExp}[1]{\mathbb{E}_{[\stage + 1]}
 \left[#1\right]}
 
 % For mean vectors.
