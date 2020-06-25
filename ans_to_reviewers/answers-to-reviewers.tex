@@ -155,38 +155,44 @@
 
 \maketitle
 
-We are grateful to the reviewers for their comments and
+We are grateful to the editors and reviewers for their comments and
 suggestions. They have all been considered in this revised
-version of our manuscript. We have worked a lot on developing both theoretical results, computational resources, and on the presentation in the paper. To help us in these efforts, we included Cedric Traveletti as co-author because he has contributed significantly on the revised version of the paper. 
+version of our manuscript. We have worked a lot on developing both theoretical results, computational resources, and on the presentation in the paper. To help us in these efforts, we included Cedric Travelletti as co-author because he has contributed significantly on the revised version of the paper. 
 
 The principal revisions made to the manuscript are as shown in this list, and they are done to address the main comments of Editors and Reviewers:
 
-\begin{itemize}
-\item The motivation for excursion sets (ESs), and in particular that of {\bf{multivariate ESs}}, has been strengthened in this revision. Motivating examples are abundant in medicine where doctors do not solely rely on a single symptom but must see several combined effects before making a diagnosis, for example. Our motivation in the current paper is that temperature and salinity are proxies for more complex biological variables in the ocean, and in several cases they must be jointly high or low for phenomena to occur. For instance, salmon lice larvae are known to depend on relatively high temperature and high salinity to survive. Salmon lice are parasites to salmon, and the bivariate ES for temperature and salinity is hence important to understand for sustainable activities in salmon fisheries.
+\begin{enumerate}
+\item The revision has lead to {\bf{structural changes}} as follows: \\
+    i) previous section 1 and 2 are combined to one introduction which should help the narrative and highlight the main contributions of the work. \\
+    ii) merged the data assimilation part with equations for coKriging to clarify that this work is on multivariate GRFs. \\
+    iii) Split the simulation study in two and used these as to directly motivate the statistical concepts of uncertainty reduction (Sect 2) and adaptive sampling strategies (Sect 3).
 
-In the revised manuscript these aspects are largely rewritten into the Introduction, and partly also in Section 2 on the expected integrated Bernoulli variance (EIBV), and partly in the Case Study ({\bf{TO DO 6 AGAIN}}). These changes address some key comments from AE and Rev. 1 in particular.
+\item The motivation for excursion sets (ESs), and in particular that of {\bf{multivariate ESs}}, has been strengthened in this revision. Motivating examples are abundant in medicine where doctors do not solely rely on a single symptom but must see several combined effects before making a diagnosis, for example. Our motivation in the current paper is that temperature and salinity are proxies for more complex biological variables in the ocean, and in several cases they must be jointly high or low for phenomena to occur. 
+
+In the revised manuscript these aspects are largely rewritten into the Introduction, and partly also in Section 2. \\
+This change addresses comments of the Associate Editor and Rev. 1 in particular.
 
 \item The {\bf{statistical methodological contribution}} have been clarified and improved, including definitions of random sets and ESs, and having more general results than just the EIBV for the bi-variate case of temperature and salinity. The revised version highlights these novel statistical results as a main contribution of the paper. 
-
-Moreover, we emphasize the statistical design problem which is sought solved by AUV with its constraints on navigation and computing resources.
-
+We emphasize the statistical design problem which is sought solved by the AUV with its constraints on navigation and computing resources.
 In this sense, the revised version should provide ample motivation for statisticians, while still maintaining strong links to the application for illustrating concepts.
 
-In the revised manuscript these aspects are largely rewritten in the Introduction, in Sect 2 and 3, and on future work in the Closing remarks. The main body contains the novel statistical results for the expected uncertainty reduction in random sets exemplified by the EIBV, while the Appendix holds the proofs of key results. This change addresses the some comments of Editor, Associate Editor, Rev 1, Rev 2 and Rev 3.
+In the revised manuscript these aspects are largely rewritten in the Introduction, in Section 2 and 3, and on in the Closing remarks. The main body contains the novel statistical results for the expected uncertainty reduction in random sets exemplified by the EIBV, while the Appendix holds the proofs. \\
+This change addresses comments of the Editor, Associate Editor, Rev. 1, Rev. 2 and Rev. 3.
 
-\item We realized that a contribution of the current work is available code for practitioners or statisticians who could try this themselves, or possibly extend it for their own cases. We have hence made a substantial effort in structuring {\bf{computer code for examples}} which are presented on a URL link. (\url{https://cedrictravelletti.github.io/Submarine/} )
+\item We realize that a contribution of the current work is available code for practitioners or statisticians who could try this themselves, or possibly extend it for their own cases. We have hence made a substantial effort in structuring {\bf{computer code for examples}} which are presented on a URL link. (\url{https://cedrictravelletti.github.io/Submarine/} )
  to go with the paper. This open-source python code is also ready to run on more nuanced statistical models (non-stationary and non-isotropic). 
  
-The simulation study section contains pointers to the associated open-source code. This change addresses the comments of Rev 1 and Rev 2 in particular.
+The Introduction section contains pointers to the open-source code. \\
+This change addresses comments of Rev. 1 and Rev. 2 in particular.
 
-\end{itemize}
+\end{enumerate}
 \par \vspace{1em}
 
 
 %======================================================================
 \section*{Editor}
 %======================================================================
-All changes requested from the editor are listed below and answered on a point-by-point basis.
+All comments of the Editor are listed below and answered on a point-by-point basis.
 
 %\begin{answers}
 	
@@ -231,10 +237,7 @@ for whom is this paper important?" The reports have some
 suggestions that may guide you in making the necessary critical 
 revisions along these lines.  
 
-\reply: The comment by you, AE and reviewers made us realize that the initial submission had a motivation which was too applied. We were not selling the paper contributions in early enough, and it was not targeted sufficiently to professional statisticians. In the revised version we motivate more for statisticians. 
- 
-Our actions are to i) rewrite Introduction and Background sections to catch our intended audience and highlight our contributions, ii) restructure the presentation to highlight both statistical contributions as well as the impact such technologies and applied questions could provide for statisticians. 
-(See also comment 1 in the list of main changes above.)
+\reply: Based on the comment by you, AE and reviewers, we have restructured the Introduction and later parts of the paper to be more readable for professional statisticians. While doing so, we still strive to highlight how statistics can learn from new technologies like marine robotics and how robotics can benefit from new statistical developments. 
 
 %\item{2. Novelty:}\label{r3c2}
 \vspace{5mm}
@@ -252,9 +255,7 @@ that others could run for the simulation studies like the authors'
 good code for finding the optimum design. That could lead to a 
 fairly substantial impact of their work."
 
-\reply: We realize that we did not stress the statistical novelty sufficiently in the submitted version. The main statistical novelty is in the closed-form calculation for the design criteria of the expected integrated Bernoulli variance (EIBV) associated with excursion sets (ESs) for multivariate processes. In the revised version this is extended to volumes (going beyond single location). We believe that part of the problem with the initial submission was the organization of these new results in the structure of the paper. This is hence re-structured in the revision.
-
-Our actions are to i) extend the closed-form calculations to a criterion working on ES volume calculations (going beyond single location), ii) restructure the presentation to work directly on $p$-variate random fields and hence generalize the presentation, iii) restructure the closed-form results to be presented in the main body, but with proofs in the new Appendix.
+\reply: We realize that we did not stress the statistical novelty sufficiently in the initial version. The main statistical novelty is closed-form calculations for the design expected integrated Bernoulli variance (EIBV) for multivariate processes. In the revised version has clarified the statistical contributions via re-structured sections. Moreover, we extend the calculations to more general criteria (such as volumes, going beyond single location). The main closed-form results are presented in the main body, but with proofs in the new Appendix.
 
 %\item{3. Assumptions }\label{r3c3}
 \vspace{5mm}
@@ -264,11 +265,9 @@ Referees 1 and 2, as well as the AE, call attention to some of
 the assumptions (e.g., stationary and isotropic random fields),
 and ask you to address how realistic they are.
 
-\reply: At this spatial scale there is often not so much data to infer a detailed statistical model, and this is the reason for our parsimonious construction for the real-data case. In other related situations, for instance that of larger fjord, ocean fronts, which are at a larger scale, there would usually be more data available for instance in the form of satellite data or from ensembles of computer model simulations. For such cases, we agree that it would make sense to embed more nuanced models, for instance that of larger variances at certain locations and stronger correlations in certain directions, but for our field trial here we attempted to have as few parameters as possible and had no reason to assume more complicated forms. 
+\reply: At this spatial scale there is often not so much data to infer a detailed statistical model, and this is the reason for our parsimonious model in the real-data case. In other related situations, for instance that of larger fjord or ocean fronts, which are at a larger scale, there would usually be more data available for instance in the form of satellite data or from computer model simulations. (We added references to related papers that explored non-stationary Gaussian models for oceanographic phenomena at a larger scale than what is used here.) For such cases, we agree that it would make sense to embed more nuanced models onboard the AUV, for instance that of non-stationary models or anisotropic random fields, but for our field trial here we attempted to have as few parameters. 
 
-That said, in the updated simulation study, which we have generalized and made open-source there are opportunities and examples of more complex covariance models (non-stationary and non-isotropic), but we do not conduct any inference for parameters in these models because it would require high resolution data from ocean models or satellites. 
-
-Our actions include i) a better description of our parameter choices for the synthetic case and the specification for the real-data case, and ii) brief notes of the extended opportunities available for the associated open-access code, iii) references to related papers (including one of our own) that explored non-stationary Gaussian models for oceanographic phenomena at a larger scale than what is used here. MORE
+That said, in the updated simulation study, which we have generalized and made open-source, there are demos using more complex covariance models (non-stationary variance and non-isotropic random fields). 
 
 %\item{4. Exposition}\label{r3c4}
 
@@ -284,9 +283,7 @@ advise you to engage them early on.  All four reviewers note
 potential technical or typographical errors, so please proofread
 carefully.
 
-\reply: Based on the comments by yourself, AE and referees, we realize that the motivation part of the paper was too long. 
-
-Our actions include a much shorter Section 2 with background. We now aim to engage readers earlier on with the applied statistical focus and methodological contribution of our work. 
+\reply: Based on the comments by yourself, Associate Editor and referees, we realize that the motivation part of the paper was too long. We have merged the previous Introduction and Section 2 to the current Introduction, and we cut redundant parts in this process. We now aim to engage readers earlier, particularly so with applied statistical focus and the methodological contributions of our work. 
 
 %\end{answers}
 
@@ -294,7 +291,7 @@ Our actions include a much shorter Section 2 with background. We now aim to enga
 %======================================================================
  \section*{Associate Editor}
 %======================================================================
-All changes requested from the editor are listed below and answered on a point-by-point basis.
+All comments of the Associate Editor are listed below and answered on a point-by-point basis.
 
 \setcounter{reviewer}{1}
 
@@ -310,9 +307,9 @@ All changes requested from the editor are listed below and answered on a point-b
 \vspace{5mm}
 \noindent \aecom \textbf{1}:
 
-General: The inferential problem considered is the paper is that of estimating the “boundary” of a plume. However, the authors never define exactly what a “boundary” is. Such a definition should be provided, as well as some discussion of why determining the location of a boundary is so important. Why is it not sufficient to create a map of predictions (with an accompanying map of prediction error variances) for the variable(s) under study throughout the region of interest (a problem for which there is a huge literature on sampling design)?\par
+General: The inferential problem considered in the paper is that of estimating the “boundary” of a plume. However, the authors never define exactly what a “boundary” is. Such a definition should be provided, as well as some discussion of why determining the location of a boundary is so important. Why is it not sufficient to create a map of predictions (with an accompanying map of prediction error variances) for the variable(s) under study throughout the region of interest (a problem for which there is a huge literature on sampling design)?\par
 
-\reply: The revised version has an entirely new Section 2 which includes general background for random sets and excursion sets. We added references, for instance \cite{adler2009random} on excursion sets and \cite{Molchanov2005} on random sets.
+\reply: In the revised version we have strengthened the motivation for focusing on ESs and using the EIBV criteria. The revised version has an entirely rewritten Introduction, and Section 2 now includes general background for random sets and excursion sets. We added references, for instance \cite{adler2009random} on ESs and \cite{Molchanov2005} on random sets. The revised version provides results that go beyond the EIBV (with proofs in the new Appendix), but the EIBV is used in experiments because it is computationally tractable onboard the AUV.
 
 \vspace{1em}
 
@@ -322,8 +319,8 @@ General: The inferential problem considered is the paper is that of estimating t
 
 Page 8, second paragraph of Section 4.1: The assumptions of separability and isotropy, and even stationarity, are not really necessary for the methodological development of Sections 4–6. I suggest that you wait to make these assumptions until you get to the simulation studies and example.\par
 
-\reply: We agree that they are not necessary for the methodological contributions, so moved this specification to the simulation study and example. 
-In the open-source that is now available, we implement non-stationary and non-isotropic covariance models. These represent situations that have relevance for our case. The code we post along with the paper facilitate testing so users can input more complex models to see how it influences designs. 
+\reply: We agree that they are not necessary for the methodological contributions, so we now bring up this model specification when needed for the examples. 
+In the open-source code that is now available, we implement non-stationary and non-isotropic covariance models. These represent situations that have some relevance for our case. The code we post along with the paper facilitate testing so users can input more complex models to see how it influences designs. 
 
 \vspace{1em}
 
@@ -333,7 +330,9 @@ In the open-source that is now available, we implement non-stationary and non-is
 
 Page 9, second paragraph of Section 4.2: It has been assumed here that the measurement errors for temperature and salinity at any given location are uncorrelated. Is this a reasonable assumption? This could easily be checked by taking replicate measurements at each site.\par
 
-\reply: The assumption is that salinity and temperature are conditionally independent measurements. (In the latent Gaussian random field, the variables are dependent.) We believe this conditional independence assumption is realistic as the measurements are gathered from different sensors. We added a comment about this not necessarily being the case with other data that are extracted and processed by combining sensors. Then assumptions can be tested in a lab under idealized conditions. But it is difficult to do so for the AUV in the changing oceans. 
+\reply: The assumption is that salinity and temperature are conditionally independent measurements. (In the latent Gaussian random field, the variables are dependent.) We believe this conditional independence assumption is realistic as the measurements are gathered by a CTD sensor using different instruments for conductivity (transformed to salinity) and for temperature. 
+We added a comment about this not necessarily being the case with other data that are extracted and processed by combining various sensor readings. 
+These assumptions can be tested in a lab under idealized conditions, but it is difficult to do so in the changing ocean conditions. 
 
 \vspace{1em}
 
@@ -344,7 +343,7 @@ Page 9, second paragraph of Section 4.2: It has been assumed here that the measu
 General: Related to the previous point, I do not understand why sampling locations are being restricted to a regular grid. In fact, it seems unwise because it is well known (see, for example, Chapters 9 and 22 of Handbook of Environmental and Ecological Statistics, 2019, CRC Press) that the quality of inferences for spatial fields can be improved substantially by taking some
 observations very close to others.\par
 
-\reply: The AUV and the sampling happens regularly at 1 Hz, the collected measurements are then assimilated to this regular grid. The sampling density is therefore higher than the grid resolution. Still, there is a limitation on restricting the sampling locations to finite number of fixed locations. In order to handle the computational load and navigation resources available on the AUV this simplification is necessary. % Comment Trygve: Should we add some more here? 
+\reply: The sampling capabilities are restricted by the sensors onboard the AUV, its computational load and navigation resources. The sampling of temperature and salinity variables can happen regularly at 1 Hz. The sampling density can therefore be higher than the grid resolution. Still, in order to handle the computational load and navigation resources available on the AUV this simplification of data assimilation at the waypoints is necessary. % Comment Trygve: Should we add some more here? 
 \vspace{1em}
 
 %\item[1.1.5]\label{ec5} 
@@ -353,7 +352,7 @@ observations very close to others.\par
 
 Page 13, last line: Specifically, what was the design? We aren’t even told what the sample size ($n_y$) was used in these calculations.\par
 
-\reply: We clarify this. TO DO!
+\reply: We clarify this in the revised document. The design is restricted to the waypoint graph with about 3 samples per batch.  
 
 \vspace{1em}
 
@@ -363,9 +362,10 @@ Page 13, last line: Specifically, what was the design? We aren’t even told wha
 
 Page 18, first paragraph of Section 7.1: The numerical values of the regression parameters given here are not meaningful without knowing the units of “West.”\par
 
-\reply: We clarified the parameter specification. TO CHECK.
+\reply: We clarified the parameter specification.
+In practice the linear regression trend is fit from the levels at the boundary of the waypoint graph (in our case riverine water and ocean water). For the field experiment (Section 4) we clarified this specification.
 
-In a larger scale this could be improved by having auxiliary data for instance from ocean models or satellite data. (Mentioned under further work in closing remarks.)
+At larger scales this prior trend could be more nuanced because auxiliary data can then be available from ocean models or satellite observations. (This is mentioned under further work in closing remarks.)
 
 \vspace{1em}
 
@@ -375,7 +375,7 @@ In a larger scale this could be improved by having auxiliary data for instance f
 
 Page 24, first paragraph of Fig. 8: Please define “the modeled quadratic form of the residuals” more precisely. Perhaps a mathematical expression is needed for clarity.\par
 
-\reply: This part has been rewritten. TO DO.
+\reply: This part has been rewritten.
 
 \vspace{1em}
 
@@ -398,25 +398,25 @@ to-last line of Page 12.
 \item Page 9, three lines after (10): I presume that all off-diagonal elements of R are zeros, but this
 should be stated explicitly.
 
-\reply: We have changed the statement on page 9 to: ``$\bR$ contains zeroes except on the diagonal entries, which are set to $r^2_1$ and $r^2_2$, holding the measurement error variances of temperature and salinity observations."
+\reply: This part has been rewritten.
 
 %\item[1.2.3]\label{emc3} 
 \item Page 19, fourth line from bottom: Change ``as also" to ``as well as"
 
-\reply: We have changed this in the text - page 19.
+\reply: We have changed this in the text.
 
 %\item[1.2.4]\label{emc4} 
 \item Page 30, second and third references listed: ``et al." is listed after the authors’ names for each
 of these two references, but actually there are no additional authors beyond the two listed.
 
-\reply: We have made this change to the citations: \cite{genton2015cross} and \cite{french2016credible} - page 30.
+\reply: We have made this change to the citations: \cite{genton2015cross} and \cite{french2016credible}.
 \end{itemize}
 
 
 %=====================================================================
 \section*{Answers to referee 1}
 %=====================================================================
-All changes requested from Reviewer 1 are listed below and answered on a point-by-point basis.
+All comments of Reviewer 1 are listed below and answered on a point-by-point basis.
 
 \setcounter{reviewer}{1}
 
@@ -428,81 +428,85 @@ All changes requested from Reviewer 1 are listed below and answered on a point-b
 
 Overall I found this paper interesting. Moreover it addresses the topic of spatial design a topic that does not receive the attention it deserves. It is driven by the practical need to direct autonomous underwater vehicles where to take samples. The sequential sampling strategy may be a valuable addition to the designer’s toolkit.
 
-\reply: Thank you. We have improved and documented the code which is now open-source available. 
+\reply: Thank you. 
 
 \item{\revcom  :}\label{r1c3}
 
-The things that stand out as novel in this paper are: the need for a se- quential design for driving an autonomous under water vehicle; a way of characterizing water plumes that are washed down from the land into the sea. Papers co-authored by one of the authors (Ginsbourger) of this paper inevitably means some overlap of ideas with the other papers, although the two step ahead greedy design algorithm seems novel. I seem to recall that Jon Lee published that algorithm albeit for determining the maximum entropy optimum by finding optimal points sequentially over space not time as in this paper. The literature on spatial design is huge and often involves spatial sequential designs. The handbook chapters by Zidek and Zimmerman (or is the other around) might be worth citing for the benefit of readers inter- ested in some of the background.
+The things that stand out as novel in this paper are: the need for a sequential design for driving an autonomous under water vehicle; a way of characterizing water plumes that are washed down from the land into the sea. Papers co-authored by one of the authors (Ginsbourger) of this paper inevitably means some overlap of ideas with the other papers, although the two step ahead greedy design algorithm seems novel. I seem to recall that Jon Lee published that algorithm albeit for determining the maximum entropy optimum by finding optimal points sequentially over space not time as in this paper. The literature on spatial design is huge and often involves spatial sequential designs. The handbook chapters by Zidek and Zimmerman (or is the other around) might be worth citing for the benefit of readers inter- ested in some of the background.
 
-\reply: We have improved the augmented the discussion on other design criteria and why the ES related IBV is used in our case. In this part, we cite the handbook reference on design \cite{zidek2019monitoring} and the paper we believe that contains a comment from Jon Lee \citep{bueso1998state}.  
+\reply: We have improved and augmented the discussion on other design criteria and why the ES related EIBV is used in our case. The paper also contains statistical results that go beyond this criterion (with proofs in the new Appendix), but the EIBV is used in practice because it is computationally tractable onboard the AUV. In this part, we cite the handbook reference on design \cite{zidek2019monitoring} and the paper we believe that contains a comment from Jon Lee \citep{bueso1998state}.  
 
 \item{\revcom  :}\label{r1c3}
 
-Overall the paper is remarkably free of a need for editorial improve- ments. I will attach a marked up copy indicating a few errors as well as suggestions for minor changes.
+Overall the paper is remarkably free of a need for editorial improvements. I will attach a marked up copy indicating a few errors as well as suggestions for minor changes.
 
-\reply: We incorporated the suggested minor changes.
+\reply: Thanks. We incorporated the suggested minor changes. But note that large parts of the paper have been rewritten (Point 1. in the start of this reply letter). 
 
 \item{\revcom  :}\label{r1c4}
 
 I am not clear about the intended audience for this paper. Or to put it another way, for whom is this paper important? The case study or the
 design methodology? Case studies offer concern specific events deemed of importance e.g. the much–studied O-ring failure long ago on a US rocket launch. Such a case study may then drive the innovation of statistical methods for an analysis of data that were collected because of that case’s importance. More likely the case study was intended as a tutorial on the use of a novel design methodology. In fact the Closing Remarks section points “the opportunities available real-time multivariable spatial data-gathering” that “statistician can exploit”.
 
-\reply: The motivation for an applied statistical audience is strengthened, while we have maintained strong links to the applications of Robotics, Ocean Science and AI. In particular in the Introduction and in Section 2 are now stronger on motivating multivariate ESs, and highlighting the need for new statistics in these marine robotics applications. See main comments early on in this reply letter. 
+\reply: The motivation for an applied statistical audience is strengthened, while we have maintained strong links to the application of marine robotics. The Introduction and Section 2 are now stronger on motivating multivariate ESs, and highlighting the need for new statistics in the marine robotics applications. (See Point 2 and 3 in the start of this reply letter.)
 
-However, the user community is pretty tech-savvy nowadays, and that community might well be the primary beneficiary and more motivated than the statisticians to use the tools for sequentially sampling rivers for mapping plumes. That suggests including the relevant code for running the analyses, especially the simulation studies. An alterna- tive journal to a statistical one might be more appropriate from that perspective.
+However, the user community is pretty tech-savvy nowadays, and that community might well be the primary beneficiary and more motivated than the statisticians to use the tools for sequentially sampling rivers for mapping plumes. That suggests including the relevant code for running the analyses, especially the simulation studies. An alternative journal to a statistical one might be more appropriate from that perspective.
 
-\reply: We have made an open-source repository available for the public. This includes commented code examples for exploration and analysis of the material presented in the paper. The code is optimized for speed to allow fast computation using Pytorch (citation). The code is available here: (\url{https://cedrictravelletti.github.io/Submarine/} )
+\reply: We have made an open-source repository available for the public. This includes commented code examples for exploration and analysis of the material presented in the paper. The Python code allow fast calculation and replicable cases. It is also possible to run for more general statistical model than that shown in the paper (non-stationary variance and anisotropic random fields). The code is available here: \url{https://cedrictravelletti.github.io/Submarine/}.
 
 \item{\revcom :}\label{r1c5}
 
+Whatever the intended audience, the paper would benefit a lot from being shortened. I slogged through the first six papers before I discovered what the paper was to be about on page 6:\\
+”In this paper, with a focus on mapping the river plume, we reward the designs taht improve the classification of water masses as a means to characterize the frontal zone and thereby the extent of the river plume.”\\
+Later we find on page 7:
+”Our goal is to construct adaptive sampling strategies based on the continuous evolution of the EPs.”\\
+These sentences should have been put right at the beginning after suitable rewording along with the “In this work...” paragraph on page 3. If statisticians are the intended readers, deleting much of the first five pages would improve the paper. There are other places where technical material can be condensed without much if any loss. I will mention some later.
 On shortening the paper and moving important sentences earlier. Reduced oceanographic background, while highlighting elements that reviewers did not understand about the AUV planning, waypoint graph, etc.
 
-\reply: TO DO
+\reply: We have restructured the paper. See Point 1. at the start of this reply letter. 
 
 \item{\revcom :}\label{r1c6}
 
 It is not clear why the binary classification and excursion sets are being used. Is there really a sharp boundary at the edge of a plume? Why not mapping the salinity and temperature fields instead? After all, on page 19, “achieving good predictive performance” is mentioned as a desirable feature of a good design. A lot of work has been done on that topic. And what about indicator kriging (along with logit regression) that generalizes indicator kriging that has been used to identify plumes? Modelling the p(x) is more like prohibit analysis-what is the advantage.
 
-\reply: We added reference to \cite{adler2009random} on random sets and motivated this topic for environmental sensing. See our general comment 1 on top. 
+\reply: We added reference to \cite{adler2009random} on random sets and motivated this topic for our application and more general settings. See our general point 2. and 3. at the start of this reply letter. 
 
 \item{\revcom :}\label{r1c7}
 
  The sequential sampling approaches are not novel. they are mentioned as examples in the cited paper by Bect et al. What is novel is the study of how all these methods work first in simulation studies as well as well as in the case study. That work will be a valuable contribution.
 
-\reply: We improved our statistical contribution. See our general comment 2 on top.
+\reply: The design criteria for multivariate random fields are new. We further improved our statistical contribution by developing more general results (with proofs in Appendix). There are finally new elements in tailoring this sequential design methods in the context of the AUV application with its computational and navigation limitations. See our general comment 2 and 3 on top.
 
 \item{\revcom  :}\label{r1c8}
 
 While I can see some advantages of simplicity in the IBV of Bect et al for binary data, one could have used entropy as it has information-theoretical credentials. Furthermore it could cover design both for spatial mapping as well as indicator mapping. Finally model uncertainty could be included in the overall assessment of uncertainty. The more general issue here is what objective function should be optimized in the design? Are we in a multi-attribute criterion situation?
 
-\reply: The traditional entropy calculations for this GP aim to reduce the log determinant of the updated covariance matrix at the grid locations. It will not vary with the data realizations, so in this setting this information criteria will always give the same path. The EIBV criterion is aligned with our ES motivation for this study. When focusing on the expected EIBV, the paths will vary with the data as we see in our simulation study and in the real-data example. We see this as a clear benefit of the approach compared with entropy-based calculations. Still, sampling approaches using hybrid criteria or multi-attribute criteria (Multi-objective optimization and Pareto fronts) might balance goals in such situations, but we leave that for future research (closing remarks). 
+\reply: The traditional entropy calculations for this GP aim to reduce the log determinant of the updated covariance matrix at the grid locations. It will not vary with the data realizations, so in our setting this information criteria will always give the same path. The EIBV criterion is aligned with our ES motivation for this study. When focusing on the expected EIBV, the paths will vary with the data as we see in our simulation study and in the real-data example. We see this as a clear benefit of the approach compared with entropy-based calculations. Still, sampling approaches using hybrid criteria or multi-attribute criteria might balance goals in such situations, but we leave that for future research. (This is briefly mentioned as further work in Closing remarks.) 
 
 \item{\revcom  :}\label{r1c9}
 
 On the issue of covariance separability, objections have always been raised when I have used it as its unrealistic. My rejoinder has always worked, that of citing the “all models are wrong”, George Box’s famous phrase. But what I was able to show in each case is a cross-validatory assessment that showed the model was “useful”. I wonder if such a model assessment could be made here to support the assumption of separability and other things as well. By the way, in spatial mapping at least, point predictors are pretty robust against mis-specification of the covariance. Where things go sideways is in the confidence bands or ellipsoids they produce. What are the error bands when modelling binary responses? Surely the predicted plumes have fuzzy boundaries. 
 
-\reply: We focus on point-wise predictions in the criterion. Our trends are simple, so another covariance might be overfitting too much to data. We could try to fit different ranges to temperature and salinity, while maintaining separability. Could also refer to non-separable models, but pulls focus away from the current paper's focus. There are even tests for separability, but not worth so much, what do you do if you reject? Spatio-temporal variations are more interesting here, e.g. \cite{sigrist2015stochastic,richardson2017sparsity}. Ocean models, though rarely available on the scale of river plumes, might be highly useful for training - more complex trends and covariance model could then maybe be fit from the data. 
+\reply: At this spatial scale there is often not so much data to infer a detailed statistical model, and this is the reason for our parsimonious model in the real-data case. In other related situations, for instance that of larger fjord or ocean fronts, which are at a larger scale, there would usually be more data available for instance in the form of satellite data or from computer model simulations. (We added references to related papers that explored non-stationary Gaussian models for oceanographic phenomena at a larger scale than what is used here.) That said, we do provide some validation of the model via residual analysis. Moreover, the main contribution of this paper is on design more than modeling. In the online resources with open-source code, there are demos using more complex covariance models (non-stationary variance and non-isotropic random fields). 
+
+We agree that more complex models would matter more if we step up to a criterion such as volume calculations.   
 
 \item{\revcom  :}\label{r1c10}
 
 The strategy at the bottom of page 17 seems ad hoc. Could you not use the data collected with the two ahead design to get better estimates of parameters and then with these parameters and thereafter a better myopic design?
 
-\reply: TO DO LA improved in revision! + code. %Also studied benefits of look-ahead strategies in sequential sampling in \cite{martinelli2013dynamic}.
+\reply: We have chosen not to explore any re-estimation of parameters. The resources onboard do not allow such computationally demanding evaluations. Overall, we believe the capabilities and limitations of the AUV are clarified in the revised version of the paper.
 
 \item{\revcom :}\label{r1c11}
 
 Are these results generalizable? In other words, how much plume-to-plume variability is there? One of the problems with modelling using a lot of parameters, is there instability over replicate experiments. To put it another way which model parameters represent plume-population parameters and which represent random plume effects?
 
-\reply: This is a simple model for plume temperature and salinity variation. However, it is not common to have ocean model data or satellite data at this resolution, which would be required for training. 
-
-We have chosen to set few parameters, which also means that it is relatively easy to tune them at a break in the operation, if so is necessary.
-
+\reply: We agree that this is a simple model for plume temperature and salinity variation. However, it is not common to have ocean model data or satellite data at this spatial resolution, which would be required for training. So rather than overfitting, we have chosen a parsimonious model.
 
 \item{\revcom :}\label{r1c12}
 
 The separability assumption is to be relaxed in future work. Should publication of this case study await the proposed improvement? It would make for a much better paper.
 
-\reply: As pointed out above, we believe that spatio-temporal variations would be a more realistic extension, especially if repeated satellite data or ocean modeling is available. But this is likely relevant at a larger scale, such as that of fronts in a fjord or ocean interface. The methodological approach for sampling designs would however still be the same and this is the main contribution of the current paper. 
+\reply: There are ongoing efforts to provide high-resolution ocean models which would be required for such detailed model specification. But as pointed out above, we believe that spatio-temporal variations would be a more realistic extension, especially if repeated satellite data or ocean modeling is available. The methodological approach for sampling designs, which is the main contribution of the current paper, would however still be the transferable.  
 
 \item{\revcom : (specific comments)}\label{q11}
 
@@ -510,37 +514,39 @@ The separability assumption is to be relaxed in future work. Should publication 
 \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
 
 \item “joint excursion sets” in the title would be a turnoff for most statisticians. Having read the paper pretty carefully I still am not sure why they are so labelled.\par
-\reply: We avoid the term' joint excursion sets' in the revised version. Instead we have introduced a mo more general random sets notation, but link to the ES for temperature and salinity whenever it is appropriate to exemplify concepts and show results.
+\reply: We avoid the term' joint excursion sets' in the revised version. The revised version build on a more general notation, but link to the ES for temperature and salinity whenever it is appropriate to exemplify concepts and show results.
 
 \vspace{1em}
 
 \item Why on page 13 were those particular values chosen for the means $\mu$? Would a different choice have made a difference?\par
 
-\reply: Preliminary runs set these trends. In a larger scale, one could here use ocean model inputs or satellite data. 
+\reply: Preliminary runs set these trends. We have clarified the description in the paper. In a larger scale, one could here use ocean model inputs or satellite data. 
 
 \vspace{1em}
 
 \item I don’t think Figure 3 conveys too much additional benefit and eliminating it for space might be considered.\par
 
-\reply: We removed this Figure. It took much space and it is sufficient to explain the optimal design in text as we did. 
+\reply: We removed this Figure in the revision. 
+
 \vspace{1em}
 
 \item Why are the ES’s called ”excursion sets? Why excursion probabilities?\par
 
-\reply: The revised Section 3 contains a general formulation for random sets, which is then exemplified by our excursion sets for the multivariate process. In the Introduction we motivate the excursion set for multivariate processes for this application, because it is important to find zones with joint high values of many variables. In the revised version we believe that the sets are introduced both more in the line with the practical application as well as for statistical novelty.
+\reply: The revised Section 2 contains a general formulation for random sets, which is then exemplified by our ESs for the multivariate process. In the Introduction and Section 2 we motivate the ES for multivariate processes for this application. In many applications it is important to find zones with joint high values of many variables. 
+
 \vspace{1em}
 
 \item I did not spot a definition for the “waypoint graph” a phrase used several times in the paper. Again points to the need to identify the audience. I doubt that most statisticians would know that phrase.\par
-\reply: TO DO. Clarify. 
+\reply: The waypoint graph is clarified in the revised version.  
 \vspace{1em}
 
 \item In statistics journals, random variables are commonly labelled by Roman characters e.g. Z, parameters in Greek e.g. $\xi$. I realize that in other scientific domains that distinction is not always made but I do recommend the change if the paper is to appear in a stats journal.\par
 
-\reply: We use $Z$ in the revised version.
+\reply: We use $Z$ for the random field in the revised version.
 \vspace{1em}
 
 \item There is not much of novelty in the Gaussian Process theory used in the paper- its pretty much standard. I suggest that the derivations stated in detail be summarized by just the results. Statisticians will know these things and users will not care.\par
-\reply: We collapsed the previous sections 3, 4 and 5 to one new section 3 containing the statistical novelty on EIBV closed-form expressions. The proofs are in a new Appendix.
+\reply: We collapsed the previous sections 3, 4 and 5 to new Section 2 and 3 containing the statistical novelty on EIBV closed-form expressions. The proofs are in a new Appendix.
 
 \vspace{1em}
 
@@ -553,7 +559,7 @@ The separability assumption is to be relaxed in future work. Should publication 
 %======================================================================
 \section*{Answers to referee 2}
 %======================================================================
-All changes requested from Reviewer 2 are listed below and answered on a point-by-point basis.
+All comments of Reviewer 2 are listed below and answered on a point-by-point basis.
 
 \setcounter{reviewer}{2}
 
@@ -566,30 +572,28 @@ I know very little about the AUVs you discuss, and I suspect many of your reader
 
 \item[2.1.1] What sort of onboard computing do they have? It may not be something like an Intel 2.1 GHz, 4-thread processor, but a more informative description of something most readers relate to would be helpful. Similar information related to RAM and hard drive space would be helpful. What are the computational limits of these machines?\par
 
-\reply: We have added more information about AUVs and their computational capabilities in Section 2.1 (Background on Ocean Processes and Observations) to address this. 
-\begin{quote}
-"The AUVs, see Fig. 9, considered here operate at $1$-$3$ m/s in the upper water column, where they are free to move in six degrees of freedom (6 DOF). The in-water operation time capacity depends on survey speed, payload sensors and navigation. Generally this amounts to 8-24 hrs. operation for smaller crafts, and 24-48 hrs. for larger crafts. AUVs have limited computational capacity, as they typically use single-board computers (SBCs), like the Raspberry Pi or a multicore GPU NVIDIA Jetson TX1 (quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared cache, and 4 GB of 1600 MHz DRAM) to do computation. "
-\end{quote}
+\reply: We have clarified information about AUVs and their computational capabilities in Section 4. 
+It is a multicore GPU NVIDIA Jetson TX1 (quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared cache, and 4 GB of 1600 MHz DRAM). 
 \vspace{1em}
 
 \item[2.1.2] How long do the AUVs typically explore in one go? Is there a minimum/maximum time?\par 
 
-\reply: Maximum speed and payload are limiting for coverage. Generally this amounts to 8-24 hrs. operation for smaller crafts, and 24-48 hrs. for larger crafts. Time constraints for operations are typically related to costs of ship time and man-hours during operation. This information is contained in the changes made in point 2.1.1 above. 
+\reply: Maximum speed and payload are limiting coverage. This ranges to minutes to 24h for larger crafts. Time constraints for operations are typically related to costs of ship time and man-hours during operation.  
 \vspace{1em}
 
 \item[2.1.3] What kind of movements can the AUVs make? Chess-like moves (horizontal, vertical, diagonal)?\par  
 
-\reply: AUVs are free to move in 6 degrees of freedom on the triangulated graph. They are essentially flying under water. However, one usually always proceed forward while pitching up and down. We have clarified this in the updated section shown in point 2.1.1. This is also shown in some of the figures (Fig.1 and Fig. 4) as well as the waypoint graph. 
+\reply: AUVs as in our application are free to move in 6 degrees of freedom on the triangulated graph. This is shown in Fig.1 and Fig. 4 with the waypoint graph. (They are essentially flying under water. In oceanographic application they also perform yo-yo movements in depth.) 
 \vspace{1em}
 
 \item[2.1.4] Is there a minimum/maximum number of points you want to sample?\par
 
-\reply: The coverage available is usually limited on battery capacity, which also determines the maximum number of points to sample. The important question here is "How do one prioritize the correct points to visit?", which is central to the development of the IBV and the application shown in the paper. 
+\reply: The coverage available is usually limited by man-hours to follow operations, but for large-time operation also on battery capacity. The important question here is "How do one prioritize the correct points to visit?", which is central to the development of the EIBV and the application shown in the paper. 
 \vspace{1em}
 
 \item[2.1.5] What is the size of the grid that is typically considered? i.e., what is a typical value of $n$ in Eq.(9)?\par 
 
-\reply: The waypoint grid size $n$ should be small enough to resolve the process that is of interest and to avoid aliasing. A guiding rule of thumb provided by the the Nyquist theorem is to sample at least twice in time for the shortest significant record period, and twice in space for the shortest significant length to either resolve or eliminate (by filtering) scales of oceanic variability shorter than those being studied. In practice, this means mapping at an adequate spatial resolution faster than significant changes – in the phenomena – occur. 
+\reply: The waypoint grid size $n$ should be small enough to resolve the process that is of interest and to avoid aliasing. Usually it is in the 100s or 1000s. A guiding rule of thumb provided by the the Nyquist theorem is to sample at least twice in time for the shortest significant record period, and twice in space for the shortest significant length to either resolve or eliminate (by filtering) scales of oceanic variability shorter than those being studied. In practice, this means mapping at an adequate spatial resolution faster than significant changes – in the phenomena – occur. 
 \vspace{1em}
 
 \item[2.1.6] Does the AUV use a selection algorithm from the very beginning or is there a minimum number of initial measurements that are made before the optimization algorithm begins?\par
@@ -603,7 +607,7 @@ I know very little about the AUVs you discuss, and I suspect many of your reader
 
 p. 9, Eq. (8): the dependency on $\bx$ and $\bx'$ has been omitted for some of the parameters without mention. Or are the parameters constant across locations?
 
-\reply: In the revised version the notation has been improved. 
+\reply: In the revised version the notation has been improved. There is limited data for training in our case, so there is a linear regression trend while covariance parameters have been set constant across locations.
 
 \item{\revcom :}\label{r2c3}
 
@@ -615,47 +619,28 @@ p. 9, How reasonable is the assumption of stationary and isotropic random fields
 
 p. 9, Eq. (10). Are the temperature and salinity processes at a specific location effectively independent of one another? (I truly don’t know). That is what is implied by Eq. (10).
 
-\reply: In our setting the temperature and salinity data are from different sensors and it is naturally to say they are conditionally independent measurements. That said, for other measurements, they might be extracted or processed from common sensor readings and would then be conditionally dependent. We mentioned this briefly in the data model description.
+\reply: The temperature and salinity are dependent in the GRF model. But the temperature and salinity data are collected from different instruments, and we assume that they are conditionally independent, given the GRF variables. That said, other measurements might be extracted or processed from common sensor readings and would then be conditionally dependent. We mentioned this briefly in the model description.
 
 \item{\revcom :}\label{r2c5}
 
 p. 9, Eq. (11). The form of the equation is reminiscent of the Sherman-Morrison-Woodbury solution for fixed-rank kriging. $\bSigma$ may not be small here, but I wonder if there may be a computational advantage to considering an alternative computational solution.  See e.g., Cressie, N. and Johannesson, G. (2008), Fixed rank kriging for very large spatial data sets. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 70: 209-226. doi:10.1111/j.1467-9868.2007.00633.x.
 
-\reply: Only the surface is considered here, so computational requirements are not mainly driven by the size of the domain, but rather by the number of combinations for sampling designs (computational complexity). No 3D with depth, which would require simplified spatial models like fixed-rank-kriging or similar approaches. 
+\reply: The update formula assimilates relatively modest data sizes at each waypoint. Moreover, only the near-surface grid is considered here (two dimensional spatial domain). This means that the computational requirements are mainly driven by the number of combinations for sampling designs, not the size of the domain or the data dimension. 
+We still agree that computational approximations, such as fixed-rank-kriging, would be useful for larger-size three dimensional applications. 
 
 \item{\revcom  :}\label{r2c6}
 
 p. 9, Eq. (13). Why does $\bm$ have a distribution before seeing the data? I can see how $\bm(\by)$ would have a distribution since it depends on $\by$. It almost feels Bayesian, but nothing indicates that this analysis is being pursued from a Bayesian perspective. Why is it valid for $\bm$ to have a distribution prior to seeing data?
 
-\reply: We have generalized the closed-form solutions. (See point 2 at the start of reply letter.) The main body should contain results of general interest as well as provide insight about the statistical novelty. The proofs are now in Appendix with a succinct notation.
+\reply: These parts of the paper are largely rewritten. We have generalized the closed-form solutions. (See point 2 and 3 at the start of reply letter.) The main body should contain results of general interest as well as provide insight about the statistical novelty. The proofs are now in Appendix with a succinct notation.
 
 \item{\revcom :}\label{r2c7}
 
-p. 11, Eq. (17). I’m not understanding the advantage to conditioning on $\bm$ instead of $\by$? $\bm$ is a function of $\by$. The probability is the same two-dimensional integral either way. It seems to be related to the standardization that results in $\bZ$? Please clarify.
-
-\reply: We have generalized the closed-form solutions. (See reply above.)
-
-\item{\revcom  :}\label{r2c8}
-
-p. 11, Is $\bpi(\bm)$ the density associated with the distribution in Eq. (14)? 
-
-\reply: We have generalized the closed-form solutions. (See reply above.)
-
-\item{\revcom :}\label{r2c9}
-
-p. 11, Is it purely for stylistic reasons that $P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)$ isn’t written as $P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)^2$? It seems to be a more natural way of expanding Eq. (18). 
-
-\reply: We have generalized the closed-form solutions. (See above.)
-
-\item{\revcom :}\label{r2c10}
-
+p. 11, Eq. (17). I’m not understanding the advantage to conditioning on $\bm$ instead of $\by$? $\bm$ is a function of $\by$. The probability is the same two-dimensional integral either way. It seems to be related to the standardization that results in $\bZ$? Please clarify.\\
+p. 11, Is $\bpi(\bm)$ the density associated with the distribution in Eq. (14)? \\
+p. 11, Is it purely for stylistic reasons that $P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)$ isn’t written as $P(\xi_T(\bx) \leq t_T, \xi_S(\bx) \leq t_S |\bm)^2$? It seems to be a more natural way of expanding Eq. (18). \\
 p. 11, It is stated that $\bZ$ is chosen to be independent of $\bm$, so presumably the joint CDF $F_{z,m}=F_{Z}F_m$ which would certainly be convenient, but is not obvious to me why this would be true. 
-Instead, it appears that $\bZ$ is chosen to be a pivotal quantity to get the simple CDF in Eq. (20). Please clarify.
-
-\reply: We have generalized the closed-form solutions. (See reply above.)
-
-\item{\revcom :}\label{r2c11}
-
+Instead, it appears that $\bZ$ is chosen to be a pivotal quantity to get the simple CDF in Eq. (20). Please clarify.\\
 p. 11, Eq. (21). The trailing $p(\bm)$ should be $\bpi(\bm)$. Should the right side of the equality be squared? 
 
 \reply: We have generalized the closed-form solutions. (See reply above.)
@@ -664,7 +649,7 @@ p. 11, Eq. (21). The trailing $p(\bm)$ should be $\bpi(\bm)$. Should the right s
 
 This method relies on computing the marginal probabilities in each grid cell. This is computationally convenient and is likely required because of the limited computing power of the AUVs. However, the optimization should technically be performed with respect to the joint distribution across all grid cells. While the context may not allow this in practice, it would be helpful to get an idea of how much error is introduced by this approximation. I recommend creating a small but realistic-as-feasible simulation study comparing the accuracy of the probabilities, a comparison of the computational expense, and examining if/how navigation decisions change based on whether one uses the marginal/joint computations. 
 
-\reply: In the revised version we provide closed-form solutions to expected uncertainty reduction on volumes of random sets. However, for real-world application this involves many more terms in the evaluation criteria, so for the application, we still used marginals.  
+\reply: In the revised version we provide closed-form solutions to more general criteria (beyond the EIBV), such as volume calculations involving coupling between locations. But as you mention, the real-world application has computational limitations, and we still use marginals in the examples.  
 
 \item{\revcom :}\label{r2c13}
 
@@ -681,14 +666,13 @@ average position of the excursion set over each of the panels so the reader can 
 the simulated AUV moves back and forth across the excursion set.
 \end{quote}
 
-\reply: TO DO
+\reply: We have removed this figure because it confused the explanation. The online resources contain movies of sampling paths, and the code allows users to generate sampling results by themselves. 
 
 \item{\revcom :}\label{r2c14}
 
 While the context does not allow full reproducibility of the paper results, no implementation details are provided. What software was used to perform the bulk of analysis? Are there scripts available that can be adapted by others for similar purposes? Please provide resources for the practical implementation of the methodology discussed in the paper.
 
-\reply: Code is improved in the revision and provided for open-source usage (\url{https://cedrictravelletti.github.io/Submarine/} )
- 
+\reply: Code is improved in the revision and provided for open-source usage: \url{https://cedrictravelletti.github.io/Submarine/}. 
 
 \item{\revcom: Minor comments}\label{r2cminor}
 
@@ -700,7 +684,7 @@ While the context does not allow full reproducibility of the paper results, no i
 
 \item[2.15.2] p. 9, `1s` should be ‘1s’. Similar for 0s.
 
-\reply:
+\reply: Modified in the revised version.
 
 \item[2.15.3] p. 15, my manuscript has -on where to sample-, which is an unusual use of dashes.
 
@@ -727,7 +711,7 @@ The authors indicate several paths forward for work in this area, which I think 
 
 \reply: In the revised 'Closing remarks', we elaborate more on computational approximations required for three-dimensional way-point graphs and space-time modeling including relevant references \citep{sigrist2015stochastic,richardson2017sparsity}, on using more complicated criteria for the data collection, and thoughts related to finite horizon optimization where there has been much creative work in the robotics literature including probabilistic road maps and rapidly-exploring random trees \citep{karaman2011sampling} whose statistical properties are not yet clear.
 
-We also strengthen the discussion on communication for the AUV. In doing so, we relate the topics of autonomy and communication to the modeling and computational assumptions that applies to this paper. With the possibilities of wifi communication to a mother-ship at waypoints, more advanced modeling and computational routines are possible, of course with new challenges related to design and planning for when and where this communication should occur. This topic has caught much interest in control engineering \citep{zolich2019survey}, and statistical evaluations could contribute in this setting.
+We have also strengthened the discussion on communication for the AUV. In doing so, we relate the topics of autonomy and communication to the modeling and computational assumptions that applies to this paper. With the possibilities of wifi communication to a mother-ship at waypoints, more advanced modeling and computational routines are possible, of course with new challenges related to design and planning for when and where this communication should occur. This topic has caught much interest in control engineering \citep{zolich2019survey}, and statistical evaluations could contribute in this setting.
 
 \item{\revcom - Minor 1:}\label{r3c2}
 
@@ -739,10 +723,10 @@ I think the equation $V_{m,upd}$ needs a j as a part of that subscript.
 
 Figure 4: Why not show excursion probabilities for, say, myopic selection as well?
 
-\reply: In the revised version we show EPs for a static survey line, myopic and look-ahead selection in three displays. (This is in the new Figure 3.)
+\reply: These plots are changed in the revised version. 
 
 In the accompanying code (\url{https://cedrictravelletti.github.io/Submarine/} )
-there are also resources for displaying other outputs if the reader is interested in comparing results with for instance univariate excursion probabilities.
+there are showing various sampling results and for displaying other outputs if the reader is interested in comparing results with for instance univariate excursion probabilities.
 
 \end{answers}
 
