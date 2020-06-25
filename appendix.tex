@@ -7,7 +7,7 @@ any $r\geq 1$,
 \begin{equation*}
 \begin{split}
 \mathbb{E}[\mes(\es)^r]
-&=\int_{D^{r}} \jointExcuProb
+&=\int_{\domain^{r}} \jointExcuProb
 \productMeasure
 ,
 \end{split}
@@ -87,9 +87,9 @@ $(\x, \omega) \to \gp[\x](\omega)$ and $T$, respectively. From there, following 
 \begin{equation*}
 \begin{split}
 \mathbb{E}[\mes(\es)^{r}]
-&=\mathbb{E}\left[\left(\int_{D} \mathbbm{1}_{\gp[u] \in T} ~d\mes(u) \right)^{r} \right]
+&=\mathbb{E}\left[\left(\int_{\domain} \mathbbm{1}_{\gp[u] \in T} ~d\mes(u) \right)^{r} \right]
 =\mathbb{E}\left[ \prod_{i=1}^{r} \left(
-        \int_{D} \mathbbm{1}_{\gp[\uu^{(i)}] \in T} ~d\mes(\uu^{(i)})
+        \int_{\domain} \mathbbm{1}_{\gp[\uu^{(i)}] \in T} ~d\mes(\uu^{(i)})
 \right) \right] \\
 &
 =
@@ -101,14 +101,14 @@ $(\x, \omega) \to \gp[\x](\omega)$ and $T$, respectively. From there, following 
 %\right]
 %=
 \mathbb{E}\left[
-\int_{D^{r}}
+\int_{\domain^{r}}
 \mathbbm{1}_{\gp[\uu^{(1)}] \in T,\dots, \gp[\uu^{(r)}]  \in T}
 \productMeasure
 \right]
 %\\
 %&=\int_{D^{r}} \mathbb{E}\left[\mathbf{1}_{\gp[\bm{u}] \in T^r} \right] \productMeasure \\
 %&
-=\int_{D^{r}}
+=\int_{\domain^{r}}
 \jointExcuProb
 \productMeasure.
 \end{split}
@@ -293,7 +293,7 @@ W_{2}=(N_{2,1}- B_2 V, \dots, N_{2,h_{2}}- B_2 V),
 with $\bm{a}=(1_{h_{1}} \otimes a_1, \dots, 1_{h_{g}} \otimes a_g)$ and $\bm{\Sigma}=(\operatorname{cov}(W_i,W_j))_{i,j \in \{1,\dots, g\}}$.
 \end{proof}
 
-Those two general results allow us to derive simple expressions for the expected effect of the inclusion of new datapoints on the $\ibv$ (Proposition \ref{propo_eibv}) and on the $\emv$ (Proposition \ref{propo_emv}) for which we provide proofs below.
+Those two general results allow us to derive simple expressions for the expected effect of the inclusion of new datapoints on the $\IBV$ (Proposition \ref{propo_eibv}) and on the $\EMV$ (Proposition \ref{propo_emv}) for which we provide proofs below.
 
 
 \begin{proof}{(Proposition \ref{propo_eibv})}
@@ -302,13 +302,13 @@ expectation first delivers
 \begin{equation*}
 \begin{split}
 \eibv_{[n]}(\bm{x})
-&=\int_{D}
+&=\int_{\domain}
 \currentExp{\futureProba{\gp[\uu]\in
         T}(1-\futureProba{\gp[\uu]\in T})} d\mes(u) \\
-&=\int_{D} \varPhi_{\no}\left(\bt;
+&=\int_{\domain} \varPhi_{\no}\left(\bt;
 ~\futureMean{\uu},
 \futureCov{u,u}\right) d\mes(u)\\
-&-\int_{D} \currentExp{
+&-\int_{\domain} \currentExp{
     \varPhi_{\no}\left(\bt;
     ~\futureMean{\uu},
     \futureCov{u,u}\right)^2
@@ -358,7 +358,7 @@ Applying Proposition~\ref{propo2} then delivers that
 \bt-\currentMean{\uu}
 \end{matrix}
 \right);
-\mathbf{\Sigma}_{[n]}(\uu)
+\mathbf{\Sigma}_{[\stage]}(\uu)
 \right),
 \end{split}
 \end{equation*}
@@ -369,9 +369,9 @@ with $\mathbf{\Sigma}_{[n]}(\uu)$ as in the formulation of the proposition. This
 \begin{proof}{(Proposition \ref{propo_emv})}
 \begin{equation*}
 \begin{split}
-\eemv_{[n]}(\bm{x})
+\currentEEMV(\bm{x})
 %\operatorname{Var}[\mes(\es)]
-&=\int_{D^2} 
+&=\int_{\domain^2} 
 \varPhi_{2\no}
 \left(
 (\bt, \bt); \mu((u,v)), 
@@ -381,51 +381,20 @@ K((u,v),(u,v))
 \mathrm{d}\mes^{\otimes} %\mes 
 %\productMeasure 
 (u,v)\\
-&-\currentExp{\left( \int_{D} \varPhi_{\no}\left(\bt;\mu_{[n+1]}(u), K_{[n+1]}(u)\right) d\mes(u) \right)^2}.
-\end{split}
-\end{equation*}
-The second term can be worked out in semi-analytical form by writing it as
-%
-\begin{equation*}
-\begin{split}
-%\eemv_{[n]}(\bm{x})
-%\operatorname{Var}[\mes(\es)]
-&\int_{D^2} 
+&-\int_{\domain^2} 
 \currentExp{
-\varPhi_{\no}\left(\bt;\mu_{[n+1]}(u), K_{[n+1]}(u)\right)
-\varPhi_{\no}\left(\bt;\mu_{[n+1]}(v), K_{[n+1]}(v)\right)
+\varPhi_{\no}\left(\bt; \futureMean{\uu}, K_{[n+1]}(\uu, \uu)\right)
+\varPhi_{\no}\left(\bt; \futureMean{\vv}, K_{[n+1]}(\vv, \vv)\right)
 }
 \
 \mathrm{d}\mes^{\otimes} %\mes 
 %\productMeasure 
-(u,v)\\
-=&
-\int_{D^2} 
-\currentExp{
-    \varPhi_{\no}\left(a_1+B_1 V; C_1\right)
-    \varPhi_{\no}\left(a_2+B_2 V; C_2\right)
-}
-\
-\mathrm{d}\mes^{\otimes} %\mes 
-%\productMeasure 
-(u,v),\\
+(u,v)
 \end{split}
 \end{equation*}
-and expanding the integrand (for fixed $n$, $\uu, \vv$) as
-\begin{equation*}
-\begin{split}
-&
-\currentExp{
-    \varPhi_{\no}\left(\bt;\mu_{[n+1]}(u), K_{[n+1]}(u)\right)
-    \varPhi_{\no}\left(\bt;\mu_{[n+1]}(v), K_{[n+1]}(v)\right)
-}\\
-=&
-\currentExp{
-    \varPhi_{\no}\left(a_1+B_1 V; K_{[n+1]}(u)\right)
-    \varPhi_{\no}\left(a_2+B_2 V; K_{[n+1]}(v)\right)
-}
-\end{split}
-\end{equation*}
-with $V=\gp[\bm{x}_{n+1}]-\currentMean{\bm{x}_{n+1}} \sim \mathcal{N}(0_{q_{n+1}},k_{[n]}(\bm{x}_{n+1},\bm{x}_{n+1}))$ and $a_1=\bt-\currentMean{\uu}$,
-$B_1=-\lambda_{[n+1,n+1]}(\uu)^T$, $a_2=\bt-\currentMean{\vv}$, $B_2=-\lambda_{[n+1,n+1]}(\vv)^T$.
+and the proof follows by applying Proposition \ref{propo3}
+with
+$$V=\gp[\bm{x}_{n+1}]-\currentMean{\bm{x}_{n+1}} \sim \mathcal{N}(0_{q_{n+1}},k_{[n]}(\bm{x}_{n+1},\bm{x}_{n+1}))$$
+and $a_1=\bt-\currentMean{\uu}$,
+$B_1=-\lambda_{[n+1,n+1]}(\uu)^T$, $a_2=\bt-\currentMean{\vv}$, $B_2=-\lambda_{[n+1,n+1]}(\vv)^T$, $C_1 = \currentCov{\uu, \uu}$, $C_2 = \currentCov{\vv, \vv}$.
 \end{proof}

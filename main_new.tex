@@ -613,10 +613,10 @@ $\domain$. We want to investigate the probability distribution of
 $\mes(\es)$ through its moments.  Centered moments may be computed
 using Proposition~\ref{propo1} developed in the appendix.  In
 particular, as an integral over EPs, the 
-$\emv = \operatorname{Var}[\mes(\es)]$ is:
+$\EMV = \operatorname{Var}[\mes(\es)]$ is:
 \begin{equation*}
 \begin{split}
-\emv
+\EMV
 &=\int_{\domain^2} \mathbb{P}\left(
 \gp[u]\in T, \gp[v]\in T \right)
 d\mes^{\otimes}(u, v)\\
@@ -627,7 +627,7 @@ which in the excursion/sojourn case where $\T=(-\infty, t_1] \times
 \dots \times (-\infty, t_{\no}]$ is
 \begin{equation*}
 \begin{split}
-\emv
+\EMV
 %\operatorname{Var}[\mes(\es)]
 &=\int_{\domain^2}
 \varPhi_{2\no}
@@ -667,7 +667,7 @@ d\mes(u) \\
 \label{sec:eibv}
 
 We compute the expected effect of the inclusion of new observations on
-the $\emv$ and $\ibv$ of the ES $\es$. Let us consider the
+the $\EMV$ and $\IBV$ of the ES $\es$. Let us consider the
 same setting as in Eqn. \eqref{eq:meanCoK} and \eqref{eq:varCoK}, and
 let $\currentExp{.}$ and $\currentProba{.}$ denote conditional
 expectation and probability conditional on the first $n$ batches of
@@ -682,7 +682,7 @@ current law of the field, conditioned on observing $\bm{y}$ at $\bm{x}$
 (generalized, possibly batch observation). The expected effect of a
 new observation on the IBV is then 
 \begin{equation}\label{def:eibv}
-    \currentEIBV(\bm{x}):=\mathbb{E}_{\stage}\left[\mbox{IBV}(\bm{x}; \bm{Y})\right],
+    \currentEIBV(\bm{x}):=\currentExp{\mbox{IBV}(\bm{x}; \bm{Y})},
 \end{equation}
 where $\bm{Y}$ is distributed according to the current law of
 $Z_{\bm{x}}$ and with independent noise having covariance matrix
@@ -697,8 +697,8 @@ useful when designing sequential expected uncertainty reduction strategies.
 \begin{equation}
 \begin{split}
 \currentEIBV(\bm{x})
-&=\int_{D} \varPhi_{\no}\left(\bt;~\currentMean{\uu}, \currentCov{u, u}\right) d\mes(u)\\
-&-\int_{D} \varPhi_{2\no}
+&=\int_{\domain} \varPhi_{\no}\left(\bt;~\currentMean{\uu}, \currentCov{u, u}\right) d\mes(u)\\
+&-\int_{\domain} \varPhi_{2\no}
 \left(
 \left(
 \begin{matrix}
@@ -735,30 +735,51 @@ As for the expected EMV, a similar result may be derived.
 
 \begin{equation*}
 \begin{split}
-\eemv_{[n]}(\bm{x})
+\currentEEMV(\bm{x})
 &=\int_{\domain^2} 
 \varPhi_{2\no}
 \left(
-(\bt, \bt); \mu((u,v)), 
+(\bt, \bt); ~ \mu((u,v)), 
 K((u,v),(u,v))
 \right) 
 \
 \mathrm{d}\mes^{\otimes} %\mes 
 %\productMeasure 
 (u,v)\\
-&-\int_{\domain^2}\currentExp{
-    \varPhi_{\no}\left(a_1+B_1 V; K_{[n+1]}(u)\right)
-    \varPhi_{\no}\left(a_2+B_2 V; K_{[n+1]}(v)\right)
-}\mathrm{d}\mes^{\otimes}(u, v),
+&-\int_{\domain^2} \varPhi_{2\no}
+\left(
+\left(
+\begin{matrix}
+\bt-\currentMean{\uu}\\
+\bt-\currentMean{\vv}
+\end{matrix}
+\right);~
+\mathbf{\tilde{\Sigma}}_{[\stage]}(\uu, \vv)
+\right)
+\mathrm{d}\mes^{\otimes} %\mes 
+%\productMeasure 
+(u,v)
 \end{split}
 \end{equation*}
-with $V=\gp[\bm{x}]-\currentMean{\bm{x}} \sim \mathcal{N}(0_{q_{n+1}},k_{[n]}(\bm{x},\bm{x}))$ and $a_1=\bt-\currentMean{\uu}$,
-$B_1=-\lambda_{[n+1,n+1]}(\uu)^T$, $a_2=\bt-\currentMean{\vv}$, $B_2=-\lambda_{[n+1,n+1]}(\vv)^T$.
-
-This integrand boils down to an evaluation of the
-$2\no$-dimensional Gaussian CDF by Proposition~\ref{propo3} (Appendix). Details
-are omitted here for brevity as we do not implement this criterion
-further because it requires numerical integration over $\domain^2$.
+where the matrix $\mathbf{\tilde{\Sigma}}_{[n]}(\uu, \vv)$ is defined blockwise as
+\begin{equation*}
+\begin{split}
+\mathbf{\tilde{\Sigma}}_{[n]}(\uu, \vv)&=
+\left(
+\begin{matrix}
+\tilde{\Sigma}_{u,u} & \tilde{\Sigma}_{u,v}\\
+\tilde{\Sigma}_{v,u} & \tilde{\Sigma}_{v,v}
+\end{matrix}\right)
+\end{split}
+\end{equation*}
+with blocks
+\begin{equation*}
+\begin{split}
+\tilde{\Sigma}_{u, v} &= \lambda_{[n+1,n+1]}(\uu)^T k_{[n]}(\bm{x},\bm{x}) \lambda_{[n+1,n+1]}(\vv)\\
+\tilde{\Sigma}_{u, u} &= \lambda_{[n+1,n+1]}(\uu)^T k_{[n]}(\bm{x},\bm{x}) \lambda_{[n+1,n+1]}(\uu) + \futureCov{u, u}
+\end{split}
+\end{equation*}
+and the other blocks are defined by following the same logic, exchanging the role of $\uu$ and $\vv$.
 \end{propo}
 
 We remark that Propositions \ref{propo_eibv} and \ref{propo_emv} are
