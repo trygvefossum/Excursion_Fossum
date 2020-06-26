@@ -144,7 +144,7 @@
 \begin{document}
 
 %----------------------------------------------------------------------
-\title{Autonomous oceanographic Sampling Designs Using Excursion Sets for Multivariate Gaussian Random Fields
+\title{Autonomous Oceanographic Data Collection. Learning Excursion Sets of Vector-valued Gaussian Random Fields
   \\\vspace{5mm}
  Authors response
   \\\vspace{5mm}
@@ -157,32 +157,33 @@
 
 We are grateful to the editors and reviewers for their comments and
 suggestions. They have all been considered in this revised
-version of our manuscript. We have worked a lot on developing both theoretical results, computational resources, and on the presentation in the paper. To help us in these efforts, we included Cedric Travelletti as co-author because he has contributed significantly on the revised version of the paper. 
+version of our manuscript. We have worked a lot on developing both theoretical results, computational resources, and on the paper presentation. To help us in these efforts, we included Cedric Travelletti as co-author because he has contributed significantly on the revised version of the paper. 
 
 The principal revisions made to the manuscript are as shown in this list, and they are done to address the main comments of Editors and Reviewers:
 
 \begin{enumerate}
 \item The revision has lead to {\bf{structural changes}} as follows: \\
-    i) previous section 1 and 2 are combined to one introduction which should help the narrative and highlight the main contributions of the work. \\
-    ii) merged the data assimilation part with equations for coKriging to clarify that this work is on multivariate GRFs. \\
+    i) previous Section 1 and 2 are combined to one Introduction which should help the narrative and highlight the main contributions of the work. \\
+    ii) merged the data assimilation part with equations for co-Kriging to clarify that this work is on multivariate GRFs. \\
     iii) Split the simulation study in two and used these as to directly motivate the statistical concepts of uncertainty reduction (Sect 2) and adaptive sampling strategies (Sect 3).
+    iv) Present mathematical contributions succintly in Section 2 and 3, while the mathematical proofs are in Appendix.
 
 \item The motivation for excursion sets (ESs), and in particular that of {\bf{multivariate ESs}}, has been strengthened in this revision. Motivating examples are abundant in medicine where doctors do not solely rely on a single symptom but must see several combined effects before making a diagnosis, for example. Our motivation in the current paper is that temperature and salinity are proxies for more complex biological variables in the ocean, and in several cases they must be jointly high or low for phenomena to occur. 
 
-In the revised manuscript these aspects are largely rewritten into the Introduction, and partly also in Section 2. \\
-This change addresses comments of the Associate Editor and Rev. 1 in particular.
+In the revised manuscript these aspects are largely rewritten, in particular in the Introduction. \\
+This change addresses comments of Associate Editor and Rev. 1 in particular.
 
 \item The {\bf{statistical methodological contribution}} have been clarified and improved, including definitions of random sets and ESs, and having more general results than just the EIBV for the bi-variate case of temperature and salinity. The revised version highlights these novel statistical results as a main contribution of the paper. 
 We emphasize the statistical design problem which is sought solved by the AUV with its constraints on navigation and computing resources.
 In this sense, the revised version should provide ample motivation for statisticians, while still maintaining strong links to the application for illustrating concepts.
 
-In the revised manuscript these aspects are largely rewritten in the Introduction, in Section 2 and 3, and on in the Closing remarks. The main body contains the novel statistical results for the expected uncertainty reduction in random sets exemplified by the EIBV, while the Appendix holds the proofs. \\
-This change addresses comments of the Editor, Associate Editor, Rev. 1, Rev. 2 and Rev. 3.
+In the revised manuscript these aspects are largely rewritten in the Introduction, in Section 2 and 3, and in the Closing remarks. The main body contains the novel statistical results for the expected uncertainty reduction in random sets exemplified by the EIBV, while the Appendix holds the proofs. \\
+This change addresses comments of Editor, Associate Editor, Rev. 1, Rev. 2 and Rev. 3.
 
 \item We realize that a contribution of the current work is available code for practitioners or statisticians who could try this themselves, or possibly extend it for their own cases. We have hence made a substantial effort in structuring {\bf{computer code for examples}} which are presented on a URL link. (\url{https://cedrictravelletti.github.io/Submarine/} )
  to go with the paper. This open-source python code is also ready to run on more nuanced statistical models (non-stationary and non-isotropic). 
  
-The Introduction section contains pointers to the open-source code. \\
+The Introduction and simulations in Section 3 contain pointers to the open-source code. \\
 This change addresses comments of Rev. 1 and Rev. 2 in particular.
 
 \end{enumerate}
@@ -237,7 +238,7 @@ for whom is this paper important?" The reports have some
 suggestions that may guide you in making the necessary critical 
 revisions along these lines.  
 
-\reply: Based on the comment by you, AE and reviewers, we have restructured the Introduction and later parts of the paper to be more readable for professional statisticians. While doing so, we still strive to highlight how statistics can learn from new technologies like marine robotics and how robotics can benefit from new statistical developments. 
+\reply: Based on the comment by you, AE and reviewers, we have restructured the Introduction and later parts of the paper to be more readable for professional statisticians. While doing so, we still highlight how statistics can learn from new technologies like marine robotics and how robotics can benefit from new statistical developments. 
 
 %\item{2. Novelty:}\label{r3c2}
 \vspace{5mm}
@@ -255,7 +256,7 @@ that others could run for the simulation studies like the authors'
 good code for finding the optimum design. That could lead to a 
 fairly substantial impact of their work."
 
-\reply: We realize that we did not stress the statistical novelty sufficiently in the initial version. The main statistical novelty is closed-form calculations for the design expected integrated Bernoulli variance (EIBV) for multivariate processes. In the revised version has clarified the statistical contributions via re-structured sections. Moreover, we extend the calculations to more general criteria (such as volumes, going beyond single location). The main closed-form results are presented in the main body, but with proofs in the new Appendix.
+\reply: We realize that we did not stress the statistical novelty sufficiently in the initial version. The main statistical novelty is closed-form calculations for the design criterion of expected integrated Bernoulli variance (EIBV) for multivariate processes. In the revised version, we clarified the statistical contributions via re-structured sections. Moreover, we extend the statistical calculations to more general design criteria (such as volumes, going beyond single location). The main closed-form results are presented in the main body, but with proofs in the new Appendix.
 
 %\item{3. Assumptions }\label{r3c3}
 \vspace{5mm}
@@ -265,7 +266,7 @@ Referees 1 and 2, as well as the AE, call attention to some of
 the assumptions (e.g., stationary and isotropic random fields),
 and ask you to address how realistic they are.
 
-\reply: At this spatial scale there is often not so much data to infer a detailed statistical model, and this is the reason for our parsimonious model in the real-data case. In other related situations, for instance that of larger fjord or ocean fronts, which are at a larger scale, there would usually be more data available for instance in the form of satellite data or from computer model simulations. (We added references to related papers that explored non-stationary Gaussian models for oceanographic phenomena at a larger scale than what is used here.) For such cases, we agree that it would make sense to embed more nuanced models onboard the AUV, for instance that of non-stationary models or anisotropic random fields, but for our field trial here we attempted to have as few parameters. 
+\reply: At this spatial scale there is often not so much data to infer a detailed statistical model, and this is the reason for our parsimonious model in the real-data case. In other related situations, for instance that of larger fjord or ocean fronts, which are at a larger scale, there would usually be more data available for instance in the form of satellite data or from computer model simulations. For such cases, we agree that it would make sense to embed more nuanced models onboard the AUV, for instance that of non-stationary models or anisotropic random fields, but for our field trial here we attempted to have as few parameters. 
 
 That said, in the updated simulation study, which we have generalized and made open-source, there are demos using more complex covariance models (non-stationary variance and non-isotropic random fields). 
 
@@ -283,7 +284,7 @@ advise you to engage them early on.  All four reviewers note
 potential technical or typographical errors, so please proofread
 carefully.
 
-\reply: Based on the comments by yourself, Associate Editor and referees, we realize that the motivation part of the paper was too long. We have merged the previous Introduction and Section 2 to the current Introduction, and we cut redundant parts in this process. We now aim to engage readers earlier, particularly so with applied statistical focus and the methodological contributions of our work. 
+\reply: Based on the comments by yourself, AE and referees, we realize that the motivation part of the paper was too long. We have merged the previous Introduction and Section 2 to the current Introduction, and we cut redundant parts in this process. We now aim to engage readers earlier, particularly so with applied statistical focus and the methodological contributions of our work. 
 
 %\end{answers}
 
