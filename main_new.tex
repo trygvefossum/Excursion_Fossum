@@ -34,6 +34,7 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{cleveref}
+\usepackage{xcolor}
 \input{macros}
 
 \begin{document}
@@ -41,7 +42,12 @@
 \begin{frontmatter}
 
 % "New Title of the paper"
-\title{Autonomous Oceanographic Data Collection. Learning Excursion Sets of Vector-valued Gaussian Random Fields} 
+\title{Autonomous Oceanographic Data Collection. Learning Excursion
+  Sets of Vector-valued Gaussian Random Fields \\or\\
+Learning Excursion Sets of Vector-valued Gaussian Random Fields for
+Autonomous Ocean Sampling
+}
+
 \runtitle{Autonomous Oceanographic Data Collection}
 
 \begin{aug}
@@ -79,27 +85,41 @@ Switzerland.
   for marine science and maritime resource management. Faced with
   limited resources in understanding processes in the water-column,
   the combination of statistics and autonomous systems provide new
-  opportunities for experimental design. 
+  opportunities for experimental design.
   %
   %In this work we develop methods for efficient spatial sampling applied to the mapping of coastal ocean processes by providing informative descriptions of spatial characteristics of ocean phenomena. 
   %
   % REPLACED BY 
   %
-  In this work we develop efficient spatial sampling methods for characterizing regions defined by simultaneous exceedances above prescribed thresholds of several responses, with an application focus on mapping coastal ocean phenomena based on temperature and salinity measurements. 
+  In this work we develop efficient spatial sampling methods for
+  characterizing regions defined by simultaneous exceedances above
+  prescribed thresholds of several responses, with an application
+  focus on mapping coastal ocean phenomena based on temperature and
+  salinity measurements.
   % EN REPLACEMENT
-  Specifically, we define a design criterion based on uncertainty in the excursions of vector-valued Gaussian random fields, and derive tractable expressions for the expected integrated Bernoulli variance reduction in such a framework. We demonstrate how this criterion can be used to prioritize sampling efforts at locations that are ambiguous, making exploration more effective. 
-  We use simulations to study and compare properties of the considered approaches, followed by results from field deployments with an autonomous underwater vehicle as part of a study mapping the boundary of a river plume. The results demonstrate the potential of combining statistical methods and robotic platforms to effectively inform and execute data-driven environmental sampling.
+  Specifically, we define a design criterion based on uncertainty in
+  the excursions of vector-valued Gaussian random fields, and derive
+  tractable expressions for the expected integrated Bernoulli variance
+  reduction in such a framework. We demonstrate how this criterion can
+  be used to prioritize sampling efforts at locations that are
+  ambiguous, making exploration more effective.  We use simulations to
+  study and compare properties of the considered approaches, followed
+  by results from field deployments with an autonomous underwater
+  vehicle as part of a study mapping the boundary of a river
+  plume. The results demonstrate the potential of combining
+  statistical methods and robotic platforms to effectively inform and
+  execute data-driven environmental sampling.
   
 %Motivated by the challenges related to efficient allocation of sampling resources in environmental sensing, the combination of Excursion Probabilities and Gaussian process modeling is explored for autonomous robotic sampling of ocean features; enabling information driven measures  sampling efforts to high-interest regions. These regions are usually characterized by gradients of measurable environmental variables, e.g., temperature or salinity gradients, on which EPs subsequently can be used...Correlation among samples and multivariate requirements are typical in environmental studies.
 
 \end{abstract}
 
 \begin{keyword}
-\kwd{Ocean Sampling}
 \kwd{Excursion Sets}
 \kwd{Gaussian Processes}
 \kwd{Experimental Design}
 \kwd{Autonomous robots}
+\kwd{Ocean Sampling}
 \kwd{Adaptive Information Gathering}
 \end{keyword}
 
@@ -281,9 +301,11 @@ Other statistical work in the oceanographic domain include
 \cite{sahu2008space} studying spatio-temporal models for sea surface
 temperature and salinity data and \cite{mellucci2018oceanic} looking
 at the statistical prediction of features using an underwater glider.
-In this paper the main focus is not on statistical modeling per se, but rather on statistical principles and computations underlying efficient data collection. We combine novel possibilities in marine
-robotics with spatial statistics and experimental design to provide
-useful AUV sampling designs.
+In this work the main focus is not on statistical modeling per se, but
+rather on statistical principles and computation underlying efficient
+data collection. We combine novel possibilities in marine robotics
+with spatial statistics and experimental design to provide useful AUV
+sampling designs.
 
 Adaptive in-situ AUV sampling of an evolving frontal feature has been
 explored in \cite{fronts11,Smith2016,Pinto2018,costa19}. These
@@ -312,7 +334,7 @@ The primary contributions of this work are:
   strategies for optimizing AUV sampling with respect to the mentioned
   criteria. 
 \item Replicable experiments on synthetic cases with accompanying
-  code~\footnote{\url{https://github.com/CedricTravelletti/MESLAS}}
+  code
 \item Results from full-scale field trials running myopic strategies onboard an AUV for the characterization of a river plume. 
 \end{itemize}
 
@@ -502,14 +524,16 @@ simple expressions for the co-Kriging equations below.
 %\textcolor{red}{(ADDENDUM, C.T.) In the same fashion, we will use $\mu(\bm{x})$ to denote the $q$-dimensional vector corresponding to the mean at $\bm{x}$ and $k(\bm{x}, \bm{x})$ for the corresponding $q \times q$ covariance matrix.}
 
 
-Given a GRF $\gp$ and observations of some of its components at locations in the domain, one can predict the value of the field at some
-unobserved location $\spatloc\in \domain$ by using the conditional
-mean of $\gp[\spatloc]$, conditional on the data. This coincides with co-Kriging equations,
-which tell us precisely how to compute conditional means and covariances.  We will present a
-general form of co-Kriging, in the sense that it allows inclusion of
-several (batch) observations at a time; observations at a given
-location $u \in \domain$ may only include a subset of the components
-of $\gp[\spatloc]\in\mathbb{R}^{\no}$ (heterotopic).
+Given a GRF $\gp$ and observations of some of its components at
+locations in the domain, one can predict the value of the field at
+some unobserved location $\spatloc\in \domain$ by using the
+conditional mean of $\gp[\spatloc]$, conditional on the data. This
+coincides with co-Kriging equations, which tell us precisely how to
+compute conditional means and covariances.  We will present a general
+form of co-Kriging, in the sense that it allows inclusion of several
+(batch) observations at a time; observations at a given location
+$u \in \domain$ may only include a subset of the components of
+$\gp[\spatloc]\in\mathbb{R}^{\no}$ (heterotopic).
 
 Assuming that $n$ batches of observations are available with sizes
 $q_1,\dots, q_n$, and that one wishes to predict $\gp[\bm{x}]$ for
@@ -529,13 +553,16 @@ $$\left(k(\bm{x}_{[n]}, \bm{x}_{[n]})+\Delta_{[n]} \right)^{-1} k(\bm{x}_{[n]}, 
 $$
 with $\bm{x}_{[n]}=(\bm{x}_1,\dots,
 \bm{x}_n)$ and where
-$\Delta_{[n]}$ is the covariance matrix of
-Gaussian-distributed noise assumed to have affected measurements up to
-batch
-$n$. For our applications with salinity and temperature observations, this matrix is diagonal because we assume conditionally independent sensor readings, but it might not be diagonal with other types of combined measurements.
-The matrix in parenthesis will be assumed to be non-singular
-throughout the presentation. The associated co-Kriging %(conditional)
-residual (cross-)covariance function can also be expressed in the same vein via
+$\Delta_{[n]}$ is the covariance matrix of Gaussian-distributed noise
+assumed to have affected measurements up to batch
+$n$. For our applications with salinity and temperature observations,
+this matrix is diagonal because we assume conditionally independent
+sensor readings, but it might not be diagonal with other types of
+combined measurements.  The matrix in parenthesis will be assumed to
+be non-singular throughout the presentation. The associated
+co-Kriging %(conditional)
+residual (cross-)covariance function can also be expressed in the same
+vein via
 %
 \begin{equation}\label{eq:cokrig_cov}
 k_{[n]}(\bm{x},\bm{x}')=k(\bm{x},\bm{x}')-\lambda_{[n]}(\bm{x})^T 
@@ -777,11 +804,12 @@ situation with random sets for vector-valued GRFs.
 \subsection{Expected Bernoulli variance for a two dimensional Example}
 \label{Sec:UnivarEx}
 
-We illustrate the expected Bernoulli variance (EBV) associated with different designs on a
-bivariate example. This mimics our river plume application and hence
-the first and second component of the random field will be called
-\textit{temperature} and \textit{salinity}. We begin
-with a \textit{pointwise} example, considering a single bivariate Gaussian distribution (i.e. no spatial elements).
+We illustrate the expected Bernoulli variance (EBV) associated with
+different designs on a bivariate example. This mimics our river plume
+application and hence the first and second component of the random
+field will be called \textit{temperature} and \textit{salinity}. We
+begin with a \textit{pointwise} example, considering a single
+bivariate Gaussian distribution (i.e. no spatial elements).
 
 \subsubsection{A pointwise study}
 
@@ -812,11 +840,15 @@ Bernoulli variance (second row) for the examples indicated in
 Fig.~\ref{illus_bivarDens}. The EPs increase with the correlation as
 there is a strong tendency to have jointly low or high temperature and
 salinity. The Bernoulli variance is similarly larger for high
-correlations. EPs and Bernoulli variances are the same for temperature and salinity standard
-deviations $\sigma_1$ and $\sigma_2$, which implies that high variability in
-temperature and salinity is not captured in the $p(1-p)$ expression.
+correlations. EPs and Bernoulli variances are the same for temperature
+and salinity standard deviations $\sigma_1$ and $\sigma_2$, which
+implies that high variability in temperature and salinity is not
+captured in the $p(1-p)$ expression.
 
-\begin{table}[!t] \centering \caption{EP and Bernoulli variance for different correlations and variances (top rows), and EBVs for both temperature and salinity data, and only temperature data (bottom rows).}
+\begin{table}[!t] \centering \caption{EP and Bernoulli variance for
+    different correlations and variances (top rows), and EBVs for both
+    temperature and salinity data, and only temperature data (bottom
+    rows).}
   \begin{tabular}{c|ccc|ccc}
  &\multicolumn{3}{c}{$\sigma_1=\sigma_2=1$} & \multicolumn{3}{c}{$\sigma_1=\sigma_2=2$} \\
 \hline
@@ -830,21 +862,22 @@ EBV, Temperature only & 0.151 & 0.138 & 0.123 & 0.137 & 0.114 & 0.093 \\
 \end{tabular}
 \label{tab:sim_rhoab}
 \end{table}
-The bottom two rows of Table \ref{tab:sim_rhoab} show 
-EBV results. This is presented for a design gathering
-both data types, and for a design with temperature measurements
-alone. When both data are gathered, the measurement model is
+The bottom two rows of Table \ref{tab:sim_rhoab} show EBV
+results. This is presented for a design gathering both data types, and
+for a design with temperature measurements alone. When both data are
+gathered, the measurement model is
 $(Y_1,Y_2)^t=(Z_1,Z_2)^t+\bepsilon$, with
 $\bepsilon \sim N(0,0.5^2I_2)$, while $Y_1=Z_1+\epsilon$,
 $\epsilon \sim N(0,0.5^2)$ when only temperature is measured.  For
 this illustration, Table \ref{tab:sim_rhoab} shows that the expected
-Bernoulli variance gets smaller with larger standard deviations. The expected reduction of Bernoulli variance is
-further largest for the cases with high correlation $\gamma$. Albeit smaller,
-there is also uncertainty reduction when only temperature is measured
-(bottom row), especially when temperature and salinity are highly
-correlated. When correlation is low ($\gamma=0.2$), there is little
-information about salinity in the temperature data, and therefore less
-uncertainty reduction. 
+Bernoulli variance gets smaller with larger standard deviations. The
+expected reduction of Bernoulli variance is further largest for the
+cases with high correlation $\gamma$. Albeit smaller, there is also
+uncertainty reduction when only temperature is measured (bottom row),
+especially when temperature and salinity are highly correlated. When
+correlation is low ($\gamma=0.2$), there is little information about
+salinity in the temperature data, and therefore less uncertainty
+reduction.
 %In an application with fresh cold water from a river source, the temperature and salinity variables will not only be interdependent, but will also likely show dependence in the spatial dimension. This in turn will impact the design criteria when we
 % evaluate the information measure by integrating over several locations (Section \ref{sec:simulations}).
 
@@ -862,15 +895,19 @@ with $\beta_0$ a two dimensional vector and $\beta_1$ a $2\times 2$ matrix. In o
    \gamma \sigma_i \sigma_j,~i\neq j,
         \end{cases}
 \end{align*}
-where an isotropic Mat\'{e}rn 3/2 kernel $(1+\eta h)\exp (-\eta h)$ is used, for Euclidean distance $h$.
-In the accompanying Python
-examples taking place within the MESLAS toolbox~\footnote{\url{https://github.com/CedricTravelletti/MESLAS}}, these
-modeling assumptions can however be relaxed to anisotropic covariance and
-changing variance levels across the spatial domain. Both extensions are relevant for the setting with river
-plumes, but in practice this requires more parameters to be specified. With extensive satellite data or prior knowledge from high-resolution ocean models, one could also possibly fit more complex multivariate
-spatial covariance functions
+where an isotropic Mat\'{e}rn 3/2 kernel $(1+\eta h)\exp (-\eta h)$ is
+used, for Euclidean distance $h$.  In the accompanying Python examples
+taking place within the MESLAS
+toolbox~\footnote{\url{https://github.com/CedricTravelletti/MESLAS}},
+these modeling assumptions can however be relaxed to anisotropic
+covariance and changing variance levels across the spatial
+domain. Both extensions are relevant for the setting with river
+plumes, but in practice this requires more parameters to be
+specified. With extensive satellite data or prior knowledge from
+high-resolution ocean models, one could also possibly fit more complex
+multivariate spatial covariance functions
 \citep{gneiting2010matern,genton2015cross}, but that is outside the
-scope of the current paper.
+scope of the current work.
 
 In the rest of this section, we consider a GRF with mean and
 covariance structure as above and parameters
@@ -892,14 +929,17 @@ design locations. The EIBV is approximated by sums over all grid
 cells. 
 
 
-We now study how the EBV [Eq.\eqref{def:eibv}]
-associated with data collection at a point changes if only one of the
-two components of the field is observed. We first draw a realization
-of the GRF defined above and use it as ground-truth to mimic the real
-data-collection process. A first set of observations are done at the
-locations depicted in grey (see Fig.~\ref{fig:ebv_comp}), and the data
-is used to update the GRF model. We then consider the green triangle
-as a potential next observation location and plot the EBV reduction (at each grid node in the waypoint graph) that would result from observing only one component of the field (temperature or salinity), or both at that point.
+We now study how the EBV [Eq.\eqref{def:eibv}] associated with data
+collection at a point changes if only one of the two components of the
+field is observed. We first draw a realization of the GRF defined
+above and use it as ground-truth to mimic the real data-collection
+process. A first set of observations are done at the locations
+depicted in grey (see Fig.~\ref{fig:ebv_comp}), and the data is used
+to update the GRF model. We then consider the green triangle as a
+potential next observation location and plot the EBV reduction (at
+each grid node in the waypoint graph) that would result from observing
+only one component of the field (temperature or salinity), or both at
+that point.
 
 \begin{figure}[!b] 
 \centering 
@@ -912,22 +952,25 @@ height=0.22\textwidth,keepaspectratio]{Figures/ebv_comp_sal.png}\label{fig:ebv_c
 \subfigure[Both.]{\includegraphics[
 height=0.22\textwidth,keepaspectratio]{Figures/ebv_comp_both.png}\label{fig:ebv_comp_both}}
 \caption{Pointwise Bernoulli variance reduction for observation of a
-    single or both components of the random field at one
-    location. Data collection locations in green. True excursion set
-    in red. Places where only one response is above threshold are
-    depicted in pink. EBV reduction associated to observing one or both responses at the green location are shown in \ref{fig:ebv_comp_temp}, \ref{fig:ebv_comp_sal} and \ref{fig:ebv_comp_both}.}
+  single or both components of the random field at one location. Data
+  collection locations in green. True excursion set in red. Places
+  where only one response is above threshold are depicted in pink. EBV
+  reduction associated to observing one or both responses at the green
+  location are shown in \ref{fig:ebv_comp_temp},
+  \ref{fig:ebv_comp_sal} and \ref{fig:ebv_comp_both}.}
 \label{fig:ebv_comp}
 \end{figure}
 
 
 
 
-Note that plotting the EBV reduction at each point
-might also be used to compare different data collection plans. For
-example, Fig. \ref{fig:ebv_north_vs_east} shows the EBV reduction associated with a data collection plan along a vertical line (static north) and one associated with a horizontal
-(static east). Both expectations are computed according to the
-a-priori distribution of the GRF (i.e. no observations have been
-included yet).
+Note that plotting the EBV reduction at each point might also be used
+to compare different data collection plans. For example,
+Fig. \ref{fig:ebv_north_vs_east} shows the EBV reduction associated
+with a data collection plan along a vertical line (static north) and
+one associated with a horizontal (static east). Both expectations are
+computed according to the a-priori distribution of the GRF (i.e. no
+observations have been included yet).
 
 
 \begin{figure}[!b] 
@@ -938,12 +981,16 @@ height=0.25\textwidth,keepaspectratio]{Figures/ebv_static_excu.png}\label{fig:eb
 height=0.26\textwidth,keepaspectratio]{Figures/ebv_static_north.png}\label{fig:ebv_static_north}}
 \subfigure[Static east design.]{\includegraphics[
 height=0.26\textwidth,keepaspectratio]{Figures/ebv_static_east.png}\label{fig:ebv_static_east}}
-  \caption{Pointwise Bernoulli variance reduction for two different observation plans. The prior EP is shown in \ref{fig:ebv_static_excu}. EBV reduction for each design shown in \ref{fig:ebv_static_north} and \ref{fig:ebv_static_east}.}
+\caption{Pointwise Bernoulli variance reduction for two different
+  observation plans. The prior EP is shown in
+  \ref{fig:ebv_static_excu}. EBV reduction for each design shown in
+  \ref{fig:ebv_static_north} and \ref{fig:ebv_static_east}.}
 \label{fig:ebv_north_vs_east}
 \end{figure}
 
 
-\section{Sequential designs and heuristic path planning}\label{sec:heuristics}
+\section{Sequential designs and heuristic path planning}
+\label{sec:heuristics}
 
 We present sequential data collection
 strategies that aim at reducing the expected uncertainty on the target
@@ -1025,7 +1072,8 @@ applications. Moreover, it can be implemented without too much demand on
 computational power, making it well-suited for embedding on an AUV.
 
 
-\subsection{Look-ahead Trajectory Planning}\label{sec:LA}
+\subsection{Look-ahead Trajectory Planning}
+\label{sec:LA}
 
 We now extend the myopic strategy by considering two stages of
 measurements, which is optimal in that it accounts consistently for
@@ -1061,7 +1109,7 @@ available at stage $n$ and on an additional observation $y$ at $u$ at stage $n+1
     equations.
 
 
-\subsection{Simulation study}
+\subsection{Simulation studies}
 \label{sec:simulations}
 
 \subsubsection{Static and Sequential Sampling Designs}
@@ -1117,11 +1165,12 @@ trajectory choices over the $31\times31$ grid used to discretize the GRF. The AU
 \end{figure}
 
 Each strategy is conducted on an equilateral grid as shown in
-Fig.~\ref{fig:wp_graph}. The AUV starts at the center coordinate at the southern end of the domain (node 53). It then moves
-along edges in the waypoint graph while collecting data which are
-assimilated onboard to update the GRF model. This is used in the evaluation
-of the next node to sample.  The procedure is run for $10$ stages. A
-total of 100 replicate simulations were conducted with all strategies.
+Fig.~\ref{fig:wp_graph}. The AUV starts at the center coordinate at
+the southern end of the domain (node 53). It then moves along edges in
+the waypoint graph while collecting data which are assimilated onboard
+to update the GRF model. This is used in the evaluation of the next
+node to sample.  The procedure is run for $10$ stages. A total of 100
+replicate simulations were conducted with all strategies.
 
 \subsection{Simulation Results}
 
@@ -1146,7 +1195,9 @@ parallel to the boundary between the water masses.
   $\bR^{2}$.]{\label{fig:avg_r2}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_R2.pdf}}
   \hfill \subfigure[Computational time for inference (the lines for \textit{naive}, \textit{static\_north}, \textit{static\_east}, and \textit{static\_zigzag}
   overlap).]{\label{fig:avg_time}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_Time.pdf}}
-\caption{Simulation results from 100 replicate simulations for 10 sampling choices/stages on the grid. Vertical lines show variation in replicate results.}  
+  \caption{Simulation results from 100 replicate simulations for 10
+    sampling choices/stages on the grid. Vertical lines show variation
+    in replicate results.}
 \label{fig:sim_results}
 \end{figure}
 
@@ -1407,93 +1458,109 @@ south-western corner.
 \label{sec:concl_disc}
 
 This work builds on a multidisciplinary effort combining statistical
-methods with robotic surveying techniques for oceanographic
-applications. We show how observation practices can gain efficiency
-and accuracy from the development of statistical techniques for
-spatial monitoring. We further demonstrate the opportunities available
-for real-time multivariate spatial data gathering and analysis on
-autonomous platforms, which statisticians can exploit to create
-general-purpose toolkits for similar applications.
+methods with robotic sampling for oceanographic applications. We show
+how observation practices can gain efficiency and accuracy from
+statistical techniques for spatial monitoring and demonstrate the the
+need for real-time multivariate spatial sampling on autonomous
+platforms.% , which statisticians can exploit to create general-purpose
+% toolkits for similar applications.
 
-In particular, we derive and show results for characterizing phenomena
-connected to the properties of water masses. The characterization of
-uncertainties in random sets is extended in the vector-valued case with new results for the
-expected integrated Bernoulli variance reduction achieved by spatial
-sampling designs. This is provided in semi-analytical form for the situation
-with a static design, and then extended to the adaptive situation. The
-sequential derivations provide new insights into efficient
-applications of adaptive data collection, as demonstrated in our
-application.
+In particular, we derive and show results for a real-world domain
+characterizing water mass properties. The characterization of
+uncertainties in random sets is extended in the vector-valued case
+with new results for the expected integrated Bernoulli variance
+reduction achieved by spatial sampling designs. This is provided in
+semi-analytical form for static designs, and then extended to the
+adaptive situations. The sequential derivations provide new insights
+into efficient applications of adaptive data collection, as
+demonstrated in our application.
 
 The case study considers the upper water column in the river plume,
 represented by a two dimensional grid. Extensions to three-dimensional
-domains are not methodologically different, but the operation must
-likely approximate calculations by concentrating numerical integration efforts on terms in the
-vicinity of the autonomous vehicle \citep{fossum18b}. We did not
+domains are not methodologically different, but likely approximate
+calculations by concentrating numerical integration on terms in the
+vicinity of the autonomous vehicle \citep{fossum18b}. While we did not
 consider any temporal effects, which would be relevant on a larger
-time scale. We consider the extension to spatio-temporal modeling as
-future work, and envision that advection-diffusion equations could be
-useful in this kind of modeling
+time scale, we do consider the extension to spatio-temporal modeling
+and envision that advection-diffusion equations could be useful in
+such modeling
 \citep{sigrist2015stochastic,richardson2017sparsity}. For more complex
 oceanographic phenomena, the methods will need to be extended to
 non-Gaussian phenomena, possibly feature-based mixtures of Gaussian
 processes which could still be run onboard and augmented by dynamical
-models. If high-resolution ocean model or satellite data are available, it is hopefully possible to fit such more complex statistical models.
+models. If high-resolution ocean model or satellite data are
+available, it is hopefully possible to fit such more complex
+statistical models. \kc{'Fit' as in modeling fit, or fit for
+  augmentation with dynamical models? But also note ocean models are
+  unlikely to be able to run onboard, so a simple phrase should be
+  added to that effect.}
 
-The spatial-statistical design criterion building on random sets is
+The spatio-statistical design criterion building on random sets is
 relevant in our setting with different water properties.  We show
 mathematical generality beyond the expected integrated Bernoulli
-variance, for instance that of volume uncertainties which is possibly
-more relevant, but requires more computational resources.  Such
-criteria could be particularly useful in other oceanographic settings
-related to mapping of algal-blooms, anoxic zones or open water fronts
-\cite{costa19}.  Of course, other criteria are also relevant for
-instance, hybrid or multi-attribute criteria that could balance goals
-of exploration and exploitation in this situation. Equally, such
+variance, for instance, that of volume uncertainties which is possibly
+more relevant, but one that requires more computational resources.
+Such criteria could be particularly useful in other oceanographic
+settings related to mapping of algal-blooms, anoxic zones or open
+water fronts \cite{costa19}.  Other criteria could also be relevant,
+for instance, hybrid or multi-attribute criteria that could balance
+goals of exploration and exploitation in this situation. Equally, such
 techniques have significant use cases in downstream decision-making,
 with policy makers and regulators who need to make difficult decisions
-related to fish farming or other marine resource operations. Value of
-information analysis \citep{Eidsvik:15} could be used to evaluate
-whether information is likely to result in improved decision-making,
-in such a context.  We also foresee opportunities related to design of
+related to aquaculture or other marine resources. Value of information
+analysis \citep{Eidsvik:15} could be used to evaluate whether
+information is likely to result in improved decision-making, in such a
+context.  We also foresee opportunities related to design of
 experiments for multivariate processes using our notion of generalized
-locations. For instance, this is likely to be useful for
-internet-of-things applications or computer experiments where some
-observations or evaluations are rather inexpensive, while others 
-must only be done when they are really valuable.
+locations.
 
-In our context the myopic strategy performs well, and for
-computational reasons we did not go in depth on the dynamic program
-solution. There has been much creative work on finite horizon
+In our context the myopic strategy performs well, and due to
+computational constraints we did not go in depth on the dynamic
+programming solutions. There has been much work on finite horizon
 optimization in the robotics literature including probabilistic road
 maps and rapidly-exploring random trees \citep{karaman2011sampling},
-but their statistical properties are not yet clear.  
-In some cases it is also limiting to use the waypoint graph, and it would be beneficial to allow more continuous updates and navigation at the highest frequency allowed by the AUV.
-It is equally
+but their statistical properties are unclear.  In some cases it is
+also limiting to use a waypoint graph, and would be beneficial to
+allow more continuous updates and navigation at the highest frequency
+possible given limitations being onboard an AUV.  It is equally
 interesting to explore the additional flexibility that can be gained
 by having multiple vehicles co-temporally exploring a spatial or
 spatio-temporal domain \citep{ferreira2019advancing}. Such an approach
 would enable concurrent sampling in different parts of the space, or
 opportunities to move in parallel to best capture the excursion set.
-The sometimes conflicting topics of autonomy and communication have
-caught much interest in control engineering lately
-\citep{zolich2019survey}, and statistical evaluations could contribute
-in the future. In our context, autonomy is highlighted, and this is
-reflected in our modeling and computational assumptions. With the
-possibilities of wifi communication to a mother-ship at waypoints,
-more advanced modeling and computational routines are of course
-possible, but with new challenges related to design and planning for
-when and where the communication should occur.
+The value of information related to when and what to communicate (to
+shore or to other vehicles) is also an interesting thrust for research
+and likely to be useful for internet-of-things applications or
+computer experiments where some observations or evaluations are rather
+inexpensive, while others must only be done when they are really
+valuable.
+
+% The sometimes conflicting topics of autonomy and communication have
+% caught much interest in control engineering lately
+% \citep{zolich2019survey}, and statistical evaluations could contribute
+% in the future. In our context, autonomy is highlighted, and this is
+% reflected in our modeling and computational assumptions. With the
+% possibilities of wifi communication to a research vessel at waypoints,
+% more advanced modeling and computational routines are possible, but
+% with new challenges related to design and planning for when and where
+% the communication should occur.
 
 
 \section*{Acknowledgements}
 
 TOF acknowledges support from the Centre for Autonomous Marine
-Operations and Systems (AMOS)\footnote{\url{https://www.ntnu.edu/amos}}, Center of
-Excellence, project number 223254, and the Applied Underwater Robotics Labortatory (AURLab). CT and DG acknowledge
-support from the Swiss National Science Foundation, project number
-178858. JE and KR acknowledge support from Norwegian
-research council (RCN), project number 305445. DG would like to aknowledge support of Idiap Research Institute, where he had is main affiliation when the first version of this work was submitted. The authors would also like to thank Niklas Linde (University of Lausanne) for pointing out the relevance of revisiting the proposed approach for estimating volumes of mixing zones, e.g. in hydrology.  
+Operations and Systems (AMOS), Center of Excellence, project number
+223254, and the Applied Underwater Robotics Labortatory (AURLab). CT
+and DG acknowledge support from the Swiss National Science Foundation,
+project number 178858. JE and KR acknowledge support from Norwegian
+research council (RCN), project number 305445. DG would like to
+aknowledge support of Idiap Research Institute, his primary
+affiliation in an early version of this work.  The authors would also
+like to thank Niklas Linde of the University of Lausanne for providing
+constructive feedback on a version of the manuscript.
+
+%  for pointing out the relevance of revisiting the proposed
+% approach for estimating volumes of mixing zones, e.g. in hydrology.
 
 %\begin{supplement}
 %\sname{Supplement A}\label{suppA}
