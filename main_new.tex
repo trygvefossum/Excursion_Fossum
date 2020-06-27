@@ -778,13 +778,13 @@ where the matrix $\mathbf{\tilde{\Sigma}}_{[n]}(\uu, \vv)$ is defined blockwise 
 \end{matrix}\right)
 \end{split}
 \end{equation*}
-with blocks given by
+with blocks given, for $i,j\in \{1,2\}$ and $u,v\in \domain$, by
 \begin{equation*}
 \begin{split}
-\tilde{\Sigma}_{i,j}(u, v) &= \lambda_{[n+1,n+1]}(\uu)^T k_{[n]}(\bm{x},\bm{x}) \lambda_{[n+1,n+1]}(\vv) + \delta_{i,j}\futureCov{\uu, \vv}
+\tilde{\Sigma}_{i,j}(u, v) &= \lambda_{[n+1,n+1]}(\uu)^T k_{[n]}(\bm{x},\bm{x}) \lambda_{[n+1,n+1]}(\vv) + \delta_{i,j}\futureCov{\uu, \vv}.
 \end{split}
 \end{equation*}
-and the other blocks are defined by following the same logic, exchanging the role of $\uu$ and $\vv$.
+%and the other blocks are defined by following the same logic, exchanging the role of $\uu$ and $\vv$.
 \end{propo}
 
 We remark that Propositions \ref{propo_eibv} and \ref{propo_emv} are
@@ -1554,10 +1554,8 @@ Operations and Systems (AMOS), Center of Excellence, project number
 and DG acknowledge support from the Swiss National Science Foundation,
 project number 178858. JE and KR acknowledge support from Norwegian
 research council (RCN), project number 305445. DG would like to
-aknowledge support of Idiap Research Institute, his primary
-affiliation in an early version of this work.  The authors would also
-like to thank Niklas Linde of the University of Lausanne for providing
-constructive feedback on a version of the manuscript.
+aknowledge support of Idiap Research Institute, his primary affiliation in an early version of this manuscript.  The authors would also
+like to thank Niklas Linde of the University of Lausanne for providing constructive feedback on this work.
 
 %  for pointing out the relevance of revisiting the proposed
 % approach for estimating volumes of mixing zones, e.g. in hydrology.
