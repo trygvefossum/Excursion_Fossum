@@ -2,7 +2,7 @@
 \begin{propo}
     \label{propo1}
 %Under technical conditions to be precised, $\mu(\es)$ possesses moments or arbitrary order and these can be expressed for any $r\geq 1$ as
-For a measurable random field $\gp$ and a locally finite measure $\mes$ on $D$, $\mes(\es)$ is a random variable and for 
+For a measurable random field $\gp$ and a locally finite measure $\mes$ on $\domain$, $\mes(\es)$ is a random variable and for 
 any $r\geq 1$,
 \begin{equation*}
 \begin{split}
@@ -83,7 +83,7 @@ relying on the joint measurability of
 $(\x, \omega) \to \mathbbm{1}_{\es(\omega)}(\x)$,
 %= \mathbf{1}_{\xi_{\x}(\omega) \in T}$ and Fubini's theorem.
 itself inherited from the assumed measurability for
-$(\x, \omega) \to \gp[\x](\omega)$ and $T$, respectively. From there, following the steps of Robbins' theorem \cite{Robins1944}, we find that
+$(\x, \omega) \to \gp[\x](\omega)$ and $T$, respectively. From there, following the steps of Robbins' theorem \cite{Robbins1944}, we find that
 \begin{equation*}
 \begin{split}
 \mathbb{E}[\mes(\es)^{r}]
@@ -122,7 +122,7 @@ The propositions below provide formulae for computations of expectations of mome
 \begin{propo}
     \label{propo2}
 Let $p, q, h \geq 1$, $a \in \R^p$, $B \in \R^{p\times q}$,
-and $\covN, \covV$ be two covariance matrices in
+and $\covN$, $\covV$ be two covariance matrices in
 $\R^{p\times p}$ and $\R^{q\times q}$, respectively.
 Then, for $V \sim \mathcal{N}_{q}(0_q, \covV)$,
 \begin{equation*}
