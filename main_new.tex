@@ -12,9 +12,8 @@
 \usepackage{booktabs}                     % horizontal lines in tables
 \usepackage{comment}
 
-% == Enable text degreehttps://www.overleaf.com/project/5a3268379ecbdc657d8767e8
+% == Enable text 
 \usepackage{textcomp}
-
 \usepackage{amsthm,amsmath,natbib}
 \RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
 
@@ -48,7 +47,7 @@ Learning Excursion Sets of Vector-valued Gaussian Random Fields for
 Autonomous Ocean Sampling
 }
 
-\runtitle{Autonomous Oceanographic Data Collection}
+\runtitle{Learning Excursion Sets for Autonomous Oceanographic Data Collection}
 
 \begin{aug}
 \author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{t1,t2}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
@@ -1172,7 +1171,7 @@ to update the GRF model. This is used in the evaluation of the next
 node to sample.  The procedure is run for $10$ stages. A total of 100
 replicate simulations were conducted with all strategies.
 
-\subsection{Simulation Results}
+\subsubsection{Simulation Results}
 
 The results of the replicate runs are shown in
 Fig.~\ref{fig:sim_results}, where the different criteria are plotted
@@ -1482,18 +1481,11 @@ calculations by concentrating numerical integration on terms in the
 vicinity of the autonomous vehicle \citep{fossum18b}. While we did not
 consider any temporal effects, which would be relevant on a larger
 time scale, we do consider the extension to spatio-temporal modeling
-and envision that advection-diffusion equations could be useful in
-such modeling
-\citep{sigrist2015stochastic,richardson2017sparsity}. For more complex
+and envision that advection-diffusion equations could be useful \citep{sigrist2015stochastic,richardson2017sparsity}. For more complex
 oceanographic phenomena, the methods will need to be extended to
 non-Gaussian phenomena, possibly feature-based mixtures of Gaussian
 processes which could still be run onboard and augmented by dynamical
-models. If high-resolution ocean model or satellite data are
-available, it is hopefully possible to fit such more complex
-statistical models. \kc{'Fit' as in modeling fit, or fit for
-  augmentation with dynamical models? But also note ocean models are
-  unlikely to be able to run onboard, so a simple phrase should be
-  added to that effect.}
+models. Running large numerical models onboard a robotic vehicle is not currently possible, but high-resolution ocean model or satellite data can be used to fit a more complex statistical model.
 
 The spatio-statistical design criterion building on random sets is
 relevant in our setting with different water properties.  We show
