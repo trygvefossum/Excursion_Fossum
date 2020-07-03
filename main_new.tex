@@ -47,7 +47,7 @@ Learning Excursion Sets of Vector-valued Gaussian Random Fields for
 Autonomous Ocean Sampling
 }
 
-\runtitle{Learning Excursion Sets for Autonomous Oceanographic Data Collection}
+\runtitle{Learning Excursion Sets for Autonomous Data Collection}
 
 \begin{aug}
 \author{\fnms{Trygve Olav} \snm{Fossum}\thanksref{t1,t2}, \corref{} \ead[label=e1]{trygve.o.fossum@ntnu.no}}
@@ -972,7 +972,7 @@ computed according to the a-priori distribution of the GRF (i.e. no
 observations have been included yet).
 
 
-\begin{figure}[!b] 
+\begin{figure}[ht] 
 \centering 
 \subfigure[Excursion probability.]{\includegraphics[
 height=0.25\textwidth,keepaspectratio]{Figures/ebv_static_excu.png}\label{fig:ebv_static_excu}}
@@ -980,10 +980,18 @@ height=0.25\textwidth,keepaspectratio]{Figures/ebv_static_excu.png}\label{fig:eb
 height=0.26\textwidth,keepaspectratio]{Figures/ebv_static_north.png}\label{fig:ebv_static_north}}
 \subfigure[Static east design.]{\includegraphics[
 height=0.26\textwidth,keepaspectratio]{Figures/ebv_static_east.png}\label{fig:ebv_static_east}}
-\caption{Pointwise Bernoulli variance reduction for two different
-  observation plans. The prior EP is shown in
+\hspace{2em}
+\subfigure[Excursion realization.]{\includegraphics[
+height=0.26\textwidth,keepaspectratio]{Figures/real_myopic.png}\label{fig:real_myopic}}
+\hspace{2em}
+\subfigure[Route taken by myopic strategy.]{\includegraphics[
+height=0.26\textwidth,keepaspectratio]{Figures/route_myopic.png}\label{fig:route_myopic}}
+\hspace{2em}
+\subfigure[Directional reduction of EBV.]{\includegraphics[
+height=0.26\textwidth,keepaspectratio]{Figures/compass_myopic.png}\label{fig:compass_myopic}}
+\caption{Pointwise Bernoulli variance reduction for two static and the myopic observation strategies. The prior EP is shown in
   \ref{fig:ebv_static_excu}. EBV reduction for each design shown in
-  \ref{fig:ebv_static_north} and \ref{fig:ebv_static_east}.}
+  \ref{fig:ebv_static_north} and \ref{fig:ebv_static_east}. The true excursion for a realization of temperature and salinity is shown in \ref{fig:real_myopic}. The route taken by the myopic observation strategy is shown in \ref{fig:route_myopic}. The different alternative route choices and their expected EBV, illustrated as a compass from the perspective of the AUV, is shown in \ref{fig:compass_myopic}. Southward or $270 ^{\circ}$ is indicated by the thick and light color to be the best alternative direction.}
 \label{fig:ebv_north_vs_east}
 \end{figure}
 
@@ -1124,15 +1132,17 @@ available at stage $n$ and on an additional observation $y$ at $u$ at stage $n+1
 
 We compare three different static designs denoted
 \textit{static\_north}, \textit{static\_east}, and
-\textit{static\_zigzag} with the three described sequential approaches
+\textit{static\_zigzag} (a version of \textit{static\_north} where with some east-west transitions in a zigzag pattern) with the three described sequential approaches
 \textit{naive}, \textit{myopic}, and \textit{look-ahead}. The static
 AUV sampling paths are pre-scripted and cannot be altered.
 For a fixed survey length, a closed-form expression for the EIBV is
 available as in Proposition \ref{propo_eibv}. However, for the sequential
 approaches this is not the case. For comparison, the properties are
-therefore evaluated using Monte Carlo sampling over several replicates
+therefore evaluated using Monte Carlo integration over several replicates
 of realizations from the model while conducting simulated sequential
-surveys for each one. We also compare predictive
+surveys for each one. An example of such a realization with a \textit{myopic} strategy is shown in Fig.~\ref{fig:route_myopic}. 
+
+We also compare predictive
 performance measured by root mean square error (RMSE) for temperature
 and salinity estimates as well as the variance reduction in these
 two variables. It is important to note that the objective function
@@ -1173,6 +1183,7 @@ replicate simulations were conducted with all strategies.
 
 \subsubsection{Simulation Results}
 
+
 The results of the replicate runs are shown in
 Fig.~\ref{fig:sim_results}, where the different criteria are plotted
 as a function of survey distance. Fig.~\ref{fig:avg_ev} shows the
@@ -1180,8 +1191,7 @@ resulting drop in realized IBV for each of the six strategies. IBV
 reduction is largest for the \textit{myopic} and
 \textit{look-ahead} strategies, each performing almost equally; this
 is expected as the two criteria (Eq. \eqref{critSEQ} and
-\eqref{critLA}) are sensitive to differences in IBV. The
-\textit{static\_north} design also does well here because the path is
+\eqref{critLA}) are sensitive to differences in IBV. The \textit{static\_north} design also does well here because the path is
 parallel to the boundary between the water masses.
 
 \begin{figure}[!h]
