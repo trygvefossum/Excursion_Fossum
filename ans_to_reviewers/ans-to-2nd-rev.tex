@@ -1,0 +1,252 @@
+\documentclass[a4paper]{article}
+\topmargin	-10mm
+\oddsidemargin	0mm
+\textwidth	150mm
+\textheight	230mm
+
+\newcommand{\ba}{ {\boldsymbol a} }
+\newcommand{\bA}{ {\boldsymbol A} }
+\newcommand{\bb}{ {\boldsymbol b} }
+\newcommand{\bB}{ {\boldsymbol B} }
+\newcommand{\bc}{ {\boldsymbol c} }
+\newcommand{\bC}{ {\boldsymbol C} }
+\newcommand{\bd}{ {\boldsymbol d} }
+\newcommand{\bD}{ {\boldsymbol D} }
+\newcommand{\be}{ {\boldsymbol e} }
+\newcommand{\bE}{ {\boldsymbol E} }
+\newcommand{\boldf}{ {\boldsymbol f} }
+\newcommand{\bF}{ {\boldsymbol F} }
+\newcommand{\bg}{ {\boldsymbol g} }
+\newcommand{\bG}{ {\boldsymbol G} }
+\newcommand{\bh}{ {\boldsymbol h} }
+\newcommand{\bH}{ {\boldsymbol H} }
+\newcommand{\bi}{ {\boldsymbol i} }
+\newcommand{\bI}{ {\boldsymbol I} }
+\newcommand{\bj}{ {\boldsymbol j} }
+\newcommand{\bJ}{ {\boldsymbol J} }
+\newcommand{\bk}{ {\boldsymbol k} }
+\newcommand{\bK}{ {\boldsymbol K} }
+\newcommand{\bl}{ {\boldsymbol l} }
+\newcommand{\bL}{ {\boldsymbol L} }
+\newcommand{\bm}{ {\boldsymbol m} }
+\newcommand{\bM}{ {\boldsymbol M} }
+\newcommand{\bn}{ {\boldsymbol n} }
+\newcommand{\bN}{ {\boldsymbol N} }
+\newcommand{\bo}{ {\boldsymbol o} }
+\newcommand{\bO}{ {\boldsymbol O} }
+\newcommand{\bp}{ {\boldsymbol p} }
+\newcommand{\bP}{ {\boldsymbol P} }
+\newcommand{\bq}{ {\boldsymbol q} }
+\newcommand{\bQ}{ {\boldsymbol Q} }
+\newcommand{\br}{ {\boldsymbol r} }
+\newcommand{\bR}{ {\boldsymbol R} }
+\newcommand{\bs}{ {\boldsymbol s} }
+\newcommand{\bS}{ {\boldsymbol S} }
+\newcommand{\bt}{ {\boldsymbol t} }
+\newcommand{\bT}{ {\boldsymbol T} }
+\newcommand{\bu}{ {\boldsymbol u} }
+\newcommand{\bU}{ {\boldsymbol U} }
+\newcommand{\bv}{ {\boldsymbol v} }
+\newcommand{\bV}{ {\boldsymbol V} }
+\newcommand{\bw}{ {\boldsymbol w} }
+\newcommand{\bW}{ {\boldsymbol W} }
+\newcommand{\bx}{ {\boldsymbol x} }
+\newcommand{\bX}{ {\boldsymbol X} }
+\newcommand{\by}{ {\boldsymbol y} }
+\newcommand{\bY}{ {\boldsymbol Y} }
+\newcommand{\bz}{ {\boldsymbol z} }
+\newcommand{\bZ}{ {\boldsymbol Z} }
+\newcommand{\vc}[1]{\mbox{\boldmath $1$}}
+\newcommand{\balph}{ {\boldsymbol \alpha} }
+\newcommand{\balpha}{ {\boldsymbol \alpha} }
+\newcommand{\bbet}{ {\boldsymbol \beta} }
+\newcommand{\bbeta}{ {\boldsymbol \beta} }
+\newcommand{\bgam}{ {\boldsymbol \gamma} }
+\newcommand{\bgamma}{ {\boldsymbol \gamma} }
+\newcommand{\bGamma}{ {\boldsymbol \Gamma} }
+\newcommand{\bdelta}{ {\boldsymbol \delta} }
+\newcommand{\bDelta}{ {\boldsymbol \Delta} }
+\newcommand{\beps}{ {\boldsymbol \epsilon} }
+\newcommand{\bepsilon}{ {\boldsymbol \epsilon} }
+\newcommand{\bphi}{ {\boldsymbol \phi} }
+\newcommand{\bPhi}{ {\boldsymbol \Phi} }
+\newcommand{\bpi}{ {\boldsymbol \pi} }
+\newcommand{\bpsi}{ {\boldsymbol \psi} }
+\newcommand{\bkap}{ {\boldsymbol \kappa} }
+\newcommand{\bkappa}{ {\boldsymbol \kappa} }
+\newcommand{\bKappa}{ {\boldsymbol \Kappa} }
+\newcommand{\blam}{ {\boldsymbol \lambda} }
+\newcommand{\blambda}{ {\boldsymbol \lambda} }
+\newcommand{\bLambda}{ {\boldsymbol \Lambda} }
+\newcommand{\bmu}{ {\boldsymbol \mu} }
+\newcommand{\bMu}{ {\boldsymbol \Mu} }
+\newcommand{\bet}{ {\boldsymbol \eta} }
+\newcommand{\bome}{ {\boldsymbol \omega} }
+\newcommand{\bomega}{ {\boldsymbol \omega} }
+\newcommand{\bOmega}{ {\boldsymbol \Omega} }
+\newcommand{\bnabla}{ {\boldsymbol \nabla} }
+\newcommand{\brho}{ {\boldsymbol \rho} }
+\newcommand{\bsigma}{ {\boldsymbol \sigma} }
+\newcommand{\bSig}{ {\boldsymbol \Sigma} }
+\newcommand{\bSigma}{ {\boldsymbol \Sigma} }
+\newcommand{\btheta}{ {\boldsymbol \theta} }
+\newcommand{\bTheta}{ {\boldsymbol \Theta} }
+\newcommand{\bzeta}{ {\boldsymbol \zeta} }
+\newcommand{\bPsi}{ {\boldsymbol \Psi} }
+\newcommand{\btau}{ {\boldsymbol \tau} }
+\newcommand{\bzero}{ {\boldsymbol 0} }
+\newcommand{\bones}{ {\boldsymbol 1} }
+\newcommand{\given}{\,|\,}
+\newcommand{\sS}{{\cal S}}
+\newcommand{\Ss}{{\cal S}}
+\newcommand{\Field}{{\cal F}}
+\newcommand{\colsp}{{\cal C}}
+\newcommand{\nullsp}{{\cal N}}
+\newcommand{\rowsp}{{\cal R}}
+\newcommand{\tildeC}{\tilde{C}}
+\newcommand{\tildeK}{\tilde{K}}
+\newcommand{\tildew}{\tilde{w}}
+\newcommand{\tildebw}{\tilde{\bw}}
+\newcommand{\tildebW}{\tilde{\bW}}
+\newcommand{\calC}{{\cal C}}
+\newcommand{\calcbC}{{\bf {\cal C}}}
+
+\def\rx{{\texttt{T-REX\ }}}
+\def\rxe{{\texttt{T-REX}}}
+\def\du{{\texttt{DUNE}\ }}
+\def\due{{\texttt{DUNE}}}
+
+% == Maths
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem} %to strike the words
+
+\newcounter{reviewer}
+\def\revcom{\textbf{Reviewer comment}}
+\def\aecom{\textbf{Associate Editor comment }}
+\def\reply{\textbf{Reply}}
+\def\action{\textbf{Action}}
+
+\newlist{answers}{enumerate}{10}
+\setlist[answers]{leftmargin=*, label=\arabic{reviewer}.\arabic*}
+
+\newcommand{\edcomment}[1]{{\color{green}{\{Editor: 1\}}}}
+\newcommand{\frevcomment}[1]{{\color{blue}{\{Rev 1: 1\}}}}
+\newcommand{\srevcomment}[1]{{\color{red}{\{Rev 2: 1\}}}}
+\newcommand{\trevcomment}[1]{{\color{violet}{\{Rev 3: 1\}}}}
+
+\usepackage{amsthm,amsmath,natbib}
+\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+
+\begin{document}
+
+%----------------------------------------------------------------------
+\title{Autonomous Oceanographic Data Collection. Learning Excursion Sets of Vector-valued Gaussian Random Fields
+  \\\vspace{5mm}
+ Authors response to 2$^{nd}$ review
+  \\\vspace{5mm}
+\small{Manuscript: AOAS1910-027}}
+\author{ }
+
+\date{\today}
+
+\maketitle
+
+We are grateful to the editors and reviewers for their comments and
+suggestions. They have all been considered in this revised
+version of our manuscript.\\
+
+\par \vspace{1em}
+
+
+%======================================================================
+\section*{Editor}
+%======================================================================
+All comments of the Editor are listed below and answered on a point-by-point basis.
+
+\vspace{5mm}
+\noindent {\bf{1. Sampling limitations:}} You explained in your response file (R1S3.pdf) the limitations of the sampling design (comment #4 from the AE's previous review). I agree with the AE (bullet 1, R2AE2.pdf) that some (perhaps slightly abbreviated) version of your response on p4 (middle) would be important to include; viz.
+
+\begin{quote}
+"The sampling capabilities are restricted by the sensors onboard
+the AUV, the computational load and navigation resources. The sampling
+of temperature and salinity variables can be at 1Hz (higher than the
+grid resolution), but, due to computational and navigation resources
+available on the AUV, this simplification of data assimilation at the
+waypoints is necessary."   
+\end{quote}
+
+
+\reply:
+ 
+\vspace{5mm}
+\noindent {\bf{2. Variance of errors:}} In view of the apparent nugget effects of 0.42 and 0.7 for salinity
+and temperature, respectively, in Fig 9(c) (p21), I confess to being
+a little puzzled myself by this statement on p22:
+"We specify variance $0.25^2$ for both errors, which is based on a
+middle ground between the nugget effect in the empirical variogram
+and the sensor specifications."  Is 0.0625 really a "middle ground"?
+Or, did you have other reasons for choosing 0.0625 not stated here?
+In any event, I agree with the AE (bullet 5): "either give a better
+justification of your choice of 0.0625 or, if that’s not possible,
+then redo the analysis with a more justifiable choice."
+
+\vspace{5mm}
+\reply:
+
+\vspace{5mm}
+\noindent {\bf{3. Exposition:}} Apart from corrections noted by the AE (bullets 2,3,4,6), Referee 1
+offered suggestions on shortening. Neither the AE nor I feel that re-structuring is needed.  In fact, some of the Referee's proposed changes would not be even desirable, from my perspective: I would not want you to "Consider putting the background material in an appendix to go as supplementary material" because, in my opinion, this background material is essential. And the simulation section (design and results) is already quite efficient. I include the Referee's report (R2R5.pdf) primarily for your information (the remarks from Ehrenberg are worth reading).
+
+\vspace{5mm}
+\reply: 
+
+\vspace{5mm}
+\noindent {\bf{4. Figures:}} Like most journals, AOAS discourages the use of color in figures,
+unless absolutely essential for reader comprehension.  I believe
+that color is important for Figures 1, 2, 4, 11 and perhaps 5 and 6.
+But color is not even mentioned in the caption for Figure 3; your
+different line types likely will suffice in Figures 8 and 9; and
+probably nothing will be lost if Figures 7 & 10 were black-and-white.
+Color is very expensive to print, so we appreciate your attention
+to this cost-saving measure.
+
+\vspace{5mm}
+\reply: 
+
+\vspace{5mm}
+\noindent {\bf{Other comments:}} In your revision, you may want to include in the
+acknowledgements, p26, the conscientious efforts of the anonymous
+reviewers, whose comments led to this favorable outcome.
+
+\vspace{5mm}
+\reply: 
+
+%======================================================================
+ \section*{Associate Editor}
+%======================================================================
+All comments of the Associate Editor are listed below and answered on a point-by-point basis.
+
+\setcounter{reviewer}{1}
+
+\vspace{5mm}
+\noindent \aecom \textbf{1}:
+
+Bla bla bla.
+
+\reply: 
+
+\vspace{1em}
+
+
+% == Adding references
+\footnotesize
+\bibliographystyle{apalike}
+\bibliography{ref}
+
+%=====================================================================
+\end{document}
+%=====================================================================

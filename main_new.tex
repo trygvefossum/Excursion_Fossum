@@ -1,4 +1,5 @@
-\documentclass[aoas]{imsart}
+\documentclass[aoas,preprint]{imsart}
+\setattribute{journal}{name}{}
 
 \input{commands.tex}
 \usepackage{amsmath}
@@ -881,6 +882,7 @@ reduction.
 % evaluate the information measure by integrating over several locations (Section \ref{sec:simulations}).
 
 \subsubsection{Including Spatiality}
+\label{sec:including_spatiality}
 
 We now turn to an example involving a full-fledged GRF. The statistical model we consider has a linear trend
 \begin{align*}
@@ -980,18 +982,9 @@ height=0.25\textwidth,keepaspectratio]{Figures/ebv_static_excu.png}\label{fig:eb
 height=0.26\textwidth,keepaspectratio]{Figures/ebv_static_north.png}\label{fig:ebv_static_north}}
 \subfigure[Static east design.]{\includegraphics[
 height=0.26\textwidth,keepaspectratio]{Figures/ebv_static_east.png}\label{fig:ebv_static_east}}
-\hspace{2em}
-\subfigure[Excursion realization.]{\includegraphics[
-height=0.26\textwidth,keepaspectratio]{Figures/real_myopic.png}\label{fig:real_myopic}}
-\hspace{2em}
-\subfigure[Route taken by myopic strategy.]{\includegraphics[
-height=0.26\textwidth,keepaspectratio]{Figures/route_myopic.png}\label{fig:route_myopic}}
-\hspace{2em}
-\subfigure[Directional reduction of EBV.]{\includegraphics[
-height=0.26\textwidth,keepaspectratio]{Figures/compass_myopic.png}\label{fig:compass_myopic}}
-\caption{Pointwise Bernoulli variance reduction for two static and the myopic observation strategies. The prior EP is shown in
+\caption{Pointwise Bernoulli variance reduction for two different static designs (later noted as \textit{static\_north} and \textit{static\_east}). The prior EP is shown in
   \ref{fig:ebv_static_excu}. EBV reduction for each design shown in
-  \ref{fig:ebv_static_north} and \ref{fig:ebv_static_east}. The true excursion for a realization of temperature and salinity is shown in \ref{fig:real_myopic}. The route taken by the myopic observation strategy is shown in \ref{fig:route_myopic}. The different alternative route choices and their expected EBV, illustrated as a compass from the perspective of the AUV, is shown in \ref{fig:compass_myopic}. Southward or $270 ^{\circ}$ is indicated by the thick and light color to be the best alternative direction.}
+  \ref{fig:ebv_static_north} and \ref{fig:ebv_static_east}.}
 \label{fig:ebv_north_vs_east}
 \end{figure}
 
@@ -1077,6 +1070,24 @@ Even though this myopic strategy is non-anticipatory, it still
 provides a reasonable approach for creating designs in many
 applications. Moreover, it can be implemented without too much demand on
 computational power, making it well-suited for embedding on an AUV.
+
+
+\begin{figure}[ht] 
+\centering 
+\subfigure[Excursion realization.]{\includegraphics[
+height=0.26\textwidth,keepaspectratio]{Figures/ebv_myopic_excu.png}\label{fig:real_myopic}}
+\hspace{2em}
+\subfigure[BV reduction.]{\includegraphics[
+height=0.26\textwidth,keepaspectratio]{Figures/ebv_myopic_ebv.png}\label{fig:route_myopic}}
+\hspace{2em}
+\subfigure[Expected reduction of BV.]{\includegraphics[
+height=0.26\textwidth,keepaspectratio]{Figures/ebv_myopic_radar.png}\label{fig:compass_myopic}}
+\caption{Example run of the myopic strategy on a given realisation of the GRF model from \ref{sec:including_spatiality}. Past observation locations are depicted in green and current position of the AUV in cyan. The expected EBV reduction associated to data collection at neighbouring nodes of the current location is shown in \ref{fig:compass_myopic}. The thick and light color indicate the north-east node at $30 ^{\circ}$ to be the best possible choice.}
+\label{fig:ebv_myopic}
+\end{figure}
+
+
+
 
 
 \subsection{Look-ahead Trajectory Planning}
