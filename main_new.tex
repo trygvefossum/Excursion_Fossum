@@ -155,7 +155,7 @@ variations in which ocean processes transpire, prompting the need for
 effective means of data collection.  By \emph{sampling}, we refer here
 primarily to the design of observational strategies in the spatial
 domain with the aim to pursue measurements with high scientific
-relevance.  Models and methods from spatial statistics and experimental design can clearly contribute to this sampling challenge.
+relevance. Models and methods from spatial statistics and experimental design can clearly contribute to this challenge.
 
 %applications and beyond.  
  %By \emph{sampling}, we refer to the design of observational strategies in the spatial domain, where the use autonomous robotic platforms can be combined with statistical methods to pursue measurements with high scientific relevance. This combination, of statistical tools and robotic platforms, constitute a methodological basis for addressing the problem of efficient sampling of the ocean, which is at the core of this work.
@@ -226,7 +226,7 @@ is therefore to use AUV measurements for improved description of the
 interface between fresh and oceanic waters.  It is often not possible
 to sample the biological variables of fundamental interest in such AUV
 operations, but off-the-shelf instruments provide temperature and
-salinity measurements which serve as proxys for the underlying
+salinity measurements which serve as proxies for the underlying
 biological phenomenon. With the help of a vector-valued random field
 model for temperature and salinity, one can then aim to describe the
 plume.  The goal of plume characterization, in this way, relates to
@@ -286,8 +286,8 @@ still in their infancy. \cite{LeGratiet.etal2015} used co-Kriging
 based sequential designs to multi-fidelity computer codes and
 \cite{Poloczek2017} used related ideas for multi-information source
 optimization, but not for ES's like we do here. More relevant to our
-setting, the PhD thesis \citep[][p.82]{stroh} mentions general
-possibilities of stepwise uncertainty reduction strategies for ES's in
+setting, \citet[p.82]{stroh} mentions general
+possibilities of step-wise uncertainty reduction strategies for ES's in
 the context of designing fire simulations, yet outputs are mainly
 assumed independent.
 
@@ -1503,7 +1503,8 @@ vicinity of the autonomous vehicle \citep{fossum18b}. While we did not
 consider any temporal effects, which would be relevant on a larger
 time scale, we do consider the extension to spatio-temporal modeling
 and envision that advection-diffusion equations could be useful
-\citep{sigrist2015stochastic,richardson2017sparsity}. For more complex
+\citep{sigrist2015stochastic,richardson2017sparsity}. The sampling capabilities are restricted by the sensors onboard the AUV, the computational load and navigation resources. The sampling of temperature and salinity variables can be much higher than the grid resolution, but, due to computational and navigation resources
+available on the AUV, assimilation into a discretized fixed grid is necessary. For more complex
 oceanographic phenomena, the methods will need to be extended to
 non-Gaussian phenomena, possibly feature-based mixtures of Gaussian
 processes which could potentially be run onboard augmented by
