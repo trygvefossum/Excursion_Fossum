@@ -180,7 +180,7 @@ waypoints is necessary."
 \end{quote}
 
 
-\reply: We agree and have addressed this point in \aecom \textbf{1 - Reply to AE comment 4}. 
+\reply: We agree and have addressed this point in \aecom \textbf{1}. 
  
 \vspace{5mm}
 \noindent {\bf{2. Variance of errors:}} In view of the apparent nugget effects of 0.42 and 0.7 for salinity
@@ -195,14 +195,14 @@ justification of your choice of 0.0625 or, if that’s not possible,
 then redo the analysis with a more justifiable choice."
 
 \vspace{5mm}
-\reply:
+\reply: We have elaborated on the specification of nugget in the revised version. We have addressed this point in \aecom \textbf{5}. 
 
 \vspace{5mm}
 \noindent {\bf{3. Exposition:}} Apart from corrections noted by the AE (bullets 2,3,4,6), Referee 1
 offered suggestions on shortening. Neither the AE nor I feel that re-structuring is needed.  In fact, some of the Referee's proposed changes would not be even desirable, from my perspective: I would not want you to "Consider putting the background material in an appendix to go as supplementary material" because, in my opinion, this background material is essential. And the simulation section (design and results) is already quite efficient. I include the Referee's report (R2R5.pdf) primarily for your information (the remarks from Ehrenberg are worth reading).
 
 \vspace{5mm}
-\reply: 
+\reply: We agree that the remarks of Ehrenberg are very useful! (It should be curriculum for graduate students.) Regarding the structure, we seriously considered your suggestions about the background in supplementary material, but in the end thought it was too much of a reduction to go through with. It would be very difficult to grasp the applied contribution of our paper if this background part was in the supplemental material, and only some readers take the extra effort of reading supplemental material. Based on the report of the reviewer, we did however go through the background and cut a few unnecessary and lengthy formulations in the revised version.
 
 \vspace{5mm}
 \noindent {\bf{4. Figures:}} Like most journals, AOAS discourages the use of color in figures,
@@ -215,7 +215,7 @@ Color is very expensive to print, so we appreciate your attention
 to this cost-saving measure.
 
 \vspace{5mm}
-\reply: Line type will be tricky for Fig. 8, when lines are very close together especially in Fig.8b, and Fig.8c. 
+\reply: We agree on all our points here, except Fig.8. Line type will be tricky for Fig. 8, when lines are very close together especially in Fig.8b, and Fig.8c. So we ask to consider that this figure is kept in color. Fig. 4, 5, and 6 have been made with a black-and-white compatible color-map, so they can be converted to black-and-white. 
 
 \vspace{5mm}
 \noindent {\bf{Other comments:}} In your revision, you may want to include in the
@@ -223,7 +223,11 @@ acknowledgements, p26, the conscientious efforts of the anonymous
 reviewers, whose comments led to this favorable outcome.
 
 \vspace{5mm}
-\reply: 
+\reply: We agree that this effort should be noted. We have added the following statement to the acknowledgements.
+
+\begin{quote}
+"We thank the anonymous reviewers for their careful reading of our manuscript and their many insightful comments and suggestions.``
+\end{quote}
 
 %======================================================================
  \section*{Associate Editor}
@@ -234,7 +238,7 @@ All comments of the Associate Editor are listed below and answered on a point-by
 
 \vspace{5mm}
 \noindent \aecom \textbf{1 - Reply to AE comment 4}: 
-I hank you for explaining the sampling limitations to me in your reply.  However, I think these limitations should also be noted in the narrative, and the sub-optimality of the resulting trajectory should be acknowledged.
+I thank you for explaining the sampling limitations to me in your reply.  However, I think these limitations should also be noted in the narrative, and the sub-optimality of the resulting trajectory should be acknowledged.
 
 \vspace{5mm}
 \reply: We agree that this should be mentioned in the text. We have added the following text in the Closing remarks section at page 25.
@@ -269,13 +273,25 @@ I hank you for explaining the sampling limitations to me in your reply.  However
 \noindent \aecom \textbf{5 - Page 22, line 8:}  From Figure 9(c), the nugget effect in the empirical variogram appears to be approximately 0.4 for salinity and 0.7 for temperature.  Even if the sensor specifications were essentially 0, it would be a stretch to say that a variance of 0.0625 was a “middle ground” between the empirical nugget effect and the sensor specifications.  So either give a better justification of your choice of 0.0625 or, if that’snot possible, then redo the analysis with a more justifiable choice.
 
 \vspace{5mm}
-\reply:
+\reply: We have elaborated on the specification of nugget in the revised version. The sensor-provided standard deviations of the measurement tools are in the fourth decimal points, and in related data-sets we have not seen any nugget effect when measuring temperature and salinity in water samples. We believe that one challenge with the initial sampling line is that it was rather short and that it did no samples at very short distance. We made an empirical variogram from the actual survey data, which are shown below in Figure \ref{empVar}, and these curves support our statements of a smaller nugget.
+\begin{figure}[!b] 
+\centering
+\includegraphics[width=0.99\textwidth]{Figures/field-trials/empVAR.png}
+\caption{Empirial variogram from the two runs. }
+\label{empVar}
+\end{figure}
+
+One reason to keep a significant nugget effect here is to account for the dynamic water masses that are not captured in our model, but we expect this to be very small in our limited survey time. Then again, between the two surveys, there is a change in the survey 1 and 2 paths caused by slightly different measurements at the two times of surveying. Another reason for including a nugget is the uncertainty in the AUV location which means it samples might not be allocated to its true position.
+
+We further checked the sensitivity of the nugget in the sequential algorithm. This was done by running synthetic cases of sampling paths and data up to a certain stage, but then updating the model with different nugget effects in the Gaussian random field model. Figure X shows sampling paths and the radar plots for the AUV direction choice at one steps (top vs bottom) for two different nuggets. Straighter lines when the nugget is large.
+
+In the revised manuscript we wrote another sentence on Fig 11: 'xx'
 
 \vspace{5mm}
 \noindent \aecom \textbf{6 - Page 22, line 5:}  Insert “triangular” immediately after “equilateral”
 
 \vspace{5mm}
-\reply:
+\reply: We have improved our 
 
 \vspace{1em}
 

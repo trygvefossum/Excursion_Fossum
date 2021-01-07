@@ -137,7 +137,7 @@ variations in which ocean processes transpire, prompting the need for
 effective means of data collection.  By \emph{sampling}, we refer here
 primarily to the design of observational strategies in the spatial
 domain with the aim to pursue measurements with high scientific
-relevance.  Models and methods from spatial statistics and experimental design can clearly contribute to this sampling challenge.
+relevance. Models and methods from spatial statistics and experimental design can clearly contribute to this sampling challenge.
 
  
 Data collection at sea has typically been based on static buoys,
@@ -204,7 +204,7 @@ is therefore to use AUV measurements for improved description of the
 interface between fresh and oceanic waters.  It is often not possible
 to sample the biological variables of fundamental interest in such AUV
 operations, but off-the-shelf instruments provide temperature and
-salinity measurements which serve as proxys for the underlying
+salinity measurements which serve as proxies for the underlying
 biological phenomenon. With the help of a vector-valued random field
 model for temperature and salinity, one can then aim to describe the
 plume.  The goal of plume characterization, in this way, relates to
@@ -262,8 +262,8 @@ still in their infancy. \cite{LeGratiet.etal2015} used co-Kriging
 based sequential designs to multi-fidelity computer codes and
 \cite{Poloczek2017} used related ideas for multi-information source
 optimization, but not for ES's like we do here. More relevant to our
-setting, the PhD thesis \citep[][p.82]{stroh} mentions general
-possibilities of stepwise uncertainty reduction strategies for ES's in
+setting, \citet[p.82]{stroh} mentions general mentions general
+possibilities of step-wise uncertainty reduction strategies for ES's in
 the context of designing fire simulations, yet outputs are mainly
 assumed independent.
 
@@ -1154,44 +1154,11 @@ eastern shore.
 \subsection{Model Specification}
 \label{sec:exp_modeling}
 
-The statistical model parameters were specified based on a short
+The statistical model parameters were specified based on experience as well as data gathered in a short
 preliminary survey where the AUV made an initial transect to determine
-the trends in environmental conditions and correlation
-structures. Based on the initial runs we get a reasonable idea of the temperature and salinity of river and ocean waters, and also specify the trend by linear regression, where both temperature and salinity were assumed to increase linearly with the west coordinate. Next, the residuals from the regression analysis were analyzed to specify the covariance parameters of the GRF model.
-\begin{figure}[!b]
-  \centering
-  \subfigure[Residual plot.]{\includegraphics[width = 0.32\textwidth]{Figures/web/res_diag_a.pdf}\label{fig:parest_a}}
-  \hfill
-  \subfigure[Empirical CDF.]{\includegraphics[width = 0.32\textwidth]{Figures/web/res_diag_b.pdf}\label{fig:parest_b}}
-  \hfill
-  \subfigure[Empirical variogram.]{\includegraphics[width = 0.32\textwidth]{Figures/web/res_diag_c.pdf}\label{fig:parest_c}}
-  \caption{Data analysis from a preliminary trial experiment using the
-    AUV. \ref{fig:parest_a} Residual plot of temperature and salinity
-    along with Gaussian contours. \ref{fig:parest_b} Empirical CDF
-    (solid) of the quadratic form of the residuals along with the
-    theoretical CDF (dashed) of the $\chi^2$ distribution with two
-    degrees of freedom. \ref{fig:parest_c} Empirical variogram of the
-    salinity and temperature data.}
-\label{fig:parest}
-\end{figure}
-Fig.~\ref{fig:parest} summarizes diagnostic plots of this
-analysis. Fig.~\ref{fig:parest_a} shows a cross-plot of temperature
-and salinity residuals after the regression mean values of salinity and
-temperature are subtracted from the data. This scatter-plot of joint
-residuals indicates larger variability in salinity than temperature,
-and a positive correlation ($0.5$) between the two variables. Based on
-the fitted bivariate covariance model (ellipses in
-Fig.~\ref{fig:parest_a}), we can compute the scalar quadratic form of
-the residuals, and if the model is adequate they should be approximately $\chi^2_2$ distributed. Fig.~\ref{fig:parest_b} shows
-the empirical CDF of the quadratic forms (solid) together with the
-theoretical CDF of the $\chi^2_2$ distribution (dashed). The modeled and
-theoretical curves are rather similar, which indicates that the Gaussian
-model with constant spatial variance and correlation fits reasonably well. Fig.~\ref{fig:parest_c} shows the
-empirical variogram of the residuals for temperature and salinity. The decay is similar for the two, and seems to be negligible
-after about $150$ m.  The working assumption of a separable covariance
-function is hence not unreasonable.
-
-Based on the analysis in Fig.~\ref{fig:parest}, the resulting
+the trends in environmental conditions, variance and correlation
+structures. This gives a reasonable idea of the temperature and salinity of river and ocean waters. Both temperature and salinity were assumed to increase linearly with the west coordinate. Next, the residuals from the regression analysis were analyzed to specify the covariance parameters of the GRF model.
+The resulting
 parameters are given in Table \ref{tab:experiment_param}. The
 regression parameters shown here are scaled to represent the east and
 west boundaries of the domain as seen in the preliminary transect
@@ -1245,8 +1212,7 @@ was built on top of the autonomous Teleo-Reactive EXecutive
 that the measurements are conditionally independent because the
 salinity is extracted from the conductivity sensor which is different
 from the temperature sensor. We specify variance $0.25^2$ for both
-errors, which is based on a middle ground between the nugget effect in
-the empirical variogram and the sensor specifications.
+errors. This is based on prior experience indicating that there can be some noise in temperature and salinity readings mostly because of dynamic water masses and uncertainty in AUV position. The initial survey transect was not sampled very densely so a reliable extraction of a nugget parameter from those data was not possible.
 
 \begin{figure}[!h] 
 \centering 
@@ -1319,6 +1285,42 @@ of exploration done by Survey 1 which turned north is greater than
 Survey 2 which was coming close to the survey area borders in the
 south-western corner.
 
+\begin{figure}[!b]
+  \centering
+  \subfigure[Residual plot.]{\includegraphics[width = 0.32\textwidth]{Figures/web/res_diag_aN.eps}\label{fig:parest_a}}
+  \hfill
+  \subfigure[Empirical CDF.]{\includegraphics[width = 0.32\textwidth]{Figures/web/res_diag_bN.eps}\label{fig:parest_b}}
+  \hfill
+  \subfigure[Empirical variogram.]{\includegraphics[width = 0.32\textwidth]{Figures/web/res_diag_cN.eps}\label{fig:parest_c}}
+  \caption{Data analysis from from AUV experiments. \ref{fig:parest_a} Residual plot of temperature and salinity
+    along with specified Gaussian contours. \ref{fig:parest_b} Empirical CDF
+    (solid) of the quadratic form of the residuals along with the
+    modeled theoretical CDF (dashed) of the $\chi^2$ distribution with two
+    degrees of freedom. \ref{fig:parest_c} Scaled empirical variograms of the
+    salinity and temperature data.}
+\label{fig:parest}
+\end{figure}
+
+Of course, the initial 
+Fig.~\ref{fig:parest} summarizes diagnostic plots of this
+analysis. Fig.~\ref{fig:parest_a} shows a cross-plot of temperature
+and salinity residuals after the regression mean values of salinity and
+temperature are subtracted from the data. This scatter-plot of joint
+residuals indicates that the correlation between the two variables might be slightly larger than the initially specified $0.5$ and that uncertainty in temperature was set a bit too high. Based on
+the fitted bivariate covariance model (ellipses in
+Fig.~\ref{fig:parest_a}), we can compute the scalar quadratic form of
+the residuals, and if the model is adequate they should be approximately $\chi^2_2$ distributed. Fig.~\ref{fig:parest_b} shows
+the empirical CDF of the quadratic forms (solid) together with the
+theoretical CDF of the $\chi^2_2$ distribution (dashed). The empirical and
+theoretical curves are not very different, which indicates that the specified Gaussian
+model fits reasonably well. Fig.~\ref{fig:parest_c} shows the
+empirical variogram of the scaled residuals for temperature and salinity. The decay is similar for the two, and seems to be negligible
+after about $150$ m as was specified. The working assumption of a separable covariance
+function is hence not unreasonable.
+
+Overall, the spatial Gaussian model representation is of course a simplification of the changing water conditions, and even within the model formulation, the parameter specification could likely have been improved. 
+However, we do not expect minor changes to have caused much difference in sampling paths. 
+
 \section{Closing remarks}
 \label{sec:concl_disc}
 
@@ -1347,7 +1349,8 @@ vicinity of the autonomous vehicle \citep{fossum18b}. While we did not
 consider any temporal effects, which would be relevant on a larger
 time scale, we do consider the extension to spatio-temporal modeling
 and envision that advection-diffusion equations could be useful
-\citep{sigrist2015stochastic,richardson2017sparsity}. For more complex
+\citep{sigrist2015stochastic,richardson2017sparsity}. The sampling capabilities are restricted by the sensors onboard the AUV, the computational load and navigation resources. The sampling of temperature and salinity variables can be much higher than the grid resolution, but, due to computational and navigation resources
+available on the AUV, assimilation into a discretized fixed grid is necessary.For more complex
 oceanographic phenomena, the methods will need to be extended to
 non-Gaussian phenomena, possibly feature-based mixtures of Gaussian
 processes which could potentially be run onboard augmented by
@@ -1401,15 +1404,12 @@ valuable.
 
 TOF acknowledges support from the Centre for Autonomous Marine
 Operations and Systems (AMOS), Center of Excellence, project number
-223254, and the Applied Underwater Robotics Labortatory (AURLab). CT
+223254, Nansen Legacy Program, project number 276730, and the Applied Underwater Robotics Labortatory (AURLab). CT
 and DG acknowledge support from the Swiss National Science Foundation,
 project number 178858. JE and KR acknowledge support from Norwegian
 research council (RCN), project number 305445. DG would like to
 aknowledge support of Idiap Research Institute, his primary
-affiliation in an early version of this manuscript. The authors would
-also like to thank Niklas Linde of the University of Lausanne for
-providing constructive feedback about this work, and members of the
-NTNU AURLab for help with AUV deployments
+affiliation in an early version of this manuscript. We thank the anonymous    reviewers for their careful reading of our manuscript and their many insightful comments and suggestions. The authors would also like to thank Niklas Linde of the University of Lausanne for providing constructive feedback about this work, and members of the NTNU AURLab for help with AUV deployments
 
 
 \footnotesize
