@@ -1284,6 +1284,7 @@ the region and gradually bending off toward the north east. The amount
 of exploration done by Survey 1 which turned north is greater than
 Survey 2 which was coming close to the survey area borders in the
 south-western corner.
+The AUV paths in both runs are relatively winding in the sense that the vehicle reacts much to the data. In our experience from simulated runs, the paths tend to be smoother when we use a larger nugget effect. But here the estimated nugget from the actual trial data is close to the specified level.
 
 \begin{figure}[!b]
   \centering
@@ -1349,8 +1350,8 @@ vicinity of the autonomous vehicle \citep{fossum18b}. While we did not
 consider any temporal effects, which would be relevant on a larger
 time scale, we do consider the extension to spatio-temporal modeling
 and envision that advection-diffusion equations could be useful
-\citep{sigrist2015stochastic,richardson2017sparsity}. The sampling capabilities are restricted by the sensors onboard the AUV, the computational load and navigation resources. The sampling of temperature and salinity variables can be much higher than the grid resolution, but, due to computational and navigation resources
-available on the AUV, assimilation into a discretized fixed grid is necessary.For more complex
+\citep{sigrist2015stochastic,richardson2017sparsity}. The sampling capabilities are restricted by the sensors onboard the AUV, the computational load, and navigation resources. The sampling of temperature and salinity variables can be much higher than the grid resolution, but, due to computational and navigation resources
+available on the AUV, assimilation into a discretized fixed grid is necessary. For more complex
 oceanographic phenomena, the methods will need to be extended to
 non-Gaussian phenomena, possibly feature-based mixtures of Gaussian
 processes which could potentially be run onboard augmented by
