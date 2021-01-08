@@ -49,13 +49,14 @@ Autonomous Ocean Sampling
 \author{\fnms{Jo} \snm{Eidsvik}\thanksref{t4}, \ead[label=e3]{jo.eidsvik@ntnu.no}}
 \author{\fnms{David} \snm{Ginsbourger}\thanksref{t3}, \ead[label=e4]{david.ginsbourger@stat.unibe.ch}}
 \and
-\author{\fnms{Kanna} \snm{Rajan}\thanksref{t5}. \ead[label=e5]{kanna.rajan@fe.up.pt}}
+\author{\fnms{Kanna} \snm{Rajan}\thanksref{t5,t6}. \ead[label=e5]{kanna.rajan@fe.up.pt}}
 
 \affiliation[t1]{Department of Marine Technology, The Norwegian University of Science and Technology (NTNU), Trondheim, Norway.} 
 \affiliation[t2]{Centre for Autonomous Marine Operations and Systems, NTNU.}
 \affiliation[t3]{Institute of Mathematical Statistics and Actuarial Science, University of Bern, Switzerland.}
 \affiliation[t4]{Department of Mathematical Sciences, NTNU.}
 \affiliation[t5]{Underwater Systems and Technology Laboratory, Faculty of Engineering, University of Porto, Portugal.}
+\affiliation[t6]{SIFT LLC, Minneapolis, Minnesota, United States.}
 
 \address{\\Trygve Olav Fossum \\Department of Marine Technology\\ Otto Nielsens veg. 10, 7491 Trondheim\\ Norway\\
 \printead{e1}}
@@ -239,16 +240,23 @@ paper.
 
 \subsection{Random field modeling and targeted sequential design of experiments}
   
-While random field modeling has been one of the main topics throughout the history of spatial statistics \citep{Krige1951a,Stein1999}, even
+While random field modeling has been one of the main topics throughout
+the history of spatial statistics \citep{Krige1951a,Stein1999}, even
 for vector-valued random field models with associated prediction
 approaches such as co-Kriging \citep[See, e.g.,][]{Wackernagel2003},
 there has lately been a renewed interest for random field models in
-the context of static or sequential experimental design, be it in the context of spatial data collection \citep{Mueller2007} or in
+the context of static or sequential experimental design, be it in the
+context of spatial data collection \citep{Mueller2007} or in
 simulation experiments \citep{Santner.etal2003}. As detailed in
 \cite{Ginsbourger2018}, GRF models have been used in particular as a
 basis to sequential design of simulations dedicated to various goals
-such as global optimization and set estimation. Of particular relevance to our context,
-\cite{Bect.etal2012} focuses on strategies to reduce uncertainties related to volumes of excursion exceeding a prescribed threshold, while \cite{chevalier2014fast} concentrates on making the latter strategies computationally efficient and batch-sequential. Rather than focusing on excursion volumes, approaches were investigated in
+such as global optimization and set estimation. Of particular
+relevance to our context, \cite{Bect.etal2012} focuses on strategies
+to reduce uncertainties related to volumes of excursion exceeding a
+prescribed threshold, while \cite{chevalier2014fast} concentrates on
+making the latter strategies computationally efficient and
+batch-sequential. Rather than focusing on excursion volumes,
+approaches were investigated in
 \cite{French.Sain2013,Chevalier.etal2013b,Bolin.Lindgren2015,Azzimonti.etal2016}
 with ambitions of estimating sets themselves. Recently, sequential
 designs of experiments for the conservative estimation of ESs based on
@@ -256,16 +264,17 @@ GRF models were presented in \citep{Azzimonti.etal}.
 
 Surprisingly less attention has been dedicated to sequential
 strategies in the case of vector-valued observations. It has been long
-acknowledged that co-Kriging could be updated efficiently in the context of sequential data assimilation \citep{Vargas-Guzman1999}, but sequential
-strategies for estimating features of vector-valued random fields are
-still in their infancy. \cite{LeGratiet.etal2015} used co-Kriging
-based sequential designs to multi-fidelity computer codes and
-\cite{Poloczek2017} used related ideas for multi-information source
-optimization, but not for ES's like we do here. More relevant to our
-setting, \citet[p.82]{stroh} mentions general mentions general
-possibilities of step-wise uncertainty reduction strategies for ES's in
-the context of designing fire simulations, yet outputs are mainly
-assumed independent.
+acknowledged that co-Kriging could be updated efficiently in the
+context of sequential data assimilation \citep{Vargas-Guzman1999}, but
+sequential strategies for estimating features of vector-valued random
+fields are still in their infancy. \cite{LeGratiet.etal2015} used
+co-Kriging based sequential designs to multi-fidelity computer codes
+and \cite{Poloczek2017} used related ideas for multi-information
+source optimization, but not for ES's like we do here. More relevant
+to our setting, \citet[p.82]{stroh} mentions general possibilities of
+step-wise uncertainty reduction strategies for ES's in the context of
+designing fire simulations, yet outputs are mainly assumed
+independent.
 
 \subsection{Previous work in AUV sampling}
 
