@@ -1212,7 +1212,7 @@ Threshold in salinity & $18.0$ g/kg & User specified \\
 A Light AUV \citep{sousa2012lauv} (Fig.~\ref{fig:lauv}) equipped with
 a 16 Hz Seabird Fastcat-49 conductivity, temperature, and depth (CTD)
 sensor was used to provide salinity and temperature measurements.  The
-AUV is a powered untethered platform that operates at $1$-$3$ m/s in
+AUV is a powered, untethered platform that operates at $1$-$3$ m/s in
 the upper water column. It has a multicore GPU NVIDIA Jetson TX1
 (quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared cache, and 4
 GB of 1600 MHz DRAM) for computation onboard.  The sampling algorithm
@@ -1318,25 +1318,32 @@ actual trial data is close to the specified level.
 \label{fig:parest}
 \end{figure}
 
-Of course, the initial 
 Fig.~\ref{fig:parest} summarizes diagnostic plots of this
 analysis. Fig.~\ref{fig:parest_a} shows a cross-plot of temperature
-and salinity residuals after the regression mean values of salinity and
-temperature are subtracted from the data. This scatter-plot of joint
-residuals indicates that the correlation between the two variables might be slightly larger than the initially specified $0.5$ and that uncertainty in temperature was set a bit too high. Based on
+and salinity residuals after the regression mean values of salinity
+and temperature are subtracted from the data. This scatter-plot of
+joint residuals indicates that the correlation between the two
+variables might be slightly larger than the initially specified $0.5$
+and that uncertainty in temperature was set a bit too high. Based on
 the fitted bivariate covariance model (ellipses in
 Fig.~\ref{fig:parest_a}), we can compute the scalar quadratic form of
-the residuals, and if the model is adequate they should be approximately $\chi^2_2$ distributed. Fig.~\ref{fig:parest_b} shows
+the residuals, and if the model is adequate they should be
+approximately $\chi^2_2$ distributed. Fig.~\ref{fig:parest_b} shows
 the empirical CDF of the quadratic forms (solid) together with the
-theoretical CDF of the $\chi^2_2$ distribution (dashed). The empirical and
-theoretical curves are not very different, which indicates that the specified Gaussian
-model fits reasonably well. Fig.~\ref{fig:parest_c} shows the
-empirical variogram of the scaled residuals for temperature and salinity. The decay is similar for the two, and seems to be negligible
-after about $150$ m as was specified. The working assumption of a separable covariance
-function is hence not unreasonable.
+theoretical CDF of the $\chi^2_2$ distribution (dashed). The empirical
+and theoretical curves are not very different, which indicates that
+the specified Gaussian model fits reasonably
+well. Fig.~\ref{fig:parest_c} shows the empirical variogram of the
+scaled residuals for temperature and salinity. The decay is similar
+for the two, and seems to be negligible after about $150$ m as was
+specified. The working assumption of a separable covariance function
+is hence not unreasonable.
 
-Overall, the spatial Gaussian model representation is of course a simplification of the changing water conditions, and even within the model formulation, the parameter specification could likely have been improved. 
-However, we do not expect minor changes to have caused much difference in sampling paths. 
+Overall, the spatial Gaussian model representation is a simplification
+of the changing water conditions, and even within the model
+formulation, the parameter specification could likely have been
+improved.  However, we do not expect minor changes to have caused much
+difference in sampling paths.
 
 \section{Closing remarks}
 \label{sec:concl_disc}
@@ -1366,15 +1373,19 @@ vicinity of the autonomous vehicle \citep{fossum18b}. While we did not
 consider any temporal effects, which would be relevant on a larger
 time scale, we do consider the extension to spatio-temporal modeling
 and envision that advection-diffusion equations could be useful
-\citep{sigrist2015stochastic,richardson2017sparsity}. The sampling capabilities are restricted by the sensors onboard the AUV, the computational load, and navigation resources. The sampling of temperature and salinity variables can be much higher than the grid resolution, but, due to computational and navigation resources
-available on the AUV, assimilation into a discretized fixed grid is necessary. For more complex
-oceanographic phenomena, the methods will need to be extended to
-non-Gaussian phenomena, possibly feature-based mixtures of Gaussian
-processes which could potentially be run onboard augmented by
-dynamical models. Running numerical models onboard a robotic vehicle
-is currently infeasible, but high-resolution ocean models or remote
-sensing data can be used to fit a more complex statistical model
-\cite{davidson19}.
+\citep{sigrist2015stochastic,richardson2017sparsity}. The sampling
+capabilities are restricted by the sensors onboard the AUV, the
+computational load, and navigation resources. The sampling of
+temperature and salinity variables can be much higher than the grid
+resolution, but, due to computational and navigation resources
+available on the AUV, assimilation into a discretized fixed grid is
+necessary. For more complex oceanographic phenomena, the methods will
+need to be extended to non-Gaussian phenomena, possibly feature-based
+mixtures of Gaussian processes which could potentially be run onboard
+augmented by dynamical models. Running numerical models onboard a
+robotic vehicle is currently infeasible, but high-resolution ocean
+models or remote sensing data can be used to fit a more complex
+statistical model \cite{davidson19}.
 
 The spatio-statistical design criterion building on random sets is
 relevant in our setting with different water properties.  We show
@@ -1421,12 +1432,17 @@ valuable.
 
 TOF acknowledges support from the Centre for Autonomous Marine
 Operations and Systems (AMOS), Center of Excellence, project number
-223254, Nansen Legacy Program, project number 276730, and the Applied Underwater Robotics Labortatory (AURLab). CT
-and DG acknowledge support from the Swiss National Science Foundation,
-project number 178858. JE and KR acknowledge support from Norwegian
-research council (RCN), project number 305445. DG would like to
-aknowledge support of Idiap Research Institute, his primary
-affiliation in an early version of this manuscript. We thank the anonymous    reviewers for their careful reading of our manuscript and their many insightful comments and suggestions. The authors would also like to thank Niklas Linde of the University of Lausanne for providing constructive feedback about this work, and members of the NTNU AURLab for help with AUV deployments
+223254, Nansen Legacy Program, project number 276730, and the Applied
+Underwater Robotics Labortatory (AURLab). CT and DG acknowledge
+support from the Swiss National Science Foundation, project number
+178858. JE and KR acknowledge support from Norwegian research council
+(RCN), project number 305445. DG would like to aknowledge support of
+Idiap Research Institute, his primary affiliation in an early version
+of this manuscript. We thank the anonymous reviewers for their careful
+reading of our manuscript and their many insightful comments and
+suggestions. The authors would also like to thank Niklas Linde of the
+University of Lausanne for providing constructive feedback about this
+work, and members of the NTNU AURLab for help with AUV deployments.
 
 
 \footnotesize
