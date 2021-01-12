@@ -202,15 +202,14 @@ river discharge, tidal effects, coastal current and wind, this
 boundary often gets distorted, and knowledge about its location is
 highly uncertain, making deterministic planning challenging. The goal
 is therefore to use AUV measurements for improved description of the
-interface between fresh and oceanic waters.  It is often not possible
-to sample the biological variables of fundamental interest in such AUV
-operations, but off-the-shelf instruments provide temperature and
+interface between fresh and oceanic waters, which in turn enables more direct sampling of biological dynamics. It is often not possible
+to sample these biological variables directly, but off-the-shelf instruments provide temperature and
 salinity measurements which serve as proxies for the underlying
 biological phenomenon. With the help of a vector-valued random field
 model for temperature and salinity, one can then aim to describe the
-plume.  The goal of plume characterization, in this way, relates to
-that of estimating some regions of the domain, typically excursion
-sets (ESs), when implicitly defined by the vector-valued random field.
+plume. The goal of plume characterization, in this way, relates to
+estimating some regions of the domain, typically excursion
+sets (ESs), when implicitly defined by the vector-valued random field. The goal of plume characterization will in this setting relate to estimating an excursion set (ES), implicitly defined over the vector-valued random field. 
 In our context of environmental sampling, the joint salinity and
 temperature excursions of a river plume help characterize the
 underlying bio-geochemical processes
@@ -285,9 +284,9 @@ temperature and salinity data and \cite{mellucci2018oceanic} looking
 at the statistical prediction of features using an underwater glider.
 In this work the main focus is not on statistical modeling per se, but
 rather on statistical principles and computation underlying efficient
-data collection. We combine novel possibilities in marine robotics
-with spatial statistics and experimental design to provide useful AUV
-sampling designs.
+data collection. We combine marine robotics
+with spatial statistics and experimental design to provide rewarding AUV
+sampling designs yielding scientific relevant data.
 
 Adaptive in-situ AUV sampling of an evolving frontal feature has been
 explored in \cite{fronts11,Smith2016,Pinto2018,costa19}. These
@@ -299,8 +298,8 @@ waypoint graph), has been used for surveys
 \citep{singh2009efficient,Binney2013} that focus largely on reducing
 predictive variance or entropy. These criteria are widely adopted in
 the statistics literature on spatio-temporal design as well
-\citep{bueso1998state,zidek2019monitoring}. However, response variance and entropy being depending only in GRF models on measurement locations and not on response values, criteria based on them only tend to have limited flexibility for
-active adaptation of trajectories based on measurement values.  The use
+\citep{bueso1998state,zidek2019monitoring}. However, in GRF models response variance and entropy only depend on measurement locations and not on response values. Such criteria tend to have limited flexibility for
+active adaptation compared to trajectories based on measurement values. The use
 of data-driven adaptive criteria was introduced to include more
 targeted sampling of regions of scientific interest in \cite{Low2009}
 and \cite{fossuminformation}.
@@ -404,7 +403,7 @@ and
 will allow us to think of $\gp$ as a scalar-valued random field indexed by $\domain \times \{1\dots,p\}$, which will give the co-Kriging equations a particularly simple form that parallels the one of univariate Kriging. 
 The letters $\spatloc$ and $\ell$ will be used for spatial locations and response indices respectively.
 %
-Furthemore, boldface letters will be used to denote concatenated
+Furthermore, boldface letters will be used to denote concatenated
 quantities corresponding to batches of observations.  Given a dataset
 consisting of
 $q$ observations at spatial locations
@@ -452,7 +451,7 @@ $\gp[\spatloc]\in\mathbb{R}^{\no}$ (heterotopic).
 
 Assuming that $n$ batches of observations are available with sizes
 $q_1,\dots, q_n$, and that one wishes to predict $\gp[\bm{x}]$ for
-some batch of $q\geq 1$ generalized locations
+a batch of $q\geq 1$ generalized locations
 $\bm{x}$, the simple co-Kriging mean then amounts to Kriging with respect to a
 scalar-valued GRF indexed by $\domain\times \{1\dots,p\}$:
 %
@@ -511,7 +510,7 @@ k_{[n+1]}(\bm{x},\bm{x}') & = k_{[n]}(\bm{x},\bm{x}')\\
 \end{align}
 %
 As noted in \citep{Chevalier2015} in the case of scalar-valued fields,
-these update formulae naturally extend to universal Kriging in
+the update formulae naturally extends to universal Kriging in
 second-order settings and apply without Gaussian assumptions. We will
 now see how the latter formulae are instrumental in deriving
 semi-analytical formulae for step-wise uncertainty reduction criteria
@@ -1371,8 +1370,8 @@ domains are not methodologically different, but likely approximate
 calculations by concentrating numerical integration on terms in the
 vicinity of the autonomous vehicle \citep{fossum18b}. While we did not
 consider any temporal effects, which would be relevant on a larger
-time scale, we do consider the extension to spatio-temporal modeling
-and envision that advection-diffusion equations could be useful
+time scale. We do consider the extension to spatio-temporal modeling
+and envision that advection-diffusion equations could be a point of departure
 \citep{sigrist2015stochastic,richardson2017sparsity}. The sampling
 capabilities are restricted by the sensors onboard the AUV, the
 computational load, and navigation resources. The sampling of
