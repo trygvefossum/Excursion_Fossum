@@ -191,14 +191,14 @@ justification of your choice of 0.0625 or, if that’s not possible,
 then redo the analysis with a more justifiable choice."
 
 \vspace{5mm}
-\reply: We have elaborated on the specification of nugget in the revised version. We have addressed this point in \aecom \textbf{5}. 
+\reply: We have elaborated on the specification of the nugget effect in the revised version. In the revised version we include a plot with analysis of survey sampling residuals at the end of the paper. This shows that the specified model is reasonable, but it is of course a simplification of the complex ocean. We believe this part fits as an honest discusion at the end of the results section. We have addressed this point further in \aecom \textbf{5}. 
 
 \vspace{5mm}
 \noindent {\bf{3. Exposition:}} Apart from corrections noted by the AE (bullets 2,3,4,6), Referee 1
 offered suggestions on shortening. Neither the AE nor I feel that re-structuring is needed.  In fact, some of the Referee's proposed changes would not be even desirable, from my perspective: I would not want you to "Consider putting the background material in an appendix to go as supplementary material" because, in my opinion, this background material is essential. And the simulation section (design and results) is already quite efficient. I include the Referee's report (R2R5.pdf) primarily for your information (the remarks from Ehrenberg are worth reading).
 
 \vspace{5mm}
-\reply: We agree that the remarks of Ehrenberg are very useful! (It should be curriculum for graduate students.) Regarding the structure, we seriously considered your suggestions about the background in supplementary material, but in the end thought it was too much of a reduction to go through with. It would be very difficult to grasp the applied contribution of our paper if the background parts were in the supplemental material, and only some readers take the extra effort of reading that. Based on the report of the reviewer, we did however go through the background and cut a few unnecessary and lengthy formulations in the revised version. {\bf{to go through for typos, redundant text, etc}}
+\reply: We agree that the remarks of Ehrenberg are very useful! Regarding the structure, we seriously considered your suggestions about the background in supplementary material, but in the end thought it was too much of a reduction to go through with. It would be very difficult to grasp the applied contribution of our paper if the background parts were in the supplemental material, and only some readers take the extra effort of reading that. Based on the report of the reviewer, we did however go through the background and cut a few unnecessary formulations in the revised version.
 
 \vspace{5mm}
 \noindent {\bf{4. Figures:}} Like most journals, AOAS discourages the use of color in figures,
@@ -211,7 +211,7 @@ Color is very expensive to print, so we appreciate your attention
 to this cost-saving measure.
 
 \vspace{5mm}
-\reply: We agree on all our points here, except Fig.8. Line type will be tricky for Fig. 8, when lines are very close together especially in Fig.8b, and Fig.8c. So we ask to consider that this figure is kept in color. Fig. 4, 5, and 6 have been made with a black-and-white compatible color-map, so they can be converted to black-and-white. {\bf{to check all}}
+\reply: We agree on all our points here, except Fig.8. Line type will be tricky for Fig. 8, when lines are very close together especially in Fig.8b, and Fig.8c. So we ask to consider that this figure is kept in color. Fig. 4, 5, and 6 have been made with a black-and-white compatible color-map, so they can be converted to black-and-white.
 
 \vspace{5mm}
 \noindent {\bf{Other comments:}} In your revision, you may want to include in the
@@ -247,7 +247,7 @@ I thank you for explaining the sampling limitations to me in your reply.  Howeve
 \noindent \aecom \textbf{2 - Page 2, line 15}:  I think it would be more appropriate to refer to this as sampling design rather than sampling.
 
 \vspace{5mm}
-\reply: We have removed the word sampling from the sentence, with made it more clear and readable. See the change below:
+\reply: We have removed the word sampling from the sentence. It now reads:
 
 \begin{quote}
     "Models and methods from spatial statistics and experimental design can clearly contribute to this challenge.``
@@ -266,40 +266,41 @@ I thank you for explaining the sampling limitations to me in your reply.  Howeve
 \reply: We have changed the reference accordingly in the text at Page 5. 
 
 \vspace{5mm}
-\noindent \aecom \textbf{5 - Page 22, line 8:}  From Figure 9(c), the nugget effect in the empirical variogram appears to be approximately 0.4 for salinity and 0.7 for temperature.  Even if the sensor specifications were essentially 0, it would be a stretch to say that a variance of 0.0625 was a “middle ground” between the empirical nugget effect and the sensor specifications.  So either give a better justification of your choice of 0.0625 or, if that’snot possible, then redo the analysis with a more justifiable choice.
+\noindent \aecom \textbf{5 - Page 22, line 8:}  From Figure 9(c), the nugget effect in the empirical variogram appears to be approximately 0.4 for salinity and 0.7 for temperature.  Even if the sensor specifications were essentially 0, it would be a stretch to say that a variance of 0.0625 was a “middle ground” between the empirical nugget effect and the sensor specifications.  So either give a better justification of your choice of 0.0625 or, if that’s not possible, then redo the analysis with a more justifiable choice.
 
 \vspace{5mm}
-\reply: We have elaborated on the specification of nugget in the revised version. The sensor-provided standard deviations of the measurement tools are in the fourth decimal points, and in related data-sets we have not seen much of a nugget effect for temperature and salinity in water samples close in space and time. The initial sampling transect had no samples at very short distance, and it is hence not possible to see the nugget effect in the empirical variogram. We made an empirical variogram from the actual survey data, where we have some samples close in space, see Figure \ref{empVar}. These curves support our statements of a smaller nugget.
-\begin{figure}[H] 
+\reply: We have elaborated on the specification of nugget in the revised version. The initial sampling transect had no samples at very short distance, and these data are hence not reliable for extracting the nugget effect. The sensor-provided standard deviations of the measurement tools are in the fourth decimal points, and in related data-sets. However, based on our experience \citep{fossuminformation}, there is more variability than this in temperature and salinity measurements in water samples close in space and time. This variability is partly due to dynamic water masses but also uncertainty in the AUV position. 
+\begin{figure}[h] 
 \centering
 \includegraphics[width=0.6\textwidth]{Figures/field-trials/empVAR.png}
 \caption{Empirical variogram of the scaled variables from the two runs. }
 \label{empVar}
 \end{figure}
 
-One reason to keep a significant nugget effect here is to account for the dynamic water masses that are not captured in our model, but we expect this to be very small given our limited survey time, as was the case in \cite{fossuminformation}. Then again, between the two surveys, there is a change in the survey 1 and 2 paths caused by slightly different measurements at the two times of surveying. There could also be some uncertainty in the AUV location leading to samples not allocated to its true position. 
+In the revised manuscript, we first clarified the specification of model parameters, and we then made residual plots and empirical variograms for the actual survey data (Figure 11 in the revised paper). In the two surveys, we have some samples close in space and it is possible to extract the nugget effect. These curves support our statements of a small but non-zero nugget.
 
-We further checked the sensitivity of the nugget specification in the sequential sampling algorithm. This was done by running synthetic cases of sampling paths and data up to a certain stage for different measurement noise variance levels. At the end, the posterior excursion probability and the chosen sampling path are compared, as show in Figure \ref{fig:nugget_comparison}. We see moderate changes in the path patterns 
-and overall, paths tend to be smoother for large nugget effect.
+%One reason to keep a significant nugget effect here is to account for the dynamic water masses that are not captured in our model, but we expect this to be very small given our limited survey time, as was the case in \citep{fossuminformation}. Then again, between the two surveys, there is a change in the survey 1 and 2 paths caused by slightly different measurements at the two times of surveying. There could also be some uncertainty in the AUV location leading to samples not allocated to its true position. 
+
+We further checked the sensitivity of the nugget specification in the sequential sampling algorithm. This was done by running synthetic cases of sampling paths and data up to a certain stage for different measurement noise variance levels. We see moderate changes in the sampling path patterns, but paths tend to be smoother for large nugget effect, as illustrated in Figure \ref{fig:nugget_comparison}.
 Indeed, with small nugget, the AUV reacts more to the observed temperature and salinity levels, and this leads to more small turns in its path. 
-We note that though the sampling paths can be different, the posterior excursion probabilities are similar and will thus lead to similar estimates for the excursion set. We also remark that the differences in Figure \ref{fig:nugget_comparison} would get smaller if we would let the sampling continue (here stopped for presentation purposes).
+We note that even though the sampling paths can be different, the posterior EPs in Figure \ref{fig:nugget_comparison} are similar and will thus lead to similar estimates for the excursion set. %We also remark that the differences in Figure \ref{fig:nugget_comparison} would get smaller if the sampling continues (here stopped for presentation purposes).
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[scale=0.52]{ans_to_reviewers/merged_paths_2.png}
-    \caption{Comparison of sampling paths and posterior excursion probability for different values of the measurement noise standard deviation (from left to right: $0.1$, $0.25$ and $0.5$). The sampling has been stopped after 200 steps.}
+    \caption{Comparison of sampling paths and posterior EPs for different values of the measurement noise standard deviation (from left to right: $0.1$ and $0.5$). The sampling has been stopped after 200 steps.}
     \label{fig:nugget_comparison}
 \end{figure}
-
-\newpage
-
-In the revised manuscript we wrote another sentence on Fig 11: 'The AUV paths in both runs are relatively winding in the sense that the vehicle reacts much to the data. In our experience from simulated runs, the paths tend to be smoother when we use a larger nugget effect. Still, the estimated nugget from the actual trial data is about $0.1$ which is close to the specified level.'
+In the revised manuscript we wrote another sentence on Fig 11: 'The AUV paths in both runs are relatively
+winding in the sense that the vehicle reacts to the data. In our
+experience from simulations, the paths tend to be smoother when we
+use larger measurement error variances for the AUV temperature and salinity observations. '
 
 \vspace{5mm}
 \noindent \aecom \textbf{6 - Page 22, line 5:}  Insert “triangular” immediately after “equilateral”
 
 \vspace{5mm}
-\reply: We have improved our {\bf{to do}} 
+\reply: We have inserted this as suggested. 
 
 \vspace{1em}
 

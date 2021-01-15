@@ -162,7 +162,7 @@ ocean observation \citep{das11b,Das2015,fossuminformation,fossum18b}.
   \subfigure[Illustration of a range of ocean sensing opportunities.]{\includegraphics[width =
     0.49\textwidth]{Figures/envir.pdf}\label{fig:envir1}}
   \hfill
-  \subfigure[Frontal patterns off of the Nidelva river, Trondheim, Norway.]{\includegraphics[width =
+  \subfigure[Frontal patterns off of the Nidelva river, Trondheim, Norway (looking north).]{\includegraphics[width =
     0.49\textwidth]{Figures/web/river_proccess.png}\label{fig:nidelven}}
   \caption{\ref{fig:envir1} Traditional ocean observation based on 
     ship-based sampling has been augmented by autonomous
@@ -187,7 +187,7 @@ however the AUV can now modify its path at each waypoint based on
 in-situ measurements and calculations onboard using onboard
 deliberation \citep{py10,Rajan12,Rajan12b}.  Full numerical ocean
 models based on complex differential equations cannot be run onboard
-the AUV with limited computational capacity, and statistical models
+the AUV with limited computational capacity. Instead, statistical models
 relying on random field assumptions are relevant as a means to
 effectively update the onboard model from in-situ data, and to guide
 AUV data collection trajectories.
@@ -205,11 +205,9 @@ is therefore to use AUV measurements for improved description of the
 interface between fresh and oceanic waters, which in turn enables more direct sampling of biological dynamics. It is often not possible
 to sample these biological variables directly, but off-the-shelf instruments provide temperature and
 salinity measurements which serve as proxies for the underlying
-biological phenomenon. With the help of a vector-valued random field
+biological phenomena. With the help of a vector-valued random field
 model for temperature and salinity, one can then aim to describe the
-plume. The goal of plume characterization, in this way, relates to
-estimating some regions of the domain, typically excursion
-sets (ESs), when implicitly defined by the vector-valued random field. The goal of plume characterization will in this setting relate to estimating an excursion set (ES), implicitly defined over the vector-valued random field. 
+plume. The goal of plume characterization will in this setting relate to that of estimating an excursion set (ES), which is implicitly defined over the vector-valued random field. 
 In our context of environmental sampling, the joint salinity and
 temperature excursions of a river plume help characterize the
 underlying bio-geochemical processes
@@ -250,28 +248,28 @@ simulation experiments \citep{Santner.etal2003}. As detailed in
 \cite{Ginsbourger2018}, GRF models have been used in particular as a
 basis to sequential design of simulations dedicated to various goals
 such as global optimization and set estimation. Of particular
-relevance to our context, \cite{Bect.etal2012} focuses on strategies
+relevance to our context, \cite{Bect.etal2012} focus on strategies
 to reduce uncertainties related to volumes of excursion exceeding a
-prescribed threshold, while \cite{chevalier2014fast} concentrates on
+prescribed threshold, while \cite{chevalier2014fast} concentrate on
 making the latter strategies computationally efficient and
 batch-sequential. Rather than focusing on excursion volumes,
 approaches were investigated in
 \cite{French.Sain2013,Chevalier.etal2013b,Bolin.Lindgren2015,Azzimonti.etal2016}
 with ambitions of estimating sets themselves. Recently, sequential
 designs of experiments for the conservative estimation of ESs based on
-GRF models were presented in \citep{Azzimonti.etal}.
+GRF models were presented in \cite{Azzimonti.etal}.
 
 Surprisingly less attention has been dedicated to sequential
 strategies in the case of vector-valued observations. It has been long
 acknowledged that co-Kriging could be updated efficiently in the
 context of sequential data assimilation \citep{Vargas-Guzman1999}, but
 sequential strategies for estimating features of vector-valued random
-fields are still in their infancy. \cite{LeGratiet.etal2015} used
+fields are still in their infancy. \cite{LeGratiet.etal2015} use
 co-Kriging based sequential designs to multi-fidelity computer codes
-and \cite{Poloczek2017} used related ideas for multi-information
-source optimization, but not for ES's like we do here. More relevant
+and \cite{Poloczek2017} use related ideas for multi-information
+source optimization, but not for ESs like we do here. More relevant
 to our setting, \citet[p.82]{stroh} mentions general possibilities of
-step-wise uncertainty reduction strategies for ES's in the context of
+step-wise uncertainty reduction strategies for ESs in the context of
 designing fire simulations, yet outputs are mainly assumed
 independent.
 
@@ -280,10 +278,10 @@ independent.
 Other statistical work in the oceanographic domain include
 \cite{wikle2013modern} focusing on hierarchical statistical models,
 \cite{sahu2008space} studying spatio-temporal models for sea surface
-temperature and salinity data and \cite{mellucci2018oceanic} looking
+temperature and salinity data, and \cite{mellucci2018oceanic} looking
 at the statistical prediction of features using an underwater glider.
 In this work the main focus is not on statistical modeling per se, but
-rather on statistical principles and computation underlying efficient
+rather on statistical principles and computations underlying efficient
 data collection. We combine marine robotics
 with spatial statistics and experimental design to provide rewarding AUV
 sampling designs yielding scientific relevant data.
@@ -298,8 +296,8 @@ waypoint graph), has been used for surveys
 \citep{singh2009efficient,Binney2013} that focus largely on reducing
 predictive variance or entropy. These criteria are widely adopted in
 the statistics literature on spatio-temporal design as well
-\citep{bueso1998state,zidek2019monitoring}. However, in GRF models response variance and entropy only depend on measurement locations and not on response values. Such criteria tend to have limited flexibility for
-active adaptation compared to trajectories based on measurement values. The use
+\citep{bueso1998state,zidek2019monitoring}. However, in GRF models response variance and entropy only depend on measurement locations and not on response values. This means that there is limited flexibility for
+active adaptation of trajectories based on measurement values. The use
 of data-driven adaptive criteria was introduced to include more
 targeted sampling of regions of scientific interest in \cite{Low2009}
 and \cite{fossuminformation}.
@@ -355,8 +353,8 @@ characterization case, $\domain$ is a prescribed domain in
 Trondheimsfjord, Norway (for the purpose of our AUV application, a
 discretization of a $2$-dimensional domain at fixed depth is
 considered), and $\no=2$ with responses of temperature and salinity. A
-bivariate GRF model is assumed for $\gp$. To motivate concepts,
-Fig.~\ref{fig:real_temp} and \ref{fig:real_sal} shows a realization of such a
+multivariate GRF model is assumed for $\gp$. To motivate concepts,
+Fig.~\ref{fig:real_temp} and \ref{fig:real_sal} show a realization of such a
 vector-valued GRF on $\domain=[0,1]^2$. Fig.~\ref{fig:jointex_roi} represents a by-product of interest derived from these
 realizations, namely regions: i) in red, where both temperature and salinity are high (i.e., exceeding respective thresholds), indicative of ocean water, ii) in white, where both temperature and salinity are low, indicative of riverine water, and iii) in light-red, where one variable is above and the other below their respective thresholds, indicative of mixed waters.
 
@@ -368,7 +366,7 @@ height=0.27\textwidth,keepaspectratio]{Figures/intro_temp.png}\label{fig:real_te
 height=0.27\textwidth,keepaspectratio]{Figures/intro_sal.png}\label{fig:real_sal}}
 \subfigure[Regions of interest.]{\includegraphics[
 height=0.27\textwidth,keepaspectratio]{Figures/intro_excu.png}\label{fig:jointex_roi}}
-\caption{Realization of a bivariate GRF (display (a) and (b)) and excursion set above some threshold (c). Joint excursion in red and excursion of a single variable in light-red.}
+\caption{Realization of a bivariate GRF (display (a) and (b)) and ES above some threshold (c). Joint excursion in red and excursion of a single variable in light-red.}
 \label{example_excu}
 \end{figure}
 
@@ -382,7 +380,7 @@ $$
 \es:=\gp^{-1}(\T)=\{\x \in \mathcal{M}: \gp[\x] \in \T\}.
 $$
 If we assume that $\gp$ has continuous trajectories 
-and $T$ is closed, then $\es$ becomes a Random Closed Set
+and $T$ is closed, then $\es$ becomes a random closed set
 \citep{Molchanov2005} and concepts from the theory of random sets will
 prove useful to study $\es$.
 Note that while some aspects of the developed approaches do not call
@@ -391,7 +389,7 @@ simplicity, stay with the case of orthants
 ($\T=(-\infty, t_1] \times \dots \times (-\infty, t_{\no}]$ where
 $t_1,\dots, t_{\no} \in \R$) as this will allow efficient calculation
 of several key quantities. Note that changing some $\leq$ inequalities
-to $\geq$ ones would lead to immediate adaptations.
+to $\geq$ would lead to immediate adaptations.
 
 Letting $\gp[\spatloc,\ell]$ denote the $\ell\text{-th}$ component of
 $\gp[\spatloc]$ ($1\leq \ell\leq \no$), we use the term
@@ -441,7 +439,7 @@ simple expressions for the co-Kriging equations below.
 Given a GRF $\gp$ and observations of some of its components at
 locations in the domain, one can predict the value of the field at
 some unobserved location $\spatloc\in \domain$ by using the
-conditional mean of $\gp[\spatloc]$, conditional on the data. This
+conditional mean of $\gp[\spatloc]$, given the data. This
 coincides with co-Kriging equations, which tell us precisely how to
 compute conditional means and covariances.  We will present a general
 form of co-Kriging, in the sense that it allows inclusion of several
@@ -491,7 +489,7 @@ $q_{n+1} \geq 1$ generalized locations $\bm{x}_{n+1}$.
 Thanks to our representation of co-Kriging in terms of simple Kriging
 with respect to generalized locations, a strightforward adaptation of
 the batch-sequential Kriging update formulae from
-\citep{Chevalier.etal2013a} suggests that
+\cite{Chevalier.etal2013a} suggest that
 % 
 \begin{equation}\label{eq:meanCoK}
 \mu_{[n+1]}(\bm{x})=\mu_{[n]}(\bm{x})+\lambda_{[n+1,n+1]}(\bm{x})^T (\mathbf{z}_{n+1}-\mu(\bm{x}_{n+1})),
@@ -499,7 +497,7 @@ the batch-sequential Kriging update formulae from
 where $\lambda_{[n+1,n+1]}(\bm{x})$ denotes the $q_{n+1}$-dimensional
 sub-vector extracted from $\lambda_{[n+1]}(\bm{x})$ that corresponds
 to the Kriging weights for the last $q_{n+1}$ responses
-when predicting at $\bm{x}$ relying on all measurements until batch $(n+1)$.
+when predicting at $\bm{x}$ relying on all measurements until batch $n+1$.
 The associated co-Kriging residual (cross-)covariance function is
 \begin{align}\label{eq:varCoK}
 k_{[n+1]}(\bm{x},\bm{x}') & = k_{[n]}(\bm{x},\bm{x}')\\
@@ -509,14 +507,14 @@ k_{[n+1]}(\bm{x},\bm{x}') & = k_{[n]}(\bm{x},\bm{x}')\\
 \lambda_{{[n+1,n+1]}}(\bm{x}'),
 \end{align}
 %
-As noted in \citep{Chevalier2015} in the case of scalar-valued fields,
+As noted in \cite{Chevalier2015} in the case of scalar-valued fields,
 the update formulae naturally extends to universal Kriging in
 second-order settings and apply without Gaussian assumptions. We will
 now see how the latter formulae are instrumental in deriving
 semi-analytical formulae for step-wise uncertainty reduction criteria
 for vector-valued random fields.
 
-\subsection{Uncertainty Quantification on ESs of multivariate GRFs}
+\subsection{UQ on ESs of multivariate GRFs}
 \label{sec:set_uq}
 
 We now introduce quantities that allow UQ on the volume of the ES
@@ -535,7 +533,7 @@ d\mes^{\otimes}(u, v)\\
 &-\left( \int_{\domain} \mathbb{P}\left(\gp[u]\in T\right) d\mes(u) \right)^2,
 \end{split}
 \end{equation*}
-which in the excursion/sojourn case where $\T=(-\infty, t_1] \times
+which in the excursion/sojourn case with $\T=(-\infty, t_1] \times
 \dots \times (-\infty, t_{\no}]$ is
 \begin{equation*}
 \begin{split}
@@ -580,8 +578,7 @@ We compute the expected effect of the inclusion of new observations on
 the $\EMV$ and $\IBV$ of the ES $\es$. Let us consider the
 same setting as in Eq. \eqref{eq:meanCoK} and \eqref{eq:varCoK}, and
 let $\currentExp{.}$ and $\currentProba{.}$ denote conditional
-expectation and probability conditional on the first $n$ batches of
-observations, respectively. We use $\IBV_{\stage}$ to denote $\IBV$ with respect to the conditional law $\mathbb{P}_{\stage}$.
+expectation and probability given the first $n$ batches of observations. We use $\IBV_{\stage}$ to denote $\IBV$ with respect to the conditional law $\mathbb{P}_{\stage}$.
 
 \medskip
 
@@ -595,7 +592,7 @@ new observation on the IBV is then
 \end{equation}
 where $\bm{Y}$ is distributed according to the current law of
 $Z_{\bm{x}}$ and with independent noise having covariance matrix
-$\Delta_n$.
+$\Delta_{n+1}$.
 
 We next present a result that allows efficient computation of $\EIBV$
 as an integral of CDFs of the multivariate Gaussian distribution. This will prove
@@ -702,17 +699,17 @@ situation with random sets for vector-valued GRFs.
 
 We illustrate the expected Bernoulli variance (EBV) associated with
 different designs on a bivariate example. This mimics our river plume
-application and hence the first and second component of the random
+application and hence the components of the random
 field will be called \textit{temperature} and \textit{salinity}. We
 begin with a \textit{pointwise} example, considering a single
 bivariate Gaussian distribution (i.e. no spatial elements).
 
 \subsubsection{A pointwise study}
 
-Say we want to study the excursion probability of a bivariate Gaussian
-above some threshold, where the thresholds are set equal to the mean;
+Say we want to study the EP of a bivariate Gaussian
+vector variable below some thresholds. The thresholds are set equal to the mean;
 $\mu_1=t_1=5^o C$ for temperature and $\mu_2=t_2=30$ g/kg for
-salinity, and we play with the temperature and salinity correlation
+salinity. We play with the temperature and salinity correlation
 and variances to study the effect on the EP and EBV.
 
 \begin{figure}[!b] 
@@ -728,7 +725,7 @@ and variances to study the effect on the EP and EBV.
 Fig.~\ref{illus_bivarDens} shows contour plots of three different
 densities with increasing correlation $\gamma$ between temperature and
 salinity. The displayed densities have unit standard deviations for
-both temperature and salinity, but we also study the effect of
+both temperature and salinity, but we will also study the effect of
 doubling the standard deviations.
 
 Table \ref{tab:sim_rhoab} shows the initial EPs and the associated
@@ -775,7 +772,7 @@ correlation is low ($\gamma=0.2$), there is little information about
 salinity in the temperature data, and therefore less uncertainty reduction.
 
 
-\subsubsection{Including Spatiality}
+\subsubsection{Going Spatial}
 \label{sec:including_spatiality}
 
 We now turn to an example involving a full-fledged GRF. The statistical model we consider has a linear trend
@@ -815,16 +812,15 @@ covariance structure as above and parameters
 \end{pmatrix},~ \sigma_1 = 2.5,~ \sigma_2 = 2.25, ~ \gamma = 0.2,
 \end{align*}
 and kernel parameter $\eta=3.5$.
-One realization of this GRF is shown in Fig.~\ref{example_excu}.
-In the computed examples, the spatial domain $\domain$ is
+One realization of this GRF is shown in Fig.~\ref{example_excu}. Thresholds are $t_1=2.3$ and $t_2=22$.
+In these computer examples, the spatial domain $\domain$ is
 discretized to a set of $N$ grid locations
 $\mathcal{M}_g = \{\x_i, i=1,\ldots,N \}$, where each cell has area
 $\delta$; the same grid is used for the waypoint graph for possible
 design locations. The EIBV is approximated by sums over all grid
 cells. 
 
-
-We now study how the EBV [Eq.\eqref{def:eibv}] associated with data
+We now study how the EBV associated with data
 collection at a point changes if only one of the two components of the
 field is observed. We first draw a realization of the GRF defined
 above and use it as ground-truth to mimic the real data-collection
@@ -849,7 +845,7 @@ height=0.22\textwidth,keepaspectratio]{Figures/ebv_comp_both.png}\label{fig:ebv_
 \caption{Pointwise Bernoulli variance reduction for observation of a
   single or both components of the random field at one location. Data
   collection locations in green. True excursion set in red. Places
-  where only one response is above threshold are depicted in pink. EBV
+  where only one response is above threshold are depicted in light-red. EBV
   reduction associated to observing one or both responses at the green
   location are shown in \ref{fig:ebv_comp_temp},
   \ref{fig:ebv_comp_sal} and \ref{fig:ebv_comp_both}.}
@@ -901,18 +897,18 @@ stage $n$.
 Once the best design at stage $n$
 has been selected, the data are collected and the GRF
 model is updated using co-Kriging
-Eq. \ref{eq:meanCoK} and \ref{eq:varCoK}, yielding a conditional law $\mathbb{P}_{\stage + 1}$
+Eq. \ref{eq:meanCoK} and \ref{eq:varCoK}, yielding a conditional law $\mathbb{P}_{[\stage+1]}$
 after which the process is repeated.
 
-Note that the type of data collected at each stage can be of various
-type (all components of the field at a single location, only some
+Note that the data collected at each stage can be of various
+types (all components of the field at a single location, only some
 components at a subset of selected locations, etc.) because of the
 concept of \textit{generalized location} in the co-Kriging expressions.
 In general, a design strategy must choose the spatial location as well
 as the components to observe (heterotopic), or where several
 observations are allowed at each stage (batch).  For the case with an
 AUV exploring the river plume, we limit our scope to choosing one of
-the neighboring spatial location (waypoints) at each stage, and all
+the neighboring spatial locations (waypoints) at each stage, and all
 components (temperature and salinity) of the field are observed
 (isotopic). The candidate points at this stage are denoted
 $\candidates$ as defined from the 6 directions (apart from edges) in
@@ -922,7 +918,7 @@ we suppress this in the notation.
 
 The mathematical expression for the optimal design in this sequential
 setting involves a series of intermixed maximizations over designs and
-integrals over data. In practice, the optimal solution is intractable
+expected values over data outcomes. In practice, the optimal solution is intractable
 because of the enormous growth over stages (see
 e.g. \cite{powell2016perspectives}).
 Instead, we outline heuristic strategies.
@@ -953,7 +949,7 @@ selects the location that leads to the biggest reduction in EIBV:
 The next observation location $\spatloc_{\stage + 1}$ is chosen among
 the minimizers in $\candidates$ of the criterion: 
 \begin{equation}\label{critSEQ}
-     C_{\text{myopic}}(u) = \EIBV_{\stage}\left(\spatloc\right)
+     C_{\text{myopic}}(u) = \EIBV_{[\stage]}\left(\spatloc\right)
 \end{equation}
 \end{criterion}
 
@@ -1006,8 +1002,8 @@ available at stage $n$ and on an additional observation $y$ at $u$ at stage $n+1
 \begin{criterion}[2-step look-ahead]
       The next observation location $\spatloc_{\stage + 1}$ is chosen among the minimizers in $\candidates$ of the criterion
       \begin{align}\label{critLA}
-          C_{\text{2-steps}}(u) &= \mathbb{E}_{\stage}\left[\min_{\spatloc' \in
-                  \candidates(\spatloc)} \EIBV_{\stage}\left(\spatloc' ; \spatloc,
+          C_{\text{2-steps}}(u) &= \mathbb{E}_{[\stage]}\left[\min_{\spatloc' \in
+                  \candidates(\spatloc)} \EIBV_{[\stage]}\left(\spatloc' ; \spatloc,
       Y\right)\right]
       \end{align}
       where $Y$ is the random data realization of $\gp_{\spatloc}$ according to its
@@ -1068,7 +1064,7 @@ trajectory choices over the $31\times31$ grid used to discretize the GRF. The AU
 \label{fig:wp_graph}
 \end{figure}
 
-Each strategy is conducted on an equilateral grid as shown in
+Each strategy is conducted on an equilateral triangular grid as shown in
 Fig.~\ref{fig:wp_graph}. The AUV starts at the center coordinate at
 the southern end of the domain (node 53). It then moves along edges in
 the waypoint graph while collecting data which are assimilated onboard
@@ -1151,12 +1147,10 @@ does a substantially worse job in terms of explained variance.
 \label{sec:case_study}
 
 To demonstrate the applicability of using multivariate EPs and the IBV
-to inform oceanographic sampling, we present a case study mapping a
-river plume with an AUV. The experiment was performed in Trondheim,
-Norway, surveying the Nidelva river (Fig.~\ref{fig:nidelven}). The
-experiments were conducted in late Spring 2019, when there is still
-snow melting in the surrounding mountains so that the river water is colder than the water in the fjord. The experiment was
-focused along the frontal zone that runs more or less parallel to the
+to inform oceanographic sampling, we present a case study of using an AUV to map the Nidelva river plume in Trondheim, Norway (Fig.~\ref{fig:nidelven}). The
+experiments were conducted in late Spring 2019, when there was still
+snow melting in the surrounding mountains so that the river water was colder than the water in the fjord. The experiment was
+focused along the frontal zone that ran more or less parallel to the
 eastern shore.
 
 \subsection{Model Specification}
@@ -1165,7 +1159,7 @@ eastern shore.
 The statistical model parameters were specified based on experience as well as data gathered in a short
 preliminary survey where the AUV made an initial transect to determine
 the trends in environmental conditions, variance and correlation
-structures. This gives a reasonable idea of the temperature and salinity of river and ocean waters. Both temperature and salinity were assumed to increase linearly with the west coordinate. Next, the residuals from the regression analysis were analyzed to specify the covariance parameters of the GRF model.
+structures. This gives a reasonable idea of the temperature and salinity of river and ocean waters. Both temperature and salinity were assumed to increase linearly with the west coordinate. Next, empirical correlation and variograms of the residuals from the regression analysis were analyzed to specify the temperature and salinity correlation, variances and spatial correlation decay parameter of the GRF model.
 The resulting
 parameters are given in Table \ref{tab:experiment_param}. The
 regression parameters shown here are scaled to represent the east and
@@ -1214,17 +1208,17 @@ sensor was used to provide salinity and temperature measurements.  The
 AUV is a powered, untethered platform that operates at $1$-$3$ m/s in
 the upper water column. It has a multicore GPU NVIDIA Jetson TX1
 (quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared cache, and 4
-GB of 1600 MHz DRAM) for computation onboard.  The sampling algorithm
+GB of 1600 MHz DRAM) for computations onboard.  The sampling algorithm
 was built on top of the autonomous Teleo-Reactive EXecutive
 (\textit{T-REX}) framework \citep{py10,Rajan12,Rajan12b}. We assume
 that the measurements are conditionally independent because the
 salinity is extracted from the conductivity sensor which is different
 from the temperature sensor. We specify variance $0.25^2$ for both
-errors. This is based on prior experience indicating that there can be
-some noise in temperature and salinity readings mostly because of
-dynamic water masses and uncertainty in AUV position. The initial
-survey transect was not sampled very densely so a reliable extraction
-of a nugget parameter from those data was not possible.
+errors. These are reasonable error levels based on prior experience \citep{fossuminformation} indicating that there can be
+some noise in temperature and salinity data because of
+dynamic water masses and uncertainty in the AUV position. The initial
+survey transect was not sampled very densely, and a reliable extraction
+of nugget effects that could be representative of the measurement noise variance parameters was not possible.
 
 \begin{figure}[!h] 
 \centering 
@@ -1237,13 +1231,13 @@ of a nugget parameter from those data was not possible.
 
 The AUV was running a \textit{myopic} strategy to decide between
 sampling locations on the waypoint graph distributed over an
-equilateral grid, as shown in the grey-colored lattice in
-Fig.~\ref{fig:map}.  At each stage, it takes the AUV about 30 seconds
+equilateral triangular grid, as shown in the grey-colored lattice in
+Fig.~\ref{fig:map}.  At each stage, it took the AUV about 30 seconds
 to assimilate data and evaluate the EIBV for all the possible waypoint alternatives.  It
 was set to start in the south-center part of the waypoint graph. A
-survey was set to take approximately 40 minutes, visiting 15 waypoints
+survey took approximately 40 minutes, visiting 15 waypoints
 on the grid, with the vehicle running near the surface to capture the
-plume. On its path from one waypoint to the next, the AUV collects
+plume. On its path from one waypoint to the next, the AUV collected
 data with an update frequency of 30 seconds, giving three measurements
 per batch in the updates at each stage.
 
@@ -1275,7 +1269,7 @@ per batch in the updates at each stage.
 Two survey missions (1 and 2), were run successively, with a short
 break in between. The resulting path of the selected waypoints are
 shown in the map in Fig.~\ref{fig:map}, both within the expected
-frontal region (shaded pink). The recorded temperatures are shown as
+frontal region (shaded light-red). The recorded temperatures are shown as
 colored trails in Fig.~\ref{fig:res_both}, clearly indicating the
 temperature difference between fjord and riverine waters. The salinity
 data are then shown separately, overlaid with the estimated EP for
@@ -1295,17 +1289,17 @@ a picture of the front being to the west in the southern portions of
 the region and gradually bending off toward the north east. The amount
 of exploration done by Survey 1 which turned north is greater than
 Survey 2 which was coming close to the survey area borders in the
-south-western corner.  The AUV paths in both runs are relatively
+south-western corner. The AUV paths in both runs are relatively
 winding in the sense that the vehicle reacts to the data. In our
-experience from simulated runs, the paths tend to be smoother when we
-use a larger nugget effect. But here the estimated nugget from the
-actual trial data is close to the specified level.
+experience from simulations, the paths tend to be smoother when we
+use larger measurement error variances for the AUV temperature and salinity observations. 
+%But here the estimated nugget from the actual trial data is close to the specified level.
 
 \begin{figure}[!b]
   \centering
   \subfigure[Residual plot.]{\includegraphics[width = 0.32\textwidth]{Figures/web/res_diag_aN.eps}\label{fig:parest_a}}
   \hfill
-  \subfigure[Empirical CDF.]{\includegraphics[width = 0.32\textwidth]{Figures/web/res_diag_bN.eps}\label{fig:parest_b}}
+  \subfigure[Quadratic form CDFs.]{\includegraphics[width = 0.32\textwidth]{Figures/web/res_diag_bN.eps}\label{fig:parest_b}}
   \hfill
   \subfigure[Empirical variogram.]{\includegraphics[width = 0.32\textwidth]{Figures/web/res_diag_cN.eps}\label{fig:parest_c}}
   \caption{Data analysis from from AUV experiments. \ref{fig:parest_a} Residual plot of temperature and salinity
@@ -1322,8 +1316,8 @@ analysis. Fig.~\ref{fig:parest_a} shows a cross-plot of temperature
 and salinity residuals after the regression mean values of salinity
 and temperature are subtracted from the data. This scatter-plot of
 joint residuals indicates that the correlation between the two
-variables might be slightly larger than the initially specified $0.5$
-and that uncertainty in temperature was set a bit too high. Based on
+variables might be slightly larger than the initially specified $0.5$ correlation,
+and that initial uncertainty in temperature was set a bit too high. Based on
 the fitted bivariate covariance model (ellipses in
 Fig.~\ref{fig:parest_a}), we can compute the scalar quadratic form of
 the residuals, and if the model is adequate they should be
@@ -1332,17 +1326,16 @@ the empirical CDF of the quadratic forms (solid) together with the
 theoretical CDF of the $\chi^2_2$ distribution (dashed). The empirical
 and theoretical curves are not very different, which indicates that
 the specified Gaussian model fits reasonably
-well. Fig.~\ref{fig:parest_c} shows the empirical variogram of the
+well. Fig.~\ref{fig:parest_c} shows the empirical variograms of the
 scaled residuals for temperature and salinity. The decay is similar
 for the two, and seems to be negligible after about $150$ m as was
 specified. The working assumption of a separable covariance function
-is hence not unreasonable.
-
+is hence not unreasonable. There appears to be a slight nugget effect, but not much different from what was set as the measurement noise variance.
 Overall, the spatial Gaussian model representation is a simplification
-of the changing water conditions, and even within the model
-formulation, the parameter specification could likely have been
-improved.  However, we do not expect minor changes to have caused much
-difference in sampling paths.
+of the changing water conditions, and even within our working assumptions,
+the parameter specification could likely have been
+improved. However, we do not expect that minor changes in parameters would have caused much
+difference in AUV sampling paths.
 
 \section{Closing remarks}
 \label{sec:concl_disc}
@@ -1384,7 +1377,7 @@ mixtures of Gaussian processes which could potentially be run onboard
 augmented by dynamical models. Running numerical models onboard a
 robotic vehicle is currently infeasible, but high-resolution ocean
 models or remote sensing data can be used to fit a more complex
-statistical model \cite{davidson19}.
+statistical model \citep{davidson19}.
 
 The spatio-statistical design criterion building on random sets is
 relevant in our setting with different water properties.  We show
@@ -1393,7 +1386,7 @@ variance, for instance, that of volume uncertainties which is possibly
 more relevant, but one that requires more computational resources.
 Such criteria could be particularly useful in other oceanographic
 settings related to mapping of algal-blooms, anoxic zones or open
-water fronts \cite{costa19}.  Other criteria could also be relevant,
+water fronts \citep{costa19}.  Other criteria could also be relevant,
 for instance, hybrid or multi-attribute criteria that could balance
 goals of exploration and exploitation in this situation. Equally, such
 techniques have significant use cases in downstream decision-making,
