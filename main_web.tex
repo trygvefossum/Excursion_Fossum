@@ -460,7 +460,7 @@ q_i$)-dimensional vector of observed (noisy) responses of
 $Z$ at all considered generalized locations, and
 $\lambda_{[n]}(\bm{x})$ is a vector of weights equal to
 $$\left(k(\bm{x}_{[n]}, \bm{x}_{[n]})+\Delta_{[n]} \right)^{-1} k(\bm{x}_{[n]}, \bm{x})
-$$
+$$,
 with $\bm{x}_{[n]}=(\bm{x}_1,\dots,
 \bm{x}_n)$ and where
 $\Delta_{[n]}$ is the covariance matrix of Gaussian-distributed noise
@@ -468,7 +468,7 @@ assumed to have affected measurements up to batch
 $n$. For our applications with salinity and temperature observations,
 this matrix is diagonal because we assume conditionally independent
 sensor readings, but it might not be diagonal with other types of
-combined measurements.  The matrix in parenthesis will be assumed to
+combined measurements.  The matrix in parentheses will be assumed to
 be non-singular throughout the presentation. The associated
 co-Kriging %(conditional)
 residual (cross-)covariance function can also be expressed in the same
@@ -480,7 +480,7 @@ k_{[n]}(\bm{x},\bm{x}')=k(\bm{x},\bm{x}')-\lambda_{[n]}(\bm{x})^T
 \lambda_{{[n]}}(\bm{x}').
 \end{equation}
 
-Let us now consider the case where a co-Kriging prediction of $Z$ was
+Let us now consider the case where a co-Kriging prediction of $Z$ is
 made with respect to $n$ batches of generalized locations, concatenated again within $\bm{x}_{[n]}=(\bm{x}_1,\dots, \bm{x}_n)$,
 and one wishes to update the prediction by incorporating a new vector
 of observations $\mathbf{z}_{n+1}$ measured at a batch of
@@ -491,9 +491,9 @@ the batch-sequential Kriging update formulae from
 \cite{Chevalier.etal2013a} suggest that
 % 
 \begin{equation}\label{eq:meanCoK}
-\mu_{[n+1]}(\bm{x})=\mu_{[n]}(\bm{x})+\lambda_{[n+1,n+1]}(\bm{x})^T (\mathbf{z}_{n+1}-\mu(\bm{x}_{n+1})),
+\mu_{[n+1]}(\bm{x})=\mu_{[n]}(\bm{x})+\lambda_{[n+1,n+1]}(\bm{x})^T (\mathbf{z}_{n+1}-\mu(\bm{x}_{n+1})).
 \end{equation}
-where $\lambda_{[n+1,n+1]}(\bm{x})$ denotes the $q_{n+1}$-dimensional
+In this instance,  $\lambda_{[n+1,n+1]}(\bm{x})$ denotes the $q_{n+1}$-dimensional
 sub-vector extracted from $\lambda_{[n+1]}(\bm{x})$ that corresponds
 to the Kriging weights for the last $q_{n+1}$ responses
 when predicting at $\bm{x}$ relying on all measurements until batch $n+1$.
@@ -503,11 +503,11 @@ k_{[n+1]}(\bm{x},\bm{x}') & = k_{[n]}(\bm{x},\bm{x}')\\
  \nonumber - & \lambda_{[n+1,n+1]}(\bm{x})^T 
 \left(k_{[n]}(\bm{x}_{n+1}, \bm{x}_{n+1})+\Delta_{n+1}\right)
 %k_{[n]}(\bm{x}_{[n]}, \bm{x}_{[n]})
-\lambda_{{[n+1,n+1]}}(\bm{x}'),
+\lambda_{{[n+1,n+1]}}(\bm{x}').
 \end{align}
 %
-As noted in \cite{Chevalier2015} in the case of scalar-valued fields,
-the update formulae naturally extends to universal Kriging in
+As noted in \cite{Chevalier2015}, in the case of scalar-valued fields,
+the update formulae naturally extend to universal Kriging in
 second-order settings and apply without Gaussian assumptions. We will
 now see how the latter formulae are instrumental in deriving
 semi-analytical formulae for step-wise uncertainty reduction criteria
@@ -554,7 +554,7 @@ distribution function (CDF) numerically \citep{genz2009computation}.
 
 Note that this quantity requires the solution of an integral over
 $\domain^2$. In contrast, the IBV of
-\cite{bect2019} involves solely an integral on $\domain$ and can be
+\cite{bect2019} solely involves an integral on $\domain$ and can be
 expanded as
 \begin{equation*}
 \begin{split}
@@ -577,7 +577,7 @@ We compute the expected effect of the inclusion of new observations on
 the $\EMV$ and $\IBV$ of the ES $\es$. Let us consider the
 same setting as in Eq. \eqref{eq:meanCoK} and \eqref{eq:varCoK}, and
 let $\currentExp{.}$ and $\currentProba{.}$ denote conditional
-expectation and probability given the first $n$ batches of observations. We use $\IBV_{\stage}$ to denote $\IBV$ with respect to the conditional law $\mathbb{P}_{\stage}$.
+expectation and probability, respectively, given the first $n$ batches of observations. We use $\IBV_{\stage}$ to denote $\IBV$ with respect to the conditional law $\mathbb{P}_{\stage}$.
 
 \medskip
 
@@ -671,7 +671,7 @@ where the matrix $\mathbf{\tilde{\Sigma}}_{[n]}(\uu, \vv)$ is defined blockwise 
 \end{matrix}\right)
 \end{split}
 \end{equation*}
-with blocks given, for $i,j\in \{1,2\}$ and $u,v\in \domain$, by
+with blocks given for $i,j\in \{1,2\}$ and $u,v\in \domain$, by
 \begin{equation*}
 \begin{split}
 \tilde{\Sigma}_{i,j}(u, v) &= \lambda_{[n+1,n+1]}(\uu)^T k_{[n]}(\bm{x},\bm{x}) \lambda_{[n+1,n+1]}(\vv) + \delta_{i,j}\futureCov{\uu, \vv}.
@@ -706,7 +706,7 @@ bivariate Gaussian distribution (i.e. no spatial elements).
 \subsubsection{A pointwise study}
 
 Say we want to study the EP of a bivariate Gaussian
-vector variable below some thresholds. The thresholds are set equal to the mean;
+vector variable below some thresholds. The thresholds are set equal to the mean:
 $\mu_1=t_1=5^o C$ for temperature and $\mu_2=t_2=30$ g/kg for
 salinity. We play with the temperature and salinity correlation
 and variances to study the effect on the EP and EBV.
@@ -762,8 +762,8 @@ $(Y_1,Y_2)^t=(Z_1,Z_2)^t+\bepsilon$, with
 $\bepsilon \sim N(0,0.5^2I_2)$, while $Y_1=Z_1+\epsilon$,
 $\epsilon \sim N(0,0.5^2)$ when only temperature is measured.  For
 this illustration, Table \ref{tab:sim_rhoab} shows that the expected
-Bernoulli variance gets smaller with larger standard deviations. The
-expected reduction of Bernoulli variance is further largest for the
+Bernoulli variance gets smaller with larger standard deviations. Furthermore, the
+expected reduction of Bernoulli variance is largest for the
 cases with high correlation $\gamma$. Albeit smaller, there is also
 uncertainty reduction when only temperature is measured (bottom row),
 especially when temperature and salinity are highly correlated. When
@@ -780,17 +780,17 @@ We now turn to an example involving a full-fledged GRF. The statistical model we
 Z_{\spatloc, 1}\\ Z_{\spatloc, 2}
 \end{pmatrix}\right] &= \beta_0 + \beta_1 \spatloc,
 \end{align*}
-with $\beta_0$ a two dimensional vector and $\beta_1$ a $2\times 2$ matrix. In our examples, we only consider separable covariance models;
+where $\beta_0$ is a two dimensional vector and $\beta_1$ is a $2\times 2$ matrix. In our examples, we only consider separable covariance models:
 \begin{align*}
 \textrm{Cov}\left(Z_{\spatloc, i}, Z_{v, j}\right) &= k(\spatloc, v) \gamma(i, j),~ \gamma(i, j) = \begin{cases} \sigma_i^2,~ i=j\\
    \gamma \sigma_i \sigma_j,~i\neq j,
         \end{cases}
 \end{align*}
 where an isotropic Mat\'{e}rn 3/2 kernel $(1+\eta h)\exp (-\eta h)$ is
-used, for Euclidean distance $h$.  In the accompanying Python examples
+used for Euclidean distance $h$.  In the accompanying Python examples
 taking place within the MESLAS
 toolbox~\footnote{\url{https://github.com/CedricTravelletti/MESLAS}},
-these modeling assumptions can however be relaxed to anisotropic
+these modeling assumptions can, however, be relaxed to anisotropic
 covariance and changing variance levels across the spatial
 domain. Both extensions are relevant for the setting with river
 plumes, but in practice this requires more parameters to be
