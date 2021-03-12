@@ -1046,14 +1046,14 @@ time needed for the strategy.
 
 \begin{figure}[!b] 
 \centering 
-\subfigure[The waypoint graph.]{\includegraphics[width =
+\subfigure[The waypoint graph]{\includegraphics[width =
 0.49\textwidth]{Figures/web/wp_graph_paper.jpeg}\label{fig:wp_graph_a}}
 \hfill
-\subfigure[The waypoint graph in 3D.]{\includegraphics[width =
+\subfigure[The waypoint graph in 3D]{\includegraphics[width =
 0.49\textwidth]{Figures/sim/wp_graph_3d.pdf}\label{fig:wp_graph_b}}
 \caption{\ref{fig:wp_graph_a} The equilateral waypoint graph used to discretize the
 trajectory choices over the $31\times31$ grid used to discretize the GRF. The AUV is set to start in node $53$.
-\ref{fig:wp_graph_b} The waypoint grid shown in a 3D environment.}
+\ref{fig:wp_graph_b} The waypoint grid shown in a 3D environment}
 \label{fig:wp_graph}
 \end{figure}
 
@@ -1062,7 +1062,7 @@ Fig.~\ref{fig:wp_graph}. The AUV starts at the center coordinate at
 the southern end of the domain (node 53). It then moves along edges in
 the waypoint graph while collecting data which are assimilated onboard
 to update the GRF model. This is used in the evaluation of the next
-node to sample.  The procedure is run for $10$ stages. A total of 100
+node to sample.  The procedure is run for $10$ stages. In this experiment, a total of 100
 replicate simulations were conducted with all strategies.
 
 \subsubsection{Simulation Results}
@@ -1080,13 +1080,13 @@ parallel to the boundary between the water masses.
 
 \begin{figure}[!h]
   \centering
-  \subfigure[IBV.]{\label{fig:avg_ev}\includegraphics[height=0.49\textwidth]{Figures/web/avg_EV.jpeg}}
+  \subfigure[IBV]{\label{fig:avg_ev}\includegraphics[height=0.49\textwidth]{Figures/web/avg_EV.jpeg}}
   \hfill \subfigure[RMSE between estimated field and
-  truth.]{\label{fig:avg_rmse}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_RMSE.pdf}}
+  truth]{\label{fig:avg_rmse}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_RMSE.pdf}}
   \hfill \subfigure[Explained variance
-  $\bR^{2}$.]{\label{fig:avg_r2}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_R2.pdf}}
+  $\bR^{2}$]{\label{fig:avg_r2}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_R2.pdf}}
   \hfill \subfigure[Computational time for inference (the lines for \textit{naive}, \textit{static\_north}, \textit{static\_east}, and \textit{static\_zigzag}
-  overlap).]{\label{fig:avg_time}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_Time.pdf}}
+  overlap)]{\label{fig:avg_time}\includegraphics[height=0.49\textwidth]{Figures/sim/avg_Time.pdf}}
   \caption{Simulation results from 100 replicate simulations for 10
     sampling choices/stages on the grid. Vertical lines show variation
     in replicate results.}
@@ -1108,7 +1108,7 @@ the ordering of strategies is similar.
 Fig.~\ref{fig:avg_time} shows the computational effort: the
 \textit{naive} strategy is on par with the static designs, while the
 \textit{myopic} strategy is slower because it evaluates expected
-values for all candidate directions at the waypoints. But it is still
+values for all candidate directions at the waypoints; however, it is still
 able to do so in reasonable time, which allows for real-world
 applicability. The \textit{look-ahead} strategy is much slower, reaching levels that
 are nearly impractical for execution on an AUV. Some pruning of the
@@ -1126,15 +1126,15 @@ runs, the \textit{myopic} and \textit{look-ahead} strategies perform
 the best in terms of realized IBV, and much better than
 \textit{naive}. The \textit{look-ahead} strategy seems to be
 substantially better than the \textit{myopic} design only for very
-small initial standard deviations or very large spatial correlation
+small initial standard deviations or a very large spatial correlation
 range. 
 We also ran simulation studies with only temperature data, and for
-realistic correlation levels between temperature and salinity, the IBV
+realistic correlation levels between temperature and salinity; the IBV
 results are not much worse when only temperature data are
 available. In addition to the comparison made in
 Table~\ref{tab:sim_rhoab}, the current setting includes spatial
-correlation and this likely strengthen the effect of temperature information. However, it seems that having temperature data alone
-does a substantially worse job in terms of explained variance.
+correlation, which likely strengthened the effect of temperature information. However, it seems that temperature data alone
+perform substantially worse in terms of explained variance.
 
 \section{Case Study - Mapping a River Plume}
 \label{sec:case_study}
@@ -1152,7 +1152,7 @@ eastern shore.
 The statistical model parameters were specified based on experience as well as data gathered in a short
 preliminary survey where the AUV made an initial transect to determine
 the trends in environmental conditions, variance and correlation
-structures. This gives a reasonable idea of the temperature and salinity of river and ocean waters. Both temperature and salinity were assumed to increase linearly with the west coordinate. Next, empirical correlation and variograms of the residuals from the regression analysis were analyzed to specify the temperature and salinity correlation, variances and spatial correlation decay parameter of the GRF model.
+structures. This provided a reasonable idea of the temperature and salinity of river and ocean waters. Both temperature and salinity were assumed to increase linearly with the west coordinate. Next, empirical correlation and variograms of the residuals from the regression analysis were analyzed to specify the temperature and salinity correlation, variances, and spatial correlation decay parameter of the GRF model.
 The resulting
 parameters are given in Table \ref{tab:experiment_param}. The
 regression parameters shown here are scaled to represent the east and
@@ -1243,15 +1243,15 @@ per batch in the updates at each stage.
 \subfigure[Survey 1]{\includegraphics[height=0.40\textwidth]{Figures/web/auv1_es_sal_ep.jpeg}\label{fig:res1}}
 \hspace{0.2cm}
 \subfigure[Survey 2]{\includegraphics[height=0.40\textwidth]{Figures/web/auv4_es_sal_ep.jpeg}\label{fig:res2}}
-\caption{Results from mapping the Nidelva river, Trondheim, Norway
+\caption{Results from mapping the Nidelva river (Trondheim, Norway)
   over two survey missions. \ref{fig:map} shows an overview of the
   survey area overlaid with the AUV path in black and dashed
-  line. Note the shaded region indicating a typical frontal
+  lines. Note the shaded region indicating a typical frontal
   region. \ref{fig:res_both} shows the collected temperature data as
-  colored trails. Note waypoint 5 (WP5) which indicates where the two
-  surveys diverge. \ref{fig:res1} and \ref{fig:res2} shows the
+  colored trails. Note waypoint 5 (WP5), which indicates where the two
+  surveys diverge. \ref{fig:res1} and \ref{fig:res2} show the
   collected salinity data overlaid on the final EP, which indicate the
-  AUVs statistical impression of the front. For both missions the
+  AUV's statistical impression of the front. For both missions, the
   temperature and salinity data correspond with an indication of the
   EP front. About 2 hours time separated the two runs.}
 \label{fig:results}
@@ -1259,7 +1259,7 @@ per batch in the updates at each stage.
 
 \subsection{Results}
 
-Two survey missions (1 and 2), were run successively, with a short
+Two survey missions (1 and 2) were run successively, with a short
 break in between. The resulting path of the selected waypoints are
 shown in the map in Fig.~\ref{fig:map}, both within the expected
 frontal region (shaded light-red). The recorded temperatures are shown as
@@ -1271,7 +1271,7 @@ each survey in Fig.~\ref{fig:res1} and Fig.~\ref{fig:res2}.
 Both surveys successfully estimated and navigated the separation zone,
 crossing the frontal boundary multiple times. As conditions changed
 slightly between the two surveys, the resulting trajectory (after
-waypoint 5) is shown to deviate. Survey 1 continued northwards,
+waypoint 5) also deviated. Survey 1 continued northwards,
 tracking the north-eastern portion of the front, while Survey 2 turned
 west, mapping the south-western region.
 
@@ -1280,8 +1280,8 @@ conditional EPs in Fig.~\ref{fig:res1} and Fig.~\ref{fig:res2} as
 dashed lines, correspond with one another. In both surveys they yield
 a picture of the front being to the west in the southern portions of
 the region and gradually bending off toward the north east. The amount
-of exploration done by Survey 1 which turned north is greater than
-Survey 2 which was coming close to the survey area borders in the
+of exploration done by Survey 1, which turned north, is greater than
+Survey 2, which came close to the survey area borders in the
 south-western corner. The AUV paths in both runs are relatively
 winding in the sense that the vehicle reacts to the data. In our
 experience from simulations, the paths tend to be smoother when we
@@ -1290,40 +1290,40 @@ use larger measurement error variances for the AUV temperature and salinity obse
 
 \begin{figure}[!b]
   \centering
-  \subfigure[Residual plot.]{\includegraphics[height = 0.26\textwidth]{Figures/res_diag_aNEW.eps}\label{fig:parest_a}}
+  \subfigure[Residual plot]{\includegraphics[height = 0.26\textwidth]{Figures/res_diag_aNEW.eps}\label{fig:parest_a}}
   \hfill
-  \subfigure[Quadratic form CDFs.]{\includegraphics[height = 0.26\textwidth]{Figures/res_diag_bNEW.eps}\label{fig:parest_b}}
+  \subfigure[Quadratic form CDFs]{\includegraphics[height = 0.26\textwidth]{Figures/res_diag_bNEW.eps}\label{fig:parest_b}}
   \hfill
-  \subfigure[Empirical variogram.]{\includegraphics[height = 0.252\textwidth]{Figures/res_diag_cNEW.eps}\label{fig:parest_c}}
+  \subfigure[Empirical variogram]{\includegraphics[height = 0.252\textwidth]{Figures/res_diag_cNEW.eps}\label{fig:parest_c}}
   \caption{Data analysis from AUV experiments. \ref{fig:parest_a} Residual plot of temperature and salinity
     along with specified Gaussian contours. \ref{fig:parest_b} Empirical CDF
-    (solid) of the quadratic form of the residuals along with the
-    modeled theoretical CDF (dashed) of the $\chi^2$ distribution with two
+    (solid line) of the quadratic form of the residuals along with the
+    modeled theoretical CDF (dashed line) of the $\chi^2$ distribution with two
     degrees of freedom. \ref{fig:parest_c} Scaled empirical variograms of the survey
     salinity and temperature data.}
 \label{fig:parest}
 \end{figure}
 
-Fig.~\ref{fig:parest} summarizes with diagnostic plots of this
+Fig.~\ref{fig:parest} summarizes diagnostic plots of this
 analysis. Fig.~\ref{fig:parest_a} shows a cross-plot of temperature
 and salinity residuals after the regression mean values of salinity
-and temperature are subtracted from the data. This scatter-plot of
+and temperature are subtracted from the data. This scatter plot of
 joint residuals indicates that the correlation between the two
 variables might be slightly larger than the initially specified $0.5$ correlation,
 and that initial uncertainty in temperature was set a bit too high. Based on
 the fitted bivariate covariance model (ellipses in
 Fig.~\ref{fig:parest_a}), we can compute the scalar quadratic form of
-the residuals, and if the model is adequate they should be
+the residuals, and if the model is adequate, they should be
 approximately $\chi^2_2$ distributed. Fig.~\ref{fig:parest_b} shows
-the empirical CDF of the quadratic forms (solid) together with the
-theoretical CDF of the $\chi^2_2$ distribution (dashed). The empirical
+the empirical CDF of the quadratic forms (solid line) together with the
+theoretical CDF of the $\chi^2_2$ distribution (dashed line). The empirical
 and theoretical curves are not very different, which indicates that
 the specified Gaussian model fits reasonably
 well. Fig.~\ref{fig:parest_c} shows the empirical variograms of the
 scaled residuals for temperature and salinity. The decay is similar
-for the two, and seems to be negligible after about $150$ m as was
+for the two, and seems to be negligible after about $150$ m, as was
 specified. The working assumption of a separable covariance function
-is hence not unreasonable. There appears to be a slight nugget effect, but not much different from what was set as the measurement noise variance.
+is therefore not unreasonable. There appears to be a slight nugget effect, though it is not much different from what was set as the measurement noise variance.
 Overall, the spatial Gaussian model representation is a simplification
 of the changing water conditions, and even within our working assumptions,
 the parameter specification could likely have been
@@ -1336,7 +1336,7 @@ difference in AUV sampling paths.
 This work builds on a multidisciplinary effort combining statistical
 methods with robotic sampling for oceanographic applications. We show
 how observation practices can gain efficiency and accuracy from
-statistical techniques for spatial monitoring and demonstrate the the
+statistical techniques for spatial monitoring and demonstrate the
 need for real-time multivariate spatial sampling on autonomous
 platforms.
 
@@ -1351,11 +1351,11 @@ into efficient applications of adaptive data collection, as
 demonstrated in our application.
 
 The case study considers the upper water column in the river plume,
-represented by a two dimensional grid. Extensions to three-dimensional
+represented by a two-dimensional grid. Extensions to three-dimensional
 domains are not methodologically different, but likely approximate
 calculations by concentrating numerical integration on terms in the
 vicinity of the autonomous vehicle \citep{fossum18b}. While we did not
-consider any temporal effects, which would be relevant on a larger
+consider any temporal effects, they would be relevant on a larger
 time scale. We do consider the extension to spatio-temporal modeling
 and envision that advection-diffusion equations could be a point of departure
 \citep{sigrist2015stochastic,richardson2017sparsity}. The sampling
@@ -1366,7 +1366,7 @@ resolution, but, due to computational and navigation resources
 available on the AUV, assimilation into a discretized fixed grid is
 necessary. For more complex oceanographic phenomena, the methods will
 need to be extended to non-Gaussian phenomena, possibly feature-based
-mixtures of Gaussian processes which could potentially be run onboard
+mixtures of Gaussian processes which could potentially be run onboard and
 augmented by dynamical models. Running numerical models onboard a
 robotic vehicle is currently infeasible, but high-resolution ocean
 models or remote sensing data can be used to fit a more complex
@@ -1381,20 +1381,20 @@ Such criteria could be particularly useful in other oceanographic
 settings related to mapping of algal-blooms, anoxic zones or open
 water fronts \citep{costa19}.  Other criteria could also be relevant,
 for instance, hybrid or multi-attribute criteria that could balance
-goals of exploration and exploitation in this situation. Equally, such
+goals of exploration and exploitation in this situation. Similarly, such
 techniques have significant use cases in downstream decision-making,
 with policy makers and regulators who need to make difficult decisions
 related to aquaculture or other marine resources. Value of information
 analysis \citep{Eidsvik:15} could be used to evaluate whether
-information is likely to result in improved decision-making, in such a
+information is likely to result in improved decision-making in such a
 context.  We also foresee opportunities related to design of
 experiments for multivariate processes using our notion of generalized
 locations.
 
 In our context the myopic strategy performs well, and due to
-computational constraints we did not go in depth on the dynamic
+computational constraints, we did not go in-depth on the dynamic
 programming solutions. There has been much work on finite horizon
-optimization in the robotics literature including probabilistic road
+optimization in the robotics literature, including probabilistic road
 maps and rapidly-exploring random trees \citep{karaman2011sampling},
 but their statistical properties are unclear.  In some cases it is
 also limiting to use a waypoint graph, and would be beneficial to
@@ -1406,7 +1406,7 @@ spatio-temporal domain \citep{ferreira2019advancing}. Such an approach
 would enable concurrent sampling in different parts of the space, or
 opportunities to move in parallel to best capture the excursion set.
 The value of information related to when and what to communicate (to
-shore or to other vehicles) is also an interesting thrust for research
+shore or to other vehicles) is also an interesting avenue for future research
 and likely to be useful for internet-of-things applications or
 computer experiments where some observations or evaluations are rather
 inexpensive, while others must only be done when they are really
