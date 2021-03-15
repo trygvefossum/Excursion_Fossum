@@ -1040,8 +1040,7 @@ two variables. It is important to note that the objective function
 used by the AUV is focused on reducing the
 EIBV, but we nevertheless expect that we will achieve good predictive
 performance for criteria such as RMSE as well. Another non-statistical
-criterion that is important for practical purposes is the computational
-time needed for the strategy.
+criterion that is important for practical purposes is the computational time needed for the strategy (i.e. avoiding longer periods of halting during execution).
 
 
 \begin{figure}[!b] 
@@ -1111,7 +1110,7 @@ Fig.~\ref{fig:avg_time} shows the computational effort: the
 values for all candidate directions at the waypoints; however, it is still
 able to do so in reasonable time, which allows for real-world
 applicability. The \textit{look-ahead} strategy is much slower, reaching levels that
-are nearly impractical for execution on an AUV. Some pruning of the
+are largely impractical, for execution on an AUV. Some pruning of the
 graph is performed to improve the performance, such as ruling out
 repeated visitations. Further pruning of branches or inclusion of
 other heuristics could be included for better performance. Then again,
@@ -1200,8 +1199,7 @@ a 16 Hz Seabird Fastcat-49 conductivity, temperature, and depth (CTD)
 sensor was used to provide salinity and temperature measurements.  The
 AUV is a powered, untethered platform that operates at $1$-$3$ m/s in
 the upper water column. It has a multicore GPU NVIDIA Jetson TX1
-(quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared cache, and 4
-GB of 1600 MHz DRAM) for computations onboard.  The sampling algorithm
+(quad-core 1.91 GHz 64-bit ARM machine, a 2-MB L2 shared cache, and 4 GB of 1600 MHz DRAM) for computations onboard.  The sampling algorithm
 was built on top of the autonomous Teleo-Reactive EXecutive
 (\textit{T-REX}) framework \citep{py10,Rajan12,Rajan12b}. We assume
 that the measurements are conditionally independent because the
@@ -1262,7 +1260,7 @@ per batch in the updates at each stage.
 Two survey missions (1 and 2) were run successively, with a short
 break in between. The resulting path of the selected waypoints are
 shown in the map in Fig.~\ref{fig:map}, both within the expected
-frontal region (shaded light-red). The recorded temperatures are shown as
+frontal region (shaded pink). The recorded temperatures are shown as
 colored trails in Fig.~\ref{fig:res_both}, clearly indicating the
 temperature difference between fjord and riverine waters. The salinity
 data are then shown separately, overlaid with the estimated EP for
@@ -1277,8 +1275,7 @@ west, mapping the south-western region.
 
 The final predictions of the front location, represented by
 conditional EPs in Fig.~\ref{fig:res1} and Fig.~\ref{fig:res2} as
-dashed lines, correspond with one another. In both surveys they yield
-a picture of the front being to the west in the southern portions of
+dashed lines, correspond with one another. In both surveys, the predictions yield a picture of the front being to the west in the southern portions of
 the region and gradually bending off toward the north east. The amount
 of exploration done by Survey 1, which turned north, is greater than
 Survey 2, which came close to the survey area borders in the
@@ -1373,10 +1370,7 @@ models or remote sensing data can be used to fit a more complex
 statistical model \citep{davidson19}.
 
 The spatio-statistical design criterion building on random sets is
-relevant in our setting with different water properties.  We show
-mathematical generality beyond the expected integrated Bernoulli
-variance, for instance, that of volume uncertainties which is possibly
-more relevant, but one that requires more computational resources.
+relevant in our setting with different water properties. We show mathematical generality beyond the expected integrated Bernoulli variance; for example, we demonstrated the generality of volume uncertainties, which is possibly more relevant to sampling strategies in the ocean, but which requires more computational resources.
 Such criteria could be particularly useful in other oceanographic
 settings related to mapping of algal-blooms, anoxic zones or open
 water fronts \citep{costa19}.  Other criteria could also be relevant,
