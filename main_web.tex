@@ -113,7 +113,7 @@ Switzerland.
 
 Motivated by the challenges related to efficient data collection
 strategies for our vast oceans, we combine spatial statistics, 
-experiment design, and marine robotics in this work.  The
+experimental design, and marine robotics in this work.  The
 multidisciplinary efforts enable information-driven data collection in
 regions of high interest.
 
@@ -174,8 +174,8 @@ ocean observation \citep{das11b,Das2015,fossuminformation,fossum18b}.
   \label{fig:envir} \end{figure}
 
 Surveys with AUVs are usually limited to observations along fixed
-transects that are pre scripted in mission plans created manually by a
-human operator. Missions can operate on a scale of a scale of
+transects that are pre-scripted in mission plans created manually by a
+human operator. Missions can operate on a scale of
 hundreds of meters to tens of kilometers depending on the scientific
 context. Faced with limited coverage capacity, a more effective
 approach is to instead use onboard algorithms to continuously
@@ -516,7 +516,7 @@ We now introduce quantities that allow UQ on the volume of the ES
 $\es$. Let $\mes$ be a (locally finite, Borel) measure on
 $\domain$. We want to investigate the probability distribution of
 $\mes(\es)$ through its moments.  Centered moments may be computed
-using Proposition~\ref{propo1} developed in the Supplementary Material \ref{suppA}.  In
+using Proposition 3 developed in the Supplementary Material \citep{suppA}. In
 particular, as an integral over EPs, the 
 $\EMV = \operatorname{Var}[\mes(\es)]$ is:
 \begin{equation*}
@@ -566,7 +566,7 @@ d\mes(u) \\
 \end{equation*}
 %
 
-\subsection{Expected IBV and EMV}
+\subsection{Expected IBV (EIBV) and EMV}
 \label{sec:eibv}
 
 We compute the expected effect of the inclusion of new observations on
@@ -947,7 +947,7 @@ the minimizers in $\candidates$ of the criterion:
 \end{criterion}
 
 The EIBV is efficiently computed for each of the candidate points
-$\candidates$ using Proposition \ref{propo2}. 
+$\candidates$ using Proposition 4 developed in the Supplementary Material \citep{suppA}. 
 Even though this myopic strategy is non-anticipatory, it still
 provides a reasonable approach for creating designs in many
 applications. Moreover, it can be implemented without too much demand on
@@ -1005,13 +1005,13 @@ available at stage $n$ and on an additional observation $y$ at $u$ at stage $n+1
       having been made explicit for the second stage of measurements.
     \end{criterion}
     
-    In a practical setting, the first expectation can be computed by
-    Monte Carlo sampling of data $Y$ from its conditional
-    distribution. For each of these data samples, the second
-    expectation is solved using the closed-form expressions for EIBV
-    provided by Proposition \ref{propo2}, now with conditioning on the
-    first stage data already going into the co-Kriging updating
-    equations.
+In a practical setting, the first expectation can be computed by
+Monte Carlo sampling of data $Y$ from its conditional
+distribution. For each of these data samples, the second
+expectation is solved using the closed-form expressions for EIBV
+provided by Proposition 4 developed in the Supplementary Material \citep{suppA}, now with conditioning on the
+first stage data already going into the co-Kriging updating
+equations.
 
 
 \subsection{Simulation studies}
@@ -1325,7 +1325,7 @@ Overall, the spatial Gaussian model representation is a simplification
 of the changing water conditions, and even within our working assumptions,
 the parameter specification could likely have been
 improved. However, we do not expect that minor changes in parameters would have caused much
-difference in AUV sampling paths.
+difference in AUV sampling paths. (See also Supplementary Material \citep{suppA}.)
 
 \section{Closing remarks}
 \label{sec:concl_disc}
